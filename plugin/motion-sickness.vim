@@ -32,6 +32,7 @@ vnoremap <silent> ar a[
 vnoremap <silent> ia i<
 vnoremap <silent> aa a<
 
+
 function! s:enclose_according_to(char,inner)
     let l:startpos = getpos('.')
 
