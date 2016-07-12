@@ -1,7 +1,9 @@
+" Add some lines which don't do anything cause they are comments And some more
 " This plugin adds a lot of motion mappings. Here's a list
 "
 " 1. `ir`, `ar`, `ia`, and `aa` where `r` and `a` are aliases for `[` and `<`
 "    (similiar to tpopes' vim-surround plugin
+"
 "
 " 2. `i_`, `a_` and family, which are a lot of motions that work like `ab` or
 "    `aB` but with symbols
@@ -13,10 +15,9 @@
 "    parenthesis and the word before it. Also works with $(( )) or similiar
 "    things
 "
-" 4. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
-" 
-" 5. `iqb` `aqb`, etc. is used to select parameters (or arguments) within
+" 4. `iqb` `aqb`, etc. is used to select parameters (or arguments) within
 "    braces, very helpful for any kind of programming language
+" 5. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
 "
 "    Planned for the future are: `qc` to select colon statements; `qw` to
 "    select arrow statements (in C) and to make iqb and qb work correctly with
@@ -44,7 +45,7 @@ function! s:enclose_according_to(char,inner)
         let l:inc       = '0'
     end
 
-    silent! execute "normal! ".l:from_char.a:char
+    silent! execute "normal! " . l:from_char . a:char
     if getline('.')[col('.') - 1 - l:inc] !=# a:char
         call setpos('.',l:startpos)
         normal! v
@@ -205,7 +206,7 @@ function! s:find_nth_char(n,char)
     silent! execute "normal! va".a:char."o"
 endfunction
 
-function! s:qb_motion(cur_pos,open_char, close_char,cWORD)
+function! s:qb_motion(cur_pos, open_char, close_char, cWORD)
     let l:repetitions = 1
     let l:winview = winsaveview()
 
@@ -313,6 +314,7 @@ vnoremap <silent> Q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
 vnoremap <silent> Q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
 vnoremap <silent> Q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
 
+" make direction and greedy, instead of cWORD and greedy, that's too much
 function! s:qd_motion(cur_pos,chars,cWORD,greedy)
     let l:invalid            = 0
     let l:finished           = 0
@@ -495,7 +497,7 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
         while !l:found_next_delim
             let l:a_char = getline('.')[col('.')]
 
-            let l:searchpos     = getpos('.')
+            let l:searchpos    = getpos('.')
             let l:searchpos[2] += 1
 
             if l:searchpos ==# l:abs_endpos
@@ -549,47 +551,46 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
             silent! execute "normal! ?\\v[^ \\n\\\\]\<cr>"
         endif
     endif
-
 endfunction
 
-onoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',',',1)<cr>
-onoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',',',1)<cr>
-onoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',',',1)<cr>
-onoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',',',1)<cr>
+onoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 1)<cr>
+onoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 1)<cr>
+onoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 1)<cr>
+onoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 1)<cr>
 
-onoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',';',1)<cr>
-onoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',';',1)<cr>
-onoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',';',1)<cr>
-onoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',';',1)<cr>
+onoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 1)<cr>
+onoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 1)<cr>
+onoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 1)<cr>
+onoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 1)<cr>
 
-onoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',',',0)<cr>
-onoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',',',0)<cr>
-onoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',',',0)<cr>
-onoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',',',0)<cr>
+onoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 0)<cr>
+onoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 0)<cr>
+onoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 0)<cr>
+onoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 0)<cr>
 
-onoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',';',0)<cr>
-onoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',';',0)<cr>
-onoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',';',0)<cr>
-onoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',';',0)<cr>
+onoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 0)<cr>
+onoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 0)<cr>
+onoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 0)<cr>
+onoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 0)<cr>
 
-vnoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',',',1)<cr>
-vnoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',',',1)<cr>
-vnoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',',',1)<cr>
-vnoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',',',1)<cr>
+vnoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 1)<cr>
+vnoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 1)<cr>
+vnoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 1)<cr>
+vnoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 1)<cr>
 
-vnoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',';',1)<cr>
-vnoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',';',1)<cr>
-vnoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',';',1)<cr>
-vnoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',';',1)<cr>
+vnoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 1)<cr>
+vnoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 1)<cr>
+vnoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 1)<cr>
+vnoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 1)<cr>
 
-vnoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',',',0)<cr>
-vnoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',',',0)<cr>
-vnoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',',',0)<cr>
-vnoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',',',0)<cr>
+vnoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 0)<cr>
+vnoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 0)<cr>
+vnoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',',0)<cr>
+vnoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',',0)<cr>
 
-vnoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'),'(',')',';',0)<cr>
-vnoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'),'{','}',';',0)<cr>
-vnoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'),'[',']',';',0)<cr>
-vnoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'),'<','>',';',0)<cr>
+vnoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';',0)<cr>
+vnoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';',0)<cr>
+vnoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';',0)<cr>
+vnoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';',0)<cr>
 
 " }}}1

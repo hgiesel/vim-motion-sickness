@@ -1,0 +1,6 @@
+
+foo() {
+    asdf;
+    asdf;
+    asdf;
+}
