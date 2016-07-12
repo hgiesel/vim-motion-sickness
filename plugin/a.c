@@ -1,6 +1,0 @@
-
-foo() {
-    asdf;
-    asdf;
-    asdf;
-}
