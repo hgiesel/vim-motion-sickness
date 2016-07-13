@@ -40,6 +40,7 @@ function! s:enclose_according_to(char,inner)
         let l:from_char = 'T'
         let l:to_char   = 't'
         let l:inc       = '1'
+
     else
         let l:from_char = 'F'
         let l:to_char   = 'f'
@@ -47,6 +48,7 @@ function! s:enclose_according_to(char,inner)
     end
 
     silent! execute "normal! " . l:from_char . a:char
+
     if getline('.')[col('.') - 1 - l:inc] !=# a:char
         call setpos('.',l:startpos)
         normal! v
@@ -132,63 +134,72 @@ function! s:make_a_q(open_char,close_char,cWORD)
         if l:next_char ==# ' ' || col('.') == 1
             let l:invalid = 1
 
-            " if character right beside open_char is another closing statement
-            " of any kind this one should be embraced as well
+        " if character right beside open_char is another closing statement
+        " of any kind this one should be embraced as well
         elseif l:next_char =~# '\v[\)\]\}\>]'
             normal! h
             let l:mark_col = col('.')
             normal! %
+
             if l:mark_col ==# col('.')
                 normal! l
             endif
 
-            " if is enclosed two times by l:open_char, e.g. in bash $((1 + 2))
-            " i don't allow q to be enclosed by two non identical characters,
-            " like $[( )], cause that would be madness!
+        " if is enclosed two times by l:open_char, e.g. in bash $((1 + 2))
+        " i don't allow q to be enclosed by two non identical characters,
+        " like $[( )], cause that would be madness!
         elseif l:next_char ==# a:open_char
             if a:open_char ==# '.'
                 let l:finished = 1
+
             else
                 normal! o
+
                 if getline('.')[col('.')] =~# a:close_char
                     normal! loh
+
                 else
                     let l:invalid = 1
                 endif
             endif
 
-            " if character next to such an statement is a character, it is
-            " probably its name
+        " if character next to such an statement is a character, it is
+        " probably its name
         elseif l:next_char =~ '\v[a-zA-Z0-9_]'
             if a:cWORD
                 normal! B
+
             else
                 normal! b
             endif
+
             let l:finished = 1
 
-            " for common structures like `$()` `<()` `>()` `=()`
-            " which are found e.g. in shell scripts or jquery
+        " for common structures like `$()` `<()` `>()` `=()`
+        " which are found e.g. in shell scripts or jquery
         elseif l:next_char =~# '\v[\$\<\>\=]'
             normal! h
             let l:finished = 1
         endif
 
     endwhile
+
     return l:invalid
 endfunction
 
 function! s:check_if_cursor_in_cursors(thecursor, a, b)
     " row = 1 , column = 2
-
     if a:thecursor[1] ># a:a[1] && a:thecursor[1] <# a:b[1]
         return 1
+
     elseif a:thecursor[1] ># a:a[1] && a:thecursor[1] ==# a:b[1] &&
                 \ a:thecursor[2] <=# a:b[2]
         return 1
+
     elseif a:thecursor[1] ==# a:a[1] && a:thecursor[2] >=# a:a[2] &&
                 \ a:thecursor[1] <# a:b[1]
         return 1
+
     elseif a:thecursor[1] ==# a:a[1] && a:thecursor[2] >=# a:a[2] &&
                 \ a:thecursor[1] ==# a:b[1] && a:thecursor[2] <=# a:b[2]
         return 1
@@ -223,6 +234,7 @@ function! s:qb_motion(cur_pos, open_char, close_char, cWORD)
             normal! v
             call setpos('.',a:cur_pos)
             let l:repetitions += 1
+
         else
             call winrestview({'topline':l:winview.topline,
                         \ 'leftcol':l:winview.leftcol})
@@ -233,6 +245,7 @@ function! s:qb_motion(cur_pos, open_char, close_char, cWORD)
     " if the function has come this far, it is assumed that the cursor is
     " inside the braces of the statement (and not the name)
     silent! execute "normal! va".a:open_char
+
     " if there is no statement under your cursor, `make_a_q()` would
     " unnecessarily change your cursor position
     if mode(0) == 'v'
@@ -329,9 +342,11 @@ function! s:qd_motion(cur_pos,chars,cWORD,greedy)
         execute "normal! f".a:chars
         if getline('.')[col('.') - 1] !=# a:chars
             let l:invalid = 1
+
         else
             if s:make_a_q(a:chars,a:chars,a:cWORD) ==# 1
                 let l:invalid = 1
+
             else
                 normal! o
                 let l:dot_was_found = 1
@@ -340,12 +355,15 @@ function! s:qd_motion(cur_pos,chars,cWORD,greedy)
 
     elseif l:cursor_char =~# '\V'.a:chars
         normal! v
+
         if s:make_a_q(a:chars,a:chars,a:cWORD) ==# 1
             let l:invalid = 1
+
         else
             normal! o
             let l:dot_was_found = 1
         endif
+
     else
         silent! normal! viw
     endif
@@ -375,54 +393,62 @@ function! s:qd_motion(cur_pos,chars,cWORD,greedy)
                 let l:invalid = 1
             endif
 
-            " if the closing braces come at the start, there's a possibility,
-            " the statement is inside these braces, e.g. `foo(b|ar()).test`
-            " with `|` being the cursor.
-            " After the first jump, there's no possibility of this anymore,
-            " e.g. foo(foobar.test).test
+        " if the closing braces come at the start, there's a possibility,
+        " the statement is inside these braces, e.g. `foo(b|ar()).test`
+        " with `|` being the cursor.
+        " After the first jump, there's no possibility of this anymore,
+        " e.g. foo(foobar.test).test
         elseif l:next_char =~# '\v[\)\}\]\>]'
             if l:dot_was_found && !a:greedy
                 let l:finished      = 1
+
             else
                 if l:made_an_assumption ==# 0
                     let l:fall_back_braces = [getpos('v'),getpos('.')]
                 endif
-                let l:made_an_assumption = 1
 
+                let l:made_an_assumption = 1
                 silent! normal! lvv%
+
                 if a:cWORD
                     silent! normal! B
+
                 else
                     silent! normal! b
                 endif
+
                 silent! normal! o
             endif
 
-            " dot was found!!1
+        " dot was found!!1
         elseif l:next_char =~# '\V'.a:chars
             if getline('.')[col('.') + 1] =~# '\v[A-Za-z_\$]'
                 if l:dot_was_found && !a:greedy
                     let l:finished      = 1
+
                 else
                     silent! normal! le
                     let l:dot_was_found = 1
                 endif
 
                 let l:made_an_assumption = 0
+
             else
                 let l:invalid = 1
             endif
 
-            " found a closing character or at the end of the current line
+        " found a closing character or at the end of the current line
         else " l:next_char =~# l:invalid_chars || col('.') + 1 ==# col('$')
             if l:dot_was_found
                 let l:finished = 1
+
                 if l:made_an_assumption
                     normal! v
                     call setpos('.',l:fall_back_braces[0])
                     normal! v
                     call setpos('.',l:fall_back_braces[1])
                 endif
+
             else
                 let l:invalid  = 1
             endif
@@ -446,14 +472,15 @@ vnoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'),'.',1,0)<cr>
 vnoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'),'.',1,1)<cr>
 
 function! s:brace_dict_matches(brace_dict)
-    if a:brace_dict['('] ==# a:brace_dict[')'] &&
-                \ a:brace_dict['[']     ==# a:brace_dict[']'] &&
-                \ a:brace_dict['{']     ==# a:brace_dict['}'] &&
-                \ a:brace_dict['<']     ==# a:brace_dict['>'] &&
-                \ a:brace_dict['"'] % 2 ==# 0 &&
-                \ a:brace_dict["'"] % 2 ==# 0
+    if a:brace_dict['(']        ==# a:brace_dict[')'] &&
+        \ a:brace_dict['[']     ==# a:brace_dict[']'] &&
+        \ a:brace_dict['{']     ==# a:brace_dict['}'] &&
+        \ a:brace_dict['<']     ==# a:brace_dict['>'] &&
+        \ a:brace_dict['"'] % 2 ==# 0                 &&
+        \ a:brace_dict["'"] % 2 ==# 0
         return 1
     endif
+
     return 0
 endfunction
 
@@ -462,7 +489,7 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
 
     " these behave special, because of the braces
     let l:brace_dict   = {'(':0,')':0,'{':0,'}':0,'[':0,']':0,
-                \ '<':0,'>':0, "'":0,'"':0}
+        \ '<':0,'>':0, "'":0,'"':0}
     let l:search_char = a:delim
 
     silent! execute "normal! va".a:open_ch
@@ -473,7 +500,6 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
     endif
 
     normal! o
-
     let l:round = 0
 
     while !l:finished
@@ -494,7 +520,6 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
         silent! execute "normal! vv"
 
         let l:found_next_delim = 0
-
         while !l:found_next_delim
             let l:a_char = getline('.')[col('.')]
 
@@ -511,24 +536,31 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
 
             elseif l:a_char ==# '('
                 let l:brace_dict['('] += 1
+
             elseif l:a_char ==# ')'
                 let l:brace_dict[')'] += 1
+
             elseif l:a_char ==# '['
                 let l:brace_dict['['] += 1
+
             elseif l:a_char ==# ']'
                 let l:brace_dict[']'] += 1
+
             elseif l:a_char ==# '{'
                 let l:brace_dict['{'] += 1
+
             elseif l:a_char ==# '}'
                 let l:brace_dict['}'] += 1
-                " this needs to work with `->` and all the comparisons in
-                " order to be functional
-                " elseif l:a_char ==# '<'
-                "     let l:brace_dict['<'] += 1
-                " elseif l:a_char ==# '>'
-                "     let l:brace_dict['>'] += 1
+
+            " this needs to work with `->` and all the comparisons in
+            " order to be functional
+            " elseif l:a_char ==# '<'
+            "     let l:brace_dict['<'] += 1
+            " elseif l:a_char ==# '>'
+            "     let l:brace_dict['>'] += 1
             elseif l:a_char ==# '"'
                 let l:brace_dict['"'] += 1
+
             elseif l:a_char ==# "'"
                 let l:brace_dict["'"] += 1
             endif
@@ -545,9 +577,11 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
 
     if a:inner
         silent! execute "normal! ?\\v[^ \\n\\\\]\<cr>o/\\v[^ \\n\\\\]\<cr>"
+
     else
         if l:round ==# 1
             silent! execute "normal! o/\\v[^ \\n\\\\]\<cr>o"
+
         else
             silent! execute "normal! ?\\v[^ \\n\\\\]\<cr>"
         endif
