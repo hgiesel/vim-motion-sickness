@@ -7,12 +7,12 @@ Vimrunner::RSpec.configure do |config|
   config.reuse_server = true
 
   config.start_vim do
-    vim = Vimrunner.start
+    VIM = Vimrunner.start
 
     plugin_path = File.expand_path '..', (File.dirname __FILE__)
-    vim.add_plugin plugin_path, 'plugin/motion-sickness.vim'
+    VIM.add_plugin plugin_path, 'plugin/motion-sickness.vim'
 
-    vim
+    VIM
   end
 end
 
@@ -21,10 +21,10 @@ RSpec.describe 'For basic remappings' do
     it 'should select the inside of brackets' do
       write_file 'test.rb', 'foo[asdf]'
 
-      vim.edit 'test.rb'
-      vim.normal
-      vim.feedkeys 'ggfadir'
-      vim.write
+      VIM.edit 'test.rb'
+      VIM.normal
+      VIM.feedkeys 'ggfadir'
+      VIM.write
 
       (expect (IO.read 'test.rb')).to eq <<~'EOF'
         foo[]
@@ -36,10 +36,10 @@ RSpec.describe 'For basic remappings' do
     it 'should select the whole brackets' do
       write_file 'test.rb', 'foo[as(d)f]'
 
-      vim.edit 'test.rb'
-      vim.normal
-      vim.feedkeys 'ggfddar'
-      vim.write
+      VIM.edit 'test.rb'
+      VIM.normal
+      VIM.feedkeys 'ggfddar'
+      VIM.write
 
       (expect (IO.read 'test.rb')).to eq <<~'EOF'
         foo
@@ -51,10 +51,10 @@ RSpec.describe 'For basic remappings' do
     it 'should select the inside of chevrons' do
       write_file 'test.rb', 'foo< asdf >'
 
-      vim.edit 'test.rb'
-      vim.normal
-      vim.feedkeys 'ggfadia'
-      vim.write
+      VIM.edit 'test.rb'
+      VIM.normal
+      VIM.feedkeys 'ggfadia'
+      VIM.write
 
       (expect (IO.read 'test.rb')).to eq <<~'EOF'
         foo<>
@@ -66,10 +66,10 @@ RSpec.describe 'For basic remappings' do
     it 'should select the whole chevrons' do
       write_file 'test.rb', 'foo< s((a)df >'
 
-      vim.edit 'test.rb'
-      vim.normal
-      vim.feedkeys 'ggfadaa'
-      vim.write
+      VIM.edit 'test.rb'
+      VIM.normal
+      VIM.feedkeys 'ggfadaa'
+      VIM.write
 
       (expect (IO.read 'test.rb')).to eq <<~'EOF'
         foo
