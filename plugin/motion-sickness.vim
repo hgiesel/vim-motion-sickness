@@ -59,11 +59,11 @@ endfunction
 function! s:sick_find_nth_char(n, char)
   if getline('.')[col('.')-1] !=# a:char
     for i in range(a:n)
-      silent! execute "normal! /".a:char."\<cr>"
+      silent! execute "normal! /" . a:char . "\<cr>"
     endfor
   endif
 
-  silent! execute "normal! va".a:char."o"
+  silent! execute "normal! va" . a:char . "o"
 endfunction
 " }}}1
 
@@ -93,7 +93,7 @@ function! s:sick_symbol_motion_v(wrap, symbol)
   silent! execute 'normal! ?' . a:symbol . ''
 
   if a:wrap ==# 'i'
-    execute 'normal! /.'
+    execute "normal! 1 "
   endif
   let l:open_pos = getpos('.')
 
@@ -103,7 +103,7 @@ function! s:sick_symbol_motion_v(wrap, symbol)
 
   silent! execute 'normal! /' . a:symbol . ''
   if a:wrap ==# 'i'
-    execute 'normal! ?.'
+    execute "normal! \<bs>"
   endif
   let l:close_pos = getpos('.')
 
@@ -119,15 +119,15 @@ function! s:sick_symbol_motion_o(wrap, symbol)
   let l:start_pos = getpos('.')
 
   " Go to close position
-  silent! execute 'normal! ?' . a:symbol . ''
+  silent! execute "normal! ?" . a:symbol . "\<cr>"
   if a:wrap ==# 'i'
-    execute 'normal! /.'
+    execute "normal! 1 "
   endif
   let l:open_pos = getpos('.')
   " Go to open position
-  silent! execute 'normal! v/' . a:symbol . ''
+  silent! execute "normal! v/" . a:symbol . "\<cr>"
   if a:wrap ==# 'i'
-    execute 'normal! ?.'
+    execute "normal! \<bs>"
   endif
   let l:close_pos = getpos('.')
 
@@ -145,10 +145,10 @@ endfunction
 
 function! s:sick_symbol_motion_add(symbol)
   for wrap in ['i', 'a']
-      silent! execute  'onoremap <silent> ' . wrap . a:symbol . ' :<c-u>call ' .
-        \ '<sid>sick_symbol_motion_o(''' . wrap . ''', ''' . a:symbol . ''')<cr>'
-      silent! execute  'vnoremap <silent> ' . wrap . a:symbol . ' :<c-u>call ' .
-        \ '<sid>sick_symbol_motion_v(''' . wrap . ''', ''' . a:symbol . ''')<cr>'
+      silent! execute  "onoremap <silent> " . wrap . a:symbol . " :\<c-u>call " .
+        \ "<sid>sick_symbol_motion_o('" . wrap . "', '" . a:symbol . "')\<cr>"
+      silent! execute  "vnoremap <silent> " . wrap . a:symbol . " :\<c-u>call " .
+        \ "<sid>sick_symbol_motion_v('" . wrap . "', '" . a:symbol . "')\<cr>"
   endfor
 endfunction
 
