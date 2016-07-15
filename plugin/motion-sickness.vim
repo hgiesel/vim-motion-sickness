@@ -385,7 +385,8 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
 
     let l:endpos = getpos('.')
 
-    if s:sick_cursor_onbetween_cursors(a:curpos, l:startpos, l:endpos)
+    if s:sick_cmp(a:curpos, l:startpos) == -1 &&
+          \ s:sick_cmp(l:startpos, l:endpos) == -1
       let l:finished = 1
     endif
   endwhile

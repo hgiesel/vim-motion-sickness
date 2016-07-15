@@ -1,8 +1,6 @@
 require_relative 'spec-helper'
 
 RSpec.shared_examples "a qb mapping" do |map, mapped_chars|
-
-
   context "with the doc `foo#{mapped_chars[0]}bar#{mapped_chars[1]}'" do
     let :mock do
       Mock.new 'txt', "foo#{mapped_chars[0]}bar#{mapped_chars[1]}"
