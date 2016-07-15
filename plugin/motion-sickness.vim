@@ -3,13 +3,16 @@
 "
 " 1. `ir`, `ar`, `ia`, and `aa` where `r` and `a` are aliases for `[` and `<`
 "  (similiar to tpopes' vim-surround plugin
+"
+"
+"
 "  Symbol aliases
 "
 " 2. `i_`, `a_` and family, which are a lot of motions that work like `ab` or
 "  `aB` but with symbols
 "
 " 3. `qb` `qB` `qr` `qa` which are motions that select statements, e.g.
-"  foo(500 + 500)
+"  foo(500 + 500))o)o
 "  while you would use `ib` to select everything within the parentheses and
 "  `ab` to select the whole parenthesis, you can use `qb` to use the whole
 "  parenthesis and the word before it. Also works with $(( )) or similiar
@@ -89,7 +92,12 @@ function! s:sick_symbol_motion_v(wrap, symbol)
 
   " Go to close position
   call setpos('.', l:start_pos)
-  silent! execute 'normal! ?' . a:symbol . ''
+  if a:symbol ==# '?'
+    silent! execute 'normal! ?\\' . a:symbol . ''
+
+  else
+    silent! execute 'normal! ?' . a:symbol . ''
+  endif
 
   if a:wrap ==# 'i'
     execute "normal! 1 "
@@ -118,7 +126,13 @@ function! s:sick_symbol_motion_o(wrap, symbol)
   let l:start_pos = getpos('.')
 
   " Go to close position
-  silent! execute "normal! ?" . a:symbol . "\<cr>"
+  " Special treatment for question mark
+  if a:symbol ==# '?'
+    silent! execute "normal! ?\\" . a:symbol . "\<cr>"
+
+  else
+    silent! execute "normal! ?" . a:symbol . "\<cr>"
+  endif
   let l:open_pos = getpos('.')
 
   if a:wrap ==# 'i'
@@ -161,7 +175,7 @@ function! s:sick_symbol_motion_add(symbol)
 endfunction
 
 let g:sick_symbol_motion_chars =
-      \ ['_', '.', '*', '@', '_', ':', '?', ',', '/', '\', '~']
+      \ ['*', '_', '-', ':', '@', '!', '?', '/', "<bar>"]
 
 for char in g:sick_symbol_motion_chars
   call s:sick_symbol_motion_add(char)
@@ -169,7 +183,7 @@ endfor
 " }}}1
 
 " qb Motion {{{1
-function! s:make_a_q(open_char,close_char,cWORD)
+function! s:sick_make_a_q(open_char, close_char, reach)
   let l:invalid = 0
   let l:recursion = 0
   let l:finished  = 0
@@ -215,7 +229,7 @@ function! s:make_a_q(open_char,close_char,cWORD)
       " if character next to such an statement is a character, it is
       " probably its name
     elseif l:next_char =~ '\v[a-zA-Z0-9_]'
-      if a:cWORD
+      if a:reach
         normal! B
 
       else
@@ -236,7 +250,7 @@ function! s:make_a_q(open_char,close_char,cWORD)
   return l:invalid
 endfunction
 
-function! s:qb_motion(cur_pos, open_char, close_char, cWORD)
+function! s:sick_qb_motion_v(cur_pos, open_char, close_char, reach)
   let l:repetitions = 1
   let l:winview = winsaveview()
 
@@ -245,10 +259,10 @@ function! s:qb_motion(cur_pos, open_char, close_char, cWORD)
   " this will only work with 10 recursions, because this could go on forever
   while l:repetitions < 10
     call s:sick_find_nth_char(l:repetitions,a:close_char)
-    call s:make_a_q(a:open_char,a:close_char,a:cWORD)
-    normal! o
+    call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
+    execute 'normal! o'
 
-    if !s:sick_cursor_onbetween_cursors(a:cur_pos,getpos('v'),getpos('.'))
+    if !s:sick_cursor_in(a:cur_pos, getpos('v'), getpos('.'))
       normal! v
       call setpos('.',a:cur_pos)
       let l:repetitions += 1
@@ -268,89 +282,75 @@ function! s:qb_motion(cur_pos, open_char, close_char, cWORD)
   " unnecessarily change your cursor position
   if mode(0) == 'v'
     silent! execute "normal! o"
-    call s:make_a_q(a:open_char,a:close_char,a:cWORD)
+    call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
     call winrestview({'topline':l:winview.topline,
           \ 'leftcol':l:winview.leftcol})
   endif
 endfunction
 
-onoremap <silent> qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-onoremap <silent> qB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-onoremap <silent> qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-onoremap <silent> qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
-vnoremap <silent> qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-vnoremap <silent> qB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-vnoremap <silent> qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-vnoremap <silent> qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
+function! s:sick_qb_motion_o(cur_pos, open_char, close_char, reach)
+  let l:repetitions = 1
+  let l:winview = winsaveview()
 
-onoremap <silent> q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-onoremap <silent> q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-onoremap <silent> q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-onoremap <silent> q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
-vnoremap <silent> q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-vnoremap <silent> q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-vnoremap <silent> q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-vnoremap <silent> q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
+  " this checks if the cursor is inside the name of the statement
+  " e.g. `fo|o(55)` where `|` is the cursor
+  " this will only work with 10 recursions, because this could go on forever
+  while l:repetitions < 10
+    call s:sick_find_nth_char(l:repetitions,a:close_char)
+    call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
+    execute 'normal! o'
 
-onoremap <silent> Qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-onoremap <silent> QB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-onoremap <silent> Qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-onoremap <silent> Qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
-vnoremap <silent> Qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-vnoremap <silent> QB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-vnoremap <silent> Qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-vnoremap <silent> Qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
+    if !s:sick_cursor_in(a:cur_pos, getpos('v'), getpos('.'))
+      normal! v
+      call setpos('.',a:cur_pos)
+      let l:repetitions += 1
 
-onoremap <silent> Q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-onoremap <silent> Q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-onoremap <silent> Q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-onoremap <silent> Q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
-vnoremap <silent> Q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-vnoremap <silent> Q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-vnoremap <silent> Q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-vnoremap <silent> Q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
+    else
+      call winrestview({'topline':l:winview.topline,
+            \ 'leftcol':l:winview.leftcol})
+      return 0
+    endif
+  endwhile
 
-onoremap <silent> qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-onoremap <silent> qB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-onoremap <silent> qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-onoremap <silent> qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
-vnoremap <silent> qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-vnoremap <silent> qB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-vnoremap <silent> qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-vnoremap <silent> qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
+  " if the function has come this far, it is assumed that the cursor is
+  " inside the braces of the statement (and not the name)
+  silent! execute "normal! va".a:open_char
 
-onoremap <silent> q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-onoremap <silent> q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-onoremap <silent> q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-onoremap <silent> q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
-vnoremap <silent> q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',0)<cr>
-vnoremap <silent> q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',0)<cr>
-vnoremap <silent> q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',0)<cr>
-vnoremap <silent> q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',0)<cr>
+  " if there is no statement under your cursor, `make_a_q()` would
+  " unnecessarily change your cursor position
+  if mode(0) == 'v'
+    silent! execute "normal! o"
+    call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
+    call winrestview({'topline':l:winview.topline,
+          \ 'leftcol':l:winview.leftcol})
+  endif
+endfunction
 
-onoremap <silent> Qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-onoremap <silent> QB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-onoremap <silent> Qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-onoremap <silent> Qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
-vnoremap <silent> Qb :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-vnoremap <silent> QB :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-vnoremap <silent> Qr :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-vnoremap <silent> Qa :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
+function! s:sick_qb_motion_add(synonym, open_char, close_char)
+  for reach in ['q', 'Q']
+    execute "onoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>" .
+          \ "sick_qb_motion_o(getpos('.'), '" . a:open_char . "', '" .
+          \ a:close_char . "', '" . reach . "')\<cr>"
+    execute "vnoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>" .
+          \ "sick_qb_motion_v(getpos('.'), '" . a:open_char . "', '" .
+          \ a:close_char . "', '" . reach . "')\<cr>"
+  endfor
+endfunction
 
-onoremap <silent> Q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-onoremap <silent> Q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-onoremap <silent> Q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-onoremap <silent> Q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
-vnoremap <silent> Q( :<c-u>call <sid>qb_motion(getpos('.'),'(',')',1)<cr>
-vnoremap <silent> Q{ :<c-u>call <sid>qb_motion(getpos('.'),'{','}',1)<cr>
-vnoremap <silent> Q[ :<c-u>call <sid>qb_motion(getpos('.'),'[',']',1)<cr>
-vnoremap <silent> Q< :<c-u>call <sid>qb_motion(getpos('.'),'<','>',1)<cr>
+call s:sick_qb_motion_add('b', '(', ')')
+call s:sick_qb_motion_add('B', '{', '}')
+call s:sick_qb_motion_add('r', '[', ']')
+call s:sick_qb_motion_add('a', '<', '>')
 
+call s:sick_qb_motion_add('(', '(', ')')
+call s:sick_qb_motion_add('{', '{', '}')
+call s:sick_qb_motion_add('[', '[', ']')
+call s:sick_qb_motion_add('<', '<', '>')
 " }}}1
 
 " qd Motion {{{1
-" make direction and greedy, instead of cWORD and greedy, that's too much
-function! s:qd_motion(cur_pos,chars,cWORD,greedy)
+" make direction and greedy, instead of reach and greedy, that's too much
+function! s:qd_motion(cur_pos,chars,reach,greedy)
   let l:invalid      = 0
   let l:finished       = 0
   let l:dot_was_found    = 0
@@ -365,7 +365,7 @@ function! s:qd_motion(cur_pos,chars,cWORD,greedy)
       let l:invalid = 1
 
     else
-      if s:make_a_q(a:chars,a:chars,a:cWORD) ==# 1
+      if s:sick_make_a_q(a:chars,a:chars,a:reach) ==# 1
         let l:invalid = 1
 
       else
@@ -377,7 +377,7 @@ function! s:qd_motion(cur_pos,chars,cWORD,greedy)
   elseif l:cursor_char =~# '\V'.a:chars
     normal! v
 
-    if s:make_a_q(a:chars,a:chars,a:cWORD) ==# 1
+    if s:sick_make_a_q(a:chars,a:chars,a:reach) ==# 1
       let l:invalid = 1
 
     else
@@ -389,7 +389,7 @@ function! s:qd_motion(cur_pos,chars,cWORD,greedy)
     silent! normal! viw
   endif
 
-  if a:cWORD && !l:invalid
+  if a:reach && !l:invalid
     silent! normal! oBo
   endif
 
@@ -431,7 +431,7 @@ function! s:qd_motion(cur_pos,chars,cWORD,greedy)
         let l:made_an_assumption = 1
         silent! normal! lvv%
 
-        if a:cWORD
+        if a:reach
           silent! normal! B
 
         else

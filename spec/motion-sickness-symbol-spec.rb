@@ -1,9 +1,9 @@
 require_relative 'spec-helper'
 
-RSpec.describe 'The i<sym> mapping' do
-  context 'with the doc `foo **foobar**\'' do
+RSpec.shared_examples "a <sym> mapping" do |symbol|
+  context "with the doc `foo x#{symbol}#{symbol}foobar#{symbol}#{symbol}'" do
     let :mock do
-      Mock.new 'txt', 'foo **foobar**'
+      Mock.new "txt", "foo x#{symbol}#{symbol}foobar#{symbol}#{symbol}"
     end
 
     context 'with the cursor on b' do
@@ -11,131 +11,73 @@ RSpec.describe 'The i<sym> mapping' do
         mock.feed 'fb'
       end
 
-      context 'when you type `di*\'' do
+      context "when you type `da#{symbol}'" do
         before :each do
-          mock.feed 'di*'
+          mock.feed "da#{symbol}"
         end
 
-        it 'deletes `foobar\'' do
-          (expect mock.content).to eq 'foo ****'
+        it "deletes `#{symbol}foobar#{symbol}'" do
+          (expect mock.content).to eq "foo x#{symbol}#{symbol}"
         end
 
         context 'and type it again' do
           before :each do
-            mock.feed 'di*'
+            mock.feed "da#{symbol}"
           end
 
-          it 'deletes `foobar\'' do
-            (expect mock.content).to eq 'foo ****'
-          end
-        end
-      end
-
-      context 'when you type `yi*\'' do
-        before :each do
-          mock.feed 'yi*'
-        end
-
-        it 'the cursor is on the f of `foobar\'' do
-          pos = (mock.command 'echo col(\'.\')').to_i
-          (expect pos).to eq 7
-        end
-      end
-    end
-  end
-
-  context 'with the doc `foo **b**\'' do
-    let :mock do
-      Mock.new 'txt', 'foo **b**'
-    end
-
-    context 'with the cursor on b' do
-      before :each do
-        mock.feed 'fb'
-      end
-
-      context 'when you type `di*\'' do
-        before :each do
-          mock.feed 'di*'
-        end
-
-        it 'deletes `b\'' do
-          (expect mock.content).to eq 'foo ****'
-        end
-
-        context 'and type it again' do
-          before :each do
-            mock.feed 'di*'
-          end
-
-          it 'deletes `b\'' do
-            (expect mock.content).to eq 'foo ****'
-          end
-        end
-      end
-
-      context 'when you type `yi*\'' do
-        before :each do
-          mock.feed 'yi*'
-        end
-
-        it 'the cursor is on the b' do
-          pos = (mock.command 'echo col(\'.\')').to_i
-          (expect pos).to eq 7
-        end
-      end
-    end
-
-  end
-end
-
-RSpec.describe 'The a<sym> mapping' do
-  context 'with the doc `foo x**foobar**\'' do
-    let :mock do
-      Mock.new 'txt', 'foo x**foobar**'
-    end
-
-    context 'with the cursor on b' do
-      before :each do
-        mock.feed 'fb'
-      end
-
-      context 'when you type `da*\'' do
-        before :each do
-          mock.feed 'da*'
-        end
-
-        it 'deletes `*foobar*\'' do
-          (expect mock.content).to eq 'foo x**'
-        end
-
-        context 'and type it again' do
-          before :each do
-            mock.feed 'da*'
-          end
-
-          it 'deletes `**foobar**\'' do
+          it "deletes `#{symbol}#{symbol}foobar#{symbol}#{symbol}'" do
             (expect mock.content).to eq 'foo x'
           end
         end
       end
 
-      context 'when you type `ya*\'' do
+      context "when you type `ya'#{symbol}" do
         before :each do
-          mock.feed 'ya*'
+          mock.feed "ya#{symbol}"
         end
 
-        it 'the cursor is on the first * of `*foobar*\'' do
-          pos = (mock.command 'echo col(\'.\')').to_i
+        it "the cursor is on the first #{symbol} of `#{symbol}foobar#{symbol}'" do
+          pos = (mock.command "echo col('.')").to_i
           (expect pos).to eq 7
+        end
+      end
+
+      context "when you type `di#{symbol}'" do
+        before :each do
+          mock.feed "di#{symbol}"
+        end
+
+        it "deletes `foobar'" do
+          (expect mock.content).to eq "foo x#{symbol}#{symbol}#{symbol}#{symbol}"
+        end
+
+        context 'and type it again' do
+          before :each do
+            mock.feed "di#{symbol}"
+          end
+
+          it "deletes `foobar'" do
+            (expect mock.content).to eq "foo x#{symbol}#{symbol}#{symbol}#{symbol}"
+          end
+        end
+      end
+
+      context "when you type `yi#{symbol}'" do
+        before :each do
+          mock.feed "yi#{symbol}"
+        end
+
+        it "the cursor is on the f of `foobar'" do
+          pos = (mock.command "echo col('.')").to_i
+          (expect pos).to eq 8
         end
       end
     end
   end
 
-  context 'with the doc `foo a**b**\'' do
+  context "with the doc `foo a#{symbol}#{symbol}b#{symbol}#{symbol}'" do
     let :mock do
-      Mock.new 'txt', 'foo a**b**'
+      Mock.new 'txt', "foo a#{symbol}#{symbol}b#{symbol}#{symbol}"
     end
 
     context 'with the cursor on b' do
@@ -143,37 +85,77 @@ RSpec.describe 'The a<sym> mapping' do
         mock.feed 'fb'
       end
 
-      context 'when you type `da*\'' do
+      context "when you type `da#{symbol}'" do
         before :each do
-          mock.feed 'da*'
+          mock.feed "da#{symbol}"
         end
 
-        it 'deletes `*b*\'' do
-          (expect mock.content).to eq 'foo a**'
+        it "deletes `#{symbol}b#{symbol}'" do
+          (expect mock.content).to eq "foo a#{symbol}#{symbol}"
         end
 
         context 'and type it again' do
           before :each do
-            mock.feed 'da*'
+            mock.feed "da#{symbol}"
           end
 
-          it "deletes `**b**'" do
+          it "deletes `#{symbol}#{symbol}b#{symbol}#{symbol}'" do
             (expect mock.content).to eq 'foo a'
           end
         end
       end
 
-      context "when you type `ya*'" do
+      context "when you type `ya#{symbol}'" do
         before :each do
-          mock.feed 'ya*'
+          mock.feed "ya#{symbol}"
         end
 
-        it 'the cursor is on the second *' do
+        it "the cursor is on the second #{symbol}" do
           pos = (mock.command "echo col('.')").to_i
           (expect pos).to eq 7
         end
       end
-    end
 
+      context "when you type `di#{symbol}'" do
+        before :each do
+          mock.feed "di#{symbol}"
+        end
+
+        it "deletes `b'" do
+          (expect mock.content).to eq "foo a#{symbol}#{symbol}#{symbol}#{symbol}"
+        end
+
+        context "and type it again" do
+          before :each do
+            mock.feed "di#{symbol}"
+          end
+
+          it "deletes `b'" do
+            (expect mock.content).to eq "foo a#{symbol}#{symbol}#{symbol}#{symbol}"
+          end
+        end
+      end
+
+      context "when you type `yi#{symbol}'" do
+        before :each do
+          mock.feed "yi#{symbol}"
+        end
+
+        it "the cursor is on the b" do
+          pos = (mock.command "echo col('.')").to_i
+          (expect pos).to eq 8
+        end
+      end
+    end
+  end
+end
+
+RSpec.describe 'The * symbol mapping' do
+  it_behaves_like "a <sym> mapping", "*"
+end
+
+['*', '_', '-', ':', '@', '!', '?', '/', '|'].each do |char|
+  RSpec.describe "The #{char} symbol mapping" do
+    it_behaves_like "a <sym> mapping", char
   end
 end

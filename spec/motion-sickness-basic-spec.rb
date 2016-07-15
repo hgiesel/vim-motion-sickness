@@ -1,73 +1,37 @@
 require_relative 'spec-helper'
 
-RSpec.describe 'The `ir\' mapping' do
-  context 'with a doc `foo[asdf]\'' do
+RSpec.shared_examples "a basic remapping" do |map, mapped_char, what_is_it|
+  context "with a doc `foo#{mapped_char[0]}asdf#{mapped_char[1]}'" do
     let :mock do
-      Mock.new 'txt', 'foo[asdf]'
+      Mock.new 'txt', "foo#{mapped_char[0]}asdf#{mapped_char[1]}"
     end
 
-    context 'when you type `fddir\'' do
+    context "when you type `fddi#{map}'" do
       before :each do
-        mock.feed 'fddir'
+        mock.feed "fddi#{map}"
       end
 
-      it 'deletes the inside of the brackets' do
-        (expect mock.content).to eq "foo[]"
+      it "deletes the inside of the #{what_is_it}s" do
+        (expect mock.content).to eq "foo#{mapped_char[0]}#{mapped_char[1]}"
+      end
+    end
+
+    context "when you type `fdda#{map}'" do
+      before :each do
+        mock.feed "fdda#{map}"
+      end
+
+      it "deletes all of the #{what_is_it}s" do
+        (expect mock.content).to eq "foo"
       end
     end
   end
 end
 
-RSpec.describe 'The `ar\' mapping' do
-  context 'with a doc `foo[asd(d)fgh]\'' do
-    let :mock do
-      Mock.new 'txt', 'foo[asd(d)fgh]'
-    end
-
-    context 'when you type `fddar\'' do
-      before :each do
-        mock.feed 'ffdar'
-      end
-
-      it 'deletes the whole brackets' do
-        (expect mock.content).to eq 'foo'
-      end
-    end
-  end
+RSpec.describe "The `r' mapping" do
+  it_behaves_like "a basic remapping", "r", ['[', ']'], 'bracket'
 end
 
-RSpec.describe 'The `ia\' mapping' do
-  context 'with a doc `foo< asd(dfgh >\'' do
-    let :mock do
-      Mock.new 'txt', 'foo< asd(dfgh >'
-    end
-
-    context 'when you type `fddia\'' do
-      before :each do
-        mock.feed 'ffdia'
-      end
-
-      it 'deletes the inner chevrons' do
-        (expect mock.content).to eq 'foo<>'
-      end
-    end
-  end
-end
-
-RSpec.describe 'the `aa\' mapping' do
-  context 'with a doc `foo<asd>' do
-    let :mock do
-      Mock.new 'txt', 'foo<asd>'
-    end
-
-    context 'when you type `fadaa\'' do
-      before :each do
-        mock.feed 'fadaa'
-      end
-
-      it 'deletes the whole chevrons' do
-        (expect mock.content).to eq 'foo'
-      end
-    end
-  end
+RSpec.describe "The `a' mapping" do
+  it_behaves_like "a basic remapping", "a", ['<', '>'], 'chevron'
 end
