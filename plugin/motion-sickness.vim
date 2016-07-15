@@ -28,9 +28,11 @@
 " CAUTION sick_cursor_between_cursors(a, b, c) is NOT the same as
 " sick_cursor_between_cursors(a, c, b)
 
-set nocompatible
+if exists ('g:loaded_motion_sickness') || &compatible || v:version < 7000
+  finish
+endif
+let g:loaded_motion_sickness = 1
 
-" foo **foobar**
 function! s:sick_cursor_in(thecursor, a, b)
   return s:sick_cmp(a:a, a:thecursor) ==# -1 && s:sick_cmp(a:thecursor, a:b) ==# -1
 endfunction
