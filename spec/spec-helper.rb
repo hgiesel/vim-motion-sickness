@@ -35,7 +35,6 @@ class Mock
   end
 
   def feed string
-    VIM.write
     VIM.feedkeys string
   end
 

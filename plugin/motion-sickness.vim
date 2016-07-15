@@ -1,10 +1,11 @@
-" Add some lines which don't do anything cause they are comments And some more
+" z Add some lines which don't do anything cause they are comments And some more
 " This plugin adds a lot of motion mappings. Here's a list
 "
 " 1. `ir`, `ar`, `ia`, and `aa` where `r` and `a` are aliases for `[` and `<`
 "  (similiar to tpopes' vim-surround plugin
 "  Symbol aliases
 "
+
 " 2. `i_`, `a_` and family, which are a lot of motions that work like `ab` or
 "  `aB` but with symbols
 "
@@ -27,6 +28,9 @@
 " CAUTION sick_cursor_between_cursors(a, b, c) is NOT the same as
 " sick_cursor_between_cursors(a, c, b)
 
+set nocompatible
+
+" foo **foobar**
 function! s:sick_cursor_in(thecursor, a, b)
   return s:sick_cmp(a:a, a:thecursor) ==# -1 && s:sick_cmp(a:thecursor, a:b) ==# -1
 endfunction
@@ -76,15 +80,6 @@ call s:sick_alias_motions_add('r', '[')
 " }}}1
 
 " Symbol Motion {{{1
-function! s:sick_symbol_motion_add(symbol)
-  for wrap in ['i', 'a']
-      silent! execute  'onoremap ' . wrap . a:symbol . ' :<c-u>call ' .
-        \ '<sid>sick_symbol_motion(''o'', ''' . wrap . ''', ''' . a:symbol . ''')<cr>'
-      silent! execute  'vnoremap ' . wrap . a:symbol . ' :<c-u>call ' .
-        \ '<sid>sick_symbol_motion(''v'', ''' . wrap . ''', ''' . a:symbol . ''')<cr>'
-  endfor
-endfunction
-
 function! s:sick_symbol_motion_v(wrap, symbol)
   " position on the left when you started
   let l:start_pos = getpos('.')
@@ -93,20 +88,20 @@ function! s:sick_symbol_motion_v(wrap, symbol)
 
   " Go to close position
   call setpos('.', l:start_pos)
-  silent! execute 'normal! ?' . a:symbol .''
+  silent! execute 'normal! ?' . a:symbol . ''
 
   if a:wrap ==# 'i'
-    execute 'normal! 1 '
+    execute 'normal! /.'
   endif
   let l:open_pos = getpos('.')
 
   " Go to open position
-  silent! execute 'normal v'
+  silent! execute 'normal! v'
   call setpos('.', l:end_pos)
 
-  silent! execute 'normal! N'
+  silent! execute 'normal! /' . a:symbol . ''
   if a:wrap ==# 'i'
-    execute 'normal '
+    execute 'normal! ?.'
   endif
   let l:close_pos = getpos('.')
 
@@ -122,38 +117,41 @@ function! s:sick_symbol_motion_o(wrap, symbol)
   let l:start_pos = getpos('.')
 
   " Go to close position
-  silent! execute 'normal! /' . a:symbol .''
+  silent! execute 'normal! ?' . a:symbol . ''
   if a:wrap ==# 'i'
-    execute 'normal '
+    execute 'normal! /.'
+  endif
+  let l:open_pos = getpos('.')
+  " Go to open position
+  silent! execute 'normal! v/' . a:symbol . ''
+  if a:wrap ==# 'i'
+    execute 'normal! ?.'
   endif
   let l:close_pos = getpos('.')
 
-  " Go to open position
-  silent! execute 'normal! vN'
-  if a:wrap ==# 'i'
-    execute 'normal! 1 '
-  endif
-  let l:open_pos = getpos('.')
-
   " Go back if no valid selection
-  if !(s:sick_cmp(l:open_pos, l:start_pos) ==# -1 ||
-        \ s:sick_cmp(l:start_pos, l:close_pos) ==# -1)
-    normal! v
-    call setpos('.', l:start_pos)
+  if a:wrap ==# 'i'
+    if !(s:sick_cmp(l:open_pos, l:start_pos) ==# -1 ||
+          \ s:sick_cmp(l:start_pos, l:close_pos) ==# -1)
+      normal! v
+      call setpos('.', l:start_pos)
+    else
+      normal! o
+    end
   end
 endfunction
 
 function! s:sick_symbol_motion_add(symbol)
   for wrap in ['i', 'a']
-      silent! execute  'onoremap ' . wrap . a:symbol . ' :<c-u>call ' .
+      silent! execute  'onoremap <silent> ' . wrap . a:symbol . ' :<c-u>call ' .
         \ '<sid>sick_symbol_motion_o(''' . wrap . ''', ''' . a:symbol . ''')<cr>'
-      silent! execute  'vnoremap ' . wrap . a:symbol . ' :<c-u>call ' .
+      silent! execute  'vnoremap <silent> ' . wrap . a:symbol . ' :<c-u>call ' .
         \ '<sid>sick_symbol_motion_v(''' . wrap . ''', ''' . a:symbol . ''')<cr>'
   endfor
 endfunction
 
 let g:sick_symbol_motion_chars =
-      \ ['_', '.', '*', '$', '@', '_', ':', '?', ',', '/', '\', '~']
+      \ ['_', '.', '*', '@', '_', ':', '?', ',', '/', '\', '~']
 
 for char in g:sick_symbol_motion_chars
   call s:sick_symbol_motion_add(char)
