@@ -5,7 +5,6 @@
 "  (similiar to tpopes' vim-surround plugin
 "  Symbol aliases
 "
-
 " 2. `i_`, `a_` and family, which are a lot of motions that work like `ab` or
 "  `aB` but with symbols
 "
@@ -120,20 +119,29 @@ function! s:sick_symbol_motion_o(wrap, symbol)
 
   " Go to close position
   silent! execute "normal! ?" . a:symbol . "\<cr>"
-  if a:wrap ==# 'i'
-    execute "normal! 1 "
-  endif
   let l:open_pos = getpos('.')
+
+  if a:wrap ==# 'i'
+    silent! execute "normal! 1 "
+
+    " if you only moved one space, go back, but only if you started on a:symbol
+    if s:sick_cmp(getpos('.'), l:start_pos) ==# 0 &&
+          \ getline('.')[col('.') - 1] ==# a:symbol
+      silent! execute "normal! \<bs>"
+    endif
+  endif
+
   " Go to open position
   silent! execute "normal! v/" . a:symbol . "\<cr>"
+  let l:close_pos = getpos('.')
+
   if a:wrap ==# 'i'
     execute "normal! \<bs>"
   endif
-  let l:close_pos = getpos('.')
 
   " Go back if no valid selection
   if a:wrap ==# 'i'
-    if !(s:sick_cmp(l:open_pos, l:start_pos) ==# -1 ||
+    if !(s:sick_cmp(l:open_pos, l:start_pos) ==# -1 &&
           \ s:sick_cmp(l:start_pos, l:close_pos) ==# -1)
       normal! v
       call setpos('.', l:start_pos)
