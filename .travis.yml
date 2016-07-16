@@ -1,13 +1,14 @@
 language: ruby
-sudo: false
+sudo: true
 cache: bundler
 rvm:
   - 2.3.1
 addons:
   apt:
     packages:
-      - vim-gtk
+      - xvfb
       - vim
+      - vim-gtk
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
