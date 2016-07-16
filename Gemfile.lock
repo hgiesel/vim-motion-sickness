@@ -24,6 +24,8 @@ PLATFORMS
 DEPENDENCIES
   rake
   rspec
+  rspec-expectations
+  rspec-mocks
   vimrunner
 
 BUNDLED WITH
