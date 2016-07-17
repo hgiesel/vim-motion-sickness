@@ -52,7 +52,7 @@ Given (foo{bar}):
 " start on f {{{3
 Before (Do nothing):
 
-Do:
+Do (dqb):
   dqb
 Expect:
   
@@ -82,7 +82,7 @@ Expect:
 Before (Go to cchar):
   normal! f)
 
-Do:
+Do (dqb):
   dqb
 Expect (Something):
   
@@ -98,7 +98,7 @@ Given (foo[bar]):
 " start on f {{{3
 Before (Do nothing):
 
-Do:
+Do (dqb):
   dqr
 Expect:
   
