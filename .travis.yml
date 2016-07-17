@@ -3,8 +3,24 @@ before_script: |
   git clone https://github.com/junegunn/vader.vim.git
 
 script: |
-  vim -c ':set t_ti= t_te= nomore' -c 'scriptnames | q!'
-  vim -c ':set t_ti= t_te= nomore' -c 'set rtp? | q!'
+  vim -Nu <(cat << VIMRC
+  set nocompatible
+  filetype off
+  set rtp+=vader.vim
+  set rtp+=.
+  filetype plugin indent on
+  syntax enable
+  VIMRC) vim -c ':set t_ti= t_te= nomore' -c 'set rtp? | q!'
+
+  vim -Nu <(cat << VIMRC
+  set nocompatible
+  filetype off
+  set rtp+=vader.vim
+  set rtp+=.
+  filetype plugin indent on
+  syntax enable
+  VIMRC) -c ':set t_ti= t_te= nomore' -c 'scriptnames | q!'
+
   vim -Nu <(cat << VIMRC
   set nocompatible
   filetype off
