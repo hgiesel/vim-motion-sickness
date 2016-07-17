@@ -1,17 +1,13 @@
-Given (fixture):
-  Hello
+Given (foo bar(arg)):
+  foo bar(arg)
+Do (fadqb):
+  fadqb
+Expect (foo\ ):
+  foo 
 
-Do (modification):
-  ciwWorld
-
-Expect (result):
-  World
-
-Given (fixture):
-  Bla foobar(arg)
-
-Do:
-  fgdab
-
-Expect (result):
-  Bla foobar()
+Given (foo bar[arg]):
+  foo bar[arg]
+Do (fgdqr):
+  fgdqr
+Expect (foo\ ):
+  foo 

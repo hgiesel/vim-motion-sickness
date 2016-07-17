@@ -1,0 +1,1826 @@
+" * asterisk {{{1
+" doc: doo*bar*xyz {{{2
+Given (foo*bar*xyz):
+  foo*bar*xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di*):
+  di*
+Expect:
+  foo**xyz
+Do (da*):
+  da*
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di*):
+  di*
+Expect:
+  foo**xyz
+Do (da*):
+  da*
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di*):
+  di*
+Expect:
+  foo*bar*xyz
+Do (fada*):
+  da*
+Expect:
+  foo*bar*xyz
+" }}}3
+" }}}2
+
+" doc: *foo\nbar* {{{2
+Given (*foo\nbar*):
+  *foo
+  bar*
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi*):
+  di*
+Expect:
+  *foo
+  bar*
+
+Do (ffdi*):
+  da*
+Expect:
+  *foo
+  bar*
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di*):
+  di*
+Expect:
+  *foo
+  bar*
+
+Do (ffdi*):
+  da*
+Expect:
+  *foo
+  bar*
+" }}}3
+" }}}2
+
+" doc: foo**foobar** {{{2
+Given (foo**foobar**):
+  foo**foobar**
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di*):
+  di*
+Expect (Inner symbol deleted):
+  foo****
+
+Do (di*di*):
+  di*di*
+Expect:
+  foo****
+
+Do (da*):
+  da*
+Expect (First symbol embrace deleted):
+  foo**
+
+Do (da*da*):
+  da*da*
+Expect (All symbols deleted):
+  foo
+
+Do (yi*x):
+  yi*x
+Expect (f deleted):
+  foo**oobar**
+
+Do (da*):
+  ya*x
+Expect (symbol left to f deleted):
+  foo*foobar**
+
+Do (vi*d):
+  vi*d
+Expect (Inner symbol deleted):
+  foo****
+
+Do (va*d):
+  va*d
+Expect (First symbol embrace deleted):
+  foo**
+
+Do (va*a*d):
+  va*a*d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo**b** {{{2
+Given (foo**b**):
+  foo**b**
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di*):
+  di*
+Expect (Inner symbol deleted):
+  foo****
+
+Do (di*di*):
+  di*di*
+Expect (Inner symbol deleted):
+  foo****
+
+Do (da*):
+  da*
+Expect (first symbol embraced deleted):
+  foo**
+
+Do (da*da*):
+  da*da*
+Expect (all symbols deleted):
+  foo
+
+Do (yi*x):
+  yi*x
+Expect (b deleted):
+  foo****
+
+Do (da*):
+  ya*x
+Expect (symbol to left of b deleted):
+  foo*b**
+
+Do (vi*d):
+  vi*d
+Expect (Inner symbol deleted):
+  foo****
+
+Do (va*d):
+  va*d
+Expect (First symbol embraced deleted):
+  foo**
+
+Do (vi*i*d):
+  vi*i*d
+Expect (Only inner symbol deleted):
+  foo****
+
+Do (va*a*d):
+  va*a*d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" _ underscore {{{1
+" doc: doo_bar_xyz {{{2
+Given (foo_bar_xyz):
+  foo_bar_xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di_):
+  di_
+Expect:
+  foo__xyz
+Do (da_):
+  da_
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di_):
+  di_
+Expect:
+  foo__xyz
+Do (da_):
+  da_
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di_):
+  di_
+Expect:
+  foo_bar_xyz
+Do (fada_):
+  da_
+Expect:
+  foo_bar_xyz
+" }}}3
+" }}}2
+
+" doc: _foo\nbar_ {{{2
+Given (_foo\nbar_):
+  _foo
+  bar_
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi_):
+  di_
+Expect:
+  _foo
+  bar_
+
+Do (ffdi_):
+  da_
+Expect:
+  _foo
+  bar_
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di_):
+  di_
+Expect:
+  _foo
+  bar_
+
+Do (ffdi_):
+  da_
+Expect:
+  _foo
+  bar_
+" }}}3
+" }}}2
+
+" doc: foo__foobar__ {{{2
+Given (foo__foobar__):
+  foo__foobar__
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di_):
+  di_
+Expect (Inner symbol deleted):
+  foo____
+
+Do (di_di_):
+  di_di_
+Expect:
+  foo____
+
+Do (da_):
+  da_
+Expect (First symbol embrace deleted):
+  foo__
+
+Do (da_da_):
+  da_da_
+Expect (All symbols deleted):
+  foo
+
+Do (yi_x):
+  yi_x
+Expect (f deleted):
+  foo__oobar__
+
+Do (da_):
+  ya_x
+Expect (symbol left to f deleted):
+  foo_foobar__
+
+Do (vi_d):
+  vi_d
+Expect (Inner symbol deleted):
+  foo____
+
+Do (va_d):
+  va_d
+Expect (First symbol embrace deleted):
+  foo__
+
+Do (va_a_d):
+  va_a_d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo__b__ {{{2
+Given (foo__b__):
+  foo__b__
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di_):
+  di_
+Expect (Inner symbol deleted):
+  foo____
+
+Do (di_di_):
+  di_di_
+Expect (Inner symbol deleted):
+  foo____
+
+Do (da_):
+  da_
+Expect (first symbol embraced deleted):
+  foo__
+
+Do (da_da_):
+  da_da_
+Expect (all symbols deleted):
+  foo
+
+Do (yi_x):
+  yi_x
+Expect (b deleted):
+  foo____
+
+Do (da_):
+  ya_x
+Expect (symbol to left of b deleted):
+  foo_b__
+
+Do (vi_d):
+  vi_d
+Expect (Inner symbol deleted):
+  foo____
+
+Do (va_d):
+  va_d
+Expect (First symbol embraced deleted):
+  foo__
+
+Do (vi_i_d):
+  vi_i_d
+Expect (Only inner symbol deleted):
+  foo____
+
+Do (va_a_d):
+  va_a_d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" - dash {{{1
+" doc: doo-bar-xyz {{{2
+Given (foo-bar-xyz):
+  foo-bar-xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di-):
+  di-
+Expect:
+  foo--xyz
+Do (da-):
+  da-
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di-):
+  di-
+Expect:
+  foo--xyz
+Do (da-):
+  da-
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di-):
+  di-
+Expect:
+  foo-bar-xyz
+Do (fada-):
+  da-
+Expect:
+  foo-bar-xyz
+" }}}3
+" }}}2
+
+" doc: -foo\nbar- {{{2
+Given (-foo\nbar-):
+  -foo
+  bar-
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi-):
+  di-
+Expect:
+  -foo
+  bar-
+
+Do (ffdi-):
+  da-
+Expect:
+  -foo
+  bar-
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di-):
+  di-
+Expect:
+  -foo
+  bar-
+
+Do (ffdi-):
+  da-
+Expect:
+  -foo
+  bar-
+" }}}3
+" }}}2
+
+" doc: foo--foobar-- {{{2
+Given (foo--foobar--):
+  foo--foobar--
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di-):
+  di-
+Expect (Inner symbol deleted):
+  foo----
+
+Do (di-di-):
+  di-di-
+Expect:
+  foo----
+
+Do (da-):
+  da-
+Expect (First symbol embrace deleted):
+  foo--
+
+Do (da-da-):
+  da-da-
+Expect (All symbols deleted):
+  foo
+
+Do (yi-x):
+  yi-x
+Expect (f deleted):
+  foo--oobar--
+
+Do (da-):
+  ya-x
+Expect (symbol left to f deleted):
+  foo-foobar--
+
+Do (vi-d):
+  vi-d
+Expect (Inner symbol deleted):
+  foo----
+
+Do (va-d):
+  va-d
+Expect (First symbol embrace deleted):
+  foo--
+
+Do (va-a-d):
+  va-a-d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo--b-- {{{2
+Given (foo--b--):
+  foo--b--
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di-):
+  di-
+Expect (Inner symbol deleted):
+  foo----
+
+Do (di-di-):
+  di-di-
+Expect (Inner symbol deleted):
+  foo----
+
+Do (da-):
+  da-
+Expect (first symbol embraced deleted):
+  foo--
+
+Do (da-da-):
+  da-da-
+Expect (all symbols deleted):
+  foo
+
+Do (yi-x):
+  yi-x
+Expect (b deleted):
+  foo----
+
+Do (da-):
+  ya-x
+Expect (symbol to left of b deleted):
+  foo-b--
+
+Do (vi-d):
+  vi-d
+Expect (Inner symbol deleted):
+  foo----
+
+Do (va-d):
+  va-d
+Expect (First symbol embraced deleted):
+  foo--
+
+Do (vi-i-d):
+  vi-i-d
+Expect (Only inner symbol deleted):
+  foo----
+
+Do (va-a-d):
+  va-a-d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" : colon {{{1
+" doc: doo:bar:xyz {{{2
+Given (foo:bar:xyz):
+  foo:bar:xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di:):
+  di:
+Expect:
+  foo::xyz
+Do (da:):
+  da:
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di:):
+  di:
+Expect:
+  foo::xyz
+Do (da:):
+  da:
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di:):
+  di:
+Expect:
+  foo:bar:xyz
+Do (fada:):
+  da:
+Expect:
+  foo:bar:xyz
+" }}}3
+" }}}2
+
+" doc: :foo\nbar: {{{2
+Given (:foo\nbar:):
+  :foo
+  bar:
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi:):
+  di:
+Expect:
+  :foo
+  bar:
+
+Do (ffdi:):
+  da:
+Expect:
+  :foo
+  bar:
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di:):
+  di:
+Expect:
+  :foo
+  bar:
+
+Do (ffdi:):
+  da:
+Expect:
+  :foo
+  bar:
+" }}}3
+" }}}2
+
+" doc: foo::foobar:: {{{2
+Given (foo::foobar::):
+  foo::foobar::
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di:):
+  di:
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (di:di:):
+  di:di:
+Expect:
+  foo::::
+
+Do (da:):
+  da:
+Expect (First symbol embrace deleted):
+  foo::
+
+Do (da:da:):
+  da:da:
+Expect (All symbols deleted):
+  foo
+
+Do (yi:x):
+  yi:x
+Expect (f deleted):
+  foo::oobar::
+
+Do (da:):
+  ya:x
+Expect (symbol left to f deleted):
+  foo:foobar::
+
+Do (vi:d):
+  vi:d
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (va:d):
+  va:d
+Expect (First symbol embrace deleted):
+  foo::
+
+Do (va:a:d):
+  va:a:d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo::b:: {{{2
+Given (foo::b::):
+  foo::b::
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di:):
+  di:
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (di:di:):
+  di:di:
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (da:):
+  da:
+Expect (first symbol embraced deleted):
+  foo::
+
+Do (da:da:):
+  da:da:
+Expect (all symbols deleted):
+  foo
+
+Do (yi:x):
+  yi:x
+Expect (b deleted):
+  foo::::
+
+Do (da:):
+  ya:x
+Expect (symbol to left of b deleted):
+  foo:b::
+
+Do (vi:d):
+  vi:d
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (va:d):
+  va:d
+Expect (First symbol embraced deleted):
+  foo::
+
+Do (vi:i:d):
+  vi:i:d
+Expect (Only inner symbol deleted):
+  foo::::
+
+Do (va:a:d):
+  va:a:d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" @ at {{{1
+" doc: doo@bar@xyz {{{2
+Given (foo@bar@xyz):
+  foo@bar@xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di@):
+  di@
+Expect:
+  foo@@xyz
+Do (da@):
+  da@
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di@):
+  di@
+Expect:
+  foo@@xyz
+Do (da@):
+  da@
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di@):
+  di@
+Expect:
+  foo@bar@xyz
+Do (fada@):
+  da@
+Expect:
+  foo@bar@xyz
+" }}}3
+" }}}2
+
+" doc: @foo\nbar@ {{{2
+Given (@foo\nbar@):
+  @foo
+  bar@
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi@):
+  di@
+Expect:
+  @foo
+  bar@
+
+Do (ffdi@):
+  da@
+Expect:
+  @foo
+  bar@
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di@):
+  di@
+Expect:
+  @foo
+  bar@
+
+Do (ffdi@):
+  da@
+Expect:
+  @foo
+  bar@
+" }}}3
+" }}}2
+
+" doc: foo@@foobar@@ {{{2
+Given (foo@@foobar@@):
+  foo@@foobar@@
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di@):
+  di@
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (di@di@):
+  di@di@
+Expect:
+  foo@@@@
+
+Do (da@):
+  da@
+Expect (First symbol embrace deleted):
+  foo@@
+
+Do (da@da@):
+  da@da@
+Expect (All symbols deleted):
+  foo
+
+Do (yi@x):
+  yi@x
+Expect (f deleted):
+  foo@@oobar@@
+
+Do (da@):
+  ya@x
+Expect (symbol left to f deleted):
+  foo@foobar@@
+
+Do (vi@d):
+  vi@d
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (va@d):
+  va@d
+Expect (First symbol embrace deleted):
+  foo@@
+
+Do (va@a@d):
+  va@a@d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo@@b@@ {{{2
+Given (foo@@b@@):
+  foo@@b@@
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di@):
+  di@
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (di@di@):
+  di@di@
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (da@):
+  da@
+Expect (first symbol embraced deleted):
+  foo@@
+
+Do (da@da@):
+  da@da@
+Expect (all symbols deleted):
+  foo
+
+Do (yi@x):
+  yi@x
+Expect (b deleted):
+  foo@@@@
+
+Do (da@):
+  ya@x
+Expect (symbol to left of b deleted):
+  foo@b@@
+
+Do (vi@d):
+  vi@d
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (va@d):
+  va@d
+Expect (First symbol embraced deleted):
+  foo@@
+
+Do (vi@i@d):
+  vi@i@d
+Expect (Only inner symbol deleted):
+  foo@@@@
+
+Do (va@a@d):
+  va@a@d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" ! bang {{{1
+" doc: doo!bar!xyz {{{2
+Given (foo!bar!xyz):
+  foo!bar!xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di!):
+  di!
+Expect:
+  foo!!xyz
+Do (da!):
+  da!
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di!):
+  di!
+Expect:
+  foo!!xyz
+Do (da!):
+  da!
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di!):
+  di!
+Expect:
+  foo!bar!xyz
+Do (fada!):
+  da!
+Expect:
+  foo!bar!xyz
+" }}}3
+" }}}2
+
+" doc: !foo\nbar! {{{2
+Given (!foo\nbar!):
+  !foo
+  bar!
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi!):
+  di!
+Expect:
+  !foo
+  bar!
+
+Do (ffdi!):
+  da!
+Expect:
+  !foo
+  bar!
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di!):
+  di!
+Expect:
+  !foo
+  bar!
+
+Do (ffdi!):
+  da!
+Expect:
+  !foo
+  bar!
+" }}}3
+" }}}2
+
+" doc: foo!!foobar!! {{{2
+Given (foo!!foobar!!):
+  foo!!foobar!!
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di!):
+  di!
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (di!di!):
+  di!di!
+Expect:
+  foo!!!!
+
+Do (da!):
+  da!
+Expect (First symbol embrace deleted):
+  foo!!
+
+Do (da!da!):
+  da!da!
+Expect (All symbols deleted):
+  foo
+
+Do (yi!x):
+  yi!x
+Expect (f deleted):
+  foo!!oobar!!
+
+Do (da!):
+  ya!x
+Expect (symbol left to f deleted):
+  foo!foobar!!
+
+Do (vi!d):
+  vi!d
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (va!d):
+  va!d
+Expect (First symbol embrace deleted):
+  foo!!
+
+Do (va!a!d):
+  va!a!d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo!!b!! {{{2
+Given (foo!!b!!):
+  foo!!b!!
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di!):
+  di!
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (di!di!):
+  di!di!
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (da!):
+  da!
+Expect (first symbol embraced deleted):
+  foo!!
+
+Do (da!da!):
+  da!da!
+Expect (all symbols deleted):
+  foo
+
+Do (yi!x):
+  yi!x
+Expect (b deleted):
+  foo!!!!
+
+Do (da!):
+  ya!x
+Expect (symbol to left of b deleted):
+  foo!b!!
+
+Do (vi!d):
+  vi!d
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (va!d):
+  va!d
+Expect (First symbol embraced deleted):
+  foo!!
+
+Do (vi!i!d):
+  vi!i!d
+Expect (Only inner symbol deleted):
+  foo!!!!
+
+Do (va!a!d):
+  va!a!d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" ? question mark {{{1
+" doc: doo?bar?xyz {{{2
+Given (foo?bar?xyz):
+  foo?bar?xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di?):
+  di?
+Expect:
+  foo??xyz
+Do (da?):
+  da?
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di?):
+  di?
+Expect:
+  foo??xyz
+Do (da?):
+  da?
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di?):
+  di?
+Expect:
+  foo?bar?xyz
+Do (fada?):
+  da?
+Expect:
+  foo?bar?xyz
+" }}}3
+" }}}2
+
+" doc: ?foo\nbar? {{{2
+Given (?foo\nbar?):
+  ?foo
+  bar?
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi?):
+  di?
+Expect:
+  ?foo
+  bar?
+
+Do (ffdi?):
+  da?
+Expect:
+  ?foo
+  bar?
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di?):
+  di?
+Expect:
+  ?foo
+  bar?
+
+Do (ffdi?):
+  da?
+Expect:
+  ?foo
+  bar?
+" }}}3
+" }}}2
+
+" doc: foo??foobar?? {{{2
+Given (foo??foobar??):
+  foo??foobar??
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di?):
+  di?
+Expect (Inner symbol deleted):
+  foo????
+
+Do (di?di?):
+  di?di?
+Expect:
+  foo????
+
+Do (da?):
+  da?
+Expect (First symbol embrace deleted):
+  foo??
+
+Do (da?da?):
+  da?da?
+Expect (All symbols deleted):
+  foo
+
+Do (yi?x):
+  yi?x
+Expect (f deleted):
+  foo??oobar??
+
+Do (da?):
+  ya?x
+Expect (symbol left to f deleted):
+  foo?foobar??
+
+Do (vi?d):
+  vi?d
+Expect (Inner symbol deleted):
+  foo????
+
+Do (va?d):
+  va?d
+Expect (First symbol embrace deleted):
+  foo??
+
+Do (va?a?d):
+  va?a?d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo??b?? {{{2
+Given (foo??b??):
+  foo??b??
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di?):
+  di?
+Expect (Inner symbol deleted):
+  foo????
+
+Do (di?di?):
+  di?di?
+Expect (Inner symbol deleted):
+  foo????
+
+Do (da?):
+  da?
+Expect (first symbol embraced deleted):
+  foo??
+
+Do (da?da?):
+  da?da?
+Expect (all symbols deleted):
+  foo
+
+Do (yi?x):
+  yi?x
+Expect (b deleted):
+  foo????
+
+Do (da?):
+  ya?x
+Expect (symbol to left of b deleted):
+  foo?b??
+
+Do (vi?d):
+  vi?d
+Expect (Inner symbol deleted):
+  foo????
+
+Do (va?d):
+  va?d
+Expect (First symbol embraced deleted):
+  foo??
+
+Do (vi?i?d):
+  vi?i?d
+Expect (Only inner symbol deleted):
+  foo????
+
+Do (va?a?d):
+  va?a?d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" / slash {{{1
+" doc: doo/bar/xyz {{{2
+Given (foo/bar/xyz):
+  foo/bar/xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di/):
+  di/
+Expect:
+  foo//xyz
+Do (da/):
+  da/
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di/):
+  di/
+Expect:
+  foo//xyz
+Do (da/):
+  da/
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di/):
+  di/
+Expect:
+  foo/bar/xyz
+Do (fada/):
+  da/
+Expect:
+  foo/bar/xyz
+" }}}3
+" }}}2
+
+" doc: /foo\nbar/ {{{2
+Given (/foo\nbar/):
+  /foo
+  bar/
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi/):
+  di/
+Expect:
+  /foo
+  bar/
+
+Do (ffdi/):
+  da/
+Expect:
+  /foo
+  bar/
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di/):
+  di/
+Expect:
+  /foo
+  bar/
+
+Do (ffdi/):
+  da/
+Expect:
+  /foo
+  bar/
+" }}}3
+" }}}2
+
+" doc: foo//foobar// {{{2
+Given (foo//foobar//):
+  foo//foobar//
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di/):
+  di/
+Expect (Inner symbol deleted):
+  foo////
+
+Do (di/di/):
+  di/di/
+Expect:
+  foo////
+
+Do (da/):
+  da/
+Expect (First symbol embrace deleted):
+  foo//
+
+Do (da/da/):
+  da/da/
+Expect (All symbols deleted):
+  foo
+
+Do (yi/x):
+  yi/x
+Expect (f deleted):
+  foo//oobar//
+
+Do (da/):
+  ya/x
+Expect (symbol left to f deleted):
+  foo/foobar//
+
+Do (vi/d):
+  vi/d
+Expect (Inner symbol deleted):
+  foo////
+
+Do (va/d):
+  va/d
+Expect (First symbol embrace deleted):
+  foo//
+
+Do (va/a/d):
+  va/a/d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo//b// {{{2
+Given (foo//b//):
+  foo//b//
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di/):
+  di/
+Expect (Inner symbol deleted):
+  foo////
+
+Do (di/di/):
+  di/di/
+Expect (Inner symbol deleted):
+  foo////
+
+Do (da/):
+  da/
+Expect (first symbol embraced deleted):
+  foo//
+
+Do (da/da/):
+  da/da/
+Expect (all symbols deleted):
+  foo
+
+Do (yi/x):
+  yi/x
+Expect (b deleted):
+  foo////
+
+Do (da/):
+  ya/x
+Expect (symbol to left of b deleted):
+  foo/b//
+
+Do (vi/d):
+  vi/d
+Expect (Inner symbol deleted):
+  foo////
+
+Do (va/d):
+  va/d
+Expect (First symbol embraced deleted):
+  foo//
+
+Do (vi/i/d):
+  vi/i/d
+Expect (Only inner symbol deleted):
+  foo////
+
+Do (va/a/d):
+  va/a/d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1
+
+" | bar {{{1
+" doc: doo|bar|xyz {{{2
+Given (foo|bar|xyz):
+  foo|bar|xyz
+
+" start at f {{{3
+Before (Do nothing):
+Do (di|):
+  di|
+Expect:
+  foo||xyz
+Do (da|):
+  da|
+Expect:
+  fooxyz
+" }}}3
+
+" start at b {{{3
+Before (Go to a):
+  normal! fa
+
+Do (di|):
+  di|
+Expect:
+  foo||xyz
+Do (da|):
+  da|
+Expect:
+  fooxyz
+" }}}3
+
+" start at x {{{3
+Before (Go to x):
+  normal! fx
+
+Do (di|):
+  di|
+Expect:
+  foo|bar|xyz
+Do (fada|):
+  da|
+Expect:
+  foo|bar|xyz
+" }}}3
+" }}}2
+
+" doc: |foo\nbar| {{{2
+Given (|foo\nbar|):
+  |foo
+  bar|
+
+" start at f {{{3
+Before (Go to f):
+  normal! ff
+
+Do (ffdi|):
+  di|
+Expect:
+  |foo
+  bar|
+
+Do (ffdi|):
+  da|
+Expect:
+  |foo
+  bar|
+
+" }}}3
+
+" start b {{{3
+Before (Go to b):
+  normal! j
+
+Do (di|):
+  di|
+Expect:
+  |foo
+  bar|
+
+Do (ffdi|):
+  da|
+Expect:
+  |foo
+  bar|
+" }}}3
+" }}}2
+
+" doc: foo||foobar|| {{{2
+Given (foo||foobar||):
+  foo||foobar||
+
+" start at b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (di|):
+  di|
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (di|di|):
+  di|di|
+Expect:
+  foo||||
+
+Do (da|):
+  da|
+Expect (First symbol embrace deleted):
+  foo||
+
+Do (da|da|):
+  da|da|
+Expect (All symbols deleted):
+  foo
+
+Do (yi|x):
+  yi|x
+Expect (f deleted):
+  foo||oobar||
+
+Do (da|):
+  ya|x
+Expect (symbol left to f deleted):
+  foo|foobar||
+
+Do (vi|d):
+  vi|d
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (va|d):
+  va|d
+Expect (First symbol embrace deleted):
+  foo||
+
+Do (va|a|d):
+  va|a|d
+Expect (All symbol embraces deleted):
+  foo
+" }}}3
+" }}}2
+
+" doc: foo||b|| {{{2
+Given (foo||b||):
+  foo||b||
+
+" start at b
+Before (Go to b):
+  normal! fb
+
+Do (di|):
+  di|
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (di|di|):
+  di|di|
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (da|):
+  da|
+Expect (first symbol embraced deleted):
+  foo||
+
+Do (da|da|):
+  da|da|
+Expect (all symbols deleted):
+  foo
+
+Do (yi|x):
+  yi|x
+Expect (b deleted):
+  foo||||
+
+Do (da|):
+  ya|x
+Expect (symbol to left of b deleted):
+  foo|b||
+
+Do (vi|d):
+  vi|d
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (va|d):
+  va|d
+Expect (First symbol embraced deleted):
+  foo||
+
+Do (vi|i|d):
+  vi|i|d
+Expect (Only inner symbol deleted):
+  foo||||
+
+Do (va|a|d):
+  va|a|d
+Expect (all symbol deleted):
+  foo
+" }}}3
+" }}}2
+" }}}1

@@ -1,0 +1,7 @@
+set nocompatible
+
+filetype off
+set rtp=.
+set rtp+=~/.vim/plugged/vader.vim
+filetype plugin indent on
+syntax enable

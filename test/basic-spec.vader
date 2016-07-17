@@ -1,0 +1,25 @@
+Given (foo[asdf]):
+  foo[asdf]
+Before (Go to `d`):
+  normal! fd
+Do (dir):
+  dir
+Expect (Inner Brackets deleted):
+  foo[]
+Do (dar):
+  dar
+Expect (All Brackets deleted):
+  foo
+
+Given (foo<asdf>):
+  foo<asdf>
+Before (Go to `d`):
+  normal! fd
+Do (dia):
+  dia
+Expect (Inner chevrons deleted):
+  foo<>
+Do (daa):
+  daa
+Expect (All chevrons deleted):
+  foo
