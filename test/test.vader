@@ -1,0 +1,8 @@
+Given (fixture):
+  Hello
+
+Do (modification):
+  ciwWorld
+
+Expect (result):
+  World

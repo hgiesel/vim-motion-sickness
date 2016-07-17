@@ -1,12 +1,13 @@
 language: ruby
-sudo: true
-cache: bundler
-rvm:
-  - 2.3.1
-before_install:
-  - "sudo apt-get install xvfb"
-  - "sudo apt-get install vim-gtk"
-before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "vim --version"
+before_script: |
+  git clone https://github.com/junegunn/vader.vim.git
+
+script: |
+  vim -Nu <(cat << VIMRC
+  filetype off
+  set rtp+=vader.vim
+  set rtp+=.
+  set rtp+=after
+  filetype plugin indent on
+  syntax enable
+  VIMRC) -c 'Vader! test/*' > /dev/null
