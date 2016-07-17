@@ -6,3 +6,12 @@ Do (modification):
 
 Expect (result):
   World
+
+Given (fixture):
+  Bla foobar(arg)
+
+Do:
+  fgdab
+
+Expect (result):
+  Bla foobar()
