@@ -8,26 +8,9 @@ before_script:
   - sudo make install
   - cd -
 
-script: 
+script:
   - export PATH="/usr/local/bin:$PATH"
   - export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
-  - vim -Nu <(cat << VIMRC
-  set nocompatible
-  filetype off
-  set rtp+=vader.vim
-  set rtp+=.
-  filetype plugin indent on
-  syntax enable
-  VIMRC) vim -c ':set t_ti= t_te= nomore' -c 'set rtp? | q!'
-  - vim -Nu <(cat << VIMRC
-  set nocompatible
-  filetype off
-  set rtp+=vader.vim
-  set rtp+=.
-  filetype plugin indent on
-  syntax enable
-  VIMRC) -c ':set t_ti= t_te= nomore' -c 'scriptnames | q!'
-
   - vim -Nu <(cat << VIMRC
   set nocompatible
   filetype off
