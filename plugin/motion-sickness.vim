@@ -27,6 +27,8 @@
 " CAUTION sick_cursor_between_cursors(a, b, c) is NOT the same as
 " sick_cursor_between_cursors(a, c, b)
 
+
+
 if exists('g:loaded_motion_sickness') || &compatible || v:version < 700
   finish
 endif
