@@ -1,5 +1,5 @@
 language: ruby
-before_script: |
+before_script:
   - git clone https://github.com/junegunn/vader.vim.git
   - git clone https://github.com/vim/vim
   - cd vim
@@ -8,7 +8,7 @@ before_script: |
   - sudo make install
   - cd -
 
-script: |
+script: 
   - export PATH="/usr/local/bin:$PATH"
   - export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
   - vim -Nu <(cat << VIMRC
