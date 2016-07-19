@@ -1,17 +1,17 @@
 language: ruby
 before_script:
-  - git clone https://github.com/junegunn/vader.vim.git
-  - git clone https://github.com/vim/vim
-  - cd vim
-  - ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp
-  - make -j4
-  - sudo make install
-  - cd -
+- git clone https://github.com/junegunn/vader.vim.git
+- git clone https://github.com/vim/vim
+- cd vim
+- ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp
+- make -j4
+- sudo make install
+- cd -
 
 script:
-  - export PATH="/usr/local/bin:$PATH"
-  - export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
-  - vim -Nu <(cat << VIMRC
+- export PATH="/usr/local/bin:$PATH"
+- export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
+- vim -Nu <(cat << VIMRC
   set nocompatible
   filetype off
   set rtp+=vader.vim
