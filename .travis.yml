@@ -11,11 +11,9 @@ before_script:
 script:
 - export PATH="/usr/local/bin:$PATH"
 - export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
-- vim -Nu <(cat << VIMRC
-  set nocompatible
+- vim -Nu <(cat <<< 'set nocompatible
   filetype off
   set rtp+=vader.vim
   set rtp+=.
   filetype plugin indent on
-  syntax enable
-  VIMRC) -c 'Vader! test/*' > /dev/null
+  syntax enable') -c 'Vader! test/*' > /dev/null
