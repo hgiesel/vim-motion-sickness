@@ -42,6 +42,50 @@ Expect:
   
 " }}}3
 " }}}2
+
+" with doc foo<ochar>bar<cchar> {{{2
+Given (foo{bar}):
+  foo{bar}
+
+" start on f {{{3
+Before (Do nothing):
+
+Do:
+  dqB
+Expect:
+  
+" }}}3
+
+" start on b {{{3
+Before (Go to b):
+  normal! fb
+
+Do (dqB):
+  dqB
+Expect:
+  
+" }}}3
+
+" start on ochar {{{3
+Before (Go to {):
+  f{
+
+Do:
+  dqB
+Expect:
+  
+" }}}3
+
+" start on cchar {{{3
+Before (Go to }):
+  f}
+
+Do:
+  dqB
+Expect:
+  
+" }}}3
+" }}}2
 " }}}1
 
 " qB motion {{{1

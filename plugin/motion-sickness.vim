@@ -22,12 +22,7 @@
 "  Planned for the future are: `qc` to select colon statements; `qw` to
 "  select arrow statements (in C) and to make iqb and qb work correctly with
 "  `<` characters splattered over the place
-" 
-" Util functions {{{1
-" CAUTION sick_cursor_between_cursors(a, b, c) is NOT the same as
-" sick_cursor_between_cursors(a, c, b)
-
-
+"
 
 if exists('g:loaded_motion_sickness') || &compatible || v:version < 700
   finish
