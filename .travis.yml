@@ -3,7 +3,10 @@ before_script:
 - git clone https://github.com/junegunn/vader.vim.git
 - git clone https://github.com/vim/vim
 - cd vim
-- ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp
+- ./configure
+  --with-features=huge
+  --enable-rubyinterp
+  --enable-pythoninterp
 - make -j4
 - sudo make install
 - cd -
@@ -16,4 +19,4 @@ script:
   set rtp+=vader.vim |
   set rtp+=. |
   filetype plugin indent on |
-  syntax enable') -c 'Vader! test/*' > /dev/null
+  syntax enable') -c 'Vader! test/*.vader' > /dev/null
