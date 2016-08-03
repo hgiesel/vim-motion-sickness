@@ -2,6 +2,7 @@ Given (foo[asdf]):
   foo[asdf]
 Before (Go to `d`):
   normal! fd
+
 Do (dir):
   dir
 Expect (Inner Brackets deleted):
@@ -15,6 +16,7 @@ Given (foo<asdf>):
   foo<asdf>
 Before (Go to `d`):
   normal! fd
+
 Do (dia):
   dia
 Expect (Inner chevrons deleted):
@@ -23,4 +25,3 @@ Do (daa):
   daa
 Expect (All chevrons deleted):
   foo
-

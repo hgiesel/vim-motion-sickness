@@ -10,7 +10,7 @@ Do:
   dqB
 Expect:
   
-" }}}3
+" }}}
 
 " start on b {{{3
 Before (Go to b):
@@ -20,7 +20,7 @@ Do (dqB):
   dqB
 Expect:
   
-" }}}3
+" }}}
 
 " start on ochar {{{3
 Before (Go to {):
@@ -30,7 +30,7 @@ Do:
   dqB
 Expect:
   
-" }}}3
+" }}}
 
 " start on cchar {{{3
 Before (Go to }):
@@ -40,8 +40,8 @@ Do:
   dqB
 Expect:
   
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " with doc foo<ochar>bar<cchar> {{{2
 Given (foo{bar}):
@@ -54,7 +54,7 @@ Do:
   dqB
 Expect:
   
-" }}}3
+" }}}
 
 " start on b {{{3
 Before (Go to b):
@@ -64,7 +64,7 @@ Do (dqB):
   dqB
 Expect:
   
-" }}}3
+" }}}
 
 " start on ochar {{{3
 Before (Go to {):
@@ -74,7 +74,7 @@ Do:
   dqB
 Expect:
   
-" }}}3
+" }}}
 
 " start on cchar {{{3
 Before (Go to }):
@@ -84,9 +84,9 @@ Do:
   dqB
 Expect:
   
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " qB motion {{{1
 " with doc foo<ochar>bar<cchar> {{{2
@@ -100,7 +100,7 @@ Do (dqb):
   dqb
 Expect:
   
-" }}}3
+" }}}
 
 " start on b {{{3
 Before (Go to b):
@@ -110,7 +110,7 @@ Do (dqB):
   dqb
 Expect:
   
-" }}}3
+" }}}
 
 " start on ochar {{{3
 Before (Go to ochar):
@@ -120,7 +120,7 @@ Do (dqb):
   dqb
 Expect:
   
-" }}}3
+" }}}
 
 " start on cchar {{{3
 Before (Go to cchar):
@@ -130,9 +130,9 @@ Do (dqb):
   dqb
 Expect (Something):
   
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " qr motion {{{1
 " with doc foo<ochar>bar<cchar> {{{2
@@ -146,7 +146,7 @@ Do (dqb):
   dqr
 Expect:
   
-" }}}3
+" }}}
 
 " start on b {{{3
 Before (Go to b):
@@ -156,7 +156,7 @@ Do (dqB):
   dqr
 Expect:
   
-" }}}3
+" }}}
 
 " start on ochar {{{3
 Before (Go to ochar):
@@ -166,7 +166,7 @@ Do (dqr):
   dqr
 Expect:
   
-" }}}3
+" }}}
 
 " start on cchar {{{3
 Before (Go to cchar):
@@ -176,9 +176,9 @@ Do (dqr):
   dqr
 Expect:
   
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " qa motion {{{1
 " with doc foo<ochar>bar<cchar> {{{2
@@ -192,7 +192,7 @@ Do (dqa):
   dqa
 Expect:
   
-" }}}3
+" }}}
 
 " start on b {{{3
 Before (Go to b):
@@ -202,7 +202,7 @@ Do (dqa):
   dqa
 Expect:
   
-" }}}3
+" }}}
 
 " start on ochar {{{3
 Before (Go to ochar):
@@ -212,7 +212,7 @@ Do (dqa):
   dqa
 Expect:
   
-" }}}3
+" }}}
 
 " start on cchar {{{3
 Before (Go to cchar):
@@ -222,9 +222,9 @@ Do (dqa):
   dqa
 Expect:
   
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " q<space> motion {{{1
-" }}}1
+" }}}

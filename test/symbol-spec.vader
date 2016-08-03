@@ -208,6 +208,7 @@ Given (foo_bar_xyz):
 
 " start at f {{{3
 Before (Do nothing):
+
 Do (di_):
   di_
 Expect:
@@ -216,7 +217,7 @@ Do (da_):
   da_
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -230,7 +231,7 @@ Do (da_):
   da_
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at x {{{3
 Before (Go to x):
@@ -244,8 +245,8 @@ Do (fada_):
   da_
 Expect:
   foo_bar_xyz
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: _foo\nbar_ {{{2
 Given (_foo\nbar_):
@@ -268,7 +269,7 @@ Expect:
   _foo
   bar_
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -285,8 +286,8 @@ Do (ffdi_):
 Expect:
   _foo
   bar_
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo__foobar__ {{{2
 Given (foo__foobar__):
@@ -340,8 +341,8 @@ Do (va_a_d):
   va_a_d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo__b__ {{{2
 Given (foo__b__):
@@ -400,9 +401,9 @@ Do (va_a_d):
   va_a_d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " - dash {{{1
 " doc: doo-bar-xyz {{{2
@@ -419,7 +420,7 @@ Do (da-):
   da-
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -433,7 +434,7 @@ Do (da-):
   da-
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at x {{{3
 Before (Go to x):
@@ -447,8 +448,8 @@ Do (fada-):
   da-
 Expect:
   foo-bar-xyz
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: -foo\nbar- {{{2
 Given (-foo\nbar-):
@@ -471,7 +472,7 @@ Expect:
   -foo
   bar-
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -488,8 +489,8 @@ Do (ffdi-):
 Expect:
   -foo
   bar-
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo--foobar-- {{{2
 Given (foo--foobar--):
@@ -543,8 +544,8 @@ Do (va-a-d):
   va-a-d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo--b-- {{{2
 Given (foo--b--):
@@ -603,9 +604,9 @@ Do (va-a-d):
   va-a-d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " : colon {{{1
 " doc: doo:bar:xyz {{{2
@@ -622,7 +623,7 @@ Do (da:):
   da:
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -636,7 +637,7 @@ Do (da:):
   da:
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at x {{{3
 Before (Go to x):
@@ -650,8 +651,8 @@ Do (fada:):
   da:
 Expect:
   foo:bar:xyz
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: :foo\nbar: {{{2
 Given (:foo\nbar:):
@@ -674,7 +675,7 @@ Expect:
   :foo
   bar:
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -691,8 +692,8 @@ Do (ffdi:):
 Expect:
   :foo
   bar:
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo::foobar:: {{{2
 Given (foo::foobar::):
@@ -746,8 +747,8 @@ Do (va:a:d):
   va:a:d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo::b:: {{{2
 Given (foo::b::):
@@ -806,9 +807,9 @@ Do (va:a:d):
   va:a:d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " @ at {{{1
 " doc: doo@bar@xyz {{{2
@@ -825,7 +826,7 @@ Do (da@):
   da@
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -839,7 +840,7 @@ Do (da@):
   da@
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at x {{{3
 Before (Go to x):
@@ -853,8 +854,8 @@ Do (fada@):
   da@
 Expect:
   foo@bar@xyz
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: @foo\nbar@ {{{2
 Given (@foo\nbar@):
@@ -877,7 +878,7 @@ Expect:
   @foo
   bar@
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -894,8 +895,8 @@ Do (ffdi@):
 Expect:
   @foo
   bar@
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo@@foobar@@ {{{2
 Given (foo@@foobar@@):
@@ -949,8 +950,8 @@ Do (va@a@d):
   va@a@d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo@@b@@ {{{2
 Given (foo@@b@@):
@@ -1009,9 +1010,9 @@ Do (va@a@d):
   va@a@d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " ! bang {{{1
 " doc: doo!bar!xyz {{{2
@@ -1028,7 +1029,7 @@ Do (da!):
   da!
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -1042,7 +1043,7 @@ Do (da!):
   da!
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at x {{{3
 Before (Go to x):
@@ -1056,8 +1057,8 @@ Do (fada!):
   da!
 Expect:
   foo!bar!xyz
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: !foo\nbar! {{{2
 Given (!foo\nbar!):
@@ -1080,7 +1081,7 @@ Expect:
   !foo
   bar!
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -1097,8 +1098,8 @@ Do (ffdi!):
 Expect:
   !foo
   bar!
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo!!foobar!! {{{2
 Given (foo!!foobar!!):
@@ -1152,8 +1153,8 @@ Do (va!a!d):
   va!a!d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo!!b!! {{{2
 Given (foo!!b!!):
@@ -1212,9 +1213,9 @@ Do (va!a!d):
   va!a!d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " ? question mark {{{1
 " doc: doo?bar?xyz {{{2
@@ -1231,7 +1232,7 @@ Do (da?):
   da?
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -1283,7 +1284,7 @@ Expect:
   ?foo
   bar?
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -1300,8 +1301,8 @@ Do (ffdi?):
 Expect:
   ?foo
   bar?
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo??foobar?? {{{2
 Given (foo??foobar??):
@@ -1355,8 +1356,8 @@ Do (va?a?d):
   va?a?d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo??b?? {{{2
 Given (foo??b??):
@@ -1415,9 +1416,9 @@ Do (va?a?d):
   va?a?d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " / slash {{{1
 " doc: doo/bar/xyz {{{2
@@ -1434,7 +1435,7 @@ Do (da/):
   da/
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -1448,7 +1449,7 @@ Do (da/):
   da/
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at x {{{3
 Before (Go to x):
@@ -1462,8 +1463,8 @@ Do (fada/):
   da/
 Expect:
   foo/bar/xyz
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: /foo\nbar/ {{{2
 Given (/foo\nbar/):
@@ -1486,7 +1487,7 @@ Expect:
   /foo
   bar/
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -1503,8 +1504,8 @@ Do (ffdi/):
 Expect:
   /foo
   bar/
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo//foobar// {{{2
 Given (foo//foobar//):
@@ -1558,8 +1559,8 @@ Do (va/a/d):
   va/a/d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo//b// {{{2
 Given (foo//b//):
@@ -1618,9 +1619,9 @@ Do (va/a/d):
   va/a/d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}
 
 " | bar {{{1
 " doc: doo|bar|xyz {{{2
@@ -1637,7 +1638,7 @@ Do (da|):
   da|
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at b {{{3
 Before (Go to a):
@@ -1651,7 +1652,7 @@ Do (da|):
   da|
 Expect:
   fooxyz
-" }}}3
+" }}}
 
 " start at x {{{3
 Before (Go to x):
@@ -1665,8 +1666,8 @@ Do (fada|):
   da|
 Expect:
   foo|bar|xyz
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: |foo\nbar| {{{2
 Given (|foo\nbar|):
@@ -1689,7 +1690,7 @@ Expect:
   |foo
   bar|
 
-" }}}3
+" }}}
 
 " start b {{{3
 Before (Go to b):
@@ -1706,8 +1707,8 @@ Do (ffdi|):
 Expect:
   |foo
   bar|
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo||foobar|| {{{2
 Given (foo||foobar||):
@@ -1761,8 +1762,8 @@ Do (va|a|d):
   va|a|d
 Expect (All symbol embraces deleted):
   foo
-" }}}3
-" }}}2
+" }}}
+" }}}
 
 " doc: foo||b|| {{{2
 Given (foo||b||):
@@ -1821,6 +1822,6 @@ Do (va|a|d):
   va|a|d
 Expect (all symbol deleted):
   foo
-" }}}3
-" }}}2
-" }}}1
+" }}}
+" }}}
+" }}}

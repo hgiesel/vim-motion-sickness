@@ -15,14 +15,5 @@ before_script:
 
 script:
   - 'export PATH="/usr/local/bin:$PATH"'
-  - |
-    'vim -Nu <(cat <<-EOF'
-    'set nocompatible |'
-    'filetype off |'
-    'set rtp+=vader.vim |'
-    'set rtp+=. |'
-    'filetype plugin indent on |'
-    'syntax enable'
-    'EOF'
-    ") -c 'Vader! test/*.vader' > /dev/null"
+  - "vim -Nu test/vimrc-test -c 'Vader! test/*.vader' > /dev/null"
 ...
