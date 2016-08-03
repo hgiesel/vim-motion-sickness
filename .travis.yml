@@ -1,22 +1,25 @@
 language: ruby
+
 before_script:
 - git clone https://github.com/junegunn/vader.vim.git
 - git clone https://github.com/vim/vim
-- cd vim
+- pushd vim
 - ./configure
   --with-features=huge
   --enable-rubyinterp
   --enable-pythoninterp
 - make -j4
 - sudo make install
-- cd -
+- popd
 
 script:
 - export PATH="/usr/local/bin:$PATH"
-- export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
-- vim -Nu <(cat <<< 'set nocompatible |
+- vim -Nu <(cat <<-EOF
+  set nocompatible |
   filetype off |
   set rtp+=vader.vim |
   set rtp+=. |
   filetype plugin indent on |
-  syntax enable') -c 'Vader! test/*.vader' > /dev/null
+  syntax enable
+  EOF
+  ) -c 'Vader! test/*.vader' > /dev/null
