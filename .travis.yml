@@ -7,7 +7,7 @@ before_install:
 
 install:
   - >
-    (cd vim ; configure
+    (cd vim ; ./configure
     --with-features=huge
     --enable-rubyinterp
     --enable-pythoninterp)
