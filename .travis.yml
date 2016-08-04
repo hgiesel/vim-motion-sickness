@@ -19,7 +19,7 @@ before_script:
   - export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
 
 script:
-  - vim -u test/vimrc-test -c 'Vader! test/*.vader' > /dev/null
+  - vim -u test/vimrc-test -c 'Vader! test/*.vader'
 
 after_failure:
   - vim -u test/vimrc-test -c 'Vader! test/*.vader'
