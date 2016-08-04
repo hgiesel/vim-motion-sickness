@@ -14,5 +14,6 @@ before_script:
   - 'git clone https://github.com/junegunn/vader.vim.git'
 script:
   - 'export PATH=/usr/local/bin:$PATH'
+  - 'ls'
   - "vim -Nu test/vimrc-test -c 'Vader! test/*.vader' > /dev/null"
 ...
