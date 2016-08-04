@@ -1,6 +1,7 @@
 ---
 language: vim
 before_script:
+  - 'git clone https://github.com/junegunn/vader.vim.git'
   - 'git clone https://github.com/vim/vim'
   - 'pushd vim'
   - >
@@ -11,7 +12,6 @@ before_script:
   - 'make -j4'
   - 'sudo make install'
   - 'popd'
-  - 'git clone https://github.com/junegunn/vader.vim.git'
 script:
   - 'export PATH=/usr/local/bin:$PATH'
   - 'ls'
