@@ -2,25 +2,25 @@
 language: vim
 
 before_install:
-  - 'git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/'
-  - 'git clone https://github.com/vim/vim'
+  - git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/
+  - git clone https://github.com/vim/vim
 
 install:
   - >
-    '(cd vim ; configure'
-    '--with-features=huge'
-    '--enable-rubyinterp'
-    '--enable-pythoninterp)'
-  - 'make -C ./vim -j4'
-  - 'sudo make -C ./vim install'
+    (cd vim ; configure
+    --with-features=huge
+    --enable-rubyinterp
+    --enable-pythoninterp)
+  - make -C ./vim -j4
+  - sudo make -C ./vim install
 
 before_script:
-  - 'export PATH=/usr/local/bin:${PATH}'
-  - 'export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib'
+  - export PATH=/usr/local/bin:${PATH}
+  - export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
 
 script:
-  - "vim -u test/vimrc-test -c 'Vader! test/*.vader' > /dev/null"
+  - vim -u test/vimrc-test -c 'Vader! test/*.vader' > /dev/null
 
 after_failure:
-  - "vim -u test/vimrc-test -c 'Vader! test/*.vader'"
+  - vim -u test/vimrc-test -c 'Vader! test/*.vader'
 ...
