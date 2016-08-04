@@ -7,10 +7,10 @@ before_install:
 
 install:
   - >
-    'vim/configure'
+    '(cd vim ; configure'
     '--with-features=huge'
     '--enable-rubyinterp'
-    '--enable-pythoninterp'
+    '--enable-pythoninterp)'
   - 'make -C ./vim -j4'
   - 'sudo make -C ./vim install'
 
