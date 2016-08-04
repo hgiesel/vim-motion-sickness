@@ -23,7 +23,4 @@ script:
 
 after_failure:
   - "vim -u test/vimrc-test -c 'Vader! test/*.vader'"
-
-after_success:
-  - "echo '\(^.^)\'"
 ...
