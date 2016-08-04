@@ -1,8 +1,11 @@
 ---
 language: vim
-before_script:
-  - 'git clone https://github.com/junegunn/vader.vim.git'
+
+before_install:
+  - 'git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/'
   - 'git clone https://github.com/vim/vim'
+
+install:
   - 'pushd vim'
   - >
     './configure'
@@ -12,8 +15,12 @@ before_script:
   - 'make -j4'
   - 'sudo make install'
   - 'popd'
+  - 'rm -rf vim'
+
+before_script:
+  - 'export PATH=/usr/local/bin:${PATH}'
+  - 'export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib'
+
 script:
-  - 'export PATH=/usr/local/bin:$PATH'
-  - 'ls'
   - "vim -Nu test/vimrc-test -c 'Vader! test/*.vader' > /dev/null"
 ...
