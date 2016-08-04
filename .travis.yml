@@ -1,10 +1,10 @@
 ---
 language: vim
-
 before_script:
   - 'git clone https://github.com/vim/vim'
   - 'pushd vim'
-  - './configure'
+  - >
+    './configure'
     '--with-features=huge'
     '--enable-rubyinterp'
     '--enable-pythoninterp'
@@ -12,8 +12,7 @@ before_script:
   - 'sudo make install'
   - 'popd'
   - 'git clone https://github.com/junegunn/vader.vim.git'
-
 script:
-  - 'export PATH="/usr/local/bin:$PATH"'
+  - 'export PATH=/usr/local/bin:$PATH'
   - "vim -Nu test/vimrc-test -c 'Vader! test/*.vader' > /dev/null"
 ...
