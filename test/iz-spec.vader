@@ -1,0 +1,20 @@
+" with doc {{{1
+Given (foo\nbar\nbaz):
+  foo
+    bar
+    baz
+
+" start on baz {{{2
+Before (Go to baz):
+  normal! /baz
+
+Do (diz):
+  diz
+Expect:
+  foo
+" }}}
+
+Do (daz):
+  daz
+Expect:
+" }}}

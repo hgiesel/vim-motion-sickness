@@ -17,12 +17,16 @@
 "
 " 4. `iqb` `aqb`, etc. is used to select parameters (or arguments) within
 "  braces, very helpful for any kind of programming language
-" 5. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
 "
-"  Planned for the future are: `qc` to select colon statements; `qw` to
-"  select arrow statements (in C) and to make iqb and qb work correctly with
-"  `<` characters splattered over the place
+"  Planned for the future are:
+" 1. `qc` to select colon (key: value) statements
+" 2. `qe` to select equal statements
+" 3. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
+" 4. `qw` select arrow statements (in C) and to make iqb and qb work correctly with
+" `<` characters splattered over the place
+" 5 `qn` to select namespace statements
 "
+" 6. iz and az to select indentation levels
 
 if exists('g:loaded_motion_sickness') || &compatible || v:version < 700
   finish
@@ -45,7 +49,7 @@ endfunction
 
 " this function finds the kind of braces you search for, will embrace it and you will
 " end op on the left
-" }}}1
+" }}}
 
 " Alias Motion {{{1
 function! s:sick_alias_motions_add(char_from, char_to)
@@ -599,3 +603,24 @@ function! s:brace_dict_matches(brace_dict)
   return 0
 endfunction
 " }}}1
+
+" iz motion {{{1
+onoremap <silent> iz :<c-u>call <sid>iz_motion(0)<cr>
+onoremap <silent> az :<c-u>call <sid>iz_motion(&tabstop)<cr>
+vnoremap <silent> iz :<c-u>call <sid>iz_motion(0)<cr>
+vnoremap <silent> az :<c-u>call <sid>iz_motion(&tabstop)<cr>
+
+function s:iz_motion(margin)
+  let l:cur_indent = indent(line("."))
+  while indent(line('.') - 1) >= l:cur_indent - a:margin
+    \ && getline(line('.') - 1) != ''
+    execute 'normal k'
+  endwhile
+
+  execute "normal V"
+  while indent(line('.') + 1) >= l:cur_indent - a:margin
+    \ && getline(line('.') + 1) != ''
+    execute 'normal j'
+  endwhile
+endfunction
+" }}}
