@@ -1,5 +1,7 @@
 ---
 language: vim
+dist: trusty
+sudo: required
 
 before_install:
   - git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/vader.vim
