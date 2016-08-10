@@ -1,4 +1,6 @@
 Given (foo\nbar\nbaz):
+  arg
+
   foo
     bar
     baz
@@ -8,9 +10,12 @@ Before (Go to baz):
 Do (diz):
   diz
 Expect:
+  arg
+
   foo
 
 Do (daz):
   daz
 Expect:
+  arg
 --
