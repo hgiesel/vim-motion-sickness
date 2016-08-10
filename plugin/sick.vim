@@ -52,20 +52,118 @@ endfunction
 " }}}
 
 " Alias Motion {{{1
-function! s:sick_alias_motions_add(char_from, char_to)
-  for arg in ['i', 'a']
-    for mapping in ['o', 'v']
-      execute mapping . 'noremap <silent> ' . arg . a:char_from .
-            \ ' ' . arg . a:char_to
-    endfor
-  endfor
-endfunction
+omap <silent> ir i[
+vmap <silent> ir i[
+omap <silent> ar a[
+vmap <silent> ar a[
 
-call s:sick_alias_motions_add('a', '<')
-call s:sick_alias_motions_add('r', '[')
+omap <silent> ia i<
+vmap <silent> ia i<
+omap <silent> aa a<
+vmap <silent> aa a<
 " }}}1
 
 " Symbol Motion {{{1
+omap <silent> i* <plug>OIAsteriskSmotion
+vmap <silent> i* <plug>VIAsteriskSmotion
+omap <silent> a* <plug>OAAsteriskSmotion
+vmap <silent> a* <plug>VAAsteriskSmotion
+
+omap <silent> i_ <plug>OIUnderscoreSmotion
+vmap <silent> i_ <plug>VIUnderscoreSmotion
+omap <silent> a_ <plug>OAUnderscoreSmotion
+vmap <silent> a_ <plug>VAUnderscoreSmotion
+
+omap <silent> i- <plug>OIDashSmotion
+vmap <silent> i- <plug>VIDashSmotion
+omap <silent> a- <plug>OADashSmotion
+vmap <silent> a- <plug>VADashSmotion
+
+omap <silent> i: <plug>OIColonSmotion
+vmap <silent> i: <plug>VIColonSmotion
+omap <silent> a: <plug>OAColonSmotion
+vmap <silent> a: <plug>VAColonSmotion
+
+omap <silent> i@ <plug>OIAtSmotion
+vmap <silent> i@ <plug>VIAtSmotion
+omap <silent> a@ <plug>OAAtSmotion
+vmap <silent> a@ <plug>VAAtSmotion
+
+omap <silent> i! <plug>OIBangSmotion
+vmap <silent> i! <plug>VIBangSmotion
+omap <silent> a! <plug>OABangSmotion
+vmap <silent> a! <plug>VABangSmotion
+
+omap <silent> i? <plug>OIQuestionSmotion
+vmap <silent> i? <plug>VIQuestionSmotion
+omap <silent> a? <plug>OAQuestionSmotion
+vmap <silent> a? <plug>VAQuestionSmotion
+
+omap <silent> i/ <plug>OISlashSmotion
+vmap <silent> i/ <plug>VISlashSmotion
+omap <silent> a/ <plug>OASlashSmotion
+vmap <silent> a/ <plug>VASlashSmotion
+
+omap <silent> i% <plug>OIPercentSmotion
+vmap <silent> i% <plug>VIPercentSmotion
+omap <silent> a% <plug>OAPercentSmotion
+vmap <silent> a% <plug>VAPercentSmotion
+
+omap <silent> i<bar> <plug>OIPipeSmotion
+vmap <silent> i<bar> <plug>VIPipeSmotion
+omap <silent> a<bar> <plug>OAPipeSmotion
+vmap <silent> a<bar> <plug>VAPipeSmotion
+
+onoremap <plug>OIAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '*', 'o')<cr>
+vnoremap <plug>VIAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '*', 'o')<cr>
+onoremap <plug>OAAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'o')<cr>
+vnoremap <plug>VAAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'o')<cr>
+
+onoremap <plug>OIUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '_', 'o')<cr>
+vnoremap <plug>VIUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '_', 'o')<cr>
+onoremap <plug>OAUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '_', 'o')<cr>
+vnoremap <plug>VAUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '_', 'o')<cr>
+
+onoremap <plug>OIDashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '-', 'o')<cr>
+vnoremap <plug>VIDashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '-', 'o')<cr>
+onoremap <plug>OADashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '-', 'o')<cr>
+vnoremap <plug>VADashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '-', 'o')<cr>
+
+onoremap <plug>OIColonSmotion :<c-u>call <sid>sick_symbol_motion(v:false, ':', 'o')<cr>
+vnoremap <plug>VIColonSmotion :<c-u>call <sid>sick_symbol_motion(v:false, ':', 'o')<cr>
+onoremap <plug>OAColonSmotion :<c-u>call <sid>sick_symbol_motion(v:true, ':', 'o')<cr>
+vnoremap <plug>VAColonSmotion :<c-u>call <sid>sick_symbol_motion(v:true, ':', 'o')<cr>
+
+onoremap <plug>OIAtSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '@', 'o')<cr>
+vnoremap <plug>VIAtSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '@', 'o')<cr>
+onoremap <plug>OAAtSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '@', 'o')<cr>
+vnoremap <plug>VAAtSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '@', 'o')<cr>
+
+onoremap <plug>OIBangSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '!', 'o')<cr>
+vnoremap <plug>VIBangSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '!', 'o')<cr>
+onoremap <plug>OABangSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '!', 'o')<cr>
+vnoremap <plug>VABangSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '!', 'o')<cr>
+
+onoremap <plug>OIQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '?', 'o')<cr>
+vnoremap <plug>VIQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '?', 'o')<cr>
+onoremap <plug>OAQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '?', 'o')<cr>
+vnoremap <plug>VAQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '?', 'o')<cr>
+
+onoremap <plug>OISlashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '/', 'o')<cr>
+vnoremap <plug>VISlashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '/', 'o')<cr>
+onoremap <plug>OASlashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '/', 'o')<cr>
+vnoremap <plug>VASlashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '/', 'o')<cr>
+
+onoremap <plug>OIPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '%', 'o')<cr>
+vnoremap <plug>VIPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '%', 'o')<cr>
+onoremap <plug>OAPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '%', 'o')<cr>
+vnoremap <plug>VAPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '%', 'o')<cr>
+
+onoremap <plug>OIPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '<bar>', 'o')<cr>
+vnoremap <plug>VIPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '<bar>', 'o')<cr>
+onoremap <plug>OAPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '<bar>', 'o')<cr>
+vnoremap <plug>VAPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '<bar>', 'o')<cr>
+
 function! s:sick_symbol_motion(wrap, symbol, mode)
   " position on the left when you started
   let l:start_col = col('.')
@@ -86,7 +184,7 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
   endif
 
   if l:valid
-    if a:wrap ==# 'i'
+    if !a:wrap
       execute "normal! l"
 
       if col('.') ==# l:start_col && getline('.')[l:start_col + 1] !=# a:symbol
@@ -112,7 +210,7 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
       let l:valid = v:false
     end
 
-    if l:valid && a:wrap ==# 'i'
+    if l:valid && !a:wrap
       execute "normal! h"
     endif
   endif
@@ -124,22 +222,6 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
     endif
   endif
 endfunction
-
-function! s:sick_symbol_motion_add(symbol)
-  for wrap in ['i', 'a']
-      silent! execute  "onoremap <silent> " . wrap . a:symbol . " :\<c-u>call "
-        \ . "<sid>sick_symbol_motion('" . wrap . "', '" . a:symbol . "', 'o')\<cr>"
-      silent! execute  "vnoremap <silent> " . wrap . a:symbol . " :\<c-u>call "
-        \ . "<sid>sick_symbol_motion('" . wrap . "', '" . a:symbol . "', 'v')\<cr>"
-  endfor
-endfunction
-
-let g:sick_symbol_motion_chars =
-      \ ['*', '_', '-', ':', '@', '!', '?', '/', "<bar>"]
-
-for char in g:sick_symbol_motion_chars
-  call s:sick_symbol_motion_add(char)
-endfor
 " }}}1
 
 " qb Motion {{{1
