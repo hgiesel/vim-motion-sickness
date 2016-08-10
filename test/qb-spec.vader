@@ -1,100 +1,21 @@
-" qb motion {{{1
-" with doc foo<ochar>bar<cchar> {{{2
-Given (foo{bar}):
-  foo{bar}
-
-" start on f {{{3
-Before (Do nothing):
-
-Do:
-  dqB
-Expect:
-  
-" }}}
-
-" start on b {{{3
-Before (Go to b):
-  normal! fb
-
-Do (dqB):
-  dqB
-Expect:
-  
-" }}}
-
-" start on ochar {{{3
-Before (Go to {):
-  f{
-
-Do:
-  dqB
-Expect:
-  
-" }}}
-
-" start on cchar {{{3
-Before (Go to }):
-  f}
-
-Do:
-  dqB
-Expect:
-  
-" }}}
-" }}}
-
-" with doc foo<ochar>bar<cchar> {{{2
-Given (foo{bar}):
-  foo{bar}
-
-" start on f {{{3
-Before (Do nothing):
-
-Do:
-  dqB
-Expect:
-  
-" }}}
-
-" start on b {{{3
-Before (Go to b):
-  normal! fb
-
-Do (dqB):
-  dqB
-Expect:
-  
-" }}}
-
-" start on ochar {{{3
-Before (Go to {):
-  f{
-
-Do:
-  dqB
-Expect:
-  
-" }}}
-
-" start on cchar {{{3
-Before (Go to }):
-  f}
-
-Do:
-  dqB
-Expect:
-  
-" }}}
-" }}}
-" }}}
-
-" qB motion {{{1
-" with doc foo<ochar>bar<cchar> {{{2
-Given (foo{bar}):
+" q motions {{{1
+" qb motion {{{2
+" with doc foo<ochar>bar<cchar> {{{3
+Given (foo(bar)):
   foo(bar)
 
-" start on f {{{3
+" start on f {{{4
 Before (Do nothing):
+
+Do:
+  dqb
+Expect:
+  
+" }}}
+
+" start on b {{{4
+Before (Go to b):
+  normal! fb
 
 Do (dqb):
   dqb
@@ -102,19 +23,53 @@ Expect:
   
 " }}}
 
-" start on b {{{3
-Before (Go to b):
-  normal! fb
+" start on open paren {{{4
+Before (Go to open paren):
+  f(
+
+Do (dqb):
+  dqb
+Expect (All deleted):
+  
+" }}}
+
+" start on close paren {{{4
+Before (Go to close paren):
+  f)
+
+Do (dqb):
+  dqb
+Expect:
+  
+" }}}
+" }}}
+
+" with doc xyz::foo<ochar>bar<cchar> {{{3
+Given (xyz::foo(bar)):
+  xyz::foo(bar)
+
+" start on x {{{4
+Before (Do nothing):
 
 Do (dqB):
   dqb
 Expect:
-  
+  xyz::foo(bar)
 " }}}
 
-" start on ochar {{{3
-Before (Go to ochar):
-  normal! f(
+" start on f {{{4
+Before (Go to f):
+  normal! ff
+
+Do (dqb):
+  dqb
+Expect:
+  xyz::
+" }}}
+
+" start on open paren {{{4
+Before (Go to open paren):
+  f(
 
 Do (dqb):
   dqb
@@ -122,45 +77,71 @@ Expect:
   
 " }}}
 
-" start on cchar {{{3
-Before (Go to cchar):
-  normal! f)
+" start on close paren {{{4
+Before (Go to close paren):
+  f)
 
 Do (dqb):
   dqb
-Expect (Something):
+Expect:
   
 " }}}
 " }}}
 " }}}
 
-" qr motion {{{1
-" with doc foo<ochar>bar<cchar> {{{2
+" qB motion {{{2
+" with doc foo<ochar>bar<cchar> {{{3
+Given (foo{bar}):
+  foo{bar}
+
+" start on f {{{4
+Before (Do nothing):
+
+Do (dqB):
+  dqB
+Expect (All deleted):
+  
+" }}}
+
+" start on b {{{4
+Before (Go to b):
+  normal! fb
+
+Do (dqB):
+  dqB
+Expect (All deleted):
+  
+" }}}
+
+" start on open brace {{{4
+Before (Go to open brace):
+  normal! f{
+
+Do (dqB):
+  dqB
+Expect (All deleted):
+  
+" }}}
+
+" start on cchar {{{4
+Before (Go to close brace):
+  normal! f}
+
+Do (dqB):
+  dqB
+Expect (All deleted):
+  
+" }}}
+" }}}
+" }}}
+
+" qr motion {{{2
+" with doc foo[bar] {{{3
 Given (foo[bar]):
   foo[bar]
 
-" start on f {{{3
+" start on f {{{4
 Before (Do nothing):
-
-Do (dqb):
-  dqr
-Expect:
-  
-" }}}
-
-" start on b {{{3
-Before (Go to b):
-  normal! fb
-
-Do (dqB):
-  dqr
-Expect:
-  
-" }}}
-
-" start on ochar {{{3
-Before (Go to ochar):
-  normal! f[
 
 Do (dqr):
   dqr
@@ -168,8 +149,28 @@ Expect:
   
 " }}}
 
-" start on cchar {{{3
-Before (Go to cchar):
+" start on b {{{4
+Before (Go to b):
+  normal! fb
+
+Do (dqr):
+  dqr
+Expect (All deleted):
+  
+" }}}
+
+" start on open bracket {{{4
+Before (Go to open bracket):
+  normal! f[
+
+Do (dqr):
+  dqr
+Expect (All deleted):
+  
+" }}}
+
+" start on close bracket {{{4
+Before (Go to close bracket):
   normal! f]
 
 Do (dqr):
@@ -180,51 +181,285 @@ Expect:
 " }}}
 " }}}
 
-" qa motion {{{1
-" with doc foo<ochar>bar<cchar> {{{2
+" qa motion {{{2
+" with doc foo<bar> {{{3
 Given (foo<bar>):
   foo<bar>
 
-" start on f {{{3
+" start on f {{{4
 Before (Do nothing):
 
 Do (dqa):
   dqa
-Expect:
+Expect (All deleted):
   
 " }}}
 
-" start on b {{{3
+" start on b {{{4
 Before (Go to b):
   normal! fb
 
 Do (dqa):
   dqa
-Expect:
+Expect (All deleted):
   
 " }}}
 
-" start on ochar {{{3
-Before (Go to ochar):
+" start on open chevron {{{4
+Before (Go to open chevron):
   normal! f<
 
 Do (dqa):
   dqa
-Expect:
+Expect (All deleted):
   
 " }}}
 
-" start on cchar {{{3
-Before (Go to cchar):
+" start on cchar {{{4
+Before (Go to close chevron):
   normal! f>
 
 Do (dqa):
   dqa
+Expect (All deleted):
+  
+" }}}
+" }}}
+" }}}
+
+" q<space> motion {{{2
+" }}}
+" }}}
+
+" Q motions {{{1
+" Qb motion {{{2
+" with doc xyz::foo(bar) {{{3
+Given (xyz::foo(bar)):
+  xyz::foo(bar)
+
+" start on x {{{4
+Before (Do nothing):
+
+Do (dQB):
+  dQB
+Expect (All deleted):
+  
+" }}}
+
+" start on f {{{4
+Before (Go to f):
+  normal! ff
+
+Do (dQB):
+  dQB
+Expect (All deleted):
+  
+" }}}
+
+" start on ochar {{{4
+Before (Go to ():
+  f(
+
+Do:
+  dQb
+Expect:
+  
+" }}}
+
+" start on cchar {{{4
+Before (Go to close paren):
+  f)
+
+Do:
+  dQb
+Expect:
+  
+" }}}
+" }}}
+
+" with doc foo(bar) {{{3
+Given (foo(bar)):
+  foo(bar)
+
+" start on f {{{4
+Before (Do nothing):
+
+Do (dQb):
+  dQb
+Expect (All deleted):
+  
+" }}}
+
+" start on b {{{4
+Before (Go to b):
+  normal! fb
+
+Do (dQB):
+  dQb
+Expect (All deleted):
+  
+" }}}
+
+" start on open paren {{{4
+Before (Go to open paren):
+  f(
+
+Do (dQb):
+  dQb
+Expect (All deleted):
+  
+" }}}
+
+" start on close paren {{{4
+Before (Go to close paren):
+  f)
+
+Do (dQb):
+  dQb
 Expect:
   
 " }}}
 " }}}
 " }}}
 
-" q<space> motion {{{1
+" QB motion {{{2
+" with doc xyz::foo{bar} {{{3
+Given (xyz::foo{bar}):
+  xyz::foo{bar}
+
+" start on x {{{4
+Before (Do nothing):
+
+Do (dQB):
+  dQB
+Expect (All deleted):
+  
+" }}}
+
+" start on f {{{4
+Before (Go to f):
+  normal! ff
+
+Do (dQB):
+  dQB
+Expect (All deleted):
+  
+" }}}
+
+" start on open brace {{{4
+Before (Go to open brace):
+  normal! f{
+
+Do (dQB):
+  dQB
+Expect (All deleted):
+  
+" }}}
+
+" start on close brace {{{4
+Before (Go to close brace):
+  normal! f}
+
+Do (dQB):
+  dQB
+Expect (All deleted):
+  
+" }}}
+" }}}
+" }}}
+
+" Qr motion {{{2
+" with doc xyz::foo[bar] {{{3
+Given (foo[bar]):
+  foo[bar]
+
+" start on x {{{4
+Before (Do nothing):
+
+Do (dQr):
+  dQr
+Expect (All deleted):
+  
+" }}}
+
+" start on f {{{4
+Before (Go to f):
+  normal! ff
+
+Do (dQr):
+  dQr
+Expect (All deleted):
+  
+" }}}
+
+" start on open bracket {{{4
+Before (Go to open bracket):
+  normal! f[
+
+Do (dQr):
+  dQr
+Expect:
+  
+" }}}
+
+" start on close bracket {{{4
+Before (Go to close bracket):
+  normal! f]
+
+Do (dQr):
+  dQr
+Expect (All deleted):
+  
+" }}}
+" }}}
+" }}}
+
+" Qa motion {{{2
+" with doc xyz::foo<bar> {{{3
+Given (xyz::foo<bar>):
+  xyz::foo<bar>
+
+" start on x {{{4
+Before (Do nothing):
+
+Do (dQa):
+  dQa
+Expect (All deleted):
+  
+" }}}
+
+" start on f {{{4
+Before (Go to f):
+  normal! ff
+
+Do (dQa):
+  dQa
+Expect (All deleted):
+  
+" }}}
+
+" start on open chevron {{{4
+Before (Go to open chevron):
+  normal! f<
+
+Do (dQa):
+  dQa
+Expect (All deleted):
+  
+" }}}
+
+" start on cchar {{{4
+Before (Go to close chevron):
+  normal! f>
+
+Do (dQa):
+  dQa
+Expect (All deleted):
+  
+" }}}
+" }}}
+" }}}
+
+" Q<space> motion {{{2
+" }}}
 " }}}

@@ -279,12 +279,12 @@ endfunction
 
 function! s:sick_qb_motion_add(synonym, open_char, close_char)
   for reach in ['q', 'Q']
-    execute "onoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>" .
-          \ "sick_qb_motion(getpos('.'), '" . a:open_char . "', '" .
-          \ a:close_char . "', '" . reach . "')\<cr>"
-    execute "vnoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>" .
-          \ "sick_qb_motion(getpos('.'), '" . a:open_char . "', '" .
-          \ a:close_char . "', '" . reach . "')\<cr>"
+    execute "onoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>"
+          \ . "sick_qb_motion(getpos('.'), '" . a:open_char . "', '"
+          \ . a:close_char . "', '" . reach . "')\<cr>"
+    execute "vnoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>"
+          \ . "sick_qb_motion(getpos('.'), '" . a:open_char . "', '"
+          \ . a:close_char . "', '" . reach . "')\<cr>"
   endfor
 endfunction
 
