@@ -4,19 +4,12 @@ Given (foo\nbar\nbaz):
     baz
 Before (Go to baz):
   normal! /baz
+
 Do (diz):
   diz
 Expect:
   foo
 
-
-Given (foo\nbar\nbaz):
-  foo
-    bar
-    baz
-Before (Go to baz):
-  normal! /baz
-  normal! /baz
 Do (daz):
   daz
 Expect:
