@@ -33,7 +33,7 @@ if exists('g:loaded_motion_sickness') || &compatible || v:version < 700
 endif
 let g:loaded_motion_sickness = 1
 
-" like C
+" like C {{{1
 function! s:sick_cmp(a, b)
   for i in range(len(a:a))
     if a:a[i] < a:b[i]
@@ -112,10 +112,8 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
       let l:valid = v:false
     end
 
-    if l:valid
-      if a:wrap ==# 'i'
-        execute "normal! h"
-      endif
+    if l:valid && a:wrap ==# 'i'
+      execute "normal! h"
     endif
   endif
 
@@ -129,10 +127,10 @@ endfunction
 
 function! s:sick_symbol_motion_add(symbol)
   for wrap in ['i', 'a']
-      silent! execute  "onoremap <silent> " . wrap . a:symbol . " :\<c-u>call " .
-        \ "<sid>sick_symbol_motion('" . wrap . "', '" . a:symbol . "', 'o')\<cr>"
-      silent! execute  "vnoremap <silent> " . wrap . a:symbol . " :\<c-u>call " .
-        \ "<sid>sick_symbol_motion('" . wrap . "', '" . a:symbol . "', 'v')\<cr>"
+      silent! execute  "onoremap <silent> " . wrap . a:symbol . " :\<c-u>call "
+        \ . "<sid>sick_symbol_motion('" . wrap . "', '" . a:symbol . "', 'o')\<cr>"
+      silent! execute  "vnoremap <silent> " . wrap . a:symbol . " :\<c-u>call "
+        \ . "<sid>sick_symbol_motion('" . wrap . "', '" . a:symbol . "', 'v')\<cr>"
   endfor
 endfunction
 
@@ -145,6 +143,42 @@ endfor
 " }}}1
 
 " qb Motion {{{1
+omap <silent> qb <plug>Oqbmotion
+omap <silent> Qb <plug>OQbmotion
+omap <silent> qB <plug>OqBmotion
+omap <silent> QB <plug>OQBmotion
+omap <silent> qr <plug>Oqrmotion
+omap <silent> Qr <plug>OQrmotion
+omap <silent> qa <plug>Oqamotion
+omap <silent> Qa <plug>OQamotion
+
+vmap <silent> qb <plug>Vqbmotion
+vmap <silent> Qb <plug>VQbmotion
+vmap <silent> qB <plug>VqBmotion
+vmap <silent> QB <plug>VQBmotion
+vmap <silent> qr <plug>Vqrmotion
+vmap <silent> Qr <plug>VQrmotion
+vmap <silent> qa <plug>Vqamotion
+vmap <silent> Qa <plug>VQamotion
+
+onoremap <plug>Oqbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'q')<cr>
+onoremap <plug>OQbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'Q')<cr>
+onoremap <plug>OqBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'q')<cr>
+onoremap <plug>OQBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'Q')<cr>
+onoremap <plug>Oqrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'q')<cr>
+onoremap <plug>OQrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'Q')<cr>
+onoremap <plug>Oqamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'q')<cr>
+onoremap <plug>OQamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'Q')<cr>
+
+vnoremap <plug>Vqbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'q')<cr>
+vnoremap <plug>VQbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'Q')<cr>
+vnoremap <plug>VqBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'q')<cr>
+vnoremap <plug>VQBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'Q')<cr>
+vnoremap <plug>Vqrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'q')<cr>
+vnoremap <plug>VQrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'Q')<cr>
+vnoremap <plug>Vqamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'q')<cr>
+vnoremap <plug>VQamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'Q')<cr>
+
 function! s:sick_find_nth_char(n, char)
   if getline('.')[col('.') - 1] !=# a:char
     for i in range(a:n)
@@ -231,10 +265,6 @@ function! s:sick_make_a_q(open_char, close_char, reach)
   return l:invalid
 endfunction
 
-" sasdf(asdf, asdf)
-
-
-
 function! s:sick_qb_motion(cur_pos, open_char, close_char, reach)
 
   let l:repetitions = 1
@@ -261,7 +291,6 @@ function! s:sick_qb_motion(cur_pos, open_char, close_char, reach)
     " reset window and finish
     else
       call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
-
       return 0
     endif
   endwhile
@@ -276,27 +305,6 @@ function! s:sick_qb_motion(cur_pos, open_char, close_char, reach)
   call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
   call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
 endfunction
-
-function! s:sick_qb_motion_add(synonym, open_char, close_char)
-  for reach in ['q', 'Q']
-    execute "onoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>"
-          \ . "sick_qb_motion(getpos('.'), '" . a:open_char . "', '"
-          \ . a:close_char . "', '" . reach . "')\<cr>"
-    execute "vnoremap <silent> " . reach . a:synonym . " :\<c-u>call <sid>"
-          \ . "sick_qb_motion(getpos('.'), '" . a:open_char . "', '"
-          \ . a:close_char . "', '" . reach . "')\<cr>"
-  endfor
-endfunction
-
-call s:sick_qb_motion_add('b', '(', ')')
-call s:sick_qb_motion_add('B', '{', '}')
-call s:sick_qb_motion_add('r', '[', ']')
-call s:sick_qb_motion_add('a', '<', '>')
-
-call s:sick_qb_motion_add('(', '(', ')')
-call s:sick_qb_motion_add('{', '{', '}')
-call s:sick_qb_motion_add('[', '[', ']')
-call s:sick_qb_motion_add('<', '<', '>')
 " }}}1
 
 " iqb Motion {{{1
