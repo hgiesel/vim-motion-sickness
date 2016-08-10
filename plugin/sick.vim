@@ -605,10 +605,15 @@ endfunction
 " }}}1
 
 " iz motion {{{1
-onoremap <silent> iz :<c-u>call <sid>iz_motion(0)<cr>
-onoremap <silent> az :<c-u>call <sid>iz_motion(&tabstop)<cr>
-vnoremap <silent> iz :<c-u>call <sid>iz_motion(0)<cr>
-vnoremap <silent> az :<c-u>call <sid>iz_motion(&tabstop)<cr>
+omap <silent> iz <plug>OIzmotion
+omap <silent> az <plug>OIZmotion
+vmap <silent> iz <plug>VIzmotion
+vmap <silent> az <plug>VIZmotion
+
+onoremap <silent> <plug>OIzmotion :<c-u>call <sid>iz_motion(0)<cr>
+onoremap <silent> <plug>OIZmotion :<c-u>call <sid>iz_motion(&tabstop)<cr>
+vnoremap <silent> <plug>VIzmotion :<c-u>call <sid>iz_motion(0)<cr>
+vnoremap <silent> <plug>VIZmotion :<c-u>call <sid>iz_motion(&tabstop)<cr>
 
 function s:iz_motion(margin)
   let l:cur_indent = indent(line("."))
