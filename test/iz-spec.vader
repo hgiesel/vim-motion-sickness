@@ -5,7 +5,8 @@ Given (foo\nbar\nbaz):
     bar
     baz
 Before (Go to baz):
-  normal! /baz\<cr>
+  call search('baz')
+
 Do (diz):
   diz
 Expect:

@@ -144,39 +144,43 @@ endfor
 
 " qb Motion {{{1
 omap <silent> qb <plug>Oqbmotion
-omap <silent> Qb <plug>OQbmotion
-omap <silent> qB <plug>OqBmotion
-omap <silent> QB <plug>OQBmotion
-omap <silent> qr <plug>Oqrmotion
-omap <silent> Qr <plug>OQrmotion
-omap <silent> qa <plug>Oqamotion
-omap <silent> Qa <plug>OQamotion
-
 vmap <silent> qb <plug>Vqbmotion
+omap <silent> Qb <plug>OQbmotion
 vmap <silent> Qb <plug>VQbmotion
+
+omap <silent> qB <plug>OqBmotion
 vmap <silent> qB <plug>VqBmotion
+omap <silent> QB <plug>OQBmotion
 vmap <silent> QB <plug>VQBmotion
+
+omap <silent> qr <plug>Oqrmotion
 vmap <silent> qr <plug>Vqrmotion
+omap <silent> Qr <plug>OQrmotion
 vmap <silent> Qr <plug>VQrmotion
+
+omap <silent> qa <plug>Oqamotion
 vmap <silent> qa <plug>Vqamotion
+omap <silent> Qa <plug>OQamotion
 vmap <silent> Qa <plug>VQamotion
 
 onoremap <plug>Oqbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'q')<cr>
-onoremap <plug>OQbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'Q')<cr>
-onoremap <plug>OqBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'q')<cr>
-onoremap <plug>OQBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'Q')<cr>
-onoremap <plug>Oqrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'q')<cr>
-onoremap <plug>OQrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'Q')<cr>
-onoremap <plug>Oqamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'q')<cr>
-onoremap <plug>OQamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'Q')<cr>
-
 vnoremap <plug>Vqbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'q')<cr>
+onoremap <plug>OQbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'Q')<cr>
 vnoremap <plug>VQbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'Q')<cr>
+
+onoremap <plug>OqBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'q')<cr>
 vnoremap <plug>VqBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'q')<cr>
+onoremap <plug>OQBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'Q')<cr>
 vnoremap <plug>VQBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'Q')<cr>
+
+onoremap <plug>Oqrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'q')<cr>
 vnoremap <plug>Vqrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'q')<cr>
+onoremap <plug>OQrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'Q')<cr>
 vnoremap <plug>VQrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'Q')<cr>
+
+onoremap <plug>Oqamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'q')<cr>
 vnoremap <plug>Vqamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'q')<cr>
+onoremap <plug>OQamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'Q')<cr>
 vnoremap <plug>VQamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'Q')<cr>
 
 function! s:sick_find_nth_char(n, char)
