@@ -6,7 +6,7 @@ sudo: required
 before_install:
   - git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/vader.vim
   - git clone https://github.com/vim/vim
-  - export LD_LIBRARY_PATH=~/.rvm/rubies/ruby-2.2.3/lib
+  - rbenv shell system
 
 install:
   - >
@@ -20,6 +20,12 @@ install:
 before_script:
   - export PATH=/usr/local/bin:${PATH}
 
+after_failure:
+  - >
+    vim --nofork
+    --cmd 'ruby require "rbconfig";
+    print File.join(RbConfig::CONFIG["bindir"], RbConfig::CONFIG["ruby_install_name"])'
+    --cmd 'q' 2>&1 >/dev/null | grep -v 'Vim: Warning'
 script:
   - vim -u test/vimrc-test -c 'Vader! test/*.vader' > /dev/null
 ...
