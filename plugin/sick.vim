@@ -610,10 +610,10 @@ omap <silent> az <plug>OIZmotion
 vmap <silent> iz <plug>VIzmotion
 vmap <silent> az <plug>VIZmotion
 
-onoremap <silent> <plug>OIzmotion :<c-u>call <sid>iz_motion(0)<cr>
-onoremap <silent> <plug>OIZmotion :<c-u>call <sid>iz_motion(&tabstop)<cr>
-vnoremap <silent> <plug>VIzmotion :<c-u>call <sid>iz_motion(0)<cr>
-vnoremap <silent> <plug>VIZmotion :<c-u>call <sid>iz_motion(&tabstop)<cr>
+onoremap <plug>OIzmotion :<c-u>call <sid>iz_motion(0)<cr>
+onoremap <plug>OIZmotion :<c-u>call <sid>iz_motion(&tabstop)<cr>
+vnoremap <plug>VIzmotion :<c-u>call <sid>iz_motion(0)<cr>
+vnoremap <plug>VIZmotion :<c-u>call <sid>iz_motion(&tabstop)<cr>
 
 function s:iz_motion(margin)
   let l:cur_indent = indent(line("."))
