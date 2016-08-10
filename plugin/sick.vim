@@ -39,7 +39,7 @@ function! s:sick_cmp(a, b)
     if a:a[i] < a:b[i]
       return -1
 
-    elseif a:b[i] > a:a[i]
+    elseif a:a[i] > a:b[i]
       return 1
     endif
   endfor
@@ -211,28 +211,21 @@ function! s:sick_qb_motion(cur_pos, open_char, close_char, reach)
     call s:sick_make_a_q(a:open_char, a:close_char, a:reach)
     execute 'normal! o'
 
-    if s:sick_cmp(getpos('v')[1:2], a:cur_pos[1:2]) ==# 1
-          \ || s:sick_cmp(a:cur_pos[1:2], getpos('.')[1:2]) ==# 1
+    if s:sick_cmp(getpos('v')[1:2], a:cur_pos[1:2]) !=# 1
+          \ && s:sick_cmp(a:cur_pos[1:2], getpos('.')[1:2]) !=# 1
+      " legit qb section: reset window and finish
+      call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
+      return 0
+
+    else
       " no legit qb section
       normal! v
       call setpos('.', a:cur_pos)
       let l:recursions += 1
-
-    else
-      " legit qb section, so reset window and finish
-      call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
-      return 0
     endif
   endwhile
 
-  " if the function has come this far, it is assumed that the cursor is
-  " inside the braces of the statement (and not the name)
-  silent! execute "normal! va".a:open_char
-
-  " if there is no statement under your cursor, `make_a_q()` would
-  " unnecessarily change your cursor position
-  silent! execute "normal! o"
-  call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
+  " if you've come this far, there is no qb statement
   call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
 endfunction
 
