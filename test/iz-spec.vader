@@ -4,14 +4,16 @@ Given (foo\nbar\nbaz):
   foo
     bar
     baz
+Before (Go to baz):
+  normal! /baz\<cr>
 Do (diz):
-  /bazdiz
+  diz
 Expect:
   arg
 
   foo
 Do (daz):
-  /bazdaz
+  daz
 Expect:
   arg
---
+  
