@@ -461,11 +461,9 @@ function! s:qd_motion(cur_pos,chars,reach,greedy)
     execute "normal! f".a:chars
     if getline('.')[col('.') - 1] !=# a:chars
       let l:invalid = 1
-
     else
       if s:sick_make_a_q(a:chars,a:chars,a:reach) ==# 1
         let l:invalid = 1
-
       else
         normal! o
         let l:dot_was_found = 1
@@ -477,7 +475,6 @@ function! s:qd_motion(cur_pos,chars,reach,greedy)
 
     if s:sick_make_a_q(a:chars,a:chars,a:reach) ==# 1
       let l:invalid = 1
-
     else
       normal! o
       let l:dot_was_found = 1
@@ -531,7 +528,6 @@ function! s:qd_motion(cur_pos,chars,reach,greedy)
 
         if a:reach
           silent! normal! B
-
         else
           silent! normal! b
         endif
@@ -585,10 +581,10 @@ onoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'),'.',0,1)<cr>
 onoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'),'.',1,0)<cr>
 onoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'),'.',1,1)<cr>
 
-vnoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'),'.',0,0)<cr>
-vnoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'),'.',0,1)<cr>
-vnoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'),'.',1,0)<cr>
-vnoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'),'.',1,1)<cr>
+vnoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'),'.',v:false,v:false)<cr>
+vnoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'),'.',v:false,v:true)<cr>
+vnoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'),'.',v:true,v:false)<cr>
+vnoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'),'.',v:true,v:true)<cr>
 
 function! s:brace_dict_matches(brace_dict)
   if a:brace_dict['(']    ==# a:brace_dict[')'] &&
