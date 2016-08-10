@@ -163,34 +163,77 @@ vmap <silent> qa <plug>Vqamotion
 omap <silent> Qa <plug>OQamotion
 vmap <silent> Qa <plug>VQamotion
 
-onoremap <plug>Oqbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'q')<cr>
-vnoremap <plug>Vqbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'q')<cr>
-onoremap <plug>OQbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'Q')<cr>
-vnoremap <plug>VQbmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', 'Q')<cr>
+onoremap <plug>Oqbmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', v:false)<cr>
+vnoremap <plug>Vqbmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', v:false)<cr>
+onoremap <plug>OQbmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', v:true)<cr>
+vnoremap <plug>VQbmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '(', ')', v:true)<cr>
 
-onoremap <plug>OqBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'q')<cr>
-vnoremap <plug>VqBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'q')<cr>
-onoremap <plug>OQBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'Q')<cr>
-vnoremap <plug>VQBmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', 'Q')<cr>
+onoremap <plug>OqBmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', v:false)<cr>
+vnoremap <plug>VqBmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', v:false)<cr>
+onoremap <plug>OQBmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', v:true)<cr>
+vnoremap <plug>VQBmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '{', '}', v:true)<cr>
 
-onoremap <plug>Oqrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'q')<cr>
-vnoremap <plug>Vqrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'q')<cr>
-onoremap <plug>OQrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'Q')<cr>
-vnoremap <plug>VQrmotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', 'Q')<cr>
+onoremap <plug>Oqrmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', v:false)<cr>
+vnoremap <plug>Vqrmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', v:false)<cr>
+onoremap <plug>OQrmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', v:true)<cr>
+vnoremap <plug>VQrmotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '[', ']', v:true)<cr>
 
-onoremap <plug>Oqamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'q')<cr>
-vnoremap <plug>Vqamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'q')<cr>
-onoremap <plug>OQamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'Q')<cr>
-vnoremap <plug>VQamotion :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', 'Q')<cr>
+onoremap <plug>Oqamotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', v:false)<cr>
+vnoremap <plug>Vqamotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', v:false)<cr>
+onoremap <plug>OQamotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', v:true)<cr>
+vnoremap <plug>VQamotion
+      \ :<c-u>call <sid>sick_qb_motion(getpos('.'), '<', '>', v:true)<cr>
 
-function! s:sick_find_nth_char(n, char)
-  if getline('.')[col('.') - 1] !=# a:char
-    for i in range(a:n)
-      silent! execute "normal! /" . a:char . "\<cr>"
-    endfor
-  endif
+function! s:sick_qb_motion(cur_pos, open_char, close_char, reach)
+  let l:recursions  = 1
+  let l:winview     = winsaveview()
 
-  silent! execute "normal! va" . a:char . "o"
+  " this will only work with 10 recursions, because this could go on forever
+  while l:recursions < 10
+    " This block makes an assumption to what the qb section may look like with the
+    " cursor ending on the end of the selection (how it should be)
+    call s:sick_find_nth_char(l:recursions, a:close_char)
+    call s:sick_make_a_q(a:open_char, a:close_char, a:reach)
+    execute 'normal! o'
+
+    if s:sick_cmp(getpos('v')[1:2], a:cur_pos[1:2]) ==# 1
+          \ || s:sick_cmp(a:cur_pos[1:2], getpos('.')[1:2]) ==# 1
+      " no legit qb section
+      normal! v
+      call setpos('.', a:cur_pos)
+      let l:recursions += 1
+
+    else
+      " legit qb section, so reset window and finish
+      call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
+      return 0
+    endif
+  endwhile
+
+  " if the function has come this far, it is assumed that the cursor is
+  " inside the braces of the statement (and not the name)
+  silent! execute "normal! va".a:open_char
+
+  " if there is no statement under your cursor, `make_a_q()` would
+  " unnecessarily change your cursor position
+  silent! execute "normal! o"
+  call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
+  call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
 endfunction
 
 function! s:sick_make_a_q(open_char, close_char, reach)
@@ -269,45 +312,14 @@ function! s:sick_make_a_q(open_char, close_char, reach)
   return l:invalid
 endfunction
 
-function! s:sick_qb_motion(cur_pos, open_char, close_char, reach)
+function! s:sick_find_nth_char(n, char)
+  if getline('.')[col('.') - 1] !=# a:char
+    for i in range(a:n)
+      silent! execute "normal! /" . a:char . "\<cr>"
+    endfor
+  endif
 
-  let l:repetitions = 1
-  let l:winview     = winsaveview()
-
-
-  " this checks if the cursor is inside the name of the statement
-  " e.g. `fo|o(55)` where `|` is the cursor
-  "
-  " this will only work with 10 recursions, because this could go on forever
-  while l:repetitions < 10
-    call s:sick_find_nth_char(l:repetitions, a:close_char)
-    call s:sick_make_a_q(a:open_char, a:close_char, a:reach)
-    execute 'normal! o'
-
-    " retry it
-    if s:sick_cmp(getpos('v')[1:2], a:cur_pos[1:2]) ==# 1 ||
-          \ s:sick_cmp(a:cur_pos[1:2], getpos('.')[1:2]) ==# 1
-      normal! v
-      call setpos('.', a:cur_pos)
-
-      let l:repetitions += 1
-
-    " reset window and finish
-    else
-      call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
-      return 0
-    endif
-  endwhile
-
-  " if the function has come this far, it is assumed that the cursor is
-  " inside the braces of the statement (and not the name)
-  silent! execute "normal! va".a:open_char
-
-  " if there is no statement under your cursor, `make_a_q()` would
-  " unnecessarily change your cursor position
-  silent! execute "normal! o"
-  call s:sick_make_a_q(a:open_char,a:close_char,a:reach)
-  call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
+  silent! execute "normal! va" . a:char . "o"
 endfunction
 " }}}1
 
