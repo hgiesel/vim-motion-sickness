@@ -5,8 +5,6 @@ Given (foo(bar)):
   foo(bar)
 
 " start on f {{{4
-Before (Do nothing):
-
 Do (dqb with cursor on f):
   dqb
 Expect (All deleted):
@@ -14,31 +12,22 @@ Expect (All deleted):
 " }}}
 
 " start on b {{{4
-Before (Go to b):
-  normal! fb
-
 Do (dqb with cursor on b):
-  dqb
+  fbdqb
 Expect (All deleted):
   
 " }}}
 
 " start on open paren {{{4
-Before (Go to open paren):
-  f(
-
 Do (dqb with cursor on open paren):
-  dqb
+  f(dqb
 Expect (All deleted):
   
 " }}}
 
 " start on close paren {{{4
-Before (Go to close paren):
-  f)
-
 Do (dqb with cursor on close paren):
-  dqb
+  f)dqb
 Expect (All deleted):
   
 " }}}
@@ -49,8 +38,6 @@ Given (xyz::foo(bar)):
   xyz::foo(bar)
 
 " start on x {{{4
-Before (Do nothing):
-
 Do (dqb with cursor on x):
   dqb
 Expect (Nothing deleted):
@@ -58,31 +45,22 @@ Expect (Nothing deleted):
 " }}}
 
 " start on f {{{4
-Before (Go to f):
-  normal! ff
-
 Do (dqb with cursor on f):
-  dqb
+  ffdqb
 Expect (xyz:: remaining):
   xyz::
 " }}}
 
 " start on open paren {{{4
-Before (Go to open paren):
-  f(
-
 Do (dqb with cursor on open paren):
-  dqb
+  f(dqb
 Expect (xyz:: remaining):
   xyz::
 " }}}
 
 " start on close paren {{{4
-Before (Go to close paren):
-  f)
-
 Do (dqb with cursor on close paren):
-  dqb
+  f)dqb
 Expect (xyz:: remaining):
   xyz::
 " }}}
@@ -95,8 +73,6 @@ Given (foo{bar}):
   foo{bar}
 
 " start on f {{{4
-Before (Do nothing):
-
 Do (dqB with cursor on f):
   dqB
 Expect (All deleted):
@@ -104,31 +80,22 @@ Expect (All deleted):
 " }}}
 
 " start on b {{{4
-Before (Go to b):
-  normal! fb
-
 Do (dqB with cursor on b):
-  dqB
+  fbdqB
 Expect (All deleted):
   
 " }}}
 
 " start on open brace {{{4
-Before (Go to open brace):
-  normal! f{
-
 Do (dqB with cursor on open brace):
-  dqB
+  f{dqB
 Expect (All deleted):
   
 " }}}
 
 " start on close brace {{{4
-Before (Go to close brace):
-  normal! f}
-
 Do (dqB with cursor on close brace):
-  dqB
+  f}dqB
 Expect (All deleted):
   
 " }}}
@@ -141,8 +108,6 @@ Given (foo[bar]):
   foo[bar]
 
 " start on f {{{4
-Before (Do nothing):
-
 Do (dqr with cursor on f):
   dqr
 Expect (All deleted):
@@ -150,31 +115,22 @@ Expect (All deleted):
 " }}}
 
 " start on b {{{4
-Before (Go to b):
-  normal! fb
-
 Do (dqr with cursor on b):
-  dqr
+  fbdqr
 Expect (All deleted):
   
 " }}}
 
 " start on open bracket {{{4
-Before (Go to open bracket):
-  normal! f[
-
 Do (dqr with cursor on open bracket):
-  dqr
+  f[dqr
 Expect (All deleted):
   
 " }}}
 
 " start on close bracket {{{4
-Before (Go to close bracket):
-  normal! f]
-
 Do (dqr with cursor close bracket):
-  dqr
+  f]dqr
 Expect (All deleted):
   
 " }}}
@@ -187,8 +143,6 @@ Given (foo<bar>):
   foo<bar>
 
 " start on f {{{4
-Before (Do nothing):
-
 Do (dqa with cursor on f):
   dqa
 Expect (All deleted):
@@ -196,31 +150,22 @@ Expect (All deleted):
 " }}}
 
 " start on b {{{4
-Before (Go to b):
-  normal! fb
-
 Do (dqa with cursor on b):
-  dqa
+  fbdqa
 Expect (All deleted):
   
 " }}}
 
 " start on open chevron {{{4
-Before (Go to open chevron):
-  normal! f<
-
 Do (dqa with cursor on open chevron):
-  dqa
+  f<dqa
 Expect (All deleted):
   
 " }}}
 
 " start on close chevron {{{4
-Before (Go to close chevron):
-  normal! f>
-
 Do (dqa with cursor on close chevron):
-  dqa
+  f>dqa
 Expect (All deleted):
   
 " }}}
@@ -235,8 +180,6 @@ Given (xyz::foo(bar)):
   xyz::foo(bar)
 
 " start on x {{{4
-Before (Do nothing):
-
 Do (dQb with cursor on x):
   dQb
 Expect (All deleted):
@@ -244,31 +187,22 @@ Expect (All deleted):
 " }}}
 
 " start on f {{{4
-Before (Go to f):
-  normal! ff
-
 Do (dQb with cursor on f):
-  dQb
+  ffdQb
 Expect (All deleted):
   
 " }}}
 
 " start on open paren {{{4
-Before (Go to ():
-  f(
-
 Do (dQb with cursor on open paren):
-  dQb
+  f(dQb
 Expect (All deleted):
   
 " }}}
 
 " start on close paren {{{4
-Before (Go to close paren):
-  f)
-
 Do (dQb with cursor on close paren):
-  dQb
+  f)dQb
 Expect (All deleted):
   
 " }}}
@@ -279,8 +213,6 @@ Given (foo(bar)):
   foo(bar)
 
 " start on f {{{4
-Before (Do nothing):
-
 Do (dQb with cursor on f):
   dQb
 Expect (All deleted):
@@ -288,31 +220,22 @@ Expect (All deleted):
 " }}}
 
 " start on b {{{4
-Before (Go to b):
-  normal! fb
-
 Do (dQb):
-  dQb
+  fbdQb
 Expect (All deleted):
   
 " }}}
 
 " start on open paren {{{4
-Before (Go to open paren):
-  f(
-
 Do (dQb):
-  dQb
+  f(dQb
 Expect (All deleted):
   
 " }}}
 
 " start on close paren {{{4
-Before (Go to close paren):
-  f)
-
 Do (dQb):
-  dQb
+  f)dQb
 Expect (All deleted):
   
 " }}}
@@ -325,8 +248,6 @@ Given (xyz::foo{bar}):
   xyz::foo{bar}
 
 " start on x {{{4
-Before (Do nothing):
-
 Do (dQB):
   dQB
 Expect (All deleted):
@@ -334,31 +255,22 @@ Expect (All deleted):
 " }}}
 
 " start on f {{{4
-Before (Go to f):
-  normal! ff
-
 Do (dQB):
-  dQB
+  ffdQB
 Expect (All deleted):
   
 " }}}
 
 " start on open brace {{{4
-Before (Go to open brace):
-  normal! f{
-
 Do (dQB):
-  dQB
+  f{dQB
 Expect (All deleted):
   
 " }}}
 
 " start on close brace {{{4
-Before (Go to close brace):
-  normal! f}
-
 Do (dQB):
-  dQB
+  f}dQB
 Expect (All deleted):
   
 " }}}
@@ -368,43 +280,32 @@ Expect (All deleted):
 " Qr motion {{{2
 " with doc xyz::foo[bar] {{{3
 Given (foo[bar]):
-  foo[bar]
+  xyz::foo[bar]
 
 " start on x {{{4
-Before (Do nothing):
-
-Do (dQr):
+Do (dQr with cursor on x):
   dQr
 Expect (All deleted):
   
 " }}}
 
 " start on f {{{4
-Before (Go to f):
-  normal! ff
-
-Do (dQr):
-  dQr
+Do (dQr with cursor f):
+  ffdQr
 Expect (All deleted):
   
 " }}}
 
 " start on open bracket {{{4
-Before (Go to open bracket):
-  normal! f[
-
 Do (dQr):
-  dQr
+  f[dQr
 Expect (All deleted):
   
 " }}}
 
 " start on close bracket {{{4
-Before (Go to close bracket):
-  normal! f]
-
 Do (dQr):
-  dQr
+  f]dQr
 Expect (All deleted):
   
 " }}}
@@ -417,8 +318,6 @@ Given (xyz::foo<bar>):
   xyz::foo<bar>
 
 " start on x {{{4
-Before (Do nothing):
-
 Do (dQa):
   dQa
 Expect (All deleted):
@@ -426,31 +325,22 @@ Expect (All deleted):
 " }}}
 
 " start on f {{{4
-Before (Go to f):
-  normal! ff
-
 Do (dQa):
-  dQa
+  ffdQa
 Expect (All deleted):
   
 " }}}
 
 " start on open chevron {{{4
-Before (Go to open chevron):
-  normal! f<
-
 Do (dQa):
-  dQa
+  f<dQa
 Expect (All deleted):
   
 " }}}
 
 " start on cchar {{{4
-Before (Go to close chevron):
-  normal! f>
-
 Do (dQa):
-  dQa
+  f>dQa
 Expect (All deleted):
   
 " }}}

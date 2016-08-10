@@ -217,6 +217,7 @@ function! s:sick_qb_motion(cur_pos, open_char, close_char, reach)
       call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
       return 0
 
+      " xyz::foo(abc)
     else
       " no legit qb section
       normal! v
