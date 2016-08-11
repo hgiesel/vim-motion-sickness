@@ -114,79 +114,121 @@ vmap <silent> i<bar> <plug>VIPipeSmotion
 omap <silent> a<bar> <plug>OAPipeSmotion
 vmap <silent> a<bar> <plug>VAPipeSmotion
 
-onoremap <plug>OIAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '*', 'o')<cr>
-vnoremap <plug>VIAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '*', 'o')<cr>
-onoremap <plug>OAAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'o')<cr>
-vnoremap <plug>VAAsteriskSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'o')<cr>
+onoremap <plug>OIAsteriskSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '*', 'o')<cr>
+vnoremap <plug>VIAsteriskSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '*', 'v')<cr>
+onoremap <plug>OAAsteriskSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'o')<cr>
+vnoremap <plug>VAAsteriskSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'v')<cr>
 
-onoremap <plug>OIUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '_', 'o')<cr>
-vnoremap <plug>VIUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '_', 'o')<cr>
-onoremap <plug>OAUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '_', 'o')<cr>
-vnoremap <plug>VAUnderscoreSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '_', 'o')<cr>
+onoremap <plug>OIUnderscoreSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '_', 'o')<cr>
+vnoremap <plug>VIUnderscoreSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '_', 'v')<cr>
+onoremap <plug>OAUnderscoreSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '_', 'o')<cr>
+vnoremap <plug>VAUnderscoreSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '_', 'v')<cr>
 
-onoremap <plug>OIDashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '-', 'o')<cr>
-vnoremap <plug>VIDashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '-', 'o')<cr>
-onoremap <plug>OADashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '-', 'o')<cr>
-vnoremap <plug>VADashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '-', 'o')<cr>
+onoremap <plug>OIDashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '-', 'o')<cr>
+vnoremap <plug>VIDashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '-', 'v')<cr>
+onoremap <plug>OADashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '-', 'o')<cr>
+vnoremap <plug>VADashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '-', 'v')<cr>
 
-onoremap <plug>OIColonSmotion :<c-u>call <sid>sick_symbol_motion(v:false, ':', 'o')<cr>
-vnoremap <plug>VIColonSmotion :<c-u>call <sid>sick_symbol_motion(v:false, ':', 'o')<cr>
-onoremap <plug>OAColonSmotion :<c-u>call <sid>sick_symbol_motion(v:true, ':', 'o')<cr>
-vnoremap <plug>VAColonSmotion :<c-u>call <sid>sick_symbol_motion(v:true, ':', 'o')<cr>
+onoremap <plug>OIColonSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, ':', 'o')<cr>
+vnoremap <plug>VIColonSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, ':', 'v')<cr>
+onoremap <plug>OAColonSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, ':', 'o')<cr>
+vnoremap <plug>VAColonSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, ':', 'v')<cr>
 
-onoremap <plug>OIAtSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '@', 'o')<cr>
-vnoremap <plug>VIAtSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '@', 'o')<cr>
-onoremap <plug>OAAtSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '@', 'o')<cr>
-vnoremap <plug>VAAtSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '@', 'o')<cr>
+onoremap <plug>OIAtSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '@', 'o')<cr>
+vnoremap <plug>VIAtSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '@', 'v')<cr>
+onoremap <plug>OAAtSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '@', 'o')<cr>
+vnoremap <plug>VAAtSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '@', 'v')<cr>
 
-onoremap <plug>OIBangSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '!', 'o')<cr>
-vnoremap <plug>VIBangSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '!', 'o')<cr>
-onoremap <plug>OABangSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '!', 'o')<cr>
-vnoremap <plug>VABangSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '!', 'o')<cr>
+onoremap <plug>OIBangSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '!', 'o')<cr>
+vnoremap <plug>VIBangSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '!', 'v')<cr>
+onoremap <plug>OABangSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '!', 'o')<cr>
+vnoremap <plug>VABangSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '!', 'v')<cr>
 
-onoremap <plug>OIQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '?', 'o')<cr>
-vnoremap <plug>VIQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '?', 'o')<cr>
-onoremap <plug>OAQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '?', 'o')<cr>
-vnoremap <plug>VAQuestionSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '?', 'o')<cr>
+onoremap <plug>OIQuestionSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '?', 'o')<cr>
+vnoremap <plug>VIQuestionSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '?', 'v')<cr>
+onoremap <plug>OAQuestionSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '?', 'o')<cr>
+vnoremap <plug>VAQuestionSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '?', 'v')<cr>
 
-onoremap <plug>OISlashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '/', 'o')<cr>
-vnoremap <plug>VISlashSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '/', 'o')<cr>
-onoremap <plug>OASlashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '/', 'o')<cr>
-vnoremap <plug>VASlashSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '/', 'o')<cr>
+onoremap <plug>OISlashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '/', 'o')<cr>
+vnoremap <plug>VISlashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '/', 'v')<cr>
+onoremap <plug>OASlashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '/', 'o')<cr>
+vnoremap <plug>VASlashSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '/', 'v')<cr>
 
-onoremap <plug>OIPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '%', 'o')<cr>
-vnoremap <plug>VIPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '%', 'o')<cr>
-onoremap <plug>OAPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '%', 'o')<cr>
-vnoremap <plug>VAPercentSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '%', 'o')<cr>
+onoremap <plug>OIPercentSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '%', 'o')<cr>
+vnoremap <plug>VIPercentSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '%', 'v')<cr>
+onoremap <plug>OAPercentSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '%', 'o')<cr>
+vnoremap <plug>VAPercentSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '%', 'v')<cr>
 
-onoremap <plug>OIPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '<bar>', 'o')<cr>
-vnoremap <plug>VIPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:false, '<bar>', 'o')<cr>
-onoremap <plug>OAPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '<bar>', 'o')<cr>
-vnoremap <plug>VAPipeSmotion :<c-u>call <sid>sick_symbol_motion(v:true, '<bar>', 'o')<cr>
+onoremap <plug>OIPipeSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '<bar>', 'o')<cr>
+vnoremap <plug>VIPipeSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:false, '<bar>', 'v')<cr>
+onoremap <plug>OAPipeSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '<bar>', 'o')<cr>
+vnoremap <plug>VAPipeSmotion
+      \ :<c-u>call <sid>sick_symbol_motion(v:true, '<bar>', 'v')<cr>
 
 function! s:sick_symbol_motion(wrap, symbol, mode)
-  " position on the left when you started
   let l:start_col = col('.')
   let l:valid     = v:true
 
-  " Go to open position
+  " A
+  " Find opening col to the left
   silent! execute 'normal! F' . a:symbol
 
-  " Found open_col
   if col('.') ==# l:start_col
-    " open_col may be to the right
+    " Find opening col to the right
     silent! execute 'normal! f' . a:symbol
 
-    " There is no open_col
     if col('.') ==# l:start_col
+      " There is no open_col
       let l:valid = v:false
     end
   endif
 
+  " B
+  " Find closing col
   if l:valid
     if !a:wrap
       execute "normal! l"
 
+      " If there is no character within the symbols and no wrap, it is invalid
       if col('.') ==# l:start_col && getline('.')[l:start_col + 1] !=# a:symbol
         let l:valid = v:false
       endif
@@ -195,6 +237,7 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
     let l:open_col = col('.')
 
     execute 'normal! v'
+
     " go back to where you started, in case you are in a fold that has the symbol
     " more than once (e.g. __fo|obar__)
     " jump from left end to middle again
@@ -210,11 +253,14 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
       let l:valid = v:false
     end
 
+    " if no wrap, go once to the right
     if l:valid && !a:wrap
       execute "normal! h"
     endif
   endif
 
+  " C
+  " Cleanup if invalid
   if !l:valid
     execute 'normal! v' . l:start_col . '|'
     if a:mode ==# 'v'
@@ -400,12 +446,51 @@ endfunction
 " }}}1
 
 " iqb Motion {{{1
-function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
+onoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 1)<cr>
+onoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 1)<cr>
+onoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 1)<cr>
+onoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 1)<cr>
+
+onoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 1)<cr>
+onoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 1)<cr>
+onoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 1)<cr>
+onoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 1)<cr>
+
+onoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 0)<cr>
+onoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 0)<cr>
+onoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 0)<cr>
+onoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 0)<cr>
+
+onoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 0)<cr>
+onoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 0)<cr>
+onoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 0)<cr>
+onoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 0)<cr>
+
+vnoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 1)<cr>
+vnoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 1)<cr>
+vnoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 1)<cr>
+vnoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 1)<cr>
+
+vnoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 1)<cr>
+vnoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 1)<cr>
+vnoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 1)<cr>
+vnoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 1)<cr>
+
+vnoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 0)<cr>
+vnoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 0)<cr>
+vnoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',',0)<cr>
+vnoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',',0)<cr>
+
+vnoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';',0)<cr>
+vnoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';',0)<cr>
+vnoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';',0)<cr>
+vnoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';',0)<cr>
+
+function! s:iq_motion(curpos, open_ch, close_ch, delim, inner)
   let l:finished     = 0
 
   " these behave special, because of the braces
-  let l:brace_dict   = {'(':0,')':0,'{':0,'}':0,'[':0,']':0,
-        \ '<':0,'>':0, "'":0,'"':0}
+  let l:brace_dict  = {'(':0,')':0,'{':0,'}':0,'[':0,']':0, '<':0,'>':0, "'":0,'"':0}
   let l:search_char = a:delim
 
   silent! execute "normal! va".a:open_ch
@@ -505,45 +590,6 @@ function! s:iq_motion(curpos,open_ch,close_ch,delim,inner)
   endif
 endfunction
 
-onoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 1)<cr>
-onoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 1)<cr>
-onoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 1)<cr>
-onoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 1)<cr>
-
-onoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 1)<cr>
-onoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 1)<cr>
-onoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 1)<cr>
-onoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 1)<cr>
-
-onoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 0)<cr>
-onoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 0)<cr>
-onoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 0)<cr>
-onoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 0)<cr>
-
-onoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 0)<cr>
-onoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 0)<cr>
-onoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 0)<cr>
-onoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 0)<cr>
-
-vnoremap <silent> iqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 1)<cr>
-vnoremap <silent> iqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 1)<cr>
-vnoremap <silent> iqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',', 1)<cr>
-vnoremap <silent> iqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',', 1)<cr>
-
-vnoremap <silent> iQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';', 1)<cr>
-vnoremap <silent> iQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';', 1)<cr>
-vnoremap <silent> iQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';', 1)<cr>
-vnoremap <silent> iQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';', 1)<cr>
-
-vnoremap <silent> aqb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ',', 0)<cr>
-vnoremap <silent> aqB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ',', 0)<cr>
-vnoremap <silent> aqr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ',',0)<cr>
-vnoremap <silent> aqa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ',',0)<cr>
-
-vnoremap <silent> aQb :<c-u>call <sid>iq_motion(getpos('.'), '(', ')', ';',0)<cr>
-vnoremap <silent> aQB :<c-u>call <sid>iq_motion(getpos('.'), '{', '}', ';',0)<cr>
-vnoremap <silent> aQr :<c-u>call <sid>iq_motion(getpos('.'), '[', ']', ';',0)<cr>
-vnoremap <silent> aQa :<c-u>call <sid>iq_motion(getpos('.'), '<', '>', ';',0)<cr>
 " }}}1
 
 " qd Motion {{{1
