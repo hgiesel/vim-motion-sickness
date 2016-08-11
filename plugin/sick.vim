@@ -18,13 +18,14 @@
 " 4. `iqb` `aqb`, etc. is used to select parameters (or arguments) within
 "  braces, very helpful for any kind of programming language
 "
-"  Planned for the future are:
-" 1. `qc` to select colon (key: value) statements
-" 2. `qe` to select equal statements
-" 3. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
-" 4. `qw` select arrow statements (in C) and to make iqb and qb work correctly with
+" 5. Planned for the future are:
+" a. `qc` to select colon (key: value) statements
+" b. `qe` to select equal statements
+"
+" c. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
+" d. `qw` select arrow statements (in C) and to make iqb and qb work correctly with
 " `<` characters splattered over the place
-" 5 `qn` to select namespace statements
+" e `qn` to select namespace statements
 "
 " 6. iz and az to select indentation levels
 
@@ -532,8 +533,7 @@ function! s:iq_motion(curpos, open_ch, close_ch, delim, inner)
         let l:search_char = a:close_ch
       endif
 
-      if l:a_char ==# l:search_char &&
-            \ s:brace_dict_matches(l:brace_dict)
+      if l:a_char ==# l:search_char && s:brace_dict_matches(l:brace_dict)
         let l:found_next_delim = 1
 
       elseif l:a_char ==# '('
@@ -591,18 +591,40 @@ function! s:iq_motion(curpos, open_ch, close_ch, delim, inner)
   endif
 endfunction
 
+function! s:brace_dict_matches(brace_dict)
+  if a:brace_dict['(']    ==# a:brace_dict[')'] &&
+        \ a:brace_dict['[']   ==# a:brace_dict[']'] &&
+        \ a:brace_dict['{']   ==# a:brace_dict['}'] &&
+        \ a:brace_dict['<']   ==# a:brace_dict['>'] &&
+        \ a:brace_dict['"'] % 2 ==# 0         &&
+        \ a:brace_dict["'"] % 2 ==# 0
+    return 1
+  endif
+
+  return 0
+endfunction
 " }}}1
 
 " qd Motion {{{1
 " make direction and greedy, instead of reach and greedy, that's too much
-function! s:qd_motion(cur_pos,chars,reach,greedy)
-  let l:invalid      = 0
-  let l:finished       = 0
-  let l:dot_was_found    = 0
+onoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:false)<cr>
+onoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:true)<cr>
+onoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:false)<cr>
+onoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:true)<cr>
+
+vnoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:false)<cr>
+vnoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:true)<cr>
+vnoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:false)<cr>
+vnoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:true)<cr>
+
+function! s:qd_motion(cur_pos, chars, reach, greedy)
+  let l:invalid            = 0
+  let l:finished           = 0
+  let l:dot_was_found      = 0
   let l:made_an_assumption = 0
   let l:fall_back_braces   = [0,0]
-  let l:invalid_chars    = '\v[ \;]'
-  let l:cursor_char = getline('.')[col('.') - 1]
+  let l:invalid_chars      = '\v[ \;]'
+  let l:cursor_char        = getline('.')[col('.') - 1]
 
   if l:cursor_char =~# '\v[\(\)\[\]\{\}\<\>]'
     execute "normal! f".a:chars
@@ -721,29 +743,6 @@ function! s:qd_motion(cur_pos,chars,reach,greedy)
     normal! v
     call setpos('.',a:cur_pos)
   endif
-endfunction
-
-onoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'),'.',0,0)<cr>
-onoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'),'.',0,1)<cr>
-onoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'),'.',1,0)<cr>
-onoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'),'.',1,1)<cr>
-
-vnoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'),'.',v:false,v:false)<cr>
-vnoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'),'.',v:false,v:true)<cr>
-vnoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'),'.',v:true,v:false)<cr>
-vnoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'),'.',v:true,v:true)<cr>
-
-function! s:brace_dict_matches(brace_dict)
-  if a:brace_dict['(']    ==# a:brace_dict[')'] &&
-        \ a:brace_dict['[']   ==# a:brace_dict[']'] &&
-        \ a:brace_dict['{']   ==# a:brace_dict['}'] &&
-        \ a:brace_dict['<']   ==# a:brace_dict['>'] &&
-        \ a:brace_dict['"'] % 2 ==# 0         &&
-        \ a:brace_dict["'"] % 2 ==# 0
-    return 1
-  endif
-
-  return 0
 endfunction
 " }}}1
 
