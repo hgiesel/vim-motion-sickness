@@ -1,0 +1,34 @@
+" iqb motions {{{2
+" with doc foo(bar) {{{3
+Given (foo(bar, arg, xyz)):
+  foo(bar, arg, xyz)
+
+" start on f {{{4
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo(bar, arg, xyz)
+" }}}
+
+" start on b {{{4
+Do (diqb with cursor on b):
+  fbdiqb
+Expect (First argument deleted):
+  foo(, arg, xyz)
+" }}}
+
+" start on second a {{{4
+Do (diqb with cursor on second a):
+  fafadiqb
+Expect (Second argument deleted):
+  foo(bar, , xyz)
+" }}}
+
+" start on x {{{4
+Do (diqb with cursor on x):
+  fxdiqb
+Expect (Third argument deleted):
+  foo(bar, arg, )
+" }}}
+" }}}
+" }}}
