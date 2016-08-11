@@ -226,16 +226,16 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
   " Find closing col
   if l:valid
     if !a:wrap
+      " Go one right in order to be inside symbols
       execute "normal! l"
 
-      " If there is no character within the symbols and no wrap, it is invalid
-      if col('.') ==# l:start_col && getline('.')[l:start_col + 1] !=# a:symbol
+      " If you use di<symbol> inside symbol, it won't delete anything
+      if getline('.')[l:start_col - 1] == getline('.')[l:start_col]
         let l:valid = v:false
       endif
     endif
 
     let l:open_col = col('.')
-
     execute 'normal! v'
 
     " go back to where you started, in case you are in a fold that has the symbol
@@ -243,13 +243,14 @@ function! s:sick_symbol_motion(wrap, symbol, mode)
     " jump from left end to middle again
     " This is only useful in visual mode, when you already selected someting and
     " enlarge this selection
+    " Note: This is not like the normal linewise operators behave, but is very useful
     if a:mode ==# 'v'
       execute 'normal! ' . col("'>") . '|'
     endif
-    execute 'normal! f' . a:symbol
 
-    " If no close_pol found
+    execute 'normal! f' . a:symbol
     if col('.') ==# l:open_col
+      " If no close_pol found
       let l:valid = v:false
     end
 
