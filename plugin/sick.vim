@@ -607,17 +607,100 @@ endfunction
 
 " qd Motion {{{1
 " make direction and greedy, instead of reach and greedy, that's too much
-onoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:false)<cr>
-onoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:true)<cr>
-onoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:false)<cr>
-onoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:true)<cr>
+omap <silent> qd <plug>Oqdmotion
+vmap <silent> qd <plug>Vqdmotion
+omap <silent> qD <plug>OqDmotion
+vmap <silent> qD <plug>VqDmotion
 
-vnoremap <silent> qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:false)<cr>
-vnoremap <silent> qD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:false, v:true)<cr>
-vnoremap <silent> Qd :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:false)<cr>
-vnoremap <silent> QD :<c-u>call <sid>qd_motion(getpos('.'), '.', v:true, v:true)<cr>
+omap <silent> Qd <plug>OQdmotion
+vmap <silent> Qd <plug>VQdmotion
+omap <silent> QD <plug>OQDmotion
+vmap <silent> QD <plug>VQDmotion
 
-function! s:qd_motion(cur_pos, chars, reach, greedy)
+omap <silent> qw <plug>Oqwmotion
+vmap <silent> qw <plug>Vqwmotion
+omap <silent> qW <plug>OqWmotion
+vmap <silent> qW <plug>VqWmotion
+
+omap <silent> Qw <plug>OQwmotion
+vmap <silent> Qw <plug>VQwmotion
+omap <silent> QW <plug>OQWmotion
+vmap <silent> QW <plug>VQWmotion
+
+omap <silent> qn <plug>Oqnmotion
+vmap <silent> qn <plug>Vqnmotion
+omap <silent> qN <plug>OqNmotion
+vmap <silent> qN <plug>VqNmotion
+
+omap <silent> Qn <plug>OQnmotion
+vmap <silent> Qn <plug>VQnmotion
+omap <silent> QN <plug>OQNmotion
+vmap <silent> QN <plug>VQNmotion
+
+if !exists("g:sick_qd_motion_char")
+  let g:sick_qd_motion_char = '.'
+endif
+
+if !exists("g:sick_qw_motion_char")
+  let g:sick_qw_motion_char = '->'
+endif
+
+if !exists("g:sick_qn_motion_char")
+  let g:sick_qn_motion_char = '::'
+endif
+
+onoremap qd :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:false, v:false)<cr>
+vnoremap qd :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:false, v:false)<cr>
+onoremap qD :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:false, v:true)<cr>
+vnoremap qD :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:false, v:true)<cr>
+onoremap Qd :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:true, v:false)<cr>
+vnoremap Qd :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:true, v:false)<cr>
+onoremap QD :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:true, v:true)<cr>
+vnoremap QD :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qd_motion_char, v:true, v:true)<cr>
+
+onoremap qw :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:false, v:false)<cr>
+vnoremap qw :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:false, v:false)<cr>
+onoremap qW :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:false, v:true)<cr>
+vnoremap qW :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:false, v:true)<cr>
+onoremap Qw :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:true, v:false)<cr>
+vnoremap Qw :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:true, v:false)<cr>
+onoremap QW :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:true, v:true)<cr>
+vnoremap QW :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qw_motion_char, v:true, v:true)<cr>
+
+onoremap qn :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:false, v:false)<cr>
+vnoremap qn :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:false, v:false)<cr>
+onoremap qN :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:false, v:true)<cr>
+vnoremap qN :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:false, v:true)<cr>
+onoremap Qn :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:true, v:false)<cr>
+vnoremap Qn :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:true, v:false)<cr>
+onoremap QN :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:true, v:true)<cr>
+vnoremap QN :<c-u>call
+      \ <sid>qd_motion(getpos('.'), g:sick_qn_motion_char, v:true, v:true)<cr>
+
+function! s:sick_qd_motion(cur_pos, chars, reach, greedy)
   let l:invalid            = 0
   let l:finished           = 0
   let l:dot_was_found      = 0
@@ -631,7 +714,7 @@ function! s:qd_motion(cur_pos, chars, reach, greedy)
     if getline('.')[col('.') - 1] !=# a:chars
       let l:invalid = 1
     else
-      if s:sick_make_a_q(a:chars,a:chars,a:reach) ==# 1
+      if s:sick_make_a_q(a:chars, a:chars, a:reach) ==# 1
         let l:invalid = 1
       else
         normal! o
@@ -642,7 +725,7 @@ function! s:qd_motion(cur_pos, chars, reach, greedy)
   elseif l:cursor_char =~# '\V'.a:chars
     normal! v
 
-    if s:sick_make_a_q(a:chars,a:chars,a:reach) ==# 1
+    if s:sick_make_a_q(a:chars, a:chars, a:reach) ==# 1
       let l:invalid = 1
     else
       normal! o
@@ -689,7 +772,7 @@ function! s:qd_motion(cur_pos, chars, reach, greedy)
 
       else
         if l:made_an_assumption ==# 0
-          let l:fall_back_braces = [getpos('v'),getpos('.')]
+          let l:fall_back_braces = [getpos('v'), getpos('.')]
         endif
 
         let l:made_an_assumption = 1
@@ -728,9 +811,9 @@ function! s:qd_motion(cur_pos, chars, reach, greedy)
 
         if l:made_an_assumption
           normal! v
-          call setpos('.',l:fall_back_braces[0])
+          call setpos('.', l:fall_back_braces[0])
           normal! v
-          call setpos('.',l:fall_back_braces[1])
+          call setpos('.', l:fall_back_braces[1])
         endif
 
       else
@@ -741,10 +824,116 @@ function! s:qd_motion(cur_pos, chars, reach, greedy)
 
   if l:invalid
     normal! v
-    call setpos('.',a:cur_pos)
+    call setpos('.', a:cur_pos)
   endif
 endfunction
+
+" (each of them should be settable)
+" abc.def  d
+" abc->def w
+" abc:def  n
+
+"(each of them should be settable)
+"data hello_world :: [String]  h
+"var foo = "Hello world!"      e
+""key": "value"                c
+
 " }}}1
+
+" qe Motion {{{1
+omap <silent> qe <plug>Oqemotion
+vmap <silent> qe <plug>Vqemotion
+omap <silent> qE <plug>OqEmotion
+vmap <silent> qE <plug>VqEmotion
+
+omap <silent> Qe <plug>OQemotion
+vmap <silent> Qe <plug>VQemotion
+omap <silent> QE <plug>OQEmotion
+vmap <silent> QE <plug>VQEmotion
+
+omap <silent> qc <plug>Oqcmotion
+vmap <silent> qc <plug>Vqcmotion
+omap <silent> qC <plug>Oqcmotion
+vmap <silent> qC <plug>VqCmotion
+
+omap <silent> Qc <plug>OQcmotion
+vmap <silent> Qc <plug>VQcmotion
+omap <silent> QC <plug>OQCmotion
+vmap <silent> QC <plug>VQCmotion
+
+omap <silent> qh <plug>Oqhmotion
+vmap <silent> qh <plug>Vqhmotion
+omap <silent> qH <plug>OqHmotion
+vmap <silent> qH <plug>VqHmotion
+
+omap <silent> Qh <plug>OQhmotion
+vmap <silent> Qh <plug>VQhmotion
+omap <silent> QH <plug>OQHmotion
+vmap <silent> QH <plug>VQHmotion
+
+if !exists("g:sick_qe_motion_char")
+  let g:sick_qe_motion_char = '='
+endif
+
+if !exists("g:sick_qc_motion_char")
+  let g:sick_qc_motion_char = ':'
+endif
+
+if !exists("g:sick_qh_motion_char")
+  let g:sick_qh_motion_char = '::'
+endif
+
+onoremap qe :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:false, v:false)<cr>
+vnoremap qe :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:false, v:false)<cr>
+onoremap qE :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:false, v:true)<cr>
+vnoremap qE :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:false, v:true)<cr>
+onoremap Qe :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:true, v:false)<cr>
+vnoremap Qe :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:true, v:false)<cr>
+onoremap QE :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:true, v:true)<cr>
+vnoremap QE :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qe_motion_char, v:true, v:true)<cr>
+
+onoremap qc :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:false, v:false)<cr>
+vnoremap qc :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:false, v:false)<cr>
+onoremap qC :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:false, v:true)<cr>
+vnoremap qC :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:false, v:true)<cr>
+onoremap Qc :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:true, v:false)<cr>
+vnoremap Qc :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:true, v:false)<cr>
+onoremap QC :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:true, v:true)<cr>
+vnoremap QC :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qc_motion_char, v:true, v:true)<cr>
+
+onoremap qh :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:false, v:false)<cr>
+vnoremap qh :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:false, v:false)<cr>
+onoremap qH :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:false, v:true)<cr>
+vnoremap qH :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:false, v:true)<cr>
+onoremap Qh :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:true, v:false)<cr>
+vnoremap Qh :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:true, v:false)<cr>
+onoremap QH :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:true, v:true)<cr>
+vnoremap QH :<c-u>call
+      \ <sid>qe_motion(getpos('.'), g:sick_qh_motion_char, v:true, v:true)<cr>
+" }}}
 
 " iz motion {{{1
 omap <silent> iz <plug>OIzmotion
