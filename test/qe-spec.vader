@@ -1,0 +1,12 @@
+Given:
+  foo + 5 = bar
+
+Do:
+  dqe
+Expect:
+  foo + 5 = 
+
+Do:
+  dQe
+Expect:
+   = bar
