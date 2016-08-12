@@ -591,7 +591,6 @@ function! s:sick_iqb_motion(cur_pos, open_ch, close_ch, delim, reach)
 
   silent! execute 'normal! va' . a:open_ch . 'o'
   let l:abs_endpos = getpos('.')
-" foo(arg, penis, boo)
 
   " There is no a<symbol> here, so you can't look for inner arguments
   if l:abs_endpos == a:cur_pos
@@ -794,38 +793,44 @@ onoremap <silent> <plug>OQNmotion :<c-u>call
 vnoremap <silent> <plug>VQNmotion :<c-u>call
       \ <sid>sick_qd_motion(getpos('.'), g:sick_qn_motion_char, v:true, v:true)<cr>
 
-function! s:sick_qd_motion(cur_pos, chars, reach, greedy)
-  let l:invalid            = 0
-  let l:finished           = 0
-  let l:dot_was_found      = 0
-  let l:made_an_assumption = 0
-  let l:fall_back_braces   = [0,0]
+function! s:sick_qd_motion(cur_pos, char, reach, greedy)
+  let l:invalid            = v:false
+  let l:finished           = v:false
+  let l:char_was_found     = v:false
+  let l:made_an_assumption = v:false
+  let l:fall_back_braces   = [0, 0]
   let l:invalid_chars      = '\v[ \;]'
   let l:cursor_char        = getline('.')[col('.') - 1]
 
-  if l:cursor_char =~# '\v[\(\)\[\]\{\}\<\>]'
-    execute "normal! f".a:chars
-    if getline('.')[col('.') - 1] !=# a:chars
-      let l:invalid = 1
+  " when you start on open / close char
+  if l:cursor_char =~# '[()\[\]\{\}\<\>]'
+    " find starting point
+    execute 'normal! f' . a:char
+    if getline('.')[col('.') - 1] !=# a:char
+      let l:invalid = v:true
+
     else
-      if s:sick_make_a_q(a:chars, a:chars, a:reach) ==# 1
-        let l:invalid = 1
+      if s:sick_make_a_q(a:char, a:char, a:reach) ==# 1
+        let l:invalid = v:true
+
       else
         normal! o
-        let l:dot_was_found = 1
+        let l:char_was_found = 1
       endif
     endif
 
-  elseif l:cursor_char =~# '\V'.a:chars
+  " when you start on delimiter char
+  elseif l:cursor_char =~# a:char
     normal! v
 
-    if s:sick_make_a_q(a:chars, a:chars, a:reach) ==# 1
-      let l:invalid = 1
+    if s:sick_make_a_q(a:char, a:char, a:reach) ==# 1
+      let l:invalid = v:true
     else
       normal! o
-      let l:dot_was_found = 1
+      let l:char_was_found = 1
     endif
 
+  " else just start with current word
   else
     silent! normal! viw
   endif
@@ -834,8 +839,7 @@ function! s:sick_qd_motion(cur_pos, chars, reach, greedy)
     silent! normal! oBo
   endif
 
-  " plus::foo(a + minus::arg(55)).test
-  while !l:invalid && !l:finished
+  while l:invalid || l:finished
     if col('.') !=# col('$')
       let l:next_char = getline('.')[col('.')]
     endif
@@ -852,7 +856,7 @@ function! s:sick_qd_motion(cur_pos, chars, reach, greedy)
 
       " it must be a broken brace, abort
       if l:a_pos ==# getpos('.')
-        let l:invalid = 1
+        let l:invalid = v:true
       endif
 
       " if the closing braces come at the start, there's a possibility,
@@ -861,7 +865,7 @@ function! s:sick_qd_motion(cur_pos, chars, reach, greedy)
       " After the first jump, there's no possibility of this anymore,
       " e.g. foo(foobar.test).test
     elseif l:next_char =~# '\v[\)\}\]\>]'
-      if l:dot_was_found && !a:greedy
+      if l:char_was_found && !a:greedy
         let l:finished    = 1
 
       else
@@ -882,26 +886,26 @@ function! s:sick_qd_motion(cur_pos, chars, reach, greedy)
       endif
 
       " dot was found!!1
-    elseif l:next_char =~# '\V'.a:chars
+    elseif l:next_char =~# '\V'.a:char
       if getline('.')[col('.') + 1] =~# '\v[A-Za-z_\$]'
-        if l:dot_was_found && !a:greedy
-          let l:finished    = 1
+        if l:char_was_found && !a:greedy
+          let l:finished    = v:true
 
         else
           silent! normal! le
-          let l:dot_was_found = 1
+          let l:char_was_found = v:true
         endif
 
-        let l:made_an_assumption = 0
+        let l:made_an_assumption = v:false
 
       else
-        let l:invalid = 1
+        let l:invalid = v:true
       endif
 
       " found a closing character or at the end of the current line
     else " l:next_char =~# l:invalid_chars || col('.') + 1 ==# col('$')
-      if l:dot_was_found
-        let l:finished = 1
+      if l:char_was_found
+        let l:finished = v:true
 
         if l:made_an_assumption
           normal! v
@@ -911,7 +915,7 @@ function! s:sick_qd_motion(cur_pos, chars, reach, greedy)
         endif
 
       else
-        let l:invalid  = 1
+        let l:invalid = v:true
       endif
     endif
   endwhile

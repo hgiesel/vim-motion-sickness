@@ -1,5 +1,30 @@
-Given:
+" Given:
+"   bar::foo.arg(foo[5].name).baz
+
+" " with cursor on foo {{{1
+" Do (dqd with cursor on foo):
+"   ffdqd
+" Expect (first and second part deleted, reach is left intact):
+"   bar::.baz
+
+" Do (dQd with cursor on foo):
+"   ffdQd
+" Expect (first and second part deleted):
+"   .baz
+
+" Do (dqD with cursor on foo):
+"   ffdqD
+" Expect (All parts deleted, reach is left intact):
+"   baz
+
+" Do:
+"   ffdQD
+" Expect (Everything deleted):
   
-Do:
-Expect:
-  
+" " }}}
+
+" " with cursor on arg {{{1
+" " }}}
+
+" " with cursor on baz {{{1
+" " }}}
