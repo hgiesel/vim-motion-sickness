@@ -1,42 +1,51 @@
-" z Add some lines which don't do anything cause they are comments And some more
 " This plugin adds a lot of motion mappings. Here's a list
-"
-" 1. `ir`, `ar`, `ia`, and `aa` where `r` and `a` are aliases for `[` and `<`
-"  (similiar to tpopes' vim-surround plugin
-"  Symbol aliases
-"
-" 2. `i_`, `a_` and family, which are a lot of motions that work like `ab` or
-"  `aB` but with symbols
-"
-" 3. `qb` `qB` `qr` `qa` which are motions that select statements, e.g.
-"  foo(500 + 500))o)o
-"  while you would use `ib` to select everything within the parentheses and
-"  `ab` to select the whole parenthesis, you can use `qb` to use the whole
-"  parenthesis and the word before it. Also works with $(( )) or similiar
-"  things
+" 1.
+" `ir`, `ar`, `ia`, and `aa` where `r` and `a` are aliases for `[` and `<`
+" (similiar to tpopes' vim-surround plugin
+" Symbol aliases
 
-" 4. `iqb` `aqb`, etc. is used to select parameters (or arguments) within
-"  braces, very helpful for any kind of programming language
-"
-" 5. Planned for the future are:
-" a. `qc` to select colon (key: value) statements
-" b. `qe` to select equal statements
-"
-" c. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
-" d. `qw` select arrow statements (in C) and to make iqb and qb work correctly with
-" `<` characters splattered over the place
-" e `qn` to select namespace statements
-"
+" 2.
+" `i_`, `a_` and family, which are a lot of motions that work like `ab` or
+" `aB` but with symbols
+
+" 3.
+" `qb` `qB` `qr` `qa` which are motions that select statements, e.g.
+" foo(500 + 500))o)o
+" while you would use `ib` to select everything within the parentheses and
+" `ab` to select the whole parenthesis, you can use `qb` to use the whole
+" parenthesis and the word before it. Also works with $(( )) or similiar
+" things
+
+" 4.
+" `iqb` `aqb`, etc. is used to select parameters (or arguments) within
+" braces, very helpful for any kind of programming language
+
+" 5.
+" Planned for the future are:
+" a. `qd` `qD` `Qd` `QD` is used to select dot statements, e.g. test().arg[50]
+" (default: `.`)
+" q works how far it should go left
+" d works how far it should go right
+" b. `qn` to select namespace statements std::cout (default: `:`)
+" c. `qw` select arrow statements (in C: ->) with `<` characters splattered over
+" the place (default: `->`)
+
+" 6.
+" a. `qe`, `Qe` to select equal statements
+" b. `qc` to select colon (key: value) statements
+" c. `qh` to select haskell statements
+
 " 7.
 " iz: select current indentation delimited by lines with one indentation less or
 " empty lines
-" az: select current indentation delimited by lines with one indentation less (which
-" are included) or empty lines
+" az: select current indentation delimited by lines with one indentation less
+" (which are included) or empty lines
 
 " iZ: select current indentation delimited by lines with one indentation less
-" az: select current indentation delimited by lines with one indentation less (which
-" are included) (note that this on an indentation of zero would select the whole
-" file)
+" (note that this would select the whole file on an empty line)
+" aZ: select current indentation delimited by lines with one indentation less
+" (which are included) (note that this on an indentation of zero would select
+" the whole file)
 
 if exists('g:loaded_motion_sickness') || &compatible || v:version < 700
   finish
@@ -731,7 +740,7 @@ omap QN <plug>OQNmotion
 vmap QN <plug>VQNmotion
 
 if !exists("g:sick_qd_motion_char")
-  let g:sick_qd_motion_char = '.'
+  let g:sick_qd_motion_char = '\.'
 endif
 
 if !exists("g:sick_qw_motion_char")
@@ -796,145 +805,73 @@ vnoremap <silent> <plug>VQNmotion :<c-u>call
 function! s:sick_qd_motion(cur_pos, char, reach, greedy)
   let l:invalid            = v:false
   let l:finished           = v:false
-  let l:char_was_found     = v:false
-  let l:made_an_assumption = v:false
-  let l:fall_back_braces   = [0, 0]
-  let l:invalid_chars      = '\v[ \;]'
-  let l:cursor_char        = getline('.')[col('.') - 1]
+  let l:char_found         = v:false
 
-  " when you start on open / close char
-  if l:cursor_char =~# '[()\[\]\{\}\<\>]'
-    " find starting point
-    execute 'normal! f' . a:char
-    if getline('.')[col('.') - 1] !=# a:char
-      let l:invalid = v:true
+  call search(a:char, 'c', line('.'))
 
-    else
-      if s:sick_make_a_q(a:char, a:char, a:reach) ==# 1
-        let l:invalid = v:true
-
-      else
-        normal! o
-        let l:char_was_found = 1
-      endif
-    endif
-
-  " when you start on delimiter char
-  elseif l:cursor_char =~# a:char
-    normal! v
-
-    if s:sick_make_a_q(a:char, a:char, a:reach) ==# 1
-      let l:invalid = v:true
-    else
-      normal! o
-      let l:char_was_found = 1
-    endif
-
-  " else just start with current word
-  else
-    silent! normal! viw
+  " Invalid if no a:char is found
+  if getline('.')[col('.') - 1] !~ a:char
+    let l:invalid = v:true
   endif
 
-  if a:reach && !l:invalid
-    silent! normal! oBo
-  endif
+  normal! v
 
-  while l:invalid || l:finished
-    if col('.') !=# col('$')
-      let l:next_char = getline('.')[col('.')]
-    endif
+  " Work through conditions that can occur on the left side
+  while !l:char_found && !l:invalid
+    normal! h
+    let l:char_found = v:true
+    let l:cur_char   = getline('.')[col('.') - 1]
 
-    " if character to the right is alpha, it's probably identifer of the
-    " next element
-    if l:next_char =~# '\v[a-zA-Z_]'
-      silent! normal! e
-
-      " if character to the right is opening brace, enclose that brace
-    elseif l:next_char =~# '\v[\(\{\[\<]'
-      let l:a_pos = getpos('.')
-      silent! normal! l%
-
-      " it must be a broken brace, abort
-      if l:a_pos ==# getpos('.')
+    if l:cur_char =~ ')'
+      normal va)
+      if s:sick_make_a_q('(', ')', a:reach) ==# 1
+        let l:invalid = v:true
+      endif
+    elseif l:cur_char =~ '}'
+      normal va}
+      if s:sick_make_a_q('{', '}', a:reach) ==# 1
+        let l:invalid = v:true
+      endif
+    elseif l:cur_char =~ ']'
+      normal va]
+      if s:sick_make_a_q('[', ']', a:reach) ==# 1
         let l:invalid = v:true
       endif
 
-      " if the closing braces come at the start, there's a possibility,
-      " the statement is inside these braces, e.g. `foo(b|ar()).test`
-      " with `|` being the cursor.
-      " After the first jump, there's no possibility of this anymore,
-      " e.g. foo(foobar.test).test
-    elseif l:next_char =~# '\v[\)\}\]\>]'
-      if l:char_was_found && !a:greedy
-        let l:finished    = 1
+    elseif l:cur_char =~ "'"
+      normal F'
+    elseif l:cur_char =~ '"'
+      normal F"
+    elseif l:cur_char =~ "`"
+      normal F`
 
+    elseif l:cur_char =~ "[a-zA-Z_0-9]"
+      let l:char_found = v:true
+      if a:reach
+        normal! b
       else
-        if l:made_an_assumption ==# 0
-          let l:fall_back_braces = [getpos('v'), getpos('.')]
-        endif
-
-        let l:made_an_assumption = 1
-        silent! normal! lvv%
-
-        if a:reach
-          silent! normal! B
-        else
-          silent! normal! b
-        endif
-
-        silent! normal! o
+        normal! B
       endif
-
-      " dot was found!!1
-    elseif l:next_char =~# '\V'.a:char
-      if getline('.')[col('.') + 1] =~# '\v[A-Za-z_\$]'
-        if l:char_was_found && !a:greedy
-          let l:finished    = v:true
-
-        else
-          silent! normal! le
-          let l:char_was_found = v:true
-        endif
-
-        let l:made_an_assumption = v:false
-
-      else
-        let l:invalid = v:true
-      endif
-
-      " found a closing character or at the end of the current line
-    else " l:next_char =~# l:invalid_chars || col('.') + 1 ==# col('$')
-      if l:char_was_found
-        let l:finished = v:true
-
-        if l:made_an_assumption
-          normal! v
-          call setpos('.', l:fall_back_braces[0])
-          normal! v
-          call setpos('.', l:fall_back_braces[1])
-        endif
-
-      else
-        let l:invalid = v:true
-      endif
+    else
+      let l:char_found = v:false
+      let l:invalid = v:true
     endif
   endwhile
 
-  if l:invalid
-    normal! v
-    call setpos('.', a:cur_pos)
-  endif
+    " On the right side there can only be a normal word (its member)
+    normal! oe
+
 endfunction
 
 " (each of them should be settable)
-" abc.def  d
-" abc->def w
-" abc:def  n
+" foo(abc).def.ghi   d
+" abc->def->ghi w
+" abc:def:ghi   n
 
-"(each of them should be settable)
-"data hello_world :: [String]  h
-"var foo = "Hello world!"      e
-""key": "value"                c
+" (each of them should be settable)
+" data hello_world :: [String]  h
+" var foo = "Hello world!"      e
+" key": "value"                 c
 
 " }}}1
 
