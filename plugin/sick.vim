@@ -803,9 +803,11 @@ vnoremap <silent> <plug>VQNmotion :<c-u>call
       \ <sid>sick_qd_motion(getpos('.'), g:sick_qn_motion_char, v:true, v:true)<cr>
 
 function! s:sick_qd_motion(cur_pos, char, reach, greedy)
-  let l:invalid            = v:false
-  let l:finished           = v:false
-  let l:char_found         = v:false
+  let l:invalid        = v:false
+  let l:finished       = v:false
+  let l:left_finished  = v:false
+  let l:right_finished = v:false
+  let l:start_pos      = getpos('.')
 
   call search(a:char, 'c', line('.'))
 
@@ -814,53 +816,60 @@ function! s:sick_qd_motion(cur_pos, char, reach, greedy)
     let l:invalid = v:true
   endif
 
-  normal! v
-
   " Work through conditions that can occur on the left side
-  while !l:char_found && !l:invalid
+  while !l:left_finished && !l:invalid
     normal! h
-    let l:char_found = v:true
-    let l:cur_char   = getline('.')[col('.') - 1]
+    let l:cur_char = getline('.')[col('.') - 1]
 
-    if l:cur_char =~ ')'
-      normal va)
-      if s:sick_make_a_q('(', ')', a:reach) ==# 1
-        let l:invalid = v:true
-      endif
-    elseif l:cur_char =~ '}'
-      normal va}
-      if s:sick_make_a_q('{', '}', a:reach) ==# 1
-        let l:invalid = v:true
-      endif
-    elseif l:cur_char =~ ']'
-      normal va]
-      if s:sick_make_a_q('[', ']', a:reach) ==# 1
-        let l:invalid = v:true
-      endif
+    if l:cur_char =~ "[\])}>]"
+      normal %
 
     elseif l:cur_char =~ "'"
       normal F'
+      let l:left_finished = v:true
     elseif l:cur_char =~ '"'
       normal F"
+      let l:left_finished = v:true
     elseif l:cur_char =~ "`"
       normal F`
+      let l:left_finished = v:true
 
     elseif l:cur_char =~ "[a-zA-Z_0-9]"
-      let l:char_found = v:true
       if a:reach
-        normal! b
-      else
         normal! B
+      else
+        normal! b
       endif
+      let l:char_found = v:true
+
     else
-      let l:char_found = v:false
       let l:invalid = v:true
     endif
   endwhile
 
-    " On the right side there can only be a normal word (its member)
-    normal! oe
+  " Start selection and go back to origin
+  normal! lv
+  call setpos('.', l:start_pos)
 
+  " Right part
+  if a:greedy
+    while !l:right_finished && !l:invalid
+      normal! l
+      let l:cur_char = getline('.')[col('.') - 1]
+
+      if l:cur_char =~ "[\[({<]"
+        normal %
+      elseif l:cur_char =~ "[a-zA-Z_0-9]"
+        normal! e
+      else
+        normal! 1 
+        let l:right_finished = v:true
+      endif
+
+    endwhile
+  else
+    normal! le
+  endif
 endfunction
 
 " (each of them should be settable)
