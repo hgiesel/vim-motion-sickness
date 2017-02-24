@@ -1,9 +1,10 @@
-" z Add some lines which don't do anything cause they are comments And some more
 " This plugin adds a lot of motion mappings. Here's a list
 "
 " 1. `ir`, `ar`, `ia`, and `aa` where `r` and `a` are aliases for `[` and `<`
-"  (similiar to tpopes' vim-surround plugin
+"sic>markdown_gf(pe>)  (similiar to tpopes' vim-surround plugin
 "  Symbol aliases
+
+
 "
 " 2. `i_`, `a_` and family, which are a lot of motions that work like `ab` or
 "  `aB` but with symbols
@@ -38,7 +39,7 @@
 " are included) (note that this on an indentation of zero would select the whole
 " file)
 
-if exists('g:loaded_motion_sickness') || &compatible || v:version < 700
+if exists('g:loaded_motion_sickness') || &compatible || v:version < 800
   finish
 endif
 let g:loaded_motion_sickness = 1
