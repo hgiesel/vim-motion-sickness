@@ -1,0 +1,56 @@
+" " ii or ai motions {{{1
+" Given:
+"   arg
+
+"   abc
+"   foo
+"     bar
+"     baz
+"   foo
+" Before (Go to baz):
+"   call search('baz')
+
+" Do (diz with cursor on baz):
+"   diz
+" Expect (Inner indent deleted):
+"   arg
+
+"   abc
+"   foo
+"   foo
+
+" Do (daz with cursor on baz):
+"   daz
+" Expect (All indent deleted):
+"   arg
+
+"   abc
+
+" " iI or aI motions {{{1
+" Given:
+"   arg
+
+"   abc
+"   foo
+"     bar
+
+"     baz
+"   foo
+" Before (Go to baz):
+"   call search('baz')
+
+" Do (diZ with cursor on baz):
+"   diZ
+" Expect (Inner indent deleted):
+"   arg
+
+"   abc
+"   foo
+"   foo
+
+" Do (daZ with cursor on baz):
+"   daZ
+" Expect (All indent deleted):
+"   arg
+
+"   abc
