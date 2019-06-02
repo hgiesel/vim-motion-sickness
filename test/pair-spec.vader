@@ -1,0 +1,68 @@
+" Given (bar::foo.arg(foo[5].name).baz):
+"   bar::foo.arg(foo[5].name).baz
+
+" " with cursor on foo {{{1
+" Do (dqd with cursor on foo):
+"   ffdqd
+" Expect (first and second part deleted, reach is left intact):
+"   bar::(foo[5].name).baz
+
+" Do (dQd with cursor on foo):
+"   ffdQd
+" Expect (first and second part deleted):
+"   (foo[5].name).baz
+
+" Do (dqD with cursor on foo):
+"   ffdqD
+" Expect (All parts deleted, reach is left intact):
+"   bar::.baz
+
+" Do (dQD with cursor on foo):
+"   ffdQD
+" Expect (Everything deleted):
+"   .baz
+" " }}}
+
+" " with cursor on arg {{{1
+" Do (dqd with cursor on arg):
+"   fafadqd
+" Expect (Minimal word deleted):
+"   bar::foo.
+
+" Do (dQd with cursor on arg):
+"   fafadQd
+" Expect (Minimal word deleted):
+"   bar::foo.
+
+" Do (dqD with cursor on arg):
+"   fafadqD
+" Expect (Minimal word deleted):
+"   bar::foo.
+
+" Do (dQD with cursor on arg):
+"   fafadQD
+" Expect (Minimal word deleted):
+"   bar::foo.
+" " }}}
+
+" " with cursor on baz {{{1
+" Do (dqd with cursor on baz):
+"   fbdqd
+" Expect (Nothing happened):
+"   bar::foo.arg(foo[5].name).baz
+
+" Do (dQd with cursor on baz):
+"   fbdQd
+" Expect (Nothing happened):
+"   bar::foo.arg(foo[5].name).baz
+
+" Do (dqD with cursor on baz):
+"   fbdqD
+" Expect (Nothing happened):
+"   bar::foo.arg(foo[5].name).baz
+
+" Do (dQD with cursor on baz):
+"   fbdQD
+" Expect (Nothing happened):
+"   bar::foo.arg(foo[5].name).baz
+" " }}}

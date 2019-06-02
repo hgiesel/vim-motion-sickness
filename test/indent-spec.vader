@@ -1,4 +1,4 @@
-" iz or az motions {{{1
+" ii or ai motions {{{1
 Given:
   arg
 
@@ -10,8 +10,8 @@ Given:
 Before (Go to baz):
   call search('baz')
 
-Do (diz with cursor on baz):
-  diz
+Do (dii with cursor on baz):
+  dii
 Expect (Inner indent deleted):
   arg
 
@@ -20,14 +20,13 @@ Expect (Inner indent deleted):
   foo
 
 Do (daz with cursor on baz):
-  daz
+  dai
 Expect (All indent deleted):
   arg
 
   abc
-" }}}
 
-" iZ or aZ motions {{{1
+" iI or aI motions {{{1
 Given:
   arg
 
@@ -41,7 +40,7 @@ Before (Go to baz):
   call search('baz')
 
 Do (diZ with cursor on baz):
-  diZ
+  diI
 Expect (Inner indent deleted):
   arg
 
@@ -50,9 +49,8 @@ Expect (Inner indent deleted):
   foo
 
 Do (daZ with cursor on baz):
-  daZ
+  daI
 Expect (All indent deleted):
   arg
 
   abc
-" }}}

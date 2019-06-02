@@ -20,7 +20,7 @@ install:
   - sudo make -C ./vim install
 
 before_script:
-  - export PATH=/usr/local/bin:${PATH}
+  - export PATH="/usr/local/bin:${PATH}"
 
 script:
   - vim -u test/vimrc-test -c 'Vader! test/*.vader' > /dev/null
