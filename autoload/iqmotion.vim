@@ -1,7 +1,7 @@
 " ORIGINAL Author:  Takahiro SUZUKI <takahiro.suzuki.ja@gmDELETEMEail.com>
 " Version: 1.1.1 (Vim 7.1)
 " Licence: MIT Licence
-
+"
 function! iqmotion#GetOutOfDoubleQuote()
   " get out of double quoteed string (one letter before the beginning)
   let line = getline('.')
@@ -108,7 +108,6 @@ endfunction
 function! iqmotion#MoveToNextNonSpace()
   let oldp = getpos('.')
   let moved = 0
-  """echo 'move:' . getline('.')[getpos('.')[2]-1]
   while getline('.')[getpos('.')[2]-1] ==# ' '
     normal l
     if oldp == getpos('.')
@@ -134,14 +133,15 @@ endfunction
 
 function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddelim)
   let current_c = getline('.')[getpos('.')[2]-1]
-  if current_c==a:fielddelim || current_c==a:opendelim
+  if current_c ==# a:fielddelim || current_c ==# a:opendelim
     normal l
   endif
 
   " get out of "double quoted string" because [( does not take effect in it
   call iqmotion#GetOutOfDoubleQuote()
 
-  let rightup      = iqmotion#GetOuterFunctionParenthesis(a:opendelim)       " on (
+  let rightup = iqmotion#GetOuterFunctionParenthesis(a:opendelim)       " on (
+
   if getline('.')[rightup[2]-1] != a:opendelim
     " not in a function declaration nor call
     return
@@ -156,10 +156,9 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
   let arglist_sub = substitute(arglist_sub, '\[\([^'."'".']\{-}\)\]', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')     " replace [..] => (__)
   let arglist_sub = substitute(arglist_sub, '<\([^'."'".']\{-}\)>', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')       " replace <..> => (__)
   let arglist_sub = substitute(arglist_sub, '"\([^'."'".']\{-}\)"', '(\1)', 'g') " replace ''..'' => (..)
-  """echo 'transl quotes: ' . arglist_sub
-  while stridx(arglist_sub, a:opendelim) >= 0 && stridx(arglist_sub, a:closedelim) >= 0 " TODO
+
+  while stridx(arglist_sub, a:opendelim) >= 0 && stridx(arglist_sub, a:closedelim) >= 0
     let arglist_sub = substitute(arglist_sub , '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
-    """echo 'sub single quot: ' . arglist_sub
   endwhile
 
   " the beginning/end of this argument
@@ -170,13 +169,6 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
   "             [^left]    [^right]
   let left  = offset - thisargbegin
   let right = thisargend - thisargbegin
-
-  """echo 'on(='. rightup[2] . ' before)=' . rightup_pair[2]
-  """echo arglist_str
-  """echo arglist_sub
-  """echo offset
-  """echo 'argbegin='. thisargbegin . '  argend='. thisargend
-  """echo 'left=' . left . '  right='. right
 
   let delete_trailing_space = 0
   if a:inner

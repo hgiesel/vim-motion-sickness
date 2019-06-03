@@ -62,8 +62,12 @@ This plugin adds a slew of new possible text objects.
 | `aqB`       | select argument within braces with comma          |
 | `iqr`       | select argument within square brackets            |
 | `aqr`       | select argument within square brackets with comma |
-| `iqa`       | select argument within angle brackets             |
-| `aqa`       | select argument within angle brackets with comma  |
+| `iqa`       | select argument within angle brackets (requires `set matchpairs+=<:>` to work) |
+| `aqa`       | select argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
 
 > ### Segment motions
 > ### Pair motions
+
+## TODO
+
+* at the moment, none of the motions accept counts
