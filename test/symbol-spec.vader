@@ -1,1855 +1,1741 @@
-" " * asterisk {{{1
-" " doc: doo*bar*xyz {{{2
-" Given (foo*bar*xyz):
-"   foo*bar*xyz
-
-" " start at f {{{3
-" Do (di* with cursor on f):
-"   di*
-" Expect:
-"   foo**xyz
-
-" Do (da* with cursor on f):
-"   da*
-" Expect:
-"   fooxyz
-" " }}}3
-
-" " start at b {{{3
-" Do (di* with cursor on b):
-"   fbdi*
-" Expect:
-"   foo**xyz
-
-" Do (da* with cursor on b):
-"   fbda*
-" Expect:
-"   fooxyz
-" " }}}3
-
-" " start at x {{{3
-" Do (di* with cursor on x):
-"   fxdi*
-" Expect:
-"   foo*bar*xyz
-
-" Do (da* with cursor on x):
-"   fxda*
-" Expect:
-"   foo*bar*xyz
-" " }}}3
-" " }}}2
-
-" " doc: *foo\nbar* {{{2
-" Given (*foo\nbar*):
-"   *foo
-"   bar*
-
-" " start at f {{{3
-" Do (ffdi* with cursor on f):
-"   ffdi*
-" Expect:
-"   *foo
-"   bar*
-
-" Do (di* with cursor on f):
-"   ffda*
-" Expect:
-"   *foo
-"   bar*
-" " }}}3
-
-" " start b {{{3
-" Do (di* with cursor on b):
-"   +di*
-" Expect:
-"   *foo
-"   bar*
-
-" Do (di* with cursor on b):
-"   +da*
-" Expect:
-"   *foo
-"   bar*
-" " }}}3
-" " }}}2
-
-" " doc: foo**foobar** {{{2
-" Given (foo**foobar**):
-"   foo**foobar**
-
-" " start at b {{{3
-" Do (di* with cursor on b):
-"   fbdi*
-" Expect (Inner symbol deleted):
-"   foo****
-
-" Do (di*di* with cursor on b):
-"   fbdi*di*
-" Expect:
-"   foo****
-
-" Do (da* with cursor on b):
-"   fbda*
-" Expect (First symbol embrace deleted):
-"   foo**
-
-" Do (da*da* with cursor on b):
-"   fbda*da*
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi*x with cursor on b):
-"   fbyi*x
-" Expect (f deleted):
-"   foo**oobar**
-
-" Do (da* with cursor on b):
-"   fbya*x
-" Expect (symbol left to f deleted):
-"   foo*foobar**
-
-" Do (vi*d with cursor on b):
-"   fbvi*d
-" Expect (Inner symbol deleted):
-"   foo****
-
-" Do (va*d with cursor on b):
-"   fbva*d
-" Expect (First symbol embrace deleted):
-"   foo**
-
-" Do (va*a*d with cursor on b):
-"   fbva*a*d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}3
-" " }}}2
-
-" " doc: foo**b** {{{2
-" Given (foo**b**):
-"   foo**b**
-
-" " start at b {{{3
-" Do (di* with cursor on b):
-"   fbdi*
-" Expect (Inner symbol deleted):
-"   foo****
-
-" Do (di*di* with cursor on b):
-"   fbdi*di*
-" Expect (Inner symbol deleted):
-"   foo****
-
-" Do (da* with cursor on b):
-"   fbda*
-" Expect (first symbol embraced deleted):
-"   foo**
-
-" Do (da*da* with cursor on b):
-"   fbda*da*
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi*x with cursor on b):
-"   fbyi*x
-" Expect (b deleted):
-"   foo****
-
-" Do (da* with cursor on b):
-"   fbya*x
-" Expect (symbol to left of b deleted):
-"   foo*b**
-
-" Do (vi*d with cursor on b):
-"   fbvi*d
-" Expect (Inner symbol deleted):
-"   foo****
-
-" Do (va*d with cursor on b):
-"   fbva*d
-" Expect (First symbol embraced deleted):
-"   foo**
-
-" Do (vi*i*d with cursor on b):
-"   fbvi*i*d
-" Expect (Only inner symbol deleted):
-"   foo****
-
-" Do (va*a*d with cursor on b):
-"   fbva*a*d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-" " }}}
-
-" " _ underscore {{{1
-" " doc: doo_bar_xyz {{{2
-" Given (foo_bar_xyz):
-"   foo_bar_xyz
-
-" " start at f {{{3
-" Do (di_):
-"   di_
-" Expect:
-"   foo__xyz
-
-" Do (da_):
-"   da_
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di_ with cursor on b):
-"   fbdi_
-" Expect:
-"   foo__xyz
-" Do (da_ with cursor on b):
-"   fbda_
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di_ with cursor on x):
-"   fxdi_
-" Expect:
-"   foo_bar_xyz
-
-" Do (da_ with cursor on x):
-"   fxda_
-" Expect:
-"   foo_bar_xyz
-" " }}}
-" " }}}
-
-" " doc: _foo\nbar_ {{{2
-" Given (_foo\nbar_):
-"   _foo
-"   bar_
-
-" " start at f {{{3
-" Do (di_ with cursor on f):
-"   ffdi_
-" Expect:
-"   _foo
-"   bar_
-
-" Do (di_ with cursor on f):
-"   ffda_
-" Expect:
-"   _foo
-"   bar_
-
-" " }}}
-
-" " start b {{{3
-" Do (di_ with cursor on b):
-"   +di_
-" Expect:
-"   _foo
-"   bar_
-
-" Do (di_ with cursor on b):
-"   +da_
-" Expect:
-"   _foo
-"   bar_
-" " }}}
-" " }}}
-
-" " doc: foo__foobar__ {{{2
-" Given (foo__foobar__):
-"   foo__foobar__
-
-" " start at b {{{3
-" Do (di_ with cursor on b):
-"   fbdi_
-" Expect (Inner symbol deleted):
-"   foo____
-
-" Do (di_di_ with cursor on b):
-"   fbdi_di_
-" Expect:
-"   foo____
-
-" Do (da_ with cursor on b):
-"   fbda_
-" Expect (First symbol embrace deleted):
-"   foo__
-
-" Do (da_da_ with cursor on b):
-"   fbda_da_
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi_x with cursor on b):
-"   fbyi_x
-" Expect (f deleted):
-"   foo__oobar__
-
-" Do (da_ with cursor on b):
-"   fbya_x
-" Expect (symbol left to f deleted):
-"   foo_foobar__
-
-" Do (vi_d with cursor on b):
-"   fbvi_d
-" Expect (Inner symbol deleted):
-"   foo____
-
-" Do (va_d with cursor on b):
-"   fbva_d
-" Expect (First symbol embrace deleted):
-"   foo__
-
-" Do (va_a_d with cursor on b):
-"   fbva_a_d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo__b__ {{{2
-" Given (foo__b__):
-"   foo__b__
-
-" " start at b
-" Do (di_ with cursor on b):
-"   fbdi_
-" Expect (Inner symbol deleted):
-"   foo____
-
-" Do (di_di_ with cursor on b):
-"   fbdi_di_
-" Expect (Inner symbol deleted):
-"   foo____
-
-" Do (da_ with cursor on b):
-"   fbda_
-" Expect (first symbol embraced deleted):
-"   foo__
-
-" Do (da_da_ with cursor on b):
-"   fbda_da_
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi_x with cursor on b):
-"   fbyi_x
-" Expect (b deleted):
-"   foo____
-
-" Do (da_ with cursor on b):
-"   fbya_x
-" Expect (symbol to left of b deleted):
-"   foo_b__
-
-" Do (vi_d with cursor on b):
-"   fbvi_d
-" Expect (Inner symbol deleted):
-"   foo____
-
-" Do (va_d with cursor on b):
-"   fbva_d
-" Expect (First symbol embraced deleted):
-"   foo__
-
-" Do (vi_i_d with cursor on b):
-"   fbvi_i_d
-" Expect (Only inner symbol deleted):
-"   foo____
-
-" Do (va_a_d with cursor on b):
-"   fbva_a_d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " - dash {{{1
-" " doc: doo-bar-xyz {{{2
-" Given (foo-bar-xyz):
-"   foo-bar-xyz
-
-" " start at f {{{3
-" Do (di- with cursor on f):
-"   di-
-" Expect:
-"   foo--xyz
-
-" Do (da- with cursor on f):
-"   da-
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di- with cursor on b):
-"   fbdi-
-" Expect:
-"   foo--xyz
-
-" Do (da- with cursor on b):
-"   fbda-
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di- with cursor on x):
-"   fxdi-
-" Expect:
-"   foo-bar-xyz
-
-" Do (fada- with cursor on x):
-"   fxda-
-" Expect:
-"   foo-bar-xyz
-" " }}}
-" " }}}
-
-" " doc: -foo\nbar- {{{2
-" Given (-foo\nbar-):
-"   -foo
-"   bar-
-
-" " start at f {{{3
-" Do (di- with cursor on f):
-"   ffdi-
-" Expect:
-"   -foo
-"   bar-
-
-" Do (di- with cursor on f):
-"   ffda-
-" Expect:
-"   -foo
-"   bar-
-" " }}}
-
-" " start b {{{3
-" Do (di- with cursor on b):
-"   +di-
-" Expect:
-"   -foo
-"   bar-
-
-" Do (di- with cursor on b):
-"   +da-
-" Expect:
-"   -foo
-"   bar-
-" " }}}
-" " }}}
-
-" " doc: foo--foobar-- {{{2
-" Given (foo--foobar--):
-"   foo--foobar--
-
-" " start at b {{{3
-" Do (di- with cursor on b):
-"   fbdi-
-" Expect (Inner symbol deleted):
-"   foo----
-
-" Do (di-di- with cursor on b):
-"   fbdi-di-
-" Expect:
-"   foo----
-
-" Do (da- with cursor on b):
-"   fbda-
-" Expect (First symbol embrace deleted):
-"   foo--
-
-" Do (da-da- with cursor on b):
-"   fbda-da-
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi-x with cursor on b):
-"   fbyi-x
-" Expect (f deleted):
-"   foo--oobar--
-
-" Do (da- with cursor on b):
-"   fbya-x
-" Expect (symbol left to f deleted):
-"   foo-foobar--
-
-" Do (vi-d with cursor on b):
-"   fbvi-d
-" Expect (Inner symbol deleted):
-"   foo----
-
-" Do (va-d with cursor on b):
-"   fbva-d
-" Expect (First symbol embrace deleted):
-"   foo--
-
-" Do (va-a-d with cursor on b):
-"   fbva-a-d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo--b-- {{{2
-" Given (foo--b--):
-"   foo--b--
-
-" " start at b {{{3
-" Do (di- with cursor on b):
-"   fbdi-
-" Expect (Inner symbol deleted):
-"   foo----
-
-" Do (di-di- with cursor on b):
-"   fbdi-di-
-" Expect (Inner symbol deleted):
-"   foo----
-
-" Do (da- with cursor on b):
-"   fbda-
-" Expect (first symbol embraced deleted):
-"   foo--
-
-" Do (da-da- with cursor on b):
-"   fbda-da-
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi-x with cursor on b):
-"   fbyi-x
-" Expect (b deleted):
-"   foo----
-
-" Do (da- with cursor on b):
-"   fbya-x
-" Expect (symbol to left of b deleted):
-"   foo-b--
-
-" Do (vi-d with cursor on b):
-"   fbvi-d
-" Expect (Inner symbol deleted):
-"   foo----
-
-" Do (va-d with cursor on b):
-"   fbva-d
-" Expect (First symbol embraced deleted):
-"   foo--
-
-" Do (vi-i-d with cursor on b):
-"   fbvi-i-d
-" Expect (Only inner symbol deleted):
-"   foo----
-
-" Do (va-a-d with cursor on b):
-"   fbva-a-d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-" " }}}
-
-" " : colon {{{1
-" " doc: doo:bar:xyz {{{2
-" Given (foo:bar:xyz):
-"   foo:bar:xyz
-
-" " start at f {{{3
-" Do (di:):
-"   di:
-" Expect:
-"   foo::xyz
-
-" Do (da:):
-"   da:
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di: with cursor on b):
-"   fbdi:
-" Expect:
-"   foo::xyz
-
-" Do (da: with cursor on b):
-"   fbda:
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di: with cursor on x):
-"   fxdi:
-" Expect:
-"   foo:bar:xyz
-
-" Do (da: with cursor on x):
-"   fxda:
-" Expect:
-"   foo:bar:xyz
-" " }}}
-" " }}}
-
-" " doc: :foo\nbar: {{{2
-" Given (:foo\nbar:):
-"   :foo
-"   bar:
-
-" " start at f {{{3
-" Do (di: with cursor on f):
-"   ffdi:
-" Expect:
-"   :foo
-"   bar:
-
-" Do (di: with cursor on f):
-"   ffda:
-" Expect:
-"   :foo
-"   bar:
-
-" " }}}
-
-" " start b {{{3
-" Do (di: with cursor on b):
-"   +di:
-" Expect:
-"   :foo
-"   bar:
-
-" Do (di: with cursor on b):
-"   +da:
-" Expect:
-"   :foo
-"   bar:
-" " }}}
-" " }}}
-
-" " doc: foo::foobar:: {{{2
-" Given (foo::foobar::):
-"   foo::foobar::
-
-" " start at b {{{3
-" Do (di: with cursor on b):
-"   fbdi:
-" Expect (Inner symbol deleted):
-"   foo::::
-
-" Do (di:di: with cursor on b):
-"   fbdi:di:
-" Expect:
-"   foo::::
-
-" Do (da: with cursor on b):
-"   fbda:
-" Expect (First symbol embrace deleted):
-"   foo::
-
-" Do (da:da: with cursor on b):
-"   fbda:da:
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi:x with cursor on b):
-"   fbyi:x
-" Expect (f deleted):
-"   foo::oobar::
-
-" Do (da: with cursor on b):
-"   fbya:x
-" Expect (symbol left to f deleted):
-"   foo:foobar::
-
-" Do (vi:d with cursor on b):
-"   fbvi:d
-" Expect (Inner symbol deleted):
-"   foo::::
-
-" Do (va:d with cursor on b):
-"   fbva:d
-" Expect (First symbol embrace deleted):
-"   foo::
-
-" Do (va:a:d with cursor on b):
-"   fbva:a:d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo::b:: {{{2
-" Given (foo::b::):
-"   foo::b::
-
-" " start at b {{{3
-" Do (di: with cursor on b):
-"   fbdi:
-" Expect (Inner symbol deleted):
-"   foo::::
-
-" Do (di:di: with cursor on b):
-"   fbdi:di:
-" Expect (Inner symbol deleted):
-"   foo::::
-
-" Do (da: with cursor on b):
-"   fbda:
-" Expect (first symbol embraced deleted):
-"   foo::
-
-" Do (da:da: with cursor on b):
-"   fbda:da:
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi:x with cursor on b):
-"   fbyi:x
-" Expect (b deleted):
-"   foo::::
-
-" Do (da: with cursor on b):
-"   fbya:x
-" Expect (symbol to left of b deleted):
-"   foo:b::
-
-" Do (vi:d with cursor on b):
-"   fbvi:d
-" Expect (Inner symbol deleted):
-"   foo::::
-
-" Do (va:d with cursor on b):
-"   fbva:d
-" Expect (First symbol embraced deleted):
-"   foo::
-
-" Do (vi:i:d with cursor on b):
-"   fbvi:i:d
-" Expect (Only inner symbol deleted):
-"   foo::::
-
-" Do (va:a:d with cursor on b):
-"   fbva:a:d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-" " }}}
-
-" " @ at {{{1
-" " doc: doo@bar@xyz {{{2
-" Given (foo@bar@xyz):
-"   foo@bar@xyz
-
-" " start at f {{{3
-" Do (di@ with cursor on f):
-"   di@
-" Expect:
-"   foo@@xyz
-
-" Do (da@ with cursor on f):
-"   da@
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di@ with cursor on b):
-"   fbdi@
-" Expect:
-"   foo@@xyz
-
-" Do (da@ with cursor on b):
-"   fbda@
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di@ with cursor on x):
-"   fxdi@
-" Expect:
-"   foo@bar@xyz
-
-" Do (da@ with cursor on x):
-"   fxda@
-" Expect:
-"   foo@bar@xyz
-" " }}}
-" " }}}
-
-" " doc: @foo\nbar@ {{{2
-" Given (@foo\nbar@):
-"   @foo
-"   bar@
-
-" " start at f {{{3
-" Do (di@ with cursor on f):
-"   ffdi@
-" Expect:
-"   @foo
-"   bar@
-
-" Do (ffdi@ with cursor on f):
-"   ffda@
-" Expect:
-"   @foo
-"   bar@
-" " }}}
-
-" " start b {{{3
-" Do (di@ with cursor on b):
-"   +di@
-" Expect:
-"   @foo
-"   bar@
-
-" Do (di@ with cursor on b):
-"   +da@
-" Expect:
-"   @foo
-"   bar@
-" " }}}
-" " }}}
-
-" " doc: foo@@foobar@@ {{{2
-" Given (foo@@foobar@@):
-"   foo@@foobar@@
-
-" " start at b {{{3
-" Do (di@ with cursor on b):
-"   fbdi@
-" Expect (Inner symbol deleted):
-"   foo@@@@
-
-" Do (di@di@ with cursor on b):
-"   fbdi@di@
-" Expect:
-"   foo@@@@
-
-" Do (da@ with cursor on b):
-"   fbda@
-" Expect (First symbol embrace deleted):
-"   foo@@
-
-" Do (da@da@ with cursor on b):
-"   fbda@da@
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi@x with cursor on b):
-"   fbyi@x
-" Expect (f deleted):
-"   foo@@oobar@@
-
-" Do (da@ with cursor on b):
-"   fbya@x
-" Expect (symbol left to f deleted):
-"   foo@foobar@@
-
-" Do (vi@d with cursor on b):
-"   fbvi@d
-" Expect (Inner symbol deleted):
-"   foo@@@@
-
-" Do (va@d with cursor on b):
-"   fbva@d
-" Expect (First symbol embrace deleted):
-"   foo@@
-
-" Do (va@a@d with cursor on b):
-"   fbva@a@d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo@@b@@ {{{2
-" Given (foo@@b@@):
-"   foo@@b@@
-
-" " start at b
-" Do (di@ with cursor on b):
-"   fbdi@
-" Expect (Inner symbol deleted):
-"   foo@@@@
-
-" Do (di@di@ with cursor on b):
-"   fbdi@di@
-" Expect (Inner symbol deleted):
-"   foo@@@@
-
-" Do (da@ with cursor on b):
-"   fbda@
-" Expect (first symbol embraced deleted):
-"   foo@@
-
-" Do (da@da@ with cursor on b):
-"   fbda@da@
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi@x with cursor on b):
-"   fbyi@x
-" Expect (b deleted):
-"   foo@@@@
-
-" Do (da@ with cursor on b):
-"   fbya@x
-" Expect (symbol to left of b deleted):
-"   foo@b@@
-
-" Do (vi@d with cursor on b):
-"   fbvi@d
-" Expect (Inner symbol deleted):
-"   foo@@@@
-
-" Do (va@d with cursor on b):
-"   fbva@d
-" Expect (First symbol embraced deleted):
-"   foo@@
-
-" Do (vi@i@d with cursor on b):
-"   fbvi@i@d
-" Expect (Only inner symbol deleted):
-"   foo@@@@
-
-" Do (va@a@d with cursor on b):
-"   fbva@a@d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " ! bang {{{1
-" " doc: doo!bar!xyz {{{2
-" Given (foo!bar!xyz):
-"   foo!bar!xyz
-
-" " start at f {{{3
-" Do (di! with cursor on f):
-"   di!
-" Expect:
-"   foo!!xyz
-
-" Do (da! with cursor on f):
-"   da!
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di! with cursor on b):
-"   fbdi!
-" Expect:
-"   foo!!xyz
-
-" Do (da! with cursor on b):
-"   fbda!
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di! with cursor on x):
-"   fxdi!
-" Expect:
-"   foo!bar!xyz
-
-" Do (fada! with cursor on x):
-"   fxda!
-" Expect:
-"   foo!bar!xyz
-" " }}}
-" " }}}
-
-" " doc: !foo\nbar! {{{2
-" Given (!foo\nbar!):
-"   !foo
-"   bar!
-
-" " start at f {{{3
-" Do (di! with cursor on f):
-"   ffdi!
-" Expect:
-"   !foo
-"   bar!
-
-" Do (di! with cursor on f):
-"   ffda!
-" Expect:
-"   !foo
-"   bar!
-" " }}}
-
-" " start b {{{3
-" Do (di! with cursor on b):
-"   +di!
-" Expect:
-"   !foo
-"   bar!
-
-" Do (di! with cursor on b):
-"   +da!
-" Expect:
-"   !foo
-"   bar!
-" " }}}
-" " }}}
-
-" " doc: foo!!foobar!! {{{2
-" Given (foo!!foobar!!):
-"   foo!!foobar!!
-
-" " start at b {{{3
-" Do (di! with cursor on b):
-"   fbdi!
-" Expect (Inner symbol deleted):
-"   foo!!!!
-
-" Do (di!di! with cursor on b):
-"   fbdi!di!
-" Expect:
-"   foo!!!!
-
-" Do (da! with cursor on b):
-"   fbda!
-" Expect (First symbol embrace deleted):
-"   foo!!
-
-" Do (da!da! with cursor on b):
-"   fbda!da!
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi!x with cursor on b):
-"   fbyi!x
-" Expect (f deleted):
-"   foo!!oobar!!
-
-" Do (da! with cursor on b):
-"   fbya!x
-" Expect (symbol left to f deleted):
-"   foo!foobar!!
-
-" Do (vi!d with cursor on b):
-"   fbvi!d
-" Expect (Inner symbol deleted):
-"   foo!!!!
-
-" Do (va!d with cursor on b):
-"   fbva!d
-" Expect (First symbol embrace deleted):
-"   foo!!
-
-" Do (va!a!d with cursor on b):
-"   fbva!a!d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo!!b!! {{{2
-" Given (foo!!b!!):
-"   foo!!b!!
-
-" " start at b {{{3
-" Do (di! with cursor on b):
-"   fbdi!
-" Expect (Inner symbol deleted):
-"   foo!!!!
-
-" Do (di!di! with cursor on b):
-"   fbdi!di!
-" Expect (Inner symbol deleted):
-"   foo!!!!
-
-" Do (da! with cursor on b):
-"   fbda!
-" Expect (first symbol embraced deleted):
-"   foo!!
-
-" Do (da!da! with cursor on b):
-"   fbda!da!
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi!x with cursor on b):
-"   fbyi!x
-" Expect (b deleted):
-"   foo!!!!
-
-" Do (da! with cursor on b):
-"   fbya!x
-" Expect (symbol to left of b deleted):
-"   foo!b!!
-
-" Do (vi!d with cursor on b):
-"   fbvi!d
-" Expect (Inner symbol deleted):
-"   foo!!!!
-
-" Do (va!d with cursor on b):
-"   fbva!d
-" Expect (First symbol embraced deleted):
-"   foo!!
-
-" Do (vi!i!d with cursor on b):
-"   fbvi!i!d
-" Expect (Only inner symbol deleted):
-"   foo!!!!
-
-" Do (va!a!d with cursor on b):
-"   fbva!a!d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-" " }}}
-
-" " ? question mark {{{1
-" " doc: doo?bar?xyz {{{2
-" Given (foo?bar?xyz):
-"   foo?bar?xyz
-
-" " start at f {{{3
-" Do (di? with cursor on f):
-"   di?
-" Expect:
-"   foo??xyz
-
-" Do (da? with cursor on f):
-"   da?
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di? with cursor on b):
-"   fbdi?
-" Expect:
-"   foo??xyz
-
-" Do (da? with cursor on b):
-"   fbda?
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di? with cursor on x):
-"   fxdi?
-" Expect:
-"   foo?bar?xyz
-
-" Do (da? with cursor on x):
-"   fxda?
-" Expect:
-"   foo?bar?xyz
-" " }}}
-" " }}}
-
-" " doc: ?foo\nbar? {{{2
-" Given (?foo\nbar?):
-"   ?foo
-"   bar?
-
-" " start at f {{{3
-" Do (di? with cursor on f):
-"   ffdi?
-" Expect:
-"   ?foo
-"   bar?
-
-" Do (ffdi? with cursor on f):
-"   ffda?
-" Expect:
-"   ?foo
-"   bar?
-
-" " }}}
-
-" " start b {{{3
-" Do (di? with cursor on b):
-"   +di?
-" Expect:
-"   ?foo
-"   bar?
-
-" Do (di? with cursor on b):
-"   +da?
-" Expect:
-"   ?foo
-"   bar?
-" " }}}
-" " }}}
-
-" " doc: foo??foobar?? {{{2
-" Given (foo??foobar??):
-"   foo??foobar??
-
-" " start at b {{{3
-" Do (di? with cursor on b):
-"   fbdi?
-" Expect (Inner symbol deleted):
-"   foo????
-
-" Do (di?di? with cursor on b):
-"   fbdi?di?
-" Expect:
-"   foo????
-
-" Do (da? with cursor on b):
-"   fbda?
-" Expect (First symbol embrace deleted):
-"   foo??
-
-" Do (da?da? with cursor on b):
-"   fbda?da?
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi?x with cursor on b):
-"   fbyi?x
-" Expect (f deleted):
-"   foo??oobar??
-
-" Do (da? with cursor on b):
-"   fbya?x
-" Expect (symbol left to f deleted):
-"   foo?foobar??
-
-" Do (vi?d with cursor on b):
-"   fbvi?d
-" Expect (Inner symbol deleted):
-"   foo????
-
-" Do (va?d with cursor on b):
-"   fbva?d
-" Expect (First symbol embrace deleted):
-"   foo??
-
-" Do (va?a?d with cursor on b):
-"   fbva?a?d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo??b?? {{{2
-" Given (foo??b??):
-"   foo??b??
-
-" " start at b
-" Do (di? with cursor on b):
-"   fbdi?
-" Expect (Inner symbol deleted):
-"   foo????
-
-" Do (di?di? with cursor on b):
-"   fbdi?di?
-" Expect (Inner symbol deleted):
-"   foo????
-
-" Do (da? with cursor on b):
-"   fbda?
-" Expect (first symbol embraced deleted):
-"   foo??
-
-" Do (da?da? with cursor on b):
-"   fbda?da?
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi?x with cursor on b):
-"   fbyi?x
-" Expect (b deleted):
-"   foo????
-
-" Do (da? with cursor on b):
-"   fbya?x
-" Expect (symbol to left of b deleted):
-"   foo?b??
-
-" Do (vi?d with cursor on b):
-"   fbvi?d
-" Expect (Inner symbol deleted):
-"   foo????
-
-" Do (va?d with cursor on b):
-"   fbva?d
-" Expect (First symbol embraced deleted):
-"   foo??
-
-" Do (vi?i?d with cursor on b):
-"   fbvi?i?d
-" Expect (Only inner symbol deleted):
-"   foo????
-
-" Do (va?a?d with cursor on b):
-"   fbva?a?d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " / slash {{{1
-" " doc: doo/bar/xyz {{{2
-" Given (foo/bar/xyz):
-"   foo/bar/xyz
-
-" " start at f {{{3
-" Do (di/ with cursor on f):
-"   di/
-" Expect:
-"   foo//xyz
-
-" Do (da/ with cursor on f):
-"   da/
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di/ with cursor on b):
-"   fbdi/
-" Expect:
-"   foo//xyz
-
-" Do (da/ with cursor on b):
-"   fbda/
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di/ with cursor on x):
-"   fxdi/
-" Expect (Nothing happened):
-"   foo/bar/xyz
-
-" Do (fada/ with cursor on x):
-"   fxda/
-" Expect (Nothing happened):
-"   foo/bar/xyz
-" " }}}
-" " }}}
-
-" " doc: /foo\nbar/ {{{2
-" Given (/foo\nbar/):
-"   /foo
-"   bar/
-
-" " start at f {{{3
-" Do (ffdi/ with cursor on f):
-"   ffdi/
-" Expect:
-"   /foo
-"   bar/
-
-" Do (ffdi/ with cursor on f):
-"   ffda/
-" Expect:
-"   /foo
-"   bar/
-" " }}}
-
-" " start b {{{3
-" Do (di/ with cursor on b):
-"   +di/
-" Expect:
-"   /foo
-"   bar/
-
-" Do (ffdi/ with cursor on b):
-"   +da/
-" Expect:
-"   /foo
-"   bar/
-" " }}}
-" " }}}
-
-" " doc: foo//foobar// {{{2
-" Given (foo//foobar//):
-"   foo//foobar//
-
-" " start at b {{{3
-" Do (di/ with cursor on b):
-"   fbdi/
-" Expect (Inner symbol deleted):
-"   foo////
-
-" Do (di/di/ with cursor on b):
-"   fbdi/di/
-" Expect:
-"   foo////
-
-" Do (da/ with cursor on b):
-"   fbda/
-" Expect (First symbol embrace deleted):
-"   foo//
-
-" Do (da/da/ with cursor on b):
-"   fbda/da/
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi/x with cursor on b):
-"   fbyi/x
-" Expect (f deleted):
-"   foo//oobar//
-
-" Do (da/ with cursor on b):
-"   fbya/x
-" Expect (symbol left to f deleted):
-"   foo/foobar//
-
-" Do (vi/d with cursor on b):
-"   fbvi/d
-" Expect (Inner symbol deleted):
-"   foo////
-
-" Do (va/d with cursor on b):
-"   fbva/d
-" Expect (First symbol embrace deleted):
-"   foo//
-
-" Do (va/a/d with cursor on b):
-"   fbva/a/d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo//b// {{{2
-" Given (foo//b//):
-"   foo//b//
-
-" " start at b
-" Do (di/ with cursor on b):
-"   fbdi/
-" Expect (Inner symbol deleted):
-"   foo////
-
-" Do (di/di/ with cursor on b):
-"   fbdi/di/
-" Expect (Inner symbol deleted):
-"   foo////
-
-" Do (da/ with cursor on b):
-"   fbda/
-" Expect (first symbol embraced deleted):
-"   foo//
-
-" Do (da/da/ with cursor on b):
-"   fbda/da/
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi/x with cursor on b):
-"   fbyi/x
-" Expect (b deleted):
-"   foo////
-
-" Do (da/ with cursor on b):
-"   fbya/x
-" Expect (symbol to left of b deleted):
-"   foo/b//
-
-" Do (vi/d with cursor on b):
-"   fbvi/d
-" Expect (Inner symbol deleted):
-"   foo////
-
-" Do (va/d with cursor on b):
-"   fbva/d
-" Expect (First symbol embraced deleted):
-"   foo//
-
-" Do (vi/i/d with cursor on b):
-"   fbvi/i/d
-" Expect (Only inner symbol deleted):
-"   foo////
-
-" Do (va/a/d with cursor on b):
-"   fbva/a/d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " | bar {{{1
-" " doc: doo|bar|xyz {{{2
-" Given (foo|bar|xyz):
-"   foo|bar|xyz
-
-" " start at f {{{3
-" Do (di| with cursor on f):
-"   di|
-" Expect (bar deleted):
-"   foo||xyz
-
-" Do (da| with cursor on f):
-"   da|
-" Expect (Inner embrace deleted):
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di| with cursor on b):
-"   fbdi|
-" Expect:
-"   foo||xyz
-
-" Do (da| with cursor on b):
-"   fbda|
-" Expect:
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di| with cursor on x):
-"   fxdi|
-" Expect:
-"   foo|bar|xyz
-
-" Do (fada| with cursor on x):
-"   fxda|
-" Expect:
-"   foo|bar|xyz
-" " }}}
-" " }}}
-
-" " doc: |foo\nbar| {{{2
-" Given (|foo\nbar|):
-"   |foo
-"   bar|
-
-" " start at f {{{3
-" Do (ffdi| with cursor on f):
-"   ffdi|
-" Expect (Nothing happened):
-"   |foo
-"   bar|
-
-" Do (ffdi| with cursor on f):
-"   ffda|
-" Expect (Nothing happened):
-"   |foo
-"   bar|
-" " }}}
-
-" " start b {{{3
-" Do (di| with cursor on b):
-"   +di|
-" Expect:
-"   |foo
-"   bar|
-
-" Do (ffdi| with cursor on b):
-"   +da|
-" Expect:
-"   |foo
-"   bar|
-" " }}}
-" " }}}
-
-" " doc: foo||foobar|| {{{2
-" Given (foo||foobar||):
-"   foo||foobar||
-
-" " start at b {{{3
-" Do (di| with cursor on b):
-"   fbdi|
-" Expect (Inner symbol deleted):
-"   foo||||
-
-" Do (di|di| with cursor on b):
-"   fbdi|di|
-" Expect:
-"   foo||||
-
-" Do (da| with cursor on b):
-"   fbda|
-" Expect (First symbol embrace deleted):
-"   foo||
-
-" Do (da|da| with cursor on b):
-"   fbda|da|
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi|x with cursor on b):
-"   fbyi|x
-" Expect (f deleted):
-"   foo||oobar||
-
-" Do (da| with cursor on b):
-"   fbya|x
-" Expect (symbol left to f deleted):
-"   foo|foobar||
-
-" Do (vi|d with cursor on b):
-"   fbvi|d
-" Expect (Inner symbol deleted):
-"   foo||||
-
-" Do (va|d with cursor on b):
-"   fbva|d
-" Expect (First symbol embrace deleted):
-"   foo||
-
-" Do (va|a|d with cursor on b):
-"   fbva|a|d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo||b|| {{{2
-" Given (foo||b||):
-"   foo||b||
-
-" " start at b
-" Do (di| with cursor on b):
-"   fbdi|
-" Expect (Inner symbol deleted):
-"   foo||||
-
-" Do (di|di| with cursor on b):
-"   fbdi|di|
-" Expect (Inner symbol deleted):
-"   foo||||
-
-" Do (da| with cursor on b):
-"   fbda|
-" Expect (first symbol embraced deleted):
-"   foo||
-
-" Do (da|da| with cursor on b):
-"   fbda|da|
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi|x with cursor on b):
-"   fbyi|x
-" Expect (b deleted):
-"   foo||||
-
-" Do (da| with cursor on b):
-"   fbya|x
-" Expect (symbol to left of b deleted):
-"   foo|b||
-
-" Do (vi|d with cursor on b):
-"   fbvi|d
-" Expect (Inner symbol deleted):
-"   foo||||
-
-" Do (va|d with cursor on b):
-"   fbva|d
-" Expect (First symbol embraced deleted):
-"   foo||
-
-" Do (vi|i|d with cursor on b):
-"   fbvi|i|d
-" Expect (Only inner symbol deleted):
-"   foo||||
-
-" Do (va|a|d with cursor on b):
-"   fbva|a|d
-" Expect (all symbol deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " % percent {{{1
-" " doc: doo%bar%xyz {{{2
-" Given (foo%bar%xyz):
-"   foo%bar%xyz
-
-" " start at f {{{3
-" Do (di% with cursor on f):
-"   di%
-" Expect (bar deleted):
-"   foo%%xyz
-
-" Do (da% with cursor on f):
-"   da%
-" Expect (Inner embrace deleted):
-"   fooxyz
-" " }}}
-
-" " start at b {{{3
-" Do (di% with cursor on b):
-"   fbdi%
-" Expect (bar deleted):
-"   foo%%xyz
-
-" Do (da% with cursor on b):
-"   fbda%
-" Expect (Inner embrace deleted):
-"   fooxyz
-" " }}}
-
-" " start at x {{{3
-" Do (di% with cursor on x):
-"   fxdi%
-" Expect (Nothing happened):
-"   foo%bar%xyz
-
-" Do (da% with cursor on x):
-"   fxda%
-" Expect (Nothing happened):
-"   foo%bar%xyz
-" " }}}
-" " }}}
-
-" " doc: %foo\nbar% {{{2
-" Given (%foo\nbar%):
-"   %foo
-"   bar%
-
-" " start at f {{{3
-" Do (di% with cursor on f):
-"   ffdi%
-" Expect:
-"   %foo
-"   bar%
-
-" Do (di% with cursor on f):
-"   ffda%
-" Expect:
-"   %foo
-"   bar%
-" " }}}
-
-" " start b {{{3
-" Do (di% with cursor on b):
-"   +di%
-" Expect:
-"   %foo
-"   bar%
-
-" Do (di% with cursor on b):
-"   +da%
-" Expect:
-"   %foo
-"   bar%
-" " }}}
-" " }}}
-
-" " doc: foo%%foobar%% {{{2
-" Given (foo%%foobar%%):
-"   foo%%foobar%%
-
-" " start at b {{{3
-" Do (di% with cursor on b):
-"   fbdi%
-" Expect (Inner symbol deleted):
-"   foo%%%%
-
-" Do (di%di% with cursor on b):
-"   fbdi%di%
-" Expect (Second di% did nothing):
-"   foo%%%%
-
-" Do (da% with cursor on b):
-"   fbda%
-" Expect (First symbol embrace deleted):
-"   foo%%
-
-" Do (da%da% with cursor on b):
-"   fbda%da%
-" Expect (All symbols deleted):
-"   foo
-
-" Do (yi%x with cursor on b):
-"   fbyi%x
-" Expect (f deleted):
-"   foo%%oobar%%
-
-" Do (da% with cursor on b):
-"   fbya%x
-" Expect (Symbol left to f deleted):
-"   foo%foobar%%
-
-" Do (vi%d with cursor on b):
-"   fbvi%d
-" Expect (Inner symbol deleted):
-"   foo%%%%
-
-" Do (va%d with cursor on b):
-"   fbva%d
-" Expect (First symbol embrace deleted):
-"   foo%%
-
-" Do (va%a%d with cursor on b):
-"   fbva%a%d
-" Expect (All symbol embraces deleted):
-"   foo
-" " }}}
-" " }}}
-
-" " doc: foo%%b%% {{{2
-" Given (foo%%b%%):
-"   foo%%b%%
-
-" " start at b
-" Do (di% with cursor on b):
-"   fbdi%
-" Expect (Inner symbol deleted):
-"   foo%%%%
-
-" Do (di%di% with cursor on b):
-"   fbdi%di%
-" Expect (Inner symbol deleted):
-"   foo%%%%
-
-" Do (da% with cursor on b):
-"   fbda%
-" Expect (first symbol embraced deleted):
-"   foo%%
-
-" Do (da%da% with cursor on b):
-"   fbda%da%
-" Expect (all symbols deleted):
-"   foo
-
-" Do (yi%x with cursor on b):
-"   fbyi%x
-" Expect (b deleted):
-"   foo%%%%
-
-" Do (da% with cursor on b):
-"   fbya%x
-" Expect (Symbol to left of b deleted):
-"   foo%b%%
-
-" Do (vi%d with cursor on b):
-"   fbvi%d
-" Expect (Inner symbol deleted):
-"   foo%%%%
-
-" Do (va%d with cursor on b):
-"   fbva%d
-" Expect (First symbol embraced deleted):
-"   foo%%
-
-" Do (vi%i%d with cursor on b):
-"   fbvi%i%d
-" Expect (Only inner symbol deleted):
-"   foo%%%%
-
-" Do (va%a%d with cursor on b):
-"   fbva%a%d
-" Expect (All symbols deleted):
-"   foo
-" " }}}
-" " }}}
+" * asterisk {{{1
+" doc: doo*bar*xyz {{{2
+Given (foo*bar*xyz):
+  foo*bar*xyz
+
+" start at f {{{3
+Do (di* with cursor on f):
+  di*
+Expect:
+  foo**xyz
+
+Do (da* with cursor on f):
+  da*
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di* with cursor on b):
+  fbdi*
+Expect:
+  foo**xyz
+
+Do (da* with cursor on b):
+  fbda*
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di* with cursor on x):
+  fxdi*
+Expect:
+  foo*bar*xyz
+
+Do (da* with cursor on x):
+  fxda*
+Expect:
+  foo*bar*xyz
+
+" doc: *foo\nbar* {{{2
+Given (*foo\nbar*):
+  *foo
+  bar*
+
+" start at f {{{3
+Do (ffdi* with cursor on f):
+  ffdi*
+Expect:
+  *foo
+  bar*
+
+Do (di* with cursor on f):
+  ffda*
+Expect:
+  *foo
+  bar*
+
+" start b {{{3
+Do (di* with cursor on b):
+  +di*
+Expect:
+  *foo
+  bar*
+
+Do (di* with cursor on b):
+  +da*
+Expect:
+  *foo
+  bar*
+
+" doc: foo**foobar** {{{2
+Given (foo**foobar**):
+  foo**foobar**
+
+" start at b {{{3
+Do (di* with cursor on b):
+  fbdi*
+Expect (Inner symbol deleted):
+  foo****
+
+Do (di*di* with cursor on b):
+  fbdi*di*
+Expect:
+  foo****
+
+Do (da* with cursor on b):
+  fbda*
+Expect (First symbol embrace deleted):
+  foo**
+
+Do (da*da* with cursor on b):
+  fbda*da*
+Expect (All symbols deleted):
+  foo
+
+Do (yi*x with cursor on b):
+  fbyi*x
+Expect (f deleted):
+  foo**oobar**
+
+Do (da* with cursor on b):
+  fbya*x
+Expect (symbol left to f deleted):
+  foo*foobar**
+
+Do (vi*d with cursor on b):
+  fbvi*d
+Expect (Inner symbol deleted):
+  foo****
+
+Do (va*d with cursor on b):
+  fbva*d
+Expect (First symbol embrace deleted):
+  foo**
+
+Do (va*a*d with cursor on b):
+  fbva*a*d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo**b** {{{2
+Given (foo**b**):
+  foo**b**
+
+" start at b {{{3
+Do (di* with cursor on b):
+  fbdi*
+Expect (Inner symbol deleted):
+  foo****
+
+Do (di*di* with cursor on b):
+  fbdi*di*
+Expect (Inner symbol deleted):
+  foo****
+
+Do (da* with cursor on b):
+  fbda*
+Expect (first symbol embraced deleted):
+  foo**
+
+Do (da*da* with cursor on b):
+  fbda*da*
+Expect (all symbols deleted):
+  foo
+
+Do (yi*x with cursor on b):
+  fbyi*x
+Expect (b deleted):
+  foo****
+
+Do (da* with cursor on b):
+  fbya*x
+Expect (symbol to left of b deleted):
+  foo*b**
+
+Do (vi*d with cursor on b):
+  fbvi*d
+Expect (Inner symbol deleted):
+  foo****
+
+Do (va*d with cursor on b):
+  fbva*d
+Expect (First symbol embraced deleted):
+  foo**
+
+Do (vi*i*d with cursor on b):
+  fbvi*i*d
+Expect (Only inner symbol deleted):
+  foo****
+
+Do (va*a*d with cursor on b):
+  fbva*a*d
+Expect (all symbol deleted):
+  foo
+
+" _ underscore {{{1
+" doc: doo_bar_xyz {{{2
+Given (foo_bar_xyz):
+  foo_bar_xyz
+
+" start at f {{{3
+Do (di_):
+  di_
+Expect:
+  foo__xyz
+
+Do (da_):
+  da_
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di_ with cursor on b):
+  fbdi_
+Expect:
+  foo__xyz
+Do (da_ with cursor on b):
+  fbda_
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di_ with cursor on x):
+  fxdi_
+Expect:
+  foo_bar_xyz
+
+Do (da_ with cursor on x):
+  fxda_
+Expect:
+  foo_bar_xyz
+
+" doc: _foo\nbar_ {{{2
+Given (_foo\nbar_):
+  _foo
+  bar_
+
+" start at f {{{3
+Do (di_ with cursor on f):
+  ffdi_
+Expect:
+  _foo
+  bar_
+
+Do (di_ with cursor on f):
+  ffda_
+Expect:
+  _foo
+  bar_
+
+
+" start b {{{3
+Do (di_ with cursor on b):
+  +di_
+Expect:
+  _foo
+  bar_
+
+Do (di_ with cursor on b):
+  +da_
+Expect:
+  _foo
+  bar_
+
+" doc: foo__foobar__ {{{2
+Given (foo__foobar__):
+  foo__foobar__
+
+" start at b {{{3
+Do (di_ with cursor on b):
+  fbdi_
+Expect (Inner symbol deleted):
+  foo____
+
+Do (di_di_ with cursor on b):
+  fbdi_di_
+Expect:
+  foo____
+
+Do (da_ with cursor on b):
+  fbda_
+Expect (First symbol embrace deleted):
+  foo__
+
+Do (da_da_ with cursor on b):
+  fbda_da_
+Expect (All symbols deleted):
+  foo
+
+Do (yi_x with cursor on b):
+  fbyi_x
+Expect (f deleted):
+  foo__oobar__
+
+Do (da_ with cursor on b):
+  fbya_x
+Expect (symbol left to f deleted):
+  foo_foobar__
+
+Do (vi_d with cursor on b):
+  fbvi_d
+Expect (Inner symbol deleted):
+  foo____
+
+Do (va_d with cursor on b):
+  fbva_d
+Expect (First symbol embrace deleted):
+  foo__
+
+Do (va_a_d with cursor on b):
+  fbva_a_d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo__b__ {{{2
+Given (foo__b__):
+  foo__b__
+
+" start at b
+Do (di_ with cursor on b):
+  fbdi_
+Expect (Inner symbol deleted):
+  foo____
+
+Do (di_di_ with cursor on b):
+  fbdi_di_
+Expect (Inner symbol deleted):
+  foo____
+
+Do (da_ with cursor on b):
+  fbda_
+Expect (first symbol embraced deleted):
+  foo__
+
+Do (da_da_ with cursor on b):
+  fbda_da_
+Expect (all symbols deleted):
+  foo
+
+Do (yi_x with cursor on b):
+  fbyi_x
+Expect (b deleted):
+  foo____
+
+Do (da_ with cursor on b):
+  fbya_x
+Expect (symbol to left of b deleted):
+  foo_b__
+
+Do (vi_d with cursor on b):
+  fbvi_d
+Expect (Inner symbol deleted):
+  foo____
+
+Do (va_d with cursor on b):
+  fbva_d
+Expect (First symbol embraced deleted):
+  foo__
+
+Do (vi_i_d with cursor on b):
+  fbvi_i_d
+Expect (Only inner symbol deleted):
+  foo____
+
+Do (va_a_d with cursor on b):
+  fbva_a_d
+Expect (all symbol deleted):
+  foo
+
+" - dash {{{1
+" doc: doo-bar-xyz {{{2
+Given (foo-bar-xyz):
+  foo-bar-xyz
+
+" start at f {{{3
+Do (di- with cursor on f):
+  di-
+Expect:
+  foo--xyz
+
+Do (da- with cursor on f):
+  da-
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di- with cursor on b):
+  fbdi-
+Expect:
+  foo--xyz
+
+Do (da- with cursor on b):
+  fbda-
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di- with cursor on x):
+  fxdi-
+Expect:
+  foo-bar-xyz
+
+Do (fada- with cursor on x):
+  fxda-
+Expect:
+  foo-bar-xyz
+
+" doc: -foo\nbar- {{{2
+Given (-foo\nbar-):
+  -foo
+  bar-
+
+" start at f {{{3
+Do (di- with cursor on f):
+  ffdi-
+Expect:
+  -foo
+  bar-
+
+Do (di- with cursor on f):
+  ffda-
+Expect:
+  -foo
+  bar-
+
+" start b {{{3
+Do (di- with cursor on b):
+  +di-
+Expect:
+  -foo
+  bar-
+
+Do (di- with cursor on b):
+  +da-
+Expect:
+  -foo
+  bar-
+
+" doc: foo--foobar-- {{{2
+Given (foo--foobar--):
+  foo--foobar--
+
+" start at b {{{3
+Do (di- with cursor on b):
+  fbdi-
+Expect (Inner symbol deleted):
+  foo----
+
+Do (di-di- with cursor on b):
+  fbdi-di-
+Expect:
+  foo----
+
+Do (da- with cursor on b):
+  fbda-
+Expect (First symbol embrace deleted):
+  foo--
+
+Do (da-da- with cursor on b):
+  fbda-da-
+Expect (All symbols deleted):
+  foo
+
+Do (yi-x with cursor on b):
+  fbyi-x
+Expect (f deleted):
+  foo--oobar--
+
+Do (da- with cursor on b):
+  fbya-x
+Expect (symbol left to f deleted):
+  foo-foobar--
+
+Do (vi-d with cursor on b):
+  fbvi-d
+Expect (Inner symbol deleted):
+  foo----
+
+Do (va-d with cursor on b):
+  fbva-d
+Expect (First symbol embrace deleted):
+  foo--
+
+Do (va-a-d with cursor on b):
+  fbva-a-d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo--b-- {{{2
+Given (foo--b--):
+  foo--b--
+
+" start at b {{{3
+Do (di- with cursor on b):
+  fbdi-
+Expect (Inner symbol deleted):
+  foo----
+
+Do (di-di- with cursor on b):
+  fbdi-di-
+Expect (Inner symbol deleted):
+  foo----
+
+Do (da- with cursor on b):
+  fbda-
+Expect (first symbol embraced deleted):
+  foo--
+
+Do (da-da- with cursor on b):
+  fbda-da-
+Expect (all symbols deleted):
+  foo
+
+Do (yi-x with cursor on b):
+  fbyi-x
+Expect (b deleted):
+  foo----
+
+Do (da- with cursor on b):
+  fbya-x
+Expect (symbol to left of b deleted):
+  foo-b--
+
+Do (vi-d with cursor on b):
+  fbvi-d
+Expect (Inner symbol deleted):
+  foo----
+
+Do (va-d with cursor on b):
+  fbva-d
+Expect (First symbol embraced deleted):
+  foo--
+
+Do (vi-i-d with cursor on b):
+  fbvi-i-d
+Expect (Only inner symbol deleted):
+  foo----
+
+Do (va-a-d with cursor on b):
+  fbva-a-d
+Expect (all symbol deleted):
+  foo
+
+" : colon {{{1
+" doc: doo:bar:xyz {{{2
+Given (foo:bar:xyz):
+  foo:bar:xyz
+
+" start at f {{{3
+Do (di:):
+  di:
+Expect:
+  foo::xyz
+
+Do (da:):
+  da:
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di: with cursor on b):
+  fbdi:
+Expect:
+  foo::xyz
+
+Do (da: with cursor on b):
+  fbda:
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di: with cursor on x):
+  fxdi:
+Expect:
+  foo:bar:xyz
+
+Do (da: with cursor on x):
+  fxda:
+Expect:
+  foo:bar:xyz
+
+" doc: :foo\nbar: {{{2
+Given (:foo\nbar:):
+  :foo
+  bar:
+
+" start at f {{{3
+Do (di: with cursor on f):
+  ffdi:
+Expect:
+  :foo
+  bar:
+
+Do (di: with cursor on f):
+  ffda:
+Expect:
+  :foo
+  bar:
+
+
+" start b {{{3
+Do (di: with cursor on b):
+  +di:
+Expect:
+  :foo
+  bar:
+
+Do (di: with cursor on b):
+  +da:
+Expect:
+  :foo
+  bar:
+
+" doc: foo::foobar:: {{{2
+Given (foo::foobar::):
+  foo::foobar::
+
+" start at b {{{3
+Do (di: with cursor on b):
+  fbdi:
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (di:di: with cursor on b):
+  fbdi:di:
+Expect:
+  foo::::
+
+Do (da: with cursor on b):
+  fbda:
+Expect (First symbol embrace deleted):
+  foo::
+
+Do (da:da: with cursor on b):
+  fbda:da:
+Expect (All symbols deleted):
+  foo
+
+Do (yi:x with cursor on b):
+  fbyi:x
+Expect (f deleted):
+  foo::oobar::
+
+Do (da: with cursor on b):
+  fbya:x
+Expect (symbol left to f deleted):
+  foo:foobar::
+
+Do (vi:d with cursor on b):
+  fbvi:d
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (va:d with cursor on b):
+  fbva:d
+Expect (First symbol embrace deleted):
+  foo::
+
+Do (va:a:d with cursor on b):
+  fbva:a:d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo::b:: {{{2
+Given (foo::b::):
+  foo::b::
+
+" start at b {{{3
+Do (di: with cursor on b):
+  fbdi:
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (di:di: with cursor on b):
+  fbdi:di:
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (da: with cursor on b):
+  fbda:
+Expect (first symbol embraced deleted):
+  foo::
+
+Do (da:da: with cursor on b):
+  fbda:da:
+Expect (all symbols deleted):
+  foo
+
+Do (yi:x with cursor on b):
+  fbyi:x
+Expect (b deleted):
+  foo::::
+
+Do (da: with cursor on b):
+  fbya:x
+Expect (symbol to left of b deleted):
+  foo:b::
+
+Do (vi:d with cursor on b):
+  fbvi:d
+Expect (Inner symbol deleted):
+  foo::::
+
+Do (va:d with cursor on b):
+  fbva:d
+Expect (First symbol embraced deleted):
+  foo::
+
+Do (vi:i:d with cursor on b):
+  fbvi:i:d
+Expect (Only inner symbol deleted):
+  foo::::
+
+Do (va:a:d with cursor on b):
+  fbva:a:d
+Expect (all symbol deleted):
+  foo
+
+" @ at {{{1
+" doc: doo@bar@xyz {{{2
+Given (foo@bar@xyz):
+  foo@bar@xyz
+
+" start at f {{{3
+Do (di@ with cursor on f):
+  di@
+Expect:
+  foo@@xyz
+
+Do (da@ with cursor on f):
+  da@
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di@ with cursor on b):
+  fbdi@
+Expect:
+  foo@@xyz
+
+Do (da@ with cursor on b):
+  fbda@
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di@ with cursor on x):
+  fxdi@
+Expect:
+  foo@bar@xyz
+
+Do (da@ with cursor on x):
+  fxda@
+Expect:
+  foo@bar@xyz
+
+" doc: @foo\nbar@ {{{2
+Given (@foo\nbar@):
+  @foo
+  bar@
+
+" start at f {{{3
+Do (di@ with cursor on f):
+  ffdi@
+Expect:
+  @foo
+  bar@
+
+Do (ffdi@ with cursor on f):
+  ffda@
+Expect:
+  @foo
+  bar@
+
+" start b {{{3
+Do (di@ with cursor on b):
+  +di@
+Expect:
+  @foo
+  bar@
+
+Do (di@ with cursor on b):
+  +da@
+Expect:
+  @foo
+  bar@
+
+" doc: foo@@foobar@@ {{{2
+Given (foo@@foobar@@):
+  foo@@foobar@@
+
+" start at b {{{3
+Do (di@ with cursor on b):
+  fbdi@
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (di@di@ with cursor on b):
+  fbdi@di@
+Expect:
+  foo@@@@
+
+Do (da@ with cursor on b):
+  fbda@
+Expect (First symbol embrace deleted):
+  foo@@
+
+Do (da@da@ with cursor on b):
+  fbda@da@
+Expect (All symbols deleted):
+  foo
+
+Do (yi@x with cursor on b):
+  fbyi@x
+Expect (f deleted):
+  foo@@oobar@@
+
+Do (da@ with cursor on b):
+  fbya@x
+Expect (symbol left to f deleted):
+  foo@foobar@@
+
+Do (vi@d with cursor on b):
+  fbvi@d
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (va@d with cursor on b):
+  fbva@d
+Expect (First symbol embrace deleted):
+  foo@@
+
+Do (va@a@d with cursor on b):
+  fbva@a@d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo@@b@@ {{{2
+Given (foo@@b@@):
+  foo@@b@@
+
+" start at b
+Do (di@ with cursor on b):
+  fbdi@
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (di@di@ with cursor on b):
+  fbdi@di@
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (da@ with cursor on b):
+  fbda@
+Expect (first symbol embraced deleted):
+  foo@@
+
+Do (da@da@ with cursor on b):
+  fbda@da@
+Expect (all symbols deleted):
+  foo
+
+Do (yi@x with cursor on b):
+  fbyi@x
+Expect (b deleted):
+  foo@@@@
+
+Do (da@ with cursor on b):
+  fbya@x
+Expect (symbol to left of b deleted):
+  foo@b@@
+
+Do (vi@d with cursor on b):
+  fbvi@d
+Expect (Inner symbol deleted):
+  foo@@@@
+
+Do (va@d with cursor on b):
+  fbva@d
+Expect (First symbol embraced deleted):
+  foo@@
+
+Do (vi@i@d with cursor on b):
+  fbvi@i@d
+Expect (Only inner symbol deleted):
+  foo@@@@
+
+Do (va@a@d with cursor on b):
+  fbva@a@d
+Expect (all symbol deleted):
+  foo
+
+" ! bang {{{1
+" doc: doo!bar!xyz {{{2
+Given (foo!bar!xyz):
+  foo!bar!xyz
+
+" start at f {{{3
+Do (di! with cursor on f):
+  di!
+Expect:
+  foo!!xyz
+
+Do (da! with cursor on f):
+  da!
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di! with cursor on b):
+  fbdi!
+Expect:
+  foo!!xyz
+
+Do (da! with cursor on b):
+  fbda!
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di! with cursor on x):
+  fxdi!
+Expect:
+  foo!bar!xyz
+
+Do (fada! with cursor on x):
+  fxda!
+Expect:
+  foo!bar!xyz
+
+" doc: !foo\nbar! {{{2
+Given (!foo\nbar!):
+  !foo
+  bar!
+
+" start at f {{{3
+Do (di! with cursor on f):
+  ffdi!
+Expect:
+  !foo
+  bar!
+
+Do (di! with cursor on f):
+  ffda!
+Expect:
+  !foo
+  bar!
+
+" start b {{{3
+Do (di! with cursor on b):
+  +di!
+Expect:
+  !foo
+  bar!
+
+Do (di! with cursor on b):
+  +da!
+Expect:
+  !foo
+  bar!
+
+" doc: foo!!foobar!! {{{2
+Given (foo!!foobar!!):
+  foo!!foobar!!
+
+" start at b {{{3
+Do (di! with cursor on b):
+  fbdi!
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (di!di! with cursor on b):
+  fbdi!di!
+Expect:
+  foo!!!!
+
+Do (da! with cursor on b):
+  fbda!
+Expect (First symbol embrace deleted):
+  foo!!
+
+Do (da!da! with cursor on b):
+  fbda!da!
+Expect (All symbols deleted):
+  foo
+
+Do (yi!x with cursor on b):
+  fbyi!x
+Expect (f deleted):
+  foo!!oobar!!
+
+Do (da! with cursor on b):
+  fbya!x
+Expect (symbol left to f deleted):
+  foo!foobar!!
+
+Do (vi!d with cursor on b):
+  fbvi!d
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (va!d with cursor on b):
+  fbva!d
+Expect (First symbol embrace deleted):
+  foo!!
+
+Do (va!a!d with cursor on b):
+  fbva!a!d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo!!b!! {{{2
+Given (foo!!b!!):
+  foo!!b!!
+
+" start at b {{{3
+Do (di! with cursor on b):
+  fbdi!
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (di!di! with cursor on b):
+  fbdi!di!
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (da! with cursor on b):
+  fbda!
+Expect (first symbol embraced deleted):
+  foo!!
+
+Do (da!da! with cursor on b):
+  fbda!da!
+Expect (all symbols deleted):
+  foo
+
+Do (yi!x with cursor on b):
+  fbyi!x
+Expect (b deleted):
+  foo!!!!
+
+Do (da! with cursor on b):
+  fbya!x
+Expect (symbol to left of b deleted):
+  foo!b!!
+
+Do (vi!d with cursor on b):
+  fbvi!d
+Expect (Inner symbol deleted):
+  foo!!!!
+
+Do (va!d with cursor on b):
+  fbva!d
+Expect (First symbol embraced deleted):
+  foo!!
+
+Do (vi!i!d with cursor on b):
+  fbvi!i!d
+Expect (Only inner symbol deleted):
+  foo!!!!
+
+Do (va!a!d with cursor on b):
+  fbva!a!d
+Expect (all symbol deleted):
+  foo
+
+" ? question mark {{{1
+" doc: doo?bar?xyz {{{2
+Given (foo?bar?xyz):
+  foo?bar?xyz
+
+" start at f {{{3
+Do (di? with cursor on f):
+  di?
+Expect:
+  foo??xyz
+
+Do (da? with cursor on f):
+  da?
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di? with cursor on b):
+  fbdi?
+Expect:
+  foo??xyz
+
+Do (da? with cursor on b):
+  fbda?
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di? with cursor on x):
+  fxdi?
+Expect:
+  foo?bar?xyz
+
+Do (da? with cursor on x):
+  fxda?
+Expect:
+  foo?bar?xyz
+
+" doc: ?foo\nbar? {{{2
+Given (?foo\nbar?):
+  ?foo
+  bar?
+
+" start at f {{{3
+Do (di? with cursor on f):
+  ffdi?
+Expect:
+  ?foo
+  bar?
+
+Do (ffdi? with cursor on f):
+  ffda?
+Expect:
+  ?foo
+  bar?
+
+
+" start b {{{3
+Do (di? with cursor on b):
+  +di?
+Expect:
+  ?foo
+  bar?
+
+Do (di? with cursor on b):
+  +da?
+Expect:
+  ?foo
+  bar?
+
+" doc: foo??foobar?? {{{2
+Given (foo??foobar??):
+  foo??foobar??
+
+" start at b {{{3
+Do (di? with cursor on b):
+  fbdi?
+Expect (Inner symbol deleted):
+  foo????
+
+Do (di?di? with cursor on b):
+  fbdi?di?
+Expect:
+  foo????
+
+Do (da? with cursor on b):
+  fbda?
+Expect (First symbol embrace deleted):
+  foo??
+
+Do (da?da? with cursor on b):
+  fbda?da?
+Expect (All symbols deleted):
+  foo
+
+Do (yi?x with cursor on b):
+  fbyi?x
+Expect (f deleted):
+  foo??oobar??
+
+Do (da? with cursor on b):
+  fbya?x
+Expect (symbol left to f deleted):
+  foo?foobar??
+
+Do (vi?d with cursor on b):
+  fbvi?d
+Expect (Inner symbol deleted):
+  foo????
+
+Do (va?d with cursor on b):
+  fbva?d
+Expect (First symbol embrace deleted):
+  foo??
+
+Do (va?a?d with cursor on b):
+  fbva?a?d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo??b?? {{{2
+Given (foo??b??):
+  foo??b??
+
+" start at b
+Do (di? with cursor on b):
+  fbdi?
+Expect (Inner symbol deleted):
+  foo????
+
+Do (di?di? with cursor on b):
+  fbdi?di?
+Expect (Inner symbol deleted):
+  foo????
+
+Do (da? with cursor on b):
+  fbda?
+Expect (first symbol embraced deleted):
+  foo??
+
+Do (da?da? with cursor on b):
+  fbda?da?
+Expect (all symbols deleted):
+  foo
+
+Do (yi?x with cursor on b):
+  fbyi?x
+Expect (b deleted):
+  foo????
+
+Do (da? with cursor on b):
+  fbya?x
+Expect (symbol to left of b deleted):
+  foo?b??
+
+Do (vi?d with cursor on b):
+  fbvi?d
+Expect (Inner symbol deleted):
+  foo????
+
+Do (va?d with cursor on b):
+  fbva?d
+Expect (First symbol embraced deleted):
+  foo??
+
+Do (vi?i?d with cursor on b):
+  fbvi?i?d
+Expect (Only inner symbol deleted):
+  foo????
+
+Do (va?a?d with cursor on b):
+  fbva?a?d
+Expect (all symbol deleted):
+  foo
+
+" / slash {{{1
+" doc: doo/bar/xyz {{{2
+Given (foo/bar/xyz):
+  foo/bar/xyz
+
+" start at f {{{3
+Do (di/ with cursor on f):
+  di/
+Expect:
+  foo//xyz
+
+Do (da/ with cursor on f):
+  da/
+Expect:
+  fooxyz
+
+" start at b {{{3
+Do (di/ with cursor on b):
+  fbdi/
+Expect:
+  foo//xyz
+
+Do (da/ with cursor on b):
+  fbda/
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di/ with cursor on x):
+  fxdi/
+Expect (Nothing happened):
+  foo/bar/xyz
+
+Do (fada/ with cursor on x):
+  fxda/
+Expect (Nothing happened):
+  foo/bar/xyz
+
+" doc: /foo\nbar/ {{{2
+Given (/foo\nbar/):
+  /foo
+  bar/
+
+" start at f {{{3
+Do (ffdi/ with cursor on f):
+  ffdi/
+Expect:
+  /foo
+  bar/
+
+Do (ffdi/ with cursor on f):
+  ffda/
+Expect:
+  /foo
+  bar/
+
+" start b {{{3
+Do (di/ with cursor on b):
+  +di/
+Expect:
+  /foo
+  bar/
+
+Do (ffdi/ with cursor on b):
+  +da/
+Expect:
+  /foo
+  bar/
+
+" doc: foo//foobar// {{{2
+Given (foo//foobar//):
+  foo//foobar//
+
+" start at b {{{3
+Do (di/ with cursor on b):
+  fbdi/
+Expect (Inner symbol deleted):
+  foo////
+
+Do (di/di/ with cursor on b):
+  fbdi/di/
+Expect:
+  foo////
+
+Do (da/ with cursor on b):
+  fbda/
+Expect (First symbol embrace deleted):
+  foo//
+
+Do (da/da/ with cursor on b):
+  fbda/da/
+Expect (All symbols deleted):
+  foo
+
+Do (yi/x with cursor on b):
+  fbyi/x
+Expect (f deleted):
+  foo//oobar//
+
+Do (da/ with cursor on b):
+  fbya/x
+Expect (symbol left to f deleted):
+  foo/foobar//
+
+Do (vi/d with cursor on b):
+  fbvi/d
+Expect (Inner symbol deleted):
+  foo////
+
+Do (va/d with cursor on b):
+  fbva/d
+Expect (First symbol embrace deleted):
+  foo//
+
+Do (va/a/d with cursor on b):
+  fbva/a/d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo//b// {{{2
+Given (foo//b//):
+  foo//b//
+
+" start at b
+Do (di/ with cursor on b):
+  fbdi/
+Expect (Inner symbol deleted):
+  foo////
+
+Do (di/di/ with cursor on b):
+  fbdi/di/
+Expect (Inner symbol deleted):
+  foo////
+
+Do (da/ with cursor on b):
+  fbda/
+Expect (first symbol embraced deleted):
+  foo//
+
+Do (da/da/ with cursor on b):
+  fbda/da/
+Expect (all symbols deleted):
+  foo
+
+Do (yi/x with cursor on b):
+  fbyi/x
+Expect (b deleted):
+  foo////
+
+Do (da/ with cursor on b):
+  fbya/x
+Expect (symbol to left of b deleted):
+  foo/b//
+
+Do (vi/d with cursor on b):
+  fbvi/d
+Expect (Inner symbol deleted):
+  foo////
+
+Do (va/d with cursor on b):
+  fbva/d
+Expect (First symbol embraced deleted):
+  foo//
+
+Do (vi/i/d with cursor on b):
+  fbvi/i/d
+Expect (Only inner symbol deleted):
+  foo////
+
+Do (va/a/d with cursor on b):
+  fbva/a/d
+Expect (all symbol deleted):
+  foo
+
+" % percent {{{1
+" doc: doo%bar%xyz {{{2
+Given (foo%bar%xyz):
+  foo%bar%xyz
+
+" start at f {{{3
+Do (di% with cursor on f):
+  di%
+Expect (bar deleted):
+  foo%%xyz
+
+Do (da% with cursor on f):
+  da%
+Expect (Inner embrace deleted):
+  fooxyz
+
+" start at b {{{3
+Do (di% with cursor on b):
+  fbdi%
+Expect (bar deleted):
+  foo%%xyz
+
+Do (da% with cursor on b):
+  fbda%
+Expect (Inner embrace deleted):
+  fooxyz
+
+" start at x {{{3
+Do (di% with cursor on x):
+  fxdi%
+Expect (Nothing happened):
+  foo%bar%xyz
+
+Do (da% with cursor on x):
+  fxda%
+Expect (Nothing happened):
+  foo%bar%xyz
+
+" doc: %foo\nbar% {{{2
+Given (%foo\nbar%):
+  %foo
+  bar%
+
+" start at f {{{3
+Do (di% with cursor on f):
+  ffdi%
+Expect:
+  %foo
+  bar%
+
+Do (di% with cursor on f):
+  ffda%
+Expect:
+  %foo
+  bar%
+
+" start b {{{3
+Do (di% with cursor on b):
+  +di%
+Expect:
+  %foo
+  bar%
+
+Do (di% with cursor on b):
+  +da%
+Expect:
+  %foo
+  bar%
+
+" doc: foo%%foobar%% {{{2
+Given (foo%%foobar%%):
+  foo%%foobar%%
+
+" start at b {{{3
+Do (di% with cursor on b):
+  fbdi%
+Expect (Inner symbol deleted):
+  foo%%%%
+
+Do (di%di% with cursor on b):
+  fbdi%di%
+Expect (Second di% did nothing):
+  foo%%%%
+
+Do (da% with cursor on b):
+  fbda%
+Expect (First symbol embrace deleted):
+  foo%%
+
+Do (da%da% with cursor on b):
+  fbda%da%
+Expect (All symbols deleted):
+  foo
+
+Do (yi%x with cursor on b):
+  fbyi%x
+Expect (f deleted):
+  foo%%oobar%%
+
+Do (da% with cursor on b):
+  fbya%x
+Expect (Symbol left to f deleted):
+  foo%foobar%%
+
+Do (vi%d with cursor on b):
+  fbvi%d
+Expect (Inner symbol deleted):
+  foo%%%%
+
+Do (va%d with cursor on b):
+  fbva%d
+Expect (First symbol embrace deleted):
+  foo%%
+
+Do (va%a%d with cursor on b):
+  fbva%a%d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo%%b%% {{{2
+Given (foo%%b%%):
+  foo%%b%%
+
+" start at b
+Do (di% with cursor on b):
+  fbdi%
+Expect (Inner symbol deleted):
+  foo%%%%
+
+Do (di%di% with cursor on b):
+  fbdi%di%
+Expect (Inner symbol deleted):
+  foo%%%%
+
+Do (da% with cursor on b):
+  fbda%
+Expect (first symbol embraced deleted):
+  foo%%
+
+Do (da%da% with cursor on b):
+  fbda%da%
+Expect (all symbols deleted):
+  foo
+
+Do (yi%x with cursor on b):
+  fbyi%x
+Expect (b deleted):
+  foo%%%%
+
+Do (da% with cursor on b):
+  fbya%x
+Expect (Symbol to left of b deleted):
+  foo%b%%
+
+Do (vi%d with cursor on b):
+  fbvi%d
+Expect (Inner symbol deleted):
+  foo%%%%
+
+Do (va%d with cursor on b):
+  fbva%d
+Expect (First symbol embraced deleted):
+  foo%%
+
+Do (vi%i%d with cursor on b):
+  fbvi%i%d
+Expect (Only inner symbol deleted):
+  foo%%%%
+
+Do (va%a%d with cursor on b):
+  fbva%a%d
+Expect (All symbols deleted):
+  foo
+" | bar {{{1
+" doc: doo|bar|xyz {{{2
+Given (foo|bar|xyz):
+  foo|bar|xyz
+
+" start at f {{{3
+Do (di| with cursor on f):
+  di|
+Expect (bar deleted):
+  foo||xyz
+
+Do (da| with cursor on f):
+  da|
+Expect (Inner embrace deleted):
+  fooxyz
+
+" start at b {{{3
+Do (di| with cursor on b):
+  fbdi|
+Expect:
+  foo||xyz
+
+Do (da| with cursor on b):
+  fbda|
+Expect:
+  fooxyz
+
+" start at x {{{3
+Do (di| with cursor on x):
+  fxdi|
+Expect:
+  foo|bar|xyz
+
+Do (fada| with cursor on x):
+  fxda|
+Expect:
+  foo|bar|xyz
+
+" doc: |foo\nbar| {{{2
+Given (|foo\nbar|):
+  |foo
+  bar|
+
+" start at f {{{3
+Do (ffdi| with cursor on f):
+  ffdi|
+Expect (Nothing happened):
+  |foo
+  bar|
+
+Do (ffdi| with cursor on f):
+  ffda|
+Expect (Nothing happened):
+  |foo
+  bar|
+
+" start b {{{3
+Do (di| with cursor on b):
+  +di|
+Expect:
+  |foo
+  bar|
+
+Do (ffdi| with cursor on b):
+  +da|
+Expect:
+  |foo
+  bar|
+
+" doc: foo||foobar|| {{{2
+Given (foo||foobar||):
+  foo||foobar||
+
+" start at b {{{3
+Do (di| with cursor on b):
+  fbdi|
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (di|di| with cursor on b):
+  fbdi|di|
+Expect:
+  foo||||
+
+Do (da| with cursor on b):
+  fbda|
+Expect (First symbol embrace deleted):
+  foo||
+
+Do (da|da| with cursor on b):
+  fbda|da|
+Expect (All symbols deleted):
+  foo
+
+Do (yi|x with cursor on b):
+  fbyi|x
+Expect (f deleted):
+  foo||oobar||
+
+Do (da| with cursor on b):
+  fbya|x
+Expect (symbol left to f deleted):
+  foo|foobar||
+
+Do (vi|d with cursor on b):
+  fbvi|d
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (va|d with cursor on b):
+  fbva|d
+Expect (First symbol embrace deleted):
+  foo||
+
+Do (va|a|d with cursor on b):
+  fbva|a|d
+Expect (All symbol embraces deleted):
+  foo
+
+" doc: foo||b|| {{{2
+Given (foo||b||):
+  foo||b||
+
+" start at b
+Do (di| with cursor on b):
+  fbdi|
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (di|di| with cursor on b):
+  fbdi|di|
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (da| with cursor on b):
+  fbda|
+Expect (first symbol embraced deleted):
+  foo||
+
+Do (da|da| with cursor on b):
+  fbda|da|
+Expect (all symbols deleted):
+  foo
+
+Do (yi|x with cursor on b):
+  fbyi|x
+Expect (b deleted):
+  foo||||
+
+Do (da| with cursor on b):
+  fbya|x
+Expect (symbol to left of b deleted):
+  foo|b||
+
+Do (vi|d with cursor on b):
+  fbvi|d
+Expect (Inner symbol deleted):
+  foo||||
+
+Do (va|d with cursor on b):
+  fbva|d
+Expect (First symbol embraced deleted):
+  foo||
+
+Do (vi|i|d with cursor on b):
+  fbvi|i|d
+Expect (Only inner symbol deleted):
+  foo||||
+
+Do (va|a|d with cursor on b):
+  fbva|a|d
+Expect (all symbol deleted):
+  foo
+
