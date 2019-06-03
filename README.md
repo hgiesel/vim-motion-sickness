@@ -41,7 +41,29 @@ This plugin adds a slew of new possible text objects.
 
 ### Q motions
 
+| text object | effect                |
+|-------------|-----------------------|
+| `qb`        |                       |
+| `Qb`        |                       |
+| `qB`        |                       |
+| `QB`        |                       |
+| `qr`        |                       |
+| `Qr`        |                       |
+| `qa`        |                       |
+| `Qa`        |                       |
+
 ### IQ motions
+
+| text object | effect                |
+|-------------|-----------------------|
+| `iqb`       |                       |
+| `aqb`       |                       |
+| `iqB`       |                       |
+| `aqB`       |                       |
+| `iqr`       |                       |
+| `aqr`       |                       |
+| `iqa`       |                       |
+| `aqa`       |                       |
 
 > ### Segment motions
 > ### Pair motions
