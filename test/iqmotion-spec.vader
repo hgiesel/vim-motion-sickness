@@ -17,7 +17,7 @@ Expect (First argument deleted):
 
 " start on second a {{{3
 Do (diqb with cursor on second a):
-  fafadiqb
+  2fadiqb
 Expect (Second argument deleted):
   foo(bar, , xyz)
 
@@ -46,7 +46,7 @@ Expect (First argument deleted):
 
 " start on second a {{{3
 Do (diqB with cursor on second a):
-  fafadiqB
+  2fadiqB
 Expect (Second argument deleted):
   foo{bar, , xyz}
 
@@ -74,7 +74,7 @@ Expect (First argument deleted):
 
 " start on second a {{{3
 Do (diqr with cursor on second a):
-  fafadiqr
+  2fadiqr
 Expect (Second argument deleted):
   foo[bar, , xyz]
 
@@ -102,7 +102,7 @@ Expect (First argument deleted):
 
 " start on second a {{{3
 Do (diqa with cursor on second a):
-  fafadiqa
+  2fadiqa
 Expect (Second argument deleted):
   foo<bar, , xyz>
 
@@ -130,7 +130,7 @@ Expect (First argument deleted):
 
 " start on second a {{{3
 Do (daqb with cursor on second a):
-  fafadaqb
+  2fadaqb
 Expect (Second argument deleted):
   foo(bar, xyz)
 
@@ -158,7 +158,7 @@ Expect (First argument deleted):
 
 " start on second a {{{3
 Do (daqB with cursor on second a):
-  fafadaqB
+  2fadaqB
 Expect (Second argument deleted):
   foo{bar, xyz}
 
@@ -186,7 +186,7 @@ Expect (First argument deleted):
 
 " start on second a {{{3
 Do (daqr with cursor on second a):
-  fafadaqr
+  2fadaqr
 Expect (Second argument deleted):
   foo[bar, xyz]
 
@@ -208,13 +208,13 @@ Expect (Nothing deleted):
 
 " start on b {{{3
 Do (daqa with cursor on b):
-  fbdaqb
+  fbdaqa
 Expect (First argument deleted):
   foo<arg, xyz>
 
 " start on second a {{{3
 Do (daqa with cursor on second a):
-  fafadaqa
+  2fadaqa
 Expect (Second argument deleted):
   foo<bar, xyz>
 
