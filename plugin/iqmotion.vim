@@ -10,60 +10,60 @@ let g:loaded_motion_sickness_iqmotion = 1
 " Setting user mappings {{{1
 omap iqb <plug>(Oiqbmotion)
 vmap iqb <plug>(Viqbmotion)
-omap iQb <plug>(OiQbmotion)
-vmap iQb <plug>(ViQbmotion)
-
 omap aqb <plug>(Oaqbmotion)
 vmap aqb <plug>(Vaqbmotion)
+
+omap iQb <plug>(OiQbmotion)
+vmap iQb <plug>(ViQbmotion)
 omap aQb <plug>(OaQbmotion)
 vmap aQb <plug>(VaQbmotion)
 
 omap iqB <plug>(OiqBmotion)
 vmap iqB <plug>(ViqBmotion)
+omap aqB <plug>(OaqBmotion)
+vmap aqB <plug>(VaqBmotion)
+
 omap iQB <plug>(OiQBmotion)
 vmap iQB <plug>(ViQBmotion)
-
-omap aqB <plug>(OaqVmotion)
-vmap aqB <plug>(VaqVmotion)
-omap aQB <plug>(OaQVmotion)
-vmap aQB <plug>(VaQVmotion)
+omap aQB <plug>(OaQBmotion)
+vmap aQB <plug>(VaQBmotion)
 
 omap iqr <plug>(Oiqrmotion)
 vmap iqr <plug>(Viqrmotion)
-omap iQr <plug>(OiQrmotion)
-vmap iQr <plug>(ViQrmotion)
-
 omap aqr <plug>(Oaqrmotion)
 vmap aqr <plug>(Vaqrmotion)
+
+omap iQr <plug>(OiQrmotion)
+vmap iQr <plug>(ViQrmotion)
 omap aQr <plug>(OaQrmotion)
 vmap aQr <plug>(VaQrmotion)
 
 omap iqa <plug>(Oiqamotion)
 vmap iqa <plug>(Viqamotion)
-omap iQa <plug>(OiQamotion)
-vmap iQa <plug>(ViQamotion)
-
 omap aqa <plug>(Oaqamotion)
 vmap aqa <plug>(Vaqamotion)
+
+omap iQa <plug>(OiQamotion)
+vmap iQa <plug>(ViQamotion)
 omap aQa <plug>(OaQamotion)
 vmap aQa <plug>(VaQamotion)
 
-" ia
-vnoremap <silent> 
-      \ <plug>(Viqbmotion)
-      \ <ESC>:<c-u>call <SID>MotionArgument(1, 1)<CR>
-" aa
-vnoremap <silent>
-      \ <plug>(Vaqbmotion)
-      \ <ESC>:<c-u>call <SID>MotionArgument(0, 1)<CR>
 "ia
 onoremap <silent>
       \ <plug>(Oiqbmotion)
       \ :<c-u>call <SID>MotionArgument(1, 0)<CR>
+" ia
+vnoremap <silent>
+      \ <plug>(Viqbmotion)
+      \ <ESC>:<c-u>call <SID>MotionArgument(1, 1)<CR>
 " aa
 onoremap <silent>
       \ <plug>(Oaqbmotion)
       \ :<c-u>call <SID>MotionArgument(0, 0)<CR>
+" aa
+vnoremap <silent>
+      \ <plug>(Vaqbmotion)
+      \ <ESC>:<c-u>call <SID>MotionArgument(0, 1)<CR>
 
 " " Setting plug mappings {{{1
 " onoremap <silent>
@@ -73,24 +73,24 @@ onoremap <silent>
 "       \ <plug>(Viqbmotion) :<c-u>call
 "       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:false)<cr>
 " onoremap <silent>
+"       \ <plug>(Oaqbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:true)<cr>
+" vnoremap <silent>
+"       \ <plug>(Vaqbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:true)<cr>
+
+" onoremap <silent>
 "       \ <plug>(OiQbmotion) :<c-u>call
 "       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
 " vnoremap <silent>
 "       \ <plug>(ViQbmotion) :<c-u>call
 "       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
-
-onoremap <silent>
-      \ <plug>(Oiqbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:true)<cr>
-vnoremap <silent>
-      \ <plug>(Viqbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:true)<cr>
-onoremap <silent>
-      \ <plug>(OiQbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:true)<cr>
-vnoremap <silent>
-      \ <plug>(ViQbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:true)<cr>
+" onoremap <silent>
+"       \ <plug>(OaQbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:true)<cr>
+" vnoremap <silent>
+"       \ <plug>(VaQbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:true)<cr>
 
 onoremap <silent>
       \ <plug>(OiqBmotion) :<c-u>call
@@ -99,18 +99,18 @@ vnoremap <silent>
       \ <plug>(ViqBmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ',', v:false)<cr>
 onoremap <silent>
-      \ <plug>(OiQBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:false)<cr>
-vnoremap <silent>
-      \ <plug>(ViQBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:false)<cr>
-
-onoremap <silent>
       \ <plug>(OaqBmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ',', v:true)<cr>
 vnoremap <silent>
       \ <plug>(VaqBmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ',', v:true)<cr>
+
+onoremap <silent>
+      \ <plug>(OiQBmotion) :<c-u>call
+      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:false)<cr>
+vnoremap <silent>
+      \ <plug>(ViQBmotion) :<c-u>call
+      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:false)<cr>
 onoremap <silent>
       \ <plug>(OaQBmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:true)<cr>
@@ -125,18 +125,18 @@ vnoremap <silent>
       \ <plug>(Viqrmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ',', v:false)<cr>
 onoremap <silent>
-      \ <plug>(OiQrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:false)<cr>
-vnoremap <silent>
-      \ <plug>(ViQrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:false)<cr>
-
-onoremap <silent>
       \ <plug>(Oaqrmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ',', v:true)<cr>
 vnoremap <silent>
       \ <plug>(Vaqrmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ',', v:true)<cr>
+
+onoremap <silent>
+      \ <plug>(OiQrmotion) :<c-u>call
+      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:false)<cr>
+vnoremap <silent>
+      \ <plug>(ViQrmotion) :<c-u>call
+      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:false)<cr>
 onoremap <silent>
       \ <plug>(OaQrmotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:true)<cr>
@@ -151,18 +151,18 @@ vnoremap <silent>
       \ <plug>(Viqamotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ',', v:false)<cr>
 onoremap <silent>
-      \ <plug>(OiQamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:false)<cr>
-vnoremap <silent>
-      \ <plug>(ViQamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:false)<cr>
-
-onoremap <silent>
       \ <plug>(Oaqamotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ',', v:true)<cr>
 vnoremap <silent>
       \ <plug>(Vaqamotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ',', v:true)<cr>
+
+onoremap <silent>
+      \ <plug>(OiQamotion) :<c-u>call
+      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:false)<cr>
+vnoremap <silent>
+      \ <plug>(ViQamotion) :<c-u>call
+      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:false)<cr>
 onoremap <silent>
       \ <plug>(OaQamotion) :<c-u>call
       \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:true)<cr>
