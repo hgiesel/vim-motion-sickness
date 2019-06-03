@@ -50,342 +50,111 @@ vmap aQa <plug>(VaQamotion)
 
 onoremap <silent>
       \ <plug>(Oiqbmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '(', ')', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '(', ')', ',')<CR>
 vnoremap <silent>
       \ <plug>(Viqbmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '(', ')', ',')<CR>
 onoremap <silent>
       \ <plug>(Oaqbmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '(', ')', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '(', ')', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vaqbmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '(', ')', ',')<CR>
 
 onoremap <silent>
       \ <plug>(OiQbmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '(', ')', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '(', ')', ';')<CR>
 vnoremap <silent>
       \ <plug>(ViQbmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '(', ')', ';')<CR>
 onoremap <silent>
       \ <plug>(OaQbmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '(', ')', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '(', ')', ';')<CR>
 vnoremap <silent>
       \ <plug>(VaQbmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '(', ')', ';')<CR>
 
 onoremap <silent>
       \ <plug>(OiqBmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '{', '}', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '{', '}', ',')<CR>
 vnoremap <silent>
       \ <plug>(ViqBmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '{', '}', ',')<CR>
 onoremap <silent>
       \ <plug>(OaqBmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '{', '}', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '{', '}', ',')<CR>
 vnoremap <silent>
       \ <plug>(VaqBmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '{', '}', ',')<CR>
 
 onoremap <silent>
       \ <plug>(OiQBmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '{', '}', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '{', '}', ';')<CR>
 vnoremap <silent>
       \ <plug>(ViQBmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '{', '}', ';')<CR>
 onoremap <silent>
       \ <plug>(OaQBmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '{', '}', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '{', '}', ';')<CR>
 vnoremap <silent>
       \ <plug>(VaQBmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '{', '}', ';')<CR>
 
 onoremap <silent>
       \ <plug>(Oiqrmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '[', ']', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '[', ']', ',')<CR>
 vnoremap <silent>
       \ <plug>(Viqrmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '[', ']', ',')<CR>
 onoremap <silent>
       \ <plug>(Oaqrmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '[', ']', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '[', ']', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vaqrmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '[', ']', ',')<CR>
 
 onoremap <silent>
       \ <plug>(OiQrmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '[', ']', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '[', ']', ';')<CR>
 vnoremap <silent>
       \ <plug>(ViQrmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '[', ']', ';')<CR>
 onoremap <silent>
       \ <plug>(OaQrmotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '[', ']', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '[', ']', ';')<CR>
 vnoremap <silent>
       \ <plug>(VaQrmotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '[', ']', ';')<CR>
 
 onoremap <silent>
       \ <plug>(Oiqamotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '<', '>', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '<', '>', ',')<CR>
 vnoremap <silent>
       \ <plug>(Viqamotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '<', '>', ',')<CR>
 onoremap <silent>
       \ <plug>(Oaqamotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '<', '>', ',')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '<', '>', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vaqamotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '<', '>', ',')<CR>
 
 onoremap <silent>
       \ <plug>(OiQamotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '<', '>', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(1, 0, '<', '>', ';')<CR>
 vnoremap <silent>
       \ <plug>(ViQamotion)
       \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '<', '>', ';')<CR>
 onoremap <silent>
       \ <plug>(OaQamotion)
-      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '<', '>', ';')<CR>
+      \ :<c-u>call <SID>MotionArgument(0, 0, '<', '>', ';')<CR>
 vnoremap <silent>
       \ <plug>(VaQamotion)
       \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '<', '>', ';')<CR>
 
-" Defining functions {{{1
-function! s:sick_iqb_motion(cur_pos, open_ch, close_ch, delim, reach)
-  let l:finished  = v:false
-  let l:recursion = 0
-
-  " these behave special
-  let l:brace_dict  = {
-        \ '(': 0,
-        \ ')': 0,
-        \ '{': 0,
-        \ '}': 0,
-        \ '[': 0,
-        \ ']': 0,
-        \ '<': 0,
-        \ '>': 0,
-        \ "'": 0,
-        \ '"': 0,
-        \ }
-
-  let l:search_char = a:delim
-
-  silent! execute 'normal! va' . a:open_ch . 'o'
-  let l:abs_endpos = getpos('.')
-
-  " There is no a<symbol> here, so you can't look for inner arguments
-  if l:abs_endpos == a:cur_pos
-    let l:finished = v:true
-  endif
-
-  " foo(arg, bar, xyz);
-  while !l:finished
-    let l:recursion += 1
-
-    let l:brace_dict['('] = 0
-    let l:brace_dict[')'] = 0
-    let l:brace_dict['['] = 0
-    let l:brace_dict[']'] = 0
-    let l:brace_dict['{'] = 0
-    let l:brace_dict['}'] = 0
-    let l:brace_dict['<'] = 0
-    let l:brace_dict['>'] = 0
-    let l:brace_dict['"'] = 0
-    let l:brace_dict["'"] = 0
-
-    let l:startpos = getpos('.')
-    silent! execute "normal! vv"
-
-    let l:found_next_delim = 0
-    while !l:found_next_delim
-      let l:a_char = getline('.')[col('.')]
-
-      let l:searchpos    = getpos('.')
-      let l:searchpos[2] += 1
-
-      if l:searchpos ==# l:abs_endpos
-        let l:search_char = a:close_ch
-      endif
-
-      if l:a_char ==# l:search_char && s:brace_dict_matches(l:brace_dict)
-        let l:found_next_delim = 1
-
-      elseif l:a_char ==# '('
-        let l:brace_dict['('] += 1
-
-      elseif l:a_char ==# ')'
-        let l:brace_dict[')'] += 1
-
-      elseif l:a_char ==# '['
-        let l:brace_dict['['] += 1
-
-      elseif l:a_char ==# ']'
-        let l:brace_dict[']'] += 1
-
-      elseif l:a_char ==# '{'
-        let l:brace_dict['{'] += 1
-
-      elseif l:a_char ==# '}'
-        let l:brace_dict['}'] += 1
-
-        " this needs to work with `->` and all the comparisons in
-        " order to be functional
-        " elseif l:a_char ==# '<'
-        "   let l:brace_dict['<'] += 1
-        " elseif l:a_char ==# '>'
-        "   let l:brace_dict['>'] += 1
-      elseif l:a_char == '"'
-        let l:brace_dict['"'] += 1
-
-      elseif l:a_char == "'"
-        let l:brace_dict["'"] += 1
-      endif
-
-      execute "normal! 1 "
-    endwhile
-
-    let l:endpos = getpos('.')
-
-    if s:sick_cmp(a:cur_pos, l:start_pos) == -1 &&
-          \ s:sick_cmp(l:start_pos, l:end_pos) == -1
-      let l:finished = 1
-    endif
-  endwhile
-
-  if a:reach
-    silent! execute "normal! ?\\v[^ \\n\\\\]\<cr>o/\\v[^ \\n\\\\]\<cr>"
-
-  else
-    if l:recursion ==# 1
-      silent! execute "normal! o/\\v[^ \\n\\\\]\<cr>o"
-
-    else
-      silent! execute "normal! ?\\v[^ \\n\\\\]\<cr>"
-    endif
-  endif
-endfunction
-
-function! s:brace_dict_matches(brace_dict)
-  if a:brace_dict['(']    ==# a:brace_dict[')']
-        \ && a:brace_dict['[']     ==# a:brace_dict[']']
-        \ && a:brace_dict['{']     ==# a:brace_dict['}']
-        \ && a:brace_dict['<']     ==# a:brace_dict['>']
-        \ && a:brace_dict['"'] % 2 ==# 0
-        \ && a:brace_dict["'"] % 2 ==# 0
-    return 1
-  endif
-
-  return 0
-endfunction
-
-
-
-""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""
-"=============================================================================
-" argtextobj.vim - Text-Object like motion for arguments
-"=============================================================================
-"
-" Author:  Takahiro SUZUKI <takahiro.suzuki.ja@gmDELETEMEail.com>
+" ORIGINAL Author:  Takahiro SUZUKI <takahiro.suzuki.ja@gmDELETEMEail.com>
 " Version: 1.1.1 (Vim 7.1)
 " Licence: MIT Licence
-"
-"=============================================================================
-" Document: {{{1
-"
-"-----------------------------------------------------------------------------
-" Description:
-"   This plugin installes a text-object like motion 'a' (argument). You can
-"   d(elete), c(hange), v(select)... an argument or inner argument in familiar
-"   ways, such as 'daa'(delete-an-argument), 'cia'(change-inner-argument)
-"   or 'via'(select-inner-argument).
-"
-"   What this script do is more than just typing
-"     F,dt,
-"   because it recognizes inclusion relationship of parentheses.
-"
-"   There is an option to descide whether the motion should go out to toplevel
-"   function or not in nested function application.
-
-"
-"-----------------------------------------------------------------------------
-" Installation:
-"   Place this file in /usr/share/vim/vim*/plugin or ~/.vim/plugin/
-"   Now text-object like argument motion 'ia' and 'aa' is enabled by default.
-"
-"-----------------------------------------------------------------------------
-" Options:
-"   Write below in your .vimrc if you want to apply motions to the toplevel
-"   function.
-"     let g:argumentobject_force_toplevel = 1
-"   By default, this options is set to 0, which means your operation affects
-"   to the most inner level
-"
-"-----------------------------------------------------------------------------
-" Examples:
-" case 1: delete an argument
-"     function(int arg1,    char* arg2="a,b,c(d,e)")
-"                              [N]  daa
-"     function(int arg1)
-"                     [N] daa
-"     function()
-"             [N]
-"
-" case 2: delete inner argument
-"     function(int arg1,    char* arg2="a,b,c(d,e)")
-"                              [N]  cia
-"     function(int arg1,    )
-"                          [I]
-"
-" case 3: smart argument recognition (g:argumentobject_force_toplevel = 0)
-"     function(1, (20*30)+40, somefunc2(3, 4))
-"                   [N]  cia
-"     function(1, , somefunc2(3, 4))
-"                [I]
-"     function(1, (20*30)+40, somefunc2(3, 4))
-"                                      [N]  caa
-"     function(1, (20*30)+40, somefunc2(4))
-"                                      [I]
-"
-" case 4: smart argument recognition (g:argumentobject_force_toplevel = 1)
-"     function(1, (20*30)+40, somefunc2(3, 4))
-"                   [N]  cia
-"     function(1, , somefunc2(3, 4))
-"                [I]
-"     function(1, (20*30)+40, somefunc2(3, 4))
-"                                      [N]  caa
-"     function(1, (20*30)+40)
-"                          [I]
-"
-"-----------------------------------------------------------------------------
-" ToDo:
-"   - do nothing on null parentheses '()'
-"
-"-----------------------------------------------------------------------------
-" ChangeLog:
-"   1.1.1:
-"     - debug (stop beeping on using text objects). Thanks to Nadav Samet.
-"
-"   1.1.unreleased:
-"     - support for commas in <..> (for cpp templates)
-"
-"   1.1:
-"     - support for commas in quoted string (".."), array ([..])
-"       do nothing outside a function declaration/call
-"
-"   1.0:
-"     - Initial release
-" }}}1
-"=============================================================================
-
-"if exists('loaded_argtextobj') || v:version < 701
-"  finish
-"endif
-"let loaded_argtextobj = 1
-
 
 function! s:GetOutOfDoubleQuote()
   " get out of double quoteed string (one letter before the beginning)
