@@ -1,352 +1,291 @@
-" " q motions {{{1
-" " qb motion {{{2
-" " with doc foo(bar) {{{3
-" Given (foo(bar)):
-"   foo(bar)
+" q motions {{{1
+" qb motion {{{2
+" with doc foo(bar) {{{3
+Given (foo(bar)):
+  foo(bar)
 
-" " start on f {{{4
-" Do (dqb with cursor on f):
-"   dqb
-" Expect (All deleted):
+" start on f {{{4
+Do (dqb with cursor on f):
+  dqb
+Expect (All deleted):
   
-" " }}}
 
-" " start on b {{{4
-" Do (dqb with cursor on b):
-"   fbdqb
-" Expect (All deleted):
+" start on b {{{4
+Do (dqb with cursor on b):
+  fbdqb
+Expect (All deleted):
   
-" " }}}
 
-" " start on open paren {{{4
-" Do (dqb with cursor on open paren):
-"   f(dqb
-" Expect (All deleted):
+" start on open paren {{{4
+Do (dqb with cursor on open paren):
+  f(dqb
+Expect (All deleted):
   
-" " }}}
 
-" " start on close paren {{{4
-" Do (dqb with cursor on close paren):
-"   f)dqb
-" Expect (All deleted):
+" start on close paren {{{4
+Do (dqb with cursor on close paren):
+  f)dqb
+Expect (All deleted):
   
-" " }}}
-" " }}}
 
-" " with doc xyz::foo(bar) {{{3
-" Given (xyz::foo(bar)):
-"   xyz::foo(bar)
+" with doc xyz::foo(bar) {{{3
+Given (xyz::foo(bar)):
+  xyz::foo(bar)
 
-" " start on x {{{4
-" Do (dqb with cursor on x):
-"   dqb
-" Expect (Nothing deleted):
-"   xyz::foo(bar)
-" " }}}
+" start on x {{{4
+Do (dqb with cursor on x):
+  dqb
+Expect (Nothing deleted):
+  xyz::foo(bar)
 
-" " start on f {{{4
-" Do (dqb with cursor on f):
-"   ffdqb
-" Expect (xyz:: remaining):
-"   xyz::
-" " }}}
+" start on f {{{4
+Do (dqb with cursor on f):
+  ffdqb
+Expect (xyz:: remaining):
+  xyz::
 
-" " start on open paren {{{4
-" Do (dqb with cursor on open paren):
-"   f(dqb
-" Expect (xyz:: remaining):
-"   xyz::
-" " }}}
+" start on open paren {{{4
+Do (dqb with cursor on open paren):
+  f(dqb
+Expect (xyz:: remaining):
+  xyz::
 
-" " start on close paren {{{4
-" Do (dqb with cursor on close paren):
-"   f)dqb
-" Expect (xyz:: remaining):
-"   xyz::
-" " }}}
-" " }}}
-" " }}}
+" start on close paren {{{4
+Do (dqb with cursor on close paren):
+  f)dqb
+Expect (xyz:: remaining):
+  xyz::
 
-" " qB motion {{{2
-" " with doc foo{bar} {{{3
-" Given (foo{bar}):
-"   foo{bar}
+" qB motion {{{2
+" with doc foo{bar} {{{3
+Given (foo{bar}):
+  foo{bar}
 
-" " start on f {{{4
-" Do (dqB with cursor on f):
-"   dqB
-" Expect (All deleted):
+" start on f {{{4
+Do (dqB with cursor on f):
+  dqB
+Expect (All deleted):
   
-" " }}}
 
-" " start on b {{{4
-" Do (dqB with cursor on b):
-"   fbdqB
-" Expect (All deleted):
+" start on b {{{4
+Do (dqB with cursor on b):
+  fbdqB
+Expect (All deleted):
   
-" " }}}
 
-" " start on open brace {{{4
-" Do (dqB with cursor on open brace):
-"   f{dqB
-" Expect (All deleted):
+" start on open brace {{{4
+Do (dqB with cursor on open brace):
+  f{dqB
+Expect (All deleted):
   
-" " }}}
 
-" " start on close brace {{{4
-" Do (dqB with cursor on close brace):
-"   f}dqB
-" Expect (All deleted):
+" start on close brace {{{4
+Do (dqB with cursor on close brace):
+  f}dqB
+Expect (All deleted):
   
-" " }}}
-" " }}}
-" " }}}
 
-" " qr motion {{{2
-" " with doc foo[bar] {{{3
-" Given (foo[bar]):
-"   foo[bar]
+" qr motion {{{2
+" with doc foo[bar] {{{3
+Given (foo[bar]):
+  foo[bar]
 
-" " start on f {{{4
-" Do (dqr with cursor on f):
-"   dqr
-" Expect (All deleted):
+" start on f {{{4
+Do (dqr with cursor on f):
+  dqr
+Expect (All deleted):
   
-" " }}}
 
-" " start on b {{{4
-" Do (dqr with cursor on b):
-"   fbdqr
-" Expect (All deleted):
+" start on b {{{4
+Do (dqr with cursor on b):
+  fbdqr
+Expect (All deleted):
   
-" " }}}
 
-" " start on open bracket {{{4
-" Do (dqr with cursor on open bracket):
-"   f[dqr
-" Expect (All deleted):
+" start on open bracket {{{4
+Do (dqr with cursor on open bracket):
+  f[dqr
+Expect (All deleted):
   
-" " }}}
 
-" " start on close bracket {{{4
-" Do (dqr with cursor close bracket):
-"   f]dqr
-" Expect (All deleted):
+" start on close bracket {{{4
+Do (dqr with cursor close bracket):
+  f]dqr
+Expect (All deleted):
   
-" " }}}
-" " }}}
-" " }}}
 
-" " qa motion {{{2
-" " with doc foo<bar> {{{3
-" Given (foo<bar>):
-"   foo<bar>
+" qa motion {{{2
+" with doc foo<bar> {{{3
+Given (foo<bar>):
+  foo<bar>
 
-" " start on f {{{4
-" Do (dqa with cursor on f):
-"   dqa
-" Expect (All deleted):
+" start on f {{{4
+Do (dqa with cursor on f):
+  dqa
+Expect (All deleted):
   
-" " }}}
 
-" " start on b {{{4
-" Do (dqa with cursor on b):
-"   fbdqa
-" Expect (All deleted):
+" start on b {{{4
+Do (dqa with cursor on b):
+  fbdqa
+Expect (All deleted):
   
-" " }}}
 
-" " start on open chevron {{{4
-" Do (dqa with cursor on open chevron):
-"   f<dqa
-" Expect (All deleted):
+" start on open chevron {{{4
+Do (dqa with cursor on open chevron):
+  f<dqa
+Expect (All deleted):
   
-" " }}}
 
-" " start on close chevron {{{4
-" Do (dqa with cursor on close chevron):
-"   f>dqa
-" Expect (All deleted):
+" start on close chevron {{{4
+Do (dqa with cursor on close chevron):
+  f>dqa
+Expect (All deleted):
   
-" " }}}
-" " }}}
-" " }}}
-" " }}}
 
-" " Q motions {{{1
-" " Qb motion {{{2
-" " with doc xyz::foo(bar) {{{3
-" Given (xyz::foo(bar)):
-"   xyz::foo(bar)
+" Q motions {{{1
+" Qb motion {{{2
+" with doc xyz::foo(bar) {{{3
+Given (xyz::foo(bar)):
+  xyz::foo(bar)
 
-" " start on x {{{4
-" Do (dQb with cursor on x):
-"   dQb
-" Expect (All deleted):
+" start on x {{{4
+Do (dQb with cursor on x):
+  dQb
+Expect (All deleted):
   
-" " }}}
 
-" " start on f {{{4
-" Do (dQb with cursor on f):
-"   ffdQb
-" Expect (All deleted):
+" start on f {{{4
+Do (dQb with cursor on f):
+  ffdQb
+Expect (All deleted):
   
-" " }}}
 
-" " start on open paren {{{4
-" Do (dQb with cursor on open paren):
-"   f(dQb
-" Expect (All deleted):
+" start on open paren {{{4
+Do (dQb with cursor on open paren):
+  f(dQb
+Expect (All deleted):
   
-" " }}}
 
-" " start on close paren {{{4
-" Do (dQb with cursor on close paren):
-"   f)dQb
-" Expect (All deleted):
+" start on close paren {{{4
+Do (dQb with cursor on close paren):
+  f)dQb
+Expect (All deleted):
   
-" " }}}
-" " }}}
 
-" " with doc foo(bar) {{{3
-" Given (foo(bar)):
-"   foo(bar)
+" with doc foo(bar) {{{3
+Given (foo(bar)):
+  foo(bar)
 
-" " start on f {{{4
-" Do (dQb with cursor on f):
-"   dQb
-" Expect (All deleted):
+" start on f {{{4
+Do (dQb with cursor on f):
+  dQb
+Expect (All deleted):
   
-" " }}}
 
-" " start on b {{{4
-" Do (dQb):
-"   fbdQb
-" Expect (All deleted):
+" start on b {{{4
+Do (dQb):
+  fbdQb
+Expect (All deleted):
   
-" " }}}
 
-" " start on open paren {{{4
-" Do (dQb):
-"   f(dQb
-" Expect (All deleted):
+" start on open paren {{{4
+Do (dQb):
+  f(dQb
+Expect (All deleted):
   
-" " }}}
 
-" " start on close paren {{{4
-" Do (dQb):
-"   f)dQb
-" Expect (All deleted):
+" start on close paren {{{4
+Do (dQb):
+  f)dQb
+Expect (All deleted):
   
-" " }}}
-" " }}}
-" " }}}
 
-" " QB motion {{{2
-" " with doc xyz::foo{bar} {{{3
-" Given (xyz::foo{bar}):
-"   xyz::foo{bar}
+" QB motion {{{2
+" with doc xyz::foo{bar} {{{3
+Given (xyz::foo{bar}):
+  xyz::foo{bar}
 
-" " start on x {{{4
-" Do (dQB):
-"   dQB
-" Expect (All deleted):
+" start on x {{{4
+Do (dQB):
+  dQB
+Expect (All deleted):
   
-" " }}}
 
-" " start on f {{{4
-" Do (dQB):
-"   ffdQB
-" Expect (All deleted):
+" start on f {{{4
+Do (dQB):
+  ffdQB
+Expect (All deleted):
   
-" " }}}
 
-" " start on open brace {{{4
-" Do (dQB):
-"   f{dQB
-" Expect (All deleted):
+" start on open brace {{{4
+Do (dQB):
+  f{dQB
+Expect (All deleted):
   
-" " }}}
 
-" " start on close brace {{{4
-" Do (dQB):
-"   f}dQB
-" Expect (All deleted):
+" start on close brace {{{4
+Do (dQB):
+  f}dQB
+Expect (All deleted):
   
-" " }}}
-" " }}}
-" " }}}
 
-" " Qr motion {{{2
-" " with doc xyz::foo[bar] {{{3
-" Given (foo[bar]):
-"   xyz::foo[bar]
+" Qr motion {{{2
+" with doc xyz::foo[bar] {{{3
+Given (foo[bar]):
+  xyz::foo[bar]
 
-" " start on x {{{4
-" Do (dQr with cursor on x):
-"   dQr
-" Expect (All deleted):
+" start on x {{{4
+Do (dQr with cursor on x):
+  dQr
+Expect (All deleted):
   
-" " }}}
 
-" " start on f {{{4
-" Do (dQr with cursor f):
-"   ffdQr
-" Expect (All deleted):
+" start on f {{{4
+Do (dQr with cursor f):
+  ffdQr
+Expect (All deleted):
   
-" " }}}
 
-" " start on open bracket {{{4
-" Do (dQr):
-"   f[dQr
-" Expect (All deleted):
+" start on open bracket {{{4
+Do (dQr):
+  f[dQr
+Expect (All deleted):
   
-" " }}}
 
-" " start on close bracket {{{4
-" Do (dQr):
-"   f]dQr
-" Expect (All deleted):
+" start on close bracket {{{4
+Do (dQr):
+  f]dQr
+Expect (All deleted):
   
-" " }}}
-" " }}}
-" " }}}
 
-" " Qa motion {{{2
-" " with doc xyz::foo<bar> {{{3
-" Given (xyz::foo<bar>):
-"   xyz::foo<bar>
+" Qa motion {{{2
+" with doc xyz::foo<bar> {{{3
+Given (xyz::foo<bar>):
+  xyz::foo<bar>
 
-" " start on x {{{4
-" Do (dQa):
-"   dQa
-" Expect (All deleted):
+" start on x {{{4
+Do (dQa):
+  dQa
+Expect (All deleted):
   
-" " }}}
 
-" " start on f {{{4
-" Do (dQa):
-"   ffdQa
-" Expect (All deleted):
+" start on f {{{4
+Do (dQa):
+  ffdQa
+Expect (All deleted):
   
-" " }}}
 
-" " start on open chevron {{{4
-" Do (dQa):
-"   f<dQa
-" Expect (All deleted):
+" start on open chevron {{{4
+Do (dQa):
+  f<dQa
+Expect (All deleted):
   
-" " }}}
 
-" " start on cchar {{{4
-" Do (dQa):
-"   f>dQa
-" Expect (All deleted):
+" start on cchar {{{4
+Do (dQa):
+  f>dQa
+Expect (All deleted):
   
-" " }}}
-" " }}}
-" " }}}
 
-" " Q<space> motion {{{2
-" " }}}
-" " }}}
+" Q<space> motion {{{2
