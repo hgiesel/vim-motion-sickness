@@ -48,127 +48,109 @@ vmap iQa <plug>(ViQamotion)
 omap aQa <plug>(OaQamotion)
 vmap aQa <plug>(VaQamotion)
 
-"ia
 onoremap <silent>
       \ <plug>(Oiqbmotion)
-      \ :<c-u>call <SID>MotionArgument(1, 0)<CR>
-" ia
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '(', ')', ',')<CR>
 vnoremap <silent>
       \ <plug>(Viqbmotion)
-      \ <ESC>:<c-u>call <SID>MotionArgument(1, 1)<CR>
-" aa
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '(', ')', ',')<CR>
 onoremap <silent>
       \ <plug>(Oaqbmotion)
-      \ :<c-u>call <SID>MotionArgument(0, 0)<CR>
-" aa
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '(', ')', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vaqbmotion)
-      \ <ESC>:<c-u>call <SID>MotionArgument(0, 1)<CR>
-
-" " Setting plug mappings {{{1
-" onoremap <silent>
-"       \ <plug>(Oiqbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:false)<cr>
-" vnoremap <silent>
-"       \ <plug>(Viqbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:false)<cr>
-" onoremap <silent>
-"       \ <plug>(Oaqbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:true)<cr>
-" vnoremap <silent>
-"       \ <plug>(Vaqbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:true)<cr>
-
-" onoremap <silent>
-"       \ <plug>(OiQbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
-" vnoremap <silent>
-"       \ <plug>(ViQbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
-" onoremap <silent>
-"       \ <plug>(OaQbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:true)<cr>
-" vnoremap <silent>
-"       \ <plug>(VaQbmotion) :<c-u>call
-"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:true)<cr>
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '(', ')', ',')<CR>
 
 onoremap <silent>
-      \ <plug>(OiqBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ',', v:false)<cr>
+      \ <plug>(OiQbmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '(', ')', ';')<CR>
 vnoremap <silent>
-      \ <plug>(ViqBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ',', v:false)<cr>
+      \ <plug>(ViQbmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '(', ')', ';')<CR>
 onoremap <silent>
-      \ <plug>(OaqBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ',', v:true)<cr>
+      \ <plug>(OaQbmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '(', ')', ';')<CR>
 vnoremap <silent>
-      \ <plug>(VaqBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ',', v:true)<cr>
+      \ <plug>(VaQbmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '(', ')', ';')<CR>
 
 onoremap <silent>
-      \ <plug>(OiQBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:false)<cr>
+      \ <plug>(OiqBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '{', '}', ',')<CR>
 vnoremap <silent>
-      \ <plug>(ViQBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:false)<cr>
+      \ <plug>(ViqBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '{', '}', ',')<CR>
 onoremap <silent>
-      \ <plug>(OaQBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:true)<cr>
+      \ <plug>(OaqBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '{', '}', ',')<CR>
 vnoremap <silent>
-      \ <plug>(VaQBmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '{', '}', ';', v:true)<cr>
+      \ <plug>(VaqBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '{', '}', ',')<CR>
 
 onoremap <silent>
-      \ <plug>(Oiqrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ',', v:false)<cr>
+      \ <plug>(OiQBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '{', '}', ';')<CR>
 vnoremap <silent>
-      \ <plug>(Viqrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ',', v:false)<cr>
+      \ <plug>(ViQBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '{', '}', ';')<CR>
 onoremap <silent>
-      \ <plug>(Oaqrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ',', v:true)<cr>
+      \ <plug>(OaQBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '{', '}', ';')<CR>
 vnoremap <silent>
-      \ <plug>(Vaqrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ',', v:true)<cr>
+      \ <plug>(VaQBmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '{', '}', ';')<CR>
 
 onoremap <silent>
-      \ <plug>(OiQrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:false)<cr>
+      \ <plug>(Oiqrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '[', ']', ',')<CR>
 vnoremap <silent>
-      \ <plug>(ViQrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:false)<cr>
+      \ <plug>(Viqrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '[', ']', ',')<CR>
 onoremap <silent>
-      \ <plug>(OaQrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:true)<cr>
+      \ <plug>(Oaqrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '[', ']', ',')<CR>
 vnoremap <silent>
-      \ <plug>(VaQrmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '[', ']', ';', v:true)<cr>
+      \ <plug>(Vaqrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '[', ']', ',')<CR>
 
 onoremap <silent>
-      \ <plug>(Oiqamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ',', v:false)<cr>
+      \ <plug>(OiQrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '[', ']', ';')<CR>
 vnoremap <silent>
-      \ <plug>(Viqamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ',', v:false)<cr>
+      \ <plug>(ViQrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '[', ']', ';')<CR>
 onoremap <silent>
-      \ <plug>(Oaqamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ',', v:true)<cr>
+      \ <plug>(OaQrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '[', ']', ';')<CR>
 vnoremap <silent>
-      \ <plug>(Vaqamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ',', v:true)<cr>
+      \ <plug>(VaQrmotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '[', ']', ';')<CR>
 
 onoremap <silent>
-      \ <plug>(OiQamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:false)<cr>
+      \ <plug>(Oiqamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '<', '>', ',')<CR>
 vnoremap <silent>
-      \ <plug>(ViQamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:false)<cr>
+      \ <plug>(Viqamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '<', '>', ',')<CR>
 onoremap <silent>
-      \ <plug>(OaQamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:true)<cr>
+      \ <plug>(Oaqamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '<', '>', ',')<CR>
 vnoremap <silent>
-      \ <plug>(VaQamotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '<', '>', ';', v:true)<cr>
+      \ <plug>(Vaqamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '<', '>', ',')<CR>
+
+onoremap <silent>
+      \ <plug>(OiQamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 0, '<', '>', ';')<CR>
+vnoremap <silent>
+      \ <plug>(ViQamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(1, 1, '<', '>', ';')<CR>
+onoremap <silent>
+      \ <plug>(OaQamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 0, '<', '>', ';')<CR>
+vnoremap <silent>
+      \ <plug>(VaQamotion)
+      \ <esc>:<c-u>call <SID>MotionArgument(0, 1, '<', '>', ';')<CR>
 
 " Defining functions {{{1
 function! s:sick_iqb_motion(cur_pos, open_ch, close_ch, delim, reach)
@@ -412,24 +394,24 @@ function! s:GetOutOfDoubleQuote()
   let mark_b = getpos("'<")
   let mark_e = getpos("'>")
   let repl='_'
-  if getline('.')[getpos('.')[2]-1]=='_'
+  if getline('.')[getpos('.')[2]-1] ==# '_'
     let repl='?'
   endif
 
   while 1
     exe 'silent! normal ^va"'
     normal :\<ESC>\<CR>
-    if getpos("'<")==getpos("'>")
+    if getpos("'<") ==# getpos("'>")
       break
     endif
     exe 'normal gvr' . repl
   endwhile
 
   call setpos('.', pos_save)
-  if getline('.')[getpos('.')[2]-1]==repl
+  if getline('.')[getpos('.')[2]-1] ==# repl
     " in double quote
     call setline('.', line)
-    if getpos('.')==getpos("'<")
+    if getpos('.') ==# getpos("'<")
       normal h
     else
       normal F"
@@ -440,10 +422,18 @@ function! s:GetOutOfDoubleQuote()
   endif
 endfunction
 
-function! s:GetOuterFunctionParenthesis()
+function! s:GetOuterFunctionParenthesis(opendelim)
   let pos_save = getpos('.')
   let rightup_before = pos_save
-  silent! normal [(
+
+  if a:opendelim ==# '('
+    silent! normal [(
+  elseif a:opendelim ==# '{'
+    silent! normal [{
+  else
+    execute 'silent! normal F' . a:opendelim
+  endif
+
   let rightup_p = getpos('.')
   while rightup_p != rightup_before
     if ! g:argumentobject_force_toplevel && getline('.')[getpos('.')[2]-1-1] =~ '[a-zA-Z0-9_]'
@@ -451,7 +441,14 @@ function! s:GetOuterFunctionParenthesis()
       break
     endif
     let rightup_before = rightup_p
-    silent! normal [(
+
+    if a:opendelim ==# '('
+      silent! normal [(
+    elseif a:opendelim ==# '{'
+      silent! normal [{
+    else
+      execute 'silent! normal F' . a:opendelim
+    endif
     let rightup_p = getpos('.')
   endwhile
   call setpos('.', pos_save)
@@ -480,13 +477,13 @@ function! s:GetInnerText(r1, r2)
   return val
 endfunction
 
-function! s:GetPrevCommaOrBeginArgs(arglist, offset)
-  let commapos = strridx(a:arglist, ',', a:offset)
+function! s:GetPrevCommaOrBeginArgs(arglist, offset, fielddelim)
+  let commapos = strridx(a:arglist, a:fielddelim, a:offset)
   return max([commapos+1, 0])
 endfunction
 
-function! s:GetNextCommaOrEndArgs(arglist, offset)
-  let commapos = stridx(a:arglist, ',', a:offset)
+function! s:GetNextCommaOrEndArgs(arglist, offset, fielddelim)
+  let commapos = stridx(a:arglist, a:fielddelim, a:offset)
   if commapos == -1
     return strlen(a:arglist)-1
   endif
@@ -497,7 +494,7 @@ function! s:MoveToNextNonSpace()
   let oldp = getpos('.')
   let moved = 0
   """echo 'move:' . getline('.')[getpos('.')[2]-1]
-  while getline('.')[getpos('.')[2]-1]==' '
+  while getline('.')[getpos('.')[2]-1] ==# ' '
     normal l
     if oldp == getpos('.')
       break
@@ -520,17 +517,17 @@ function! s:MoveRight(num)
   endif
 endfunction
 
-function! s:MotionArgument(inner, visual)
+function! s:MotionArgument(inner, visual, opendelim, closedelim, fielddelim)
   let current_c = getline('.')[getpos('.')[2]-1]
-  if current_c==',' || current_c=='(' " TODO
+  if current_c==a:fielddelim || current_c==a:opendelim
     normal l
   endif
 
   " get out of "double quoted string" because [( does not take effect in it
   call <SID>GetOutOfDoubleQuote()
 
-  let rightup      = <SID>GetOuterFunctionParenthesis()       " on (
-  if getline('.')[rightup[2]-1]!='(' " TODO
+  let rightup      = <SID>GetOuterFunctionParenthesis(a:opendelim)       " on (
+  if getline('.')[rightup[2]-1] != a:opendelim
     " not in a function declaration nor call
     return
   endif
@@ -545,14 +542,14 @@ function! s:MotionArgument(inner, visual)
   let arglist_sub = substitute(arglist_sub, '<\([^'."'".']\{-}\)>', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')       " replace <..> => (__)
   let arglist_sub = substitute(arglist_sub, '"\([^'."'".']\{-}\)"', '(\1)', 'g') " replace ''..'' => (..)
   """echo 'transl quotes: ' . arglist_sub
-  while stridx(arglist_sub, '(')>=0 && stridx(arglist_sub, ')')>=0 " TODO
+  while stridx(arglist_sub, a:opendelim) >= 0 && stridx(arglist_sub, a:closedelim) >= 0 " TODO
     let arglist_sub = substitute(arglist_sub , '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
     """echo 'sub single quot: ' . arglist_sub
   endwhile
 
   " the beginning/end of this argument
-  let thisargbegin = <SID>GetPrevCommaOrBeginArgs(arglist_sub, offset)
-  let thisargend   = <SID>GetNextCommaOrEndArgs(arglist_sub, offset)
+  let thisargbegin = <SID>GetPrevCommaOrBeginArgs(arglist_sub, offset, a:fielddelim)
+  let thisargend   = <SID>GetNextCommaOrEndArgs(arglist_sub, offset, a:fielddelim)
 
   " function(..., the_nth_arg, ...)
   "             [^left]    [^right]
@@ -573,10 +570,10 @@ function! s:MotionArgument(inner, visual)
     let right -= <SID>MoveToNextNonSpace()
   else
     " aa
-    if thisargbegin==0 && thisargend==strlen(arglist_sub)-1
+    if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub)-1
       " only single argument
       call <SID>MoveLeft(left)
-    elseif thisargbegin==0
+    elseif thisargbegin ==# 0
       " head of the list (do not delete '(')
       call <SID>MoveLeft(left)
       let right += 1
