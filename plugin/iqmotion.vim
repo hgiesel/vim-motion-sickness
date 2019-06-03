@@ -48,36 +48,36 @@ vmap aqa <plug>(Vaqamotion)
 omap aQa <plug>(OaQamotion)
 vmap aQa <plug>(VaQamotion)
 
-"" ia
-"vnoremap <silent> 
-"      \ <plug>(Viqbmotion)
-"      \ <ESC>:<c-u>call <SID>MotionArgument(1, 1)<CR>
-"" aa
-"vnoremap <silent>
-"      \ <plug>(Vaqbmotion)
-"      \ <ESC>:<c-u>call <SID>MotionArgument(0, 1)<CR>
-""ia
-"onoremap <silent>
-"      \ <plug>(Oiqbmotion)
-"      \ :<c-u>call <SID>MotionArgument(1, 0)<CR>
-"" aa
-"onoremap <silent>
-"      \ <plug>(Oaqbmotion)
-"      \ :<c-u>call <SID>MotionArgument(0, 0)<CR>
+" ia
+vnoremap <silent> 
+      \ <plug>(Viqbmotion)
+      \ <ESC>:<c-u>call <SID>MotionArgument(1, 1)<CR>
+" aa
+vnoremap <silent>
+      \ <plug>(Vaqbmotion)
+      \ <ESC>:<c-u>call <SID>MotionArgument(0, 1)<CR>
+"ia
+onoremap <silent>
+      \ <plug>(Oiqbmotion)
+      \ :<c-u>call <SID>MotionArgument(1, 0)<CR>
+" aa
+onoremap <silent>
+      \ <plug>(Oaqbmotion)
+      \ :<c-u>call <SID>MotionArgument(0, 0)<CR>
 
-" Setting plug mappings {{{1
-onoremap <silent>
-      \ <plug>(Oiqbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:false)<cr>
-vnoremap <silent>
-      \ <plug>(Viqbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:false)<cr>
-onoremap <silent>
-      \ <plug>(OiQbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
-vnoremap <silent>
-      \ <plug>(ViQbmotion) :<c-u>call
-      \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
+" " Setting plug mappings {{{1
+" onoremap <silent>
+"       \ <plug>(Oiqbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:false)<cr>
+" vnoremap <silent>
+"       \ <plug>(Viqbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ',', v:false)<cr>
+" onoremap <silent>
+"       \ <plug>(OiQbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
+" vnoremap <silent>
+"       \ <plug>(ViQbmotion) :<c-u>call
+"       \ <sid>sick_iqb_motion(getpos('.'), '(', ')', ';', v:false)<cr>
 
 onoremap <silent>
       \ <plug>(Oiqbmotion) :<c-u>call
@@ -599,6 +599,6 @@ function! s:MotionArgument(inner, visual)
 endfunction
 
 " option. turn 1 to search the most toplevel function
-let g:argumentobject_force_toplevel = 0
-
-" vim: set foldmethod=marker et ts=2 sts=2 sw=2:
+if !exists('g:argumentobject_force_toplevel')
+  let g:argumentobject_force_toplevel = 0
+endif
