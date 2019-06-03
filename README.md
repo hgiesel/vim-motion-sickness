@@ -43,27 +43,27 @@ This plugin adds a slew of new possible text objects.
 
 | text object | effect                |
 |-------------|-----------------------|
-| `qb`        |                       |
-| `Qb`        |                       |
-| `qB`        |                       |
-| `QB`        |                       |
-| `qr`        |                       |
-| `Qr`        |                       |
-| `qa`        |                       |
-| `Qa`        |                       |
+| `qb`        | select parentheses preceded by a word     |
+| `Qb`        | select parentheses preceded by a WORD     |
+| `qB`        | select braces preceded by a word          |
+| `QB`        | select braces preceded by a WORD          |
+| `qr`        | select square brackets preceded by a word |
+| `Qr`        | select square brackets preceded by a WORD |
+| `qa`        | select angle brackets preceded by a word  |
+| `Qa`        | select angle brackets preceded by a WORD  |
 
 ### IQ motions
 
 | text object | effect                |
 |-------------|-----------------------|
-| `iqb`       |                       |
-| `aqb`       |                       |
-| `iqB`       |                       |
-| `aqB`       |                       |
-| `iqr`       |                       |
-| `aqr`       |                       |
-| `iqa`       |                       |
-| `aqa`       |                       |
+| `iqb`       | select argument within parentheses                |
+| `aqb`       | select argument within parentheses with comma     |
+| `iqB`       | select argument within braces                     |
+| `aqB`       | select argument within braces with comma          |
+| `iqr`       | select argument within square brackets            |
+| `aqr`       | select argument within square brackets with comma |
+| `iqa`       | select argument within angle brackets             |
+| `aqa`       | select argument within angle brackets with comma  |
 
 > ### Segment motions
 > ### Pair motions
