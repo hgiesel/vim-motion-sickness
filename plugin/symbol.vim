@@ -71,7 +71,6 @@ vnoremap <silent>
 onoremap <silent>
       \ <plug>(OAAsteriskSmotion)
       \ :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'o')<cr>
-
 vnoremap <silent>
       \ <plug>(VAAsteriskSmotion)
       \ :<c-u>call <sid>sick_symbol_motion(v:true, '*', 'v')<cr>
