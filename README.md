@@ -15,18 +15,18 @@ This plugin adds a slew of new possible text objects.
 
 ### Symbol motions
 
-| text object  | effect                            |
-|--------------|-----------------------------------|
-| `i*`/`a*`    | similar to `i"`/`a"`, but for `*` |
-| `i_`/`a_`    | similar to `i"`/`a"`, but for `_` |
-| `i-`/`a-`    | similar to `i"`/`a"`, but for `-` |
-| `i:`/`a:`    | similar to `i"`/`a"`, but for `:` |
-| `i@`/`a@`    | similar to `i"`/`a"`, but for `@` |
-| `i!`/`a!`    | similar to `i"`/`a"`, but for `!` |
-| `i?`/`a?`    | similar to `i"`/`a"`, but for `?` |
-| `i/`/`a/`    | similar to `i"`/`a"`, but for `/` |
-| `i%`/`a%`    | similar to `i"`/`a"`, but for `%` |
-| `i|`/`a|`    | similar to `i"`/`a"`, but for `|` |
+| text object  | effect                             |
+|--------------|------------------------------------|
+| `i*`/`a*`    | similar to `i"`/`a"`, but for `*`  |
+| `i_`/`a_`    | similar to `i"`/`a"`, but for `_`  |
+| `i-`/`a-`    | similar to `i"`/`a"`, but for `-`  |
+| `i:`/`a:`    | similar to `i"`/`a"`, but for `:`  |
+| `i@`/`a@`    | similar to `i"`/`a"`, but for `@`  |
+| `i!`/`a!`    | similar to `i"`/`a"`, but for `!`  |
+| `i?`/`a?`    | similar to `i"`/`a"`, but for `?`  |
+| `i/`/`a/`    | similar to `i"`/`a"`, but for `/`  |
+| `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
+| `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
 
 ### Indent motions
 
