@@ -22,6 +22,14 @@ install:
 before_script:
   - export PATH="/usr/local/bin:${PATH}"
 
+script: |
+  vim -Nu <(cat << VIMRC
+  filetype off
+  set rtp+=vader.vim
+  set rtp+=.
+  set rtp+=after
+  filetype plugin indent on
+  syntax enable
+  VIMRC) -c 'Vader! test/*.vader' > /dev/null
 script:
-  - vim -u test/vimrc-test -c 'Vader! test/*.vader' > /dev/null
 ...
