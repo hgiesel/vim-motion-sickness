@@ -23,13 +23,6 @@ before_script:
   - export PATH="/usr/local/bin:${PATH}"
 
 script: |
-  vim -Nu <(cat << VIMRC
-  filetype off
-  set rtp+=vader.vim
-  set rtp+=.
-  set rtp+=after
-  filetype plugin indent on
-  syntax enable
-  VIMRC) -c 'Vader! test/*.vader' > /dev/null
+  vim -u 'test/vimrc-test.vim' -c 'Vader! test/*.vader' > /dev/null
 script:
 ...
