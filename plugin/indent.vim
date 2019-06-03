@@ -28,26 +28,26 @@ vmap aI <plug>(VaImotion)
 " Setting plug mappings {{{1
 onoremap <silent>
       \ <plug>(Oiimotion) :<c-u>call
-      \ <sid>sick_iz_motion(indent(line('.')), v:false)<cr>
+      \ indent#sick_iz_motion(indent(line('.')), v:false)<cr>
 onoremap <silent>
       \ <plug>(Oaimotion) :<c-u>call
-      \ <sid>sick_iz_motion(indent(line('.')), v:true)<cr>
+      \ indent#sick_iz_motion(indent(line('.')), v:true)<cr>
 vnoremap <silent>
       \ <plug>(Viimotion) :<c-u>call
-      \ <sid>sick_iz_motion(indent(line('.')), v:false)<cr>
+      \ indent#sick_iz_motion(indent(line('.')), v:false)<cr>
 vnoremap <silent>
       \ <plug>(Vaimotion) :<c-u>call
-      \ <sid>sick_iz_motion(indent(line('.')), v:true)<cr>
+      \ indent#sick_iz_motion(indent(line('.')), v:true)<cr>
 
 onoremap <silent>
       \ <plug>(OiImotion) :<c-u>call
-      \ <sid>sick_iz_motion_with_reach(indent(line('.')), v:false)<cr>
+      \ indent#sick_iz_motion_with_reach(indent(line('.')), v:false)<cr>
 onoremap <silent>
       \ <plug>(OaImotion) :<c-u>call
-      \ <sid>sick_iz_motion_with_reach(indent(line('.')), v:true)<cr>
+      \ indent#sick_iz_motion_with_reach(indent(line('.')), v:true)<cr>
 vnoremap <silent>
       \ <plug>(ViImotion) :<c-u>call
-      \ <sid>sick_iz_motion_with_reach(indent(line('.')), v:false)<cr>
+      \ indent#sick_iz_motion_with_reach(indent(line('.')), v:false)<cr>
 vnoremap <silent>
       \ <plug>(VaImotion) :<c-u>call
-      \ <sid>sick_iz_motion_with_reach(indent(line('.')), v:true)<cr>
+      \ indent#sick_iz_motion_with_reach(indent(line('.')), v:true)<cr>
