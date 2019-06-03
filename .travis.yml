@@ -1,5 +1,5 @@
 ---
-language: vim
+language: minimal
 dist: trusty
 sudo: required
 notifications:
