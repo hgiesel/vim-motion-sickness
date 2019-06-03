@@ -1,34 +1,225 @@
-" " iqb motions {{{2
-" " with doc foo(bar) {{{3
-" Given (foo(bar, arg, xyz)):
-"   foo(bar, arg, xyz)
+" iqb motions {{{1
+" with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo(bar, arg, xyz)
 
-" " start on f {{{4
-" Do (diqb with cursor on f):
-"   diqb
-" Expect (Nothing deleted):
-"   foo(bar, arg, xyz)
-" " }}}
+" start on f {{{3
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo(bar, arg, xyz)
 
-" " start on b {{{4
-" Do (diqb with cursor on b):
-"   fbdiqb
-" Expect (First argument deleted):
-"   foo(, arg, xyz)
-" " }}}
+" start on b {{{3
+Do (diqb with cursor on b):
+  fbdiqb
+Expect (First argument deleted):
+  foo(, arg, xyz)
 
-" " start on second a {{{4
-" Do (diqb with cursor on second a):
-"   fafadiqb
-" Expect (Second argument deleted):
-"   foo(bar, , xyz)
-" " }}}
+" start on second a {{{3
+Do (diqb with cursor on second a):
+  fafadiqb
+Expect (Second argument deleted):
+  foo(bar, , xyz)
 
-" " start on x {{{4
-" Do (diqb with cursor on x):
-"   fxdiqb
-" Expect (Third argument deleted):
-"   foo(bar, arg, )
-" " }}}
-" " }}}
-" " }}}
+" start on x {{{3
+Do (diqb with cursor on x):
+  fxdiqb
+Expect (Third argument deleted):
+  foo(bar, arg, )
+
+" iqB motions {{{1
+" with doc foo(bar) {{{2
+Given (foo{bar, arg, xyz}):
+  foo{bar, arg, xyz}
+
+" start on f {{{3
+Do (diqB with cursor on f):
+  diqB
+Expect (Nothing deleted):
+  foo{bar, arg, xyz}
+
+" start on b {{{3
+Do (diqB with cursor on b):
+  fbdiqB
+Expect (First argument deleted):
+  foo{, arg, xyz}
+
+" start on second a {{{3
+Do (diqB with cursor on second a):
+  fafadiqB
+Expect (Second argument deleted):
+  foo{bar, , xyz}
+
+" start on x {{{3
+Do (diqB with cursor on x):
+  fxdiqB
+Expect (Third argument deleted):
+  foo{bar, arg, }
+" iqr motions {{{1
+" with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo[bar, arg, xyz]
+
+" start on f {{{3
+Do (diqr with cursor on f):
+  diqr
+Expect (Nothing deleted):
+  foo[bar, arg, xyz]
+
+" start on b {{{3
+Do (diqr with cursor on b):
+  fbdiqr
+Expect (First argument deleted):
+  foo[, arg, xyz]
+
+" start on second a {{{3
+Do (diqr with cursor on second a):
+  fafadiqr
+Expect (Second argument deleted):
+  foo[bar, , xyz]
+
+" start on x {{{3
+Do (diqr with cursor on x):
+  fxdiqr
+Expect (Third argument deleted):
+  foo[bar, arg, ]
+" iqa motions {{{1
+" with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo<bar, arg, xyz>
+
+" start on f {{{3
+Do (diqa with cursor on f):
+  diqa
+Expect (Nothing deleted):
+  foo<bar, arg, xyz>
+
+" start on b {{{3
+Do (diqa with cursor on b):
+  fbdiqa
+Expect (First argument deleted):
+  foo<, arg, xyz>
+
+" start on second a {{{3
+Do (diqa with cursor on second a):
+  fafadiqa
+Expect (Second argument deleted):
+  foo<bar, , xyz>
+
+" start on x {{{3
+Do (diqa with cursor on x):
+  fxdiqa
+Expect (Third argument deleted):
+  foo<bar, arg, >
+" aqb motions {{{1
+" with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo(bar, arg, xyz)
+
+" start on f {{{3
+Do (daqb with cursor on f):
+  daqb
+Expect (Nothing deleted):
+  foo(bar, arg, xyz)
+
+" start on b {{{3
+Do (daqb with cursor on b):
+  fbdaqb
+Expect (First argument deleted):
+  foo(arg, xyz)
+
+" start on second a {{{3
+Do (daqb with cursor on second a):
+  fafadaqb
+Expect (Second argument deleted):
+  foo(bar, xyz)
+
+" start on x {{{3
+Do (daqb with cursor on x):
+  fxdaqb
+Expect (Third argument deleted):
+  foo(bar, arg)
+" aqB motions {{{1
+" with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo{bar, arg, xyz}
+
+" start on f {{{3
+Do (daqB with cursor on f):
+  daqB
+Expect (Nothing deleted):
+  foo{bar, arg, xyz}
+
+" start on b {{{3
+Do (daqB with cursor on b):
+  fbdaqB
+Expect (First argument deleted):
+  foo{arg, xyz}
+
+" start on second a {{{3
+Do (daqB with cursor on second a):
+  fafadaqB
+Expect (Second argument deleted):
+  foo{bar, xyz}
+
+" start on x {{{3
+Do (daqB with cursor on x):
+  fxdaqB
+Expect (Third argument deleted):
+  foo{bar, arg}
+" aqr motions {{{1
+" with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo[bar, arg, xyz]
+
+" start on f {{{3
+Do (daqr with cursor on f):
+  daqr
+Expect (Nothing deleted):
+  foo[bar, arg, xyz]
+
+" start on b {{{3
+Do (daqr with cursor on b):
+  fbdaqr
+Expect (First argument deleted):
+  foo[arg, xyz]
+
+" start on second a {{{3
+Do (daqr with cursor on second a):
+  fafadaqr
+Expect (Second argument deleted):
+  foo[bar, xyz]
+
+" start on x {{{3
+Do (daqr with cursor on x):
+  fxdaqr
+Expect (Third argument deleted):
+  foo[bar, arg]
+" aqa motions {{{1
+" with doc foo(bar) {{{2
+Given (foo<bar, arg, xyz>):
+  foo<bar, arg, xyz>
+
+" start on f {{{3
+Do (daqa with cursor on f):
+  daqa
+Expect (Nothing deleted):
+  foo<bar, arg, xyz>
+
+" start on b {{{3
+Do (daqa with cursor on b):
+  fbdaqb
+Expect (First argument deleted):
+  foo<arg, xyz>
+
+" start on second a {{{3
+Do (daqa with cursor on second a):
+  fafadaqa
+Expect (Second argument deleted):
+  foo<bar, xyz>
+
+" start on x {{{3
+Do (daqa with cursor on x):
+  fxdaqa
+Expect (Third argument deleted):
+  foo<bar, arg>
