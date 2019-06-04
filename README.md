@@ -3,9 +3,14 @@
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
 ensures they all work as intended.
 
-## List of text object
+#### List of text objects
+* alias motions
+* symbol motions
+* indent motions
+* q motions
+* iq motions
 
-### Alias motions
+## Alias motions
 
 * inspired by [Tim Pope's vim-surround](https://github.com/tpope/vim-surround)
 
@@ -14,7 +19,7 @@ ensures they all work as intended.
 | `ir`/`ar`    | aliases for `i[`/`a[` |
 | `ia`/`aa`    | aliases for `i<`/`a<` |
 
-### Symbol motions
+## Symbol motions
 
 | text object  | effect                             |
 |--------------|------------------------------------|
@@ -29,7 +34,7 @@ ensures they all work as intended.
 | `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
 | `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
 
-### Indent motions
+## Indent motions
 
 * inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
 
@@ -40,7 +45,7 @@ ensures they all work as intended.
 | `iI`        | select current indent leven and above going beyond empty lines |
 | `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
 
-### Q motions
+## Q motions
 
 * inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
 
@@ -55,7 +60,7 @@ ensures they all work as intended.
 | `Qr`        | select square brackets preceded by a WORD |
 | `Qa`        | select angle brackets preceded by a WORD  |
 
-### IQ motions
+## IQ motions
 
 * inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
 
@@ -127,8 +132,8 @@ ensures they all work as intended.
     </tbody>
 </table> 
 
-> ### Segment motions
-> ### Pair motions
+> ## Segment motions
+> ## Pair motions
 
 ## TODO
 
