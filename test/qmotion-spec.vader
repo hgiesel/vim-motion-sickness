@@ -173,6 +173,34 @@ Do (dQb with cursor on close paren):
 Expect (All deleted):
   
 
+" with doc wvu(xyz::foo(bar)) {{{3
+Given (xyz::foo(bar)):
+  wvu(xyz::foo(bar))
+
+" start on x {{{4
+Do (dQb with cursor on x):
+  dQb
+Expect (All deleted):
+  
+
+" start on f {{{4
+Do (dQb with cursor on f):
+  ffdQb
+Expect (Outer function call stays):
+  wvu()
+
+" start on open paren {{{4
+Do (dQb with cursor on open paren):
+  f(dQb
+Expect (All deleted):
+  
+
+" start on close paren {{{4
+Do (dQb with cursor on close paren):
+  f)dQb
+Expect (Outer function call stays):
+  wvu()
+
 " with doc foo(bar) {{{3
 Given (foo(bar)):
   foo(bar)
@@ -230,6 +258,34 @@ Do (dQB):
 Expect (All deleted):
   
 
+" with doc wvu{xyz::foo{bar}} {{{3
+Given (wvu{xyz::foo{bar}}):
+  wvu{xyz::foo{bar}}
+
+" start on x {{{4
+Do (dQb with cursor on x):
+  dQB
+Expect (All deleted):
+  
+
+" start on f {{{4
+Do (dQb with cursor on f):
+  ffdQB
+Expect (Outer function call stays):
+  wvu{}
+
+" start on open paren {{{4
+Do (dQb with cursor on open paren):
+  f{dQB
+Expect (All deleted):
+  
+
+" start on close paren {{{4
+Do (dQb with cursor on close paren):
+  f}dQB
+Expect (Outer function call stays):
+  wvu{}
+
 " Qr motion {{{2
 " with doc xyz::foo[bar] {{{3
 Given (foo[bar]):
@@ -258,6 +314,34 @@ Do (dQr):
   f]dQr
 Expect (All deleted):
   
+
+" with doc wvu[xyz::foo[bar}} {{{3
+Given (wvu[xyz::foo[bar]]):
+  wvu[xyz::foo[bar]]
+
+" start on x {{{4
+Do (dQb with cursor on x):
+  dQr
+Expect (All deleted):
+  
+
+" start on f {{{4
+Do (dQb with cursor on f):
+  ffdQr
+Expect (Outer function call stays):
+  wvu[]
+
+" start on open paren {{{4
+Do (dQb with cursor on open paren):
+  f[dQr
+Expect (All deleted):
+  
+
+" start on close paren {{{4
+Do (dQb with cursor on close paren):
+  f]dQr
+Expect (Outer function call stays):
+  wvu[]
 
 " Qa motion {{{2
 " with doc xyz::foo<bar> {{{3
@@ -288,4 +372,31 @@ Do (dQa):
 Expect (All deleted):
   
 
-" Q<space> motion {{{2
+" with doc wvu<xyz::foo<bar>> {{{3
+Given (wvu<xyz::foo<bar>>):
+  wvu<xyz::foo<bar>>
+
+" start on x {{{4
+Do (dQa with cursor on x):
+  dQa
+Expect (All deleted):
+  
+
+" start on f {{{4
+Do (dQa with cursor on f):
+  ffdQa
+Expect (Outer function call stays):
+  wvu<>
+
+" start on open paren {{{4
+Do (dQa with cursor on open paren):
+  f<dQa
+Expect (All deleted):
+  
+
+" start on close paren {{{4
+Do (dQa with cursor on close paren):
+  f>dQa
+Expect (Outer function call stays):
+  wvu<>
+

@@ -86,7 +86,12 @@ function! qmotion#sick_make_a_q(open_char, close_char, reach)
       " probably its name
     elseif l:next_char =~ '\v[a-zA-Z0-9_]'
       if a:reach
-        normal! B
+        " don't reach beyon ({[<
+        " ex. foo[bar::baz[arg]]
+        call search('\m\%(\s\|[(\[<{]\|^\)', 'bW')
+        if getpos('.')[2] != 1
+          normal! l
+        endif
       else
         normal! b
       endif
