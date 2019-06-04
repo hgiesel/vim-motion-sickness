@@ -38,49 +38,49 @@ onoremap <silent>
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', v:false)<cr>
 vnoremap <silent>
       \ <plug>(Vqbmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', v:false)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', v:false)<cr>
 onoremap <silent>
       \ <plug>(OQbmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', v:true)<cr>
 vnoremap <silent>
       \ <plug>(VQbmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', v:true)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', v:true)<cr>
 
 onoremap <silent>
       \ <plug>(OqBmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', v:false)<cr>
 vnoremap <silent>
       \ <plug>(VqBmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', v:false)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', v:false)<cr>
 onoremap <silent>
       \ <plug>(OQBmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', v:true)<cr>
 vnoremap <silent>
       \ <plug>(VQBmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', v:true)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', v:true)<cr>
 
 onoremap <silent>
       \ <plug>(Oqrmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', v:false)<cr>
 vnoremap <silent>
       \ <plug>(Vqrmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', v:false)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', v:false)<cr>
 onoremap <silent>
       \ <plug>(OQrmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', v:true)<cr>
 vnoremap <silent>
       \ <plug>(VQrmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', v:true)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', v:true)<cr>
 
 onoremap <silent>
       \ <plug>(Oqamotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', v:false)<cr>
 vnoremap <silent>
       \ <plug>(Vqamotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', v:false)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', v:false)<cr>
 onoremap <silent>
       \ <plug>(OQamotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', v:true)<cr>
 vnoremap <silent>
       \ <plug>(VQamotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', v:true)<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', v:true)<cr>
