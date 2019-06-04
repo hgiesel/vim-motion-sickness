@@ -88,7 +88,7 @@ ensures they all work as intended.
 <table>
     <thead>
         <tr>
-            <th>text object</th>
+            <th>list style</th>
             <th>example</th>
         </tr>
     </thead>
@@ -109,7 +109,7 @@ ensures they all work as intended.
         <tr>
             <td>trailing-symbol style</td>
             <td>
-                <pre><code>foo(
+                <pre><code>foo_function(
     arg1,
     arg2,
     arg3
