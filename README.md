@@ -38,34 +38,42 @@ ensures they all work as intended.
 
 * inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
 
-| text object | effect                |
-|-------------|-----------------------|
-| `ii`        | select current indent level and above |
+| text object | effect                                        |
+|-------------|-----------------------------------------------|
+| `ii`        | select current indent level and above         |
 | `ai`        | select current indent level and above, and first line of one indent level below |
 | `iI`        | select current indent leven and above going beyond empty lines |
 | `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
+
+* these were built to imitate `ip`/`ap` on some level, but also offer many more uses
+* `aI` can extends either only to the top, or to the bottom as well
+  * defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`
+  * in languages which are indent heavy, like Python or Haskell, reach down is discouraged
 
 ## Q motions
 
 * inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
 
-| text object | effect                |
-|-------------|-----------------------|
-| `qb`        | select parentheses preceded by a word     |
-| `qB`        | select braces preceded by a word          |
-| `qr`        | select square brackets preceded by a word |
-| `qa`        | select angle brackets preceded by a word  |
-| `Qb`        | select parentheses preceded by a WORD     |
-| `QB`        | select braces preceded by a WORD          |
-| `Qr`        | select square brackets preceded by a WORD |
-| `Qa`        | select angle brackets preceded by a WORD  |
+| text object | effect                                        |
+|-------------|-----------------------------------------------|
+| `qb`        | select parentheses preceded by a WORD         |
+| `qB`        | select braces preceded by a WORD              |
+| `qr`        | select square brackets preceded by a WORD     |
+| `qa`        | select angle brackets preceded by a WORD      |
+
+| `Qb`        | select parentheses preceded by anything     |
+| `QB`        | select braces preceded by anything          |
+| `Qr`        | select square brackets preceded by anything |
+| `Qa`        | select angle brackets preceded by anything  |
+
+* these are way more powerful than might be first visible
 
 ## IQ motions
 
 * inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
 
-| text object | effect                |
-|-------------|-----------------------|
+| text object | effect                                                                |
+|-------------|-----------------------------------------------------------------------|
 | `iqb`       | select comma-separated argument within parentheses                |
 | `aqb`       | select comma-separated argument within parentheses with comma     |
 | `iqB`       | select comma-separated argument within braces                     |
