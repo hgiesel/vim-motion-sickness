@@ -83,11 +83,8 @@ ensures they all work as intended.
 | `iQa`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
 | `aQa`       | select semicolon-separated argument within angle brackets with semicolon (requires `set matchpairs+=<:>` to work) |
 
-* 4 types of list styles are supported, or in other words, are checked to behave as expected:
+* 4 types of list styles are supported, or in other words, are checked against to make sure the motions behave as expected:
 
-
-<table>
-  
 <table>
     <thead>
         <tr>
