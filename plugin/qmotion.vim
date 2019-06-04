@@ -35,52 +35,52 @@ vmap Qa <plug>(VQamotion)
 " Setting plug mappings {{{1
 onoremap <silent>
       \ <plug>(Oqbmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'w')<cr>
+      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'W')<cr>
 vnoremap <silent>
       \ <plug>(Vqbmotion)
-      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'w')<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'W')<cr>
 onoremap <silent>
       \ <plug>(OQbmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', :true)<cr>
+      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'f')<cr>
 vnoremap <silent>
       \ <plug>(VQbmotion)
-      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'W')<cr>
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'f')<cr>
 
 onoremap <silent>
       \ <plug>(OqBmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'w')<cr>
-vnoremap <silent>
-      \ <plug>(VqBmotion)
-      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'w')<cr>
-onoremap <silent>
-      \ <plug>(OQBmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(VQBmotion)
+      \ <plug>(VqBmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'W')<cr>
+onoremap <silent>
+      \ <plug>(OQBmotion)
+      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'f')<cr>
+vnoremap <silent>
+      \ <plug>(VQBmotion)
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'f')<cr>
 
 onoremap <silent>
       \ <plug>(Oqrmotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'w')<cr>
-vnoremap <silent>
-      \ <plug>(Vqrmotion)
-      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'w')<cr>
-onoremap <silent>
-      \ <plug>(OQrmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(VQrmotion)
+      \ <plug>(Vqrmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'W')<cr>
+onoremap <silent>
+      \ <plug>(OQrmotion)
+      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'f')<cr>
+vnoremap <silent>
+      \ <plug>(VQrmotion)
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'f')<cr>
 
 onoremap <silent>
       \ <plug>(Oqamotion)
-      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'w')<cr>
-vnoremap <silent>
-      \ <plug>(Vqamotion)
-      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'w')<cr>
-onoremap <silent>
-      \ <plug>(OQamotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(VQamotion)
+      \ <plug>(Vqamotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'W')<cr>
+onoremap <silent>
+      \ <plug>(OQamotion)
+      \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'f')<cr>
+vnoremap <silent>
+      \ <plug>(VQamotion)
+      \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'f')<cr>
