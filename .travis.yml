@@ -23,5 +23,5 @@ before_script:
   - export PATH="/usr/local/bin:${PATH}"
 
 script: |
-  - vim -u 'test/vimrc-test.vim' -c 'Vader! test/*.vader' > /dev/null
+  vim -u 'test/vimrc-test.vim' -c 'Vader! test/*.vader' > /dev/null
 ...
