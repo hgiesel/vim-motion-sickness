@@ -94,42 +94,34 @@ ensures they all work as intended.
         <tr>
             <td>short style</td>
             <td>
-                <pre><code>
-foo(arg1, arg2, arg3)
-                </code></pre>
+                <pre><code>foo(arg1, arg2, arg3)</code></pre>
             </td>
         </tr>
         <tr>
             <td>delimiter-indented style</td>
             <td>
-                <pre><code>
-foo_function(arg1, arg2,
-             arg3)
-                </code></pre>
+                <pre><code>foo_function(arg1, arg2,
+             arg3)</code></pre>
             </td>
         </tr>
         <tr>
             <td>trailing-symbol style</td>
             <td>
-                <pre><code>
-foo(
+                <pre><code>foo(
     arg1,
     arg2,
     arg3
-)
-                </code></pre>
+)</code></pre>
             </td>
         </tr>
         <tr>
             <td>leading-symbol style</td>
             <td>
-                <pre><code>
-foo( arg1
+                <pre><code>foo( arg1
    , arg2
    , arg2
    , arg3
-   )
-                </code></pre>
+   )</code></pre>
             </td>
         </tr>
     </tbody>
