@@ -80,12 +80,60 @@ ensures they all work as intended.
 
 * 4 types of list styles are supported, or in other words, are checked to behave as expected:
 
-| text object | example                |
-|-------------|------------------------|
-| short style               | <pre><code>foo(arg1, arg2, arg3)</code></pre> |
-| delimiter-indented style  | <pre><code>foo_function(arg1, arg2,<br>             arg3)</code></pre> |
-| trailing-symbol style     | <pre><code>foo(<br>    arg1,<br>    arg2,<br>    arg3<br>)<</code></pre> |
-| leading-symbol style      | <pre><code>foo( arg1<br>   , arg2<br>   , arg2<br>   , arg3<br>   )</code></pre> |
+
+<table>
+  
+<table>
+    <thead>
+        <tr>
+            <th>text object</th>
+            <th>example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>short style</td>
+            <td>
+                <pre><code>
+foo(arg1, arg2, arg3)
+                </code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>delimiter-indented style</td>
+            <td>
+                <pre><code>
+foo_function(arg1, arg2,
+             arg3)
+                </code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>trailing-symbol style</td>
+            <td>
+                <pre><code>
+foo(
+    arg1,
+    arg2,
+    arg3
+)
+                </code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>leading-symbol style</td>
+            <td>
+                <pre><code>
+foo( arg1
+   , arg2
+   , arg2
+   , arg3
+   )
+                </code></pre>
+            </td>
+        </tr>
+    </tbody>
+</table> 
 
 > ### Segment motions
 > ### Pair motions
