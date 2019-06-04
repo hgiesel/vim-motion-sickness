@@ -81,18 +81,23 @@ function! qmotion#sick_make_a_q(open_char, close_char, reach)
         endif
       endif
 
-      " D
       " if character next to such an statement is a character, it is
       " probably its name
     elseif l:next_char =~ '\v[a-zA-Z0-9_]'
-      if a:reach
-        " don't reach beyon ({[<
+      if a:reach ==# 'f'
+        " if possible, reach full line, but don't reach beyond ({[<
+        " TODO make smart replace thing like in iq
+        " ex. if (abc) { function(); }
+
+      elseif a:reach ==# 'W'
+        " reach a WORD, but don't reach beyond ({[<
+        " TODO make smart replace thing like in iq
         " ex. foo[bar::baz[arg]]
         call search('\m\%(\s\|[(\[<{]\|^\)', 'bW')
         if getpos('.')[2] != 1
           normal! l
         endif
-      else
+      else " a:reach ==# 'w'
         normal! b
       endif
 
