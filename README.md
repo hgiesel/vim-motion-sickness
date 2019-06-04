@@ -78,6 +78,15 @@ ensures they all work as intended.
 | `iQa`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
 | `aQa`       | select semicolon-separated argument within angle brackets with semicolon (requires `set matchpairs+=<:>` to work) |
 
+* 4 types of list styles are supported, or in other words, are checked to behave as expected:
+
+| text object | example                |
+|-------------|------------------------|
+| short style               | <pre><code>foo(arg1, arg2, arg3)</code></pre> |
+| delimiter-indented style  | <pre><code>foo_function(arg1, arg2,<br>             arg3)</code></pre> |
+| trailing-symbol style     | <pre><code>foo(<br>    arg1,<br>    arg2,<br>    arg3<br>)<</code></pre> |
+| leading-symbol style      | <pre><code>foo( arg1<br>   , arg2<br>   , arg2<br>   , arg3<br>   )</code></pre> |
+
 > ### Segment motions
 > ### Pair motions
 
