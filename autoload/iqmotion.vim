@@ -1,7 +1,7 @@
 " ORIGINAL Author:  Takahiro SUZUKI <takahiro.suzuki.ja@gmDELETEMEail.com>
 " Version: 1.1.1 (Vim 7.1)
 " Licence: MIT Licence
-"
+
 function! iqmotion#GetOutOfDoubleQuote()
   " get out of double quoteed string (one letter before the beginning)
   let line = getline('.')
@@ -73,7 +73,7 @@ endfunction
 function! iqmotion#GetPair(pos)
   let pos_save = getpos('.')
   call setpos('.', a:pos)
-  normal %h
+  execute "normal! %\<bs>"
   let pair_pos = getpos('.')
   call setpos('.', pos_save)
   return pair_pos
@@ -83,9 +83,9 @@ function! iqmotion#GetInnerText(r1, r2)
   let pos_save = getpos('.')
   let reg_save = @@
   call setpos('.', a:r1)
-  normal lv
+  normal! 1 v
   call setpos('.', a:r2)
-  normal y
+  normal! y
   let val = @@
   call setpos('.', pos_save)
   let @@ = reg_save
@@ -94,15 +94,18 @@ endfunction
 
 function! iqmotion#GetPrevCommaOrBeginArgs(arglist, offset, fielddelim)
   let commapos = strridx(a:arglist, a:fielddelim, a:offset)
-  return max([commapos+1, 0])
+  echo 'prev commapos '. string(a:offset) . ':'. commapos
+  return max([commapos + 1, 0])
 endfunction
 
 function! iqmotion#GetNextCommaOrEndArgs(arglist, offset, fielddelim)
   let commapos = stridx(a:arglist, a:fielddelim, a:offset)
-  if commapos == -1
-    return strlen(a:arglist)-1
+  echo 'next commapos '. string(a:offset) . ':' .commapos
+  if commapos ==# -1
+    return strlen(a:arglist) - 1
+  else
+    return commapos - 1
   endif
-  return commapos-1
 endfunction
 
 function! iqmotion#MoveToNextNonSpace()
@@ -121,13 +124,13 @@ endfunction
 
 function! iqmotion#MoveLeft(num)
   if a:num>0
-    exe 'normal ' . a:num . 'h'
+    execute 'normal ' . a:num . "\<bs>"
   endif
 endfunction
 
 function! iqmotion#MoveRight(num)
   if a:num>0
-    exe 'normal ' . a:num . 'l'
+    execute 'normal ' . a:num . ' '
   endif
 endfunction
 
@@ -142,28 +145,70 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
 
   let rightup = iqmotion#GetOuterFunctionParenthesis(a:opendelim)       " on (
 
-  if getline('.')[rightup[2]-1] != a:opendelim
-    " not in a function declaration nor call
-    return
-  endif
+  " if getline('.')[rightup[2]-1] != a:opendelim
+  "   " not in a function declaration nor call
+  "   return
+  " endif
   let rightup_pair = iqmotion#GetPair(rightup)                    " before )
   let arglist_str  = iqmotion#GetInnerText(rightup, rightup_pair) " inside ()
   let arglist_sub  = arglist_str
   " cursor offset from rightup
-  let offset  = getpos('.')[2] - rightup[2] - 1 " -1 for the removed parenthesis
+
+
+  let offset = 0
+  let idx = 0
+  let l:continue = v:true
+  while l:continue
+    if idx == 0 && rightup[1] == getpos('.')[1]
+      " last line
+      let offset += getpos('.')[2] - rightup[2] - 1 " -1 for the removed parenthesis
+      echo 'case0 '.offset
+      break
+
+    elseif idx == 0 && rightup[1] < getpos('.')[1]
+      " get the characters starting from the opendelim
+      " e.g. `foo(asdf,` will be three characters
+      let offset += strlen(getline(rightup[1])) - rightup[2]
+      echo 'case1 '.offset
+
+    elseif rightup[1] + idx < getpos('.')[1]
+      " get the whole line
+      " e.g. `"sdf",` will be 6 characters
+      let offset += strlen(getline(rightup[1] + idx))
+      echo 'case2 '.offset
+
+    else " rightup[1] == getpos('.')[1]
+      " last line
+      let offset += getpos('.')[2] - 1
+      echo 'case3 '.offset
+      break
+    endif
+
+    let idx += 1
+  endwhile
+
+  if l:offset < 0
+    return
+  endif
+
   " replace all parentheses and commas inside them to '_'
   let arglist_sub = substitute(arglist_sub, "'".'\([^'."'".']\{-}\)'."'", '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g') " replace '..' => (__)
   let arglist_sub = substitute(arglist_sub, '\[\([^'."'".']\{-}\)\]', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')     " replace [..] => (__)
   let arglist_sub = substitute(arglist_sub, '<\([^'."'".']\{-}\)>', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')       " replace <..> => (__)
   let arglist_sub = substitute(arglist_sub, '"\([^'."'".']\{-}\)"', '(\1)', 'g') " replace ''..'' => (..)
 
+  " replaces commas:
   while stridx(arglist_sub, a:opendelim) >= 0 && stridx(arglist_sub, a:closedelim) >= 0
-    let arglist_sub = substitute(arglist_sub , '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
+    let arglist_sub = substitute(arglist_sub, '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
   endwhile
+
+  echo arglist_sub
 
   " the beginning/end of this argument
   let thisargbegin = iqmotion#GetPrevCommaOrBeginArgs(arglist_sub, offset, a:fielddelim)
   let thisargend   = iqmotion#GetNextCommaOrEndArgs(arglist_sub, offset, a:fielddelim)
+
+  echo string(thisargbegin).':'.string(thisargend)
 
   " function(..., the_nth_arg, ...)
   "             [^left]    [^right]
@@ -177,28 +222,35 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
     let right -= iqmotion#MoveToNextNonSpace()
   else
     " aa
-    if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub)-1
+    if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub) - 1
       " only single argument
+      echo 'single '.thisargbegin . ':'.thisargend
       call iqmotion#MoveLeft(left)
     elseif thisargbegin ==# 0
       " head of the list (do not delete '(')
       call iqmotion#MoveLeft(left)
       let right += 1
       let delete_trailing_space = 1
+      echo 'head '.right
     else
       " normal or tail of the list
       call iqmotion#MoveLeft(left+1)
       let right += 1
+      echo 'tail ' . right
     endif
   endif
 
-  exe 'normal v'
+  execute 'normal v'
 
   call iqmotion#MoveRight(right)
   if delete_trailing_space
-    exe 'normal l'
+    execute 'normal! 1 '
     call iqmotion#MoveToNextNonSpace()
-    exe 'normal h'
+    if (!a:inner && (col('.') + 1 == col('$')))
+      execute "normal! $"
+    else
+      execute "normal! \<bs>"
+    endif
   endif
 endfunction
 
