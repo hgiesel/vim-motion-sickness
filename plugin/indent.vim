@@ -1,4 +1,4 @@
-" 7. indentation motion
+" INDENTATION MOTION
 " ii: select current indentation delimited by lines with one indentation less or
 " empty lines
 " ai: select current indentation delimited by lines with one indentation less
