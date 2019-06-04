@@ -47,7 +47,7 @@ function! qmotion#sick_make_a_q(open_char, close_char, reach)
     " A
     " if there is a space or bol to the left of proposed statement, it's
     " no statement
-    if l:next_char ==# ' ' || col('.') == 1
+    if col('.') == 1
       let l:invalid = 1
 
       " B
@@ -83,31 +83,64 @@ function! qmotion#sick_make_a_q(open_char, close_char, reach)
 
       " if character next to such an statement is a character, it is
       " probably its name
-    elseif l:next_char =~ '\v[a-zA-Z0-9_]'
+    elseif l:next_char =~ '\v[a-zA-Z0-9_\$\<\>\=\# ]'
+
       if a:reach ==# 'f'
         " if possible, reach full line, but don't reach beyond ({[<
-        " TODO make smart replace thing like in iq
-        " ex. if (abc) { function(); }
+        " ex. if (hello) { bla; }
+        let l:theline_unreversed = getline('.')[0:col('.') - 2] " cut out opendelim of qb match
+        let l:theline = join(reverse(split(l:theline_unreversed, '.\zs')), '')
+        let l:oldline = ''
+
+        while (l:theline !=# l:oldline)
+          let l:oldline = l:theline
+          let l:theline = substitute(l:theline, '\%()\(.\{-}\)(\|\]\(.\{-}\)\[\|>\(.\{-}\)<\|}\(.\{-}\){\)', '_\1_', 'g')
+        endwhile
+
+        let l:opendelim_pos = match(l:theline, '.*\zs[(\[{<]')
+        if l:opendelim_pos == -1
+          normal! ^
+        else
+          let l:opendelim_pos = (len(l:theline) - l:opendelim_pos) + 1
+          execute 'normal! '.l:opendelim_pos.'|'
+        endif
 
       elseif a:reach ==# 'W'
         " reach a WORD, but don't reach beyond ({[<
-        " TODO make smart replace thing like in iq
         " ex. foo[bar::baz[arg]]
-        call search('\m\%(\s\|[(\[<{]\|^\)', 'bW')
-        if getpos('.')[2] != 1
-          normal! l
+        let l:theline_unreversed = getline('.')[0:col('.') - 2] " cut out opendelim of qb match
+        let l:theline = join(reverse(split(l:theline_unreversed, '.\zs')), '')
+        let l:oldline = ''
+
+        while (l:theline !=# l:oldline)
+          let l:oldline = l:theline
+          let l:theline = substitute(l:theline, '\%()\(.\{-}\)(\|\]\(.\{-}\)\[\|>\(.\{-}\)<\|}\(.\{-}\){\)', '_\1_', 'g')
+        endwhile
+
+        " biggest possible occurence of delims
+        let l:opendelim_pos = match(l:theline, '.*\zs[(\[{<]')
+        " first occurence of space
+        let l:space_pos = match(l:theline, ' ')
+
+        if l:opendelim_pos ==# -1
+          let l:the_pos = l:space_pos
+        elseif l:space_pos ==# -1
+          let l:the_pos = l:opendelim_pos
+        else
+          let l:the_pos = min([l:opendelim_pos, l:space_pos])
         endif
+
+        if l:the_pos == -1
+          normal! ^
+        else
+          let l:the_pos = (len(l:theline) - l:the_pos) + 1
+          execute 'normal! '.l:the_pos.'|'
+        endif
+
       else " a:reach ==# 'w'
         normal! b
       endif
 
-      let l:finished = 1
-
-      " E
-      " for common structures like `$()` `<()` `>()` `=()` `#()`
-      " which are found e.g. in shell scripts or jquery or ruby
-    elseif l:next_char =~# '\v[\$\<\>\=\#]'
-      normal! h
       let l:finished = 1
     endif
 
