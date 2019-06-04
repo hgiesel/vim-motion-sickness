@@ -74,6 +74,7 @@ function! iqmotion#GetPair(pos)
   let pos_save = getpos('.')
   call setpos('.', a:pos)
   normal %h
+
   let pair_pos = getpos('.')
   call setpos('.', pos_save)
   return pair_pos
@@ -142,10 +143,10 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
 
   let rightup = iqmotion#GetOuterFunctionParenthesis(a:opendelim)       " on (
 
-  if getline('.')[rightup[2]-1] != a:opendelim
-    " not in a function declaration nor call
-    return
-  endif
+  " if getline('.')[rightup[2]-1] != a:opendelim
+  "   " not in a function declaration nor call
+  "   return
+  " endif
   let rightup_pair = iqmotion#GetPair(rightup)                    " before )
   let arglist_str  = iqmotion#GetInnerText(rightup, rightup_pair) " inside ()
   let arglist_sub  = arglist_str
@@ -177,25 +178,37 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
     let right -= iqmotion#MoveToNextNonSpace()
   else
     " aa
-    if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub)-1
+    " echo string(thisargbegin) . ' : ' . string(rightup) . ' : ' . line('.')
+
+    if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub) - 1
       " only single argument
+      echo 'single'
       call iqmotion#MoveLeft(left)
-    elseif thisargbegin ==# 0
+    elseif thisargbegin ==# 0 && rightup[1] ==# line('.')
       " head of the list (do not delete '(')
+      echo 'head '
       call iqmotion#MoveLeft(left)
       let right += 1
       let delete_trailing_space = 1
     else
+      echo 'tail'
       " normal or tail of the list
       call iqmotion#MoveLeft(left+1)
       let right += 1
+
+      if getline('.')[col('.') - 1] !=# a:fielddelim
+        echo 'tail 2'
+        call search(a:fielddelim, 'bW')
+      endif
     endif
   endif
 
   exe 'normal v'
+  call search('\m\%('.a:fielddelim.'\|'.a:closedelim.'\)', 'W')
 
-  call iqmotion#MoveRight(right)
-  if delete_trailing_space
+  if !delete_trailing_space
+    normal! h
+  else
     exe 'normal l'
     call iqmotion#MoveToNextNonSpace()
     exe 'normal h'
