@@ -66,7 +66,7 @@ Expect (Second argument deleted):
   )
 
 " " start on z {{{3
-" Do (diqb with cursor on z):
+Do (diqb with cursor on z):
   jjjfxdiqb
 Expect (Third argument deleted):
   foo(
@@ -263,6 +263,144 @@ Do (daqb with cursor on x):
   fxdaqb
 Expect (Third argument deleted):
   foo(bar, arg)
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+" start on b {{{3
+Do (daqb with cursor on f):
+  daqb
+Expect (Nothing deleted):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+" start on b {{{3
+Do (daqb with cursor on b):
+  jfbdaqb
+Expect (First argument deleted):
+  foo(
+    arg,
+    xyz
+  )
+
+" start on b and delete two {{{3
+Do (daqbdaqb with cursor on b):
+  jfbdaqbdaqb
+Expect (First two arguments deleted):
+  foo(
+    xyz
+  )
+
+" start on second a {{{3
+Do (daqb with cursor on second a):
+  jjfadaqb
+Expect (Second argument deleted):
+  foo(
+    bar,
+    xyz
+  )
+
+" " start on z {{{3
+Do (daqb with cursor on z):
+  jjjfxdaqb
+Expect (Third argument deleted):
+  foo(
+    bar,
+    arg
+  )
+
+" with leading-symbol style multiline {{{2
+Given (leading-symbol style multiline):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+" start on f {{{3
+Do (daqb with cursor on f):
+  daqb
+Expect (Nothing deleted):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+" start on b {{{3
+Do (daqb with cursor on b):
+  fbdaqb
+Expect (First argument deleted):
+  foo( arg
+     , xyz
+     )
+
+" start on b and delete two {{{3
+Do (daqbdaqb with cursor on b):
+  fbdaqbdaqb
+Expect (First two arguments deleted):
+  foo( xyz
+     )
+
+" start on second a {{{3
+Do (daqb with cursor on second a):
+  jfadaqb
+Expect (Second argument deleted):
+  foo( bar
+     , xyz
+     )
+
+" start on x {{{3
+Do (daqb with cursor on x):
+  jjfxdaqb
+Expect (Third argument deleted):
+  foo( bar
+     , arg
+     )
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo(bar, arg
+      xyz)
+
+" start on f {{{3
+Do (daqb with cursor on f):
+  daqb
+Expect (Nothing deleted):
+  foo(bar, arg,
+      xyz)
+
+" start on b {{{3
+Do (daqb with cursor on b):
+  fbdaqb
+Expect (First argument deleted):
+  foo(arg,
+      xyz)
+
+" start on b and delete two {{{3
+Do (daqbdaqb with cursor on b):
+  fbdaqbdaqb
+Expect (First two arguments deleted):
+  foo(xyz)
+
+" start on second a {{{3
+Do (daqb with cursor on second a):
+  2fadaqb
+Expect (Second argument deleted):
+  foo(bar,
+      xyz)
+
+" start on x {{{3
+Do (daqb with cursor on x):
+  jfxdaqb
+Expect (Third argument deleted):
+  foo(bar, arg)
+
 " aqB motions {{{1
 " with doc foo(bar) {{{2
 Given (foo(bar, arg, xyz)):
