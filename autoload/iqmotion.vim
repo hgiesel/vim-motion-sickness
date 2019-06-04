@@ -94,13 +94,13 @@ endfunction
 
 function! iqmotion#GetPrevCommaOrBeginArgs(arglist, offset, fielddelim)
   let commapos = strridx(a:arglist, a:fielddelim, a:offset)
-  echo 'prev commapos '. string(a:offset) . ':'. commapos
+  " echo 'prev commapos '. string(a:offset) . ':'. commapos
   return max([commapos + 1, 0])
 endfunction
 
 function! iqmotion#GetNextCommaOrEndArgs(arglist, offset, fielddelim)
   let commapos = stridx(a:arglist, a:fielddelim, a:offset)
-  echo 'next commapos '. string(a:offset) . ':' .commapos
+  " echo 'next commapos '. string(a:offset) . ':' .commapos
   if commapos ==# -1
     return strlen(a:arglist) - 1
   else
@@ -162,25 +162,25 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
     if idx == 0 && rightup[1] == getpos('.')[1]
       " last line
       let offset += getpos('.')[2] - rightup[2] - 1 " -1 for the removed parenthesis
-      echo 'case0 '.offset
+      " echo 'case0 '.offset
       break
 
     elseif idx == 0 && rightup[1] < getpos('.')[1]
       " get the characters starting from the opendelim
       " e.g. `foo(asdf,` will be three characters
       let offset += strlen(getline(rightup[1])) - rightup[2]
-      echo 'case1 '.offset
+      " echo 'case1 '.offset
 
     elseif rightup[1] + idx < getpos('.')[1]
       " get the whole line
       " e.g. `"sdf",` will be 6 characters
       let offset += strlen(getline(rightup[1] + idx))
-      echo 'case2 '.offset
+      " echo 'case2 '.offset
 
     else " rightup[1] == getpos('.')[1]
       " last line
       let offset += getpos('.')[2] - 1
-      echo 'case3 '.offset
+      " echo 'case3 '.offset
       break
     endif
 
@@ -202,13 +202,13 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
     let arglist_sub = substitute(arglist_sub, '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
   endwhile
 
-  echo arglist_sub
+  " echo arglist_sub
 
   " the beginning/end of this argument
   let thisargbegin = iqmotion#GetPrevCommaOrBeginArgs(arglist_sub, offset, a:fielddelim)
   let thisargend   = iqmotion#GetNextCommaOrEndArgs(arglist_sub, offset, a:fielddelim)
 
-  echo string(thisargbegin).':'.string(thisargend)
+  " echo string(thisargbegin).':'.string(thisargend)
 
   " function(..., the_nth_arg, ...)
   "             [^left]    [^right]
@@ -224,19 +224,19 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
     " aa
     if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub) - 1
       " only single argument
-      echo 'single '.thisargbegin . ':'.thisargend
+      " echo 'single '.thisargbegin . ':'.thisargend
       call iqmotion#MoveLeft(left)
     elseif thisargbegin ==# 0
       " head of the list (do not delete '(')
       call iqmotion#MoveLeft(left)
       let right += 1
       let delete_trailing_space = 1
-      echo 'head '.right
+      " echo 'head '.right
     else
       " normal or tail of the list
       call iqmotion#MoveLeft(left+1)
       let right += 1
-      echo 'tail ' . right
+      " echo 'tail ' . right
     endif
   endif
 
