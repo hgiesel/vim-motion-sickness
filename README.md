@@ -47,12 +47,12 @@ ensures they all work as intended.
 | text object | effect                |
 |-------------|-----------------------|
 | `qb`        | select parentheses preceded by a word     |
-| `Qb`        | select parentheses preceded by a WORD     |
 | `qB`        | select braces preceded by a word          |
-| `QB`        | select braces preceded by a WORD          |
 | `qr`        | select square brackets preceded by a word |
-| `Qr`        | select square brackets preceded by a WORD |
 | `qa`        | select angle brackets preceded by a word  |
+| `Qb`        | select parentheses preceded by a WORD     |
+| `QB`        | select braces preceded by a WORD          |
+| `Qr`        | select square brackets preceded by a WORD |
 | `Qa`        | select angle brackets preceded by a WORD  |
 
 ### IQ motions
@@ -61,14 +61,22 @@ ensures they all work as intended.
 
 | text object | effect                |
 |-------------|-----------------------|
-| `iqb`       | select argument within parentheses                |
-| `aqb`       | select argument within parentheses with comma     |
-| `iqB`       | select argument within braces                     |
-| `aqB`       | select argument within braces with comma          |
-| `iqr`       | select argument within square brackets            |
-| `aqr`       | select argument within square brackets with comma |
-| `iqa`       | select argument within angle brackets (requires `set matchpairs+=<:>` to work) |
-| `aqa`       | select argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
+| `iqb`       | select comma-separated argument within parentheses                |
+| `aqb`       | select comma-separated argument within parentheses with comma     |
+| `iqB`       | select comma-separated argument within braces                     |
+| `aqB`       | select comma-separated argument within braces with comma          |
+| `iqr`       | select comma-separated argument within square brackets            |
+| `aqr`       | select comma-separated argument within square brackets with comma |
+| `iqa`       | select comma-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
+| `aqa`       | select comma-separated argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
+| `iQb`       | select semicolon-separated argument within parentheses                |
+| `aQb`       | select semicolon-separated argument within parentheses with semicolon     |
+| `iQB`       | select semicolon-separated argument within braces                     |
+| `aQB`       | select semicolon-separated argument within braces with semicolon          |
+| `iQr`       | select semicolon-separated argument within square brackets            |
+| `aQr`       | select semicolon-separated argument within square brackets with semicolon |
+| `iQa`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
+| `aQa`       | select semicolon-separated argument within angle brackets with semicolon (requires `set matchpairs+=<:>` to work) |
 
 > ### Segment motions
 > ### Pair motions
