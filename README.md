@@ -1,6 +1,7 @@
 # motion-sickness.vim ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=master) ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=devel)
 
-This plugin adds a slew of new possible text objects.
+This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
+ensures they all work as intended.
 
 ## List of text object
 
@@ -41,6 +42,8 @@ This plugin adds a slew of new possible text objects.
 
 ### Q motions
 
+* inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
+
 | text object | effect                |
 |-------------|-----------------------|
 | `qb`        | select parentheses preceded by a word     |
@@ -53,6 +56,8 @@ This plugin adds a slew of new possible text objects.
 | `Qa`        | select angle brackets preceded by a WORD  |
 
 ### IQ motions
+
+* inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
 
 | text object | effect                |
 |-------------|-----------------------|
