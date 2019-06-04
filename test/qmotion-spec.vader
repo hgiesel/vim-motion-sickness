@@ -35,26 +35,54 @@ Given (xyz::foo(bar)):
 " start on x {{{4
 Do (dqb with cursor on x):
   dqb
-Expect (Nothing deleted):
-  xyz::foo(bar)
+Expect (All deleted):
+  
 
 " start on f {{{4
 Do (dqb with cursor on f):
   ffdqb
-Expect (xyz:: remaining):
-  xyz::
+Expect (All deleted):
+  
 
 " start on open paren {{{4
 Do (dqb with cursor on open paren):
   f(dqb
-Expect (xyz:: remaining):
-  xyz::
+Expect (All deleted):
+  
 
 " start on close paren {{{4
 Do (dqb with cursor on close paren):
   f)dqb
-Expect (xyz:: remaining):
-  xyz::
+Expect (All deleted):
+  
+
+" with doc if (xyz) xyz:foo(bar) {{{3
+Given (xyz::foo(bar)):
+  if (xyz) xyz:foo(bar)
+
+" start on x {{{4
+Do (dqb with cursor on i):
+  dqb
+Expect (Nothing deleted):
+  if (xyz) xyz:foo(bar)
+
+" start on f {{{4
+Do (dqb with cursor on second x):
+  2fxdqb
+Expect (Deleted):
+  if (xyz) 
+
+" start on open paren {{{4
+Do (dqb with cursor on seconf f):
+  2ffdqb
+Expect (All deleted):
+  if (xyz) 
+
+" start on close paren {{{4
+Do (dqb with cursor on close paren):
+  2f)dqb
+Expect (All deleted):
+  if (xyz) 
 
 " qB motion {{{2
 " with doc foo{bar} {{{3
@@ -228,6 +256,34 @@ Do (dQb):
   f)dQb
 Expect (All deleted):
   
+
+" with doc xyz{foo(bar)} {{{3
+Given (foo(bar)):
+  xyz{foo(bar)}
+
+" start on f {{{4
+Do (dQb with cursor on f):
+  dQb
+Expect (Nothing deleted):
+  xyz{foo(bar)}
+
+" start on b {{{4
+Do (dQb):
+  fbdQb
+Expect (xyz{} remains):
+  xyz{}
+
+" start on open paren {{{4
+Do (dQb):
+  f(dQb
+Expect (xyz{} remains):
+  xyz{}
+
+" start on close paren {{{4
+Do (dQb):
+  f)dQb
+Expect (xyz{} remains):
+  xyz{}
 
 " QB motion {{{2
 " with doc xyz::foo{bar} {{{3
