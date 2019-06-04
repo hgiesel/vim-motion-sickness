@@ -27,6 +27,130 @@ Do (diqb with cursor on x):
 Expect (Third argument deleted):
   foo(bar, arg, )
 
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+" start on b {{{3
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+" start on b {{{3
+Do (diqb with cursor on b):
+  jfbdiqb
+Expect (First argument deleted):
+  foo(
+    ,
+    arg,
+    xyz
+  )
+
+" start on second a {{{3
+Do (diqb with cursor on second a):
+  jjfadiqb
+Expect (Second argument deleted):
+  foo(
+    bar,
+    ,
+    xyz
+  )
+
+" " start on z {{{3
+" Do (diqb with cursor on z):
+  jjjfxdiqb
+Expect (Third argument deleted):
+  foo(
+    bar,
+    arg,
+    
+  )
+
+" with leading-symbol style multiline {{{2
+Given (leading-symbol style multiline):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+" start on f {{{3
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+" start on b {{{3
+Do (diqb with cursor on b):
+  fbdiqb
+Expect (First argument deleted):
+  foo( 
+     , arg
+     , xyz
+     )
+
+" start on second a {{{3
+Do (diqb with cursor on second a):
+  jfadiqb
+Expect (Second argument deleted):
+  foo( bar
+     , 
+     , xyz
+     )
+
+" start on x {{{3
+Do (diqb with cursor on x):
+  jjfxdiqb
+Expect (Third argument deleted):
+  foo( bar
+     , arg
+     , 
+     )
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo(bar, arg
+      xyz)
+
+" start on f {{{3
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo(bar, arg,
+      xyz)
+
+" start on b {{{3
+Do (diqb with cursor on b):
+  fbdiqb
+Expect (First argument deleted):
+  foo(, arg,
+      xyz)
+
+" start on second a {{{3
+Do (diqb with cursor on second a):
+  2fadiqb
+Expect (Second argument deleted):
+  foo(bar, ,
+      xyz)
+
+" start on x {{{3
+Do (diqb with cursor on x):
+  jfxdiqb
+Expect (Third argument deleted):
+  foo(bar, arg,
+      )
+
 " iqB motions {{{1
 " with doc foo(bar) {{{2
 Given (foo{bar, arg, xyz}):
