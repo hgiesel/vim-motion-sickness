@@ -25,18 +25,19 @@ before_script:
 jobs:
   include:
     - stage: test
-      name: "Aliases"
-      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/alias-spec.vader' > /dev/null
+      name: "Bracket: Aliases"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/alias-spec.vader' > /dev/null
     - stage: test
-      name: "Expressions"
-      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/expression-spec.vader' > /dev/null
+      name: "Bracket: Expressions"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-spec.vader' > /dev/null
     - stage: test
-      name: "Fields"
-      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/fields-spec.vader' > /dev/null
+      name: "Bracket: Fields"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/fields-spec.vader' > /dev/null
     - stage: test
-      name: "Indents"
-      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/indent-spec.vader' > /dev/null
+
+      name: "Other: Indents"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/other/indent-spec.vader' > /dev/null
     - stage: test
-      name: "Symbols"
-      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/symbol-spec.vader' > /dev/null
+      name: "Other: Symbols"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/other/symbol-spec.vader' > /dev/null
 ...
