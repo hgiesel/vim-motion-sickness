@@ -5,12 +5,14 @@ ensures they all work as intended.
 
 #### List of text objects
 
-* [alias motions](https://github.com/hgiesel/vim-motion-sickness#alias-motions)
-* [expression motions](https://github.com/hgiesel/vim-motion-sickness#expression-motions)
-* [field motions](https://github.com/hgiesel/vim-motion-sickness#field-motions)
+* **bracket motions**:
+  * [alias motions](#alias-motions)
+  * [expression motions](#expression-motions)
+  * [field motions](#field-motions)
 
-* [indent motions](#indent-motions)
-* [symbol motions](https://github.com/hgiesel/vim-motion-sickness#alias-motions)
+* **other motions**:
+  * [indent motions](#indent-motions)
+  * [symbol motions](#alias-motions)
 
 ## Alias motions
 
@@ -20,6 +22,13 @@ ensures they all work as intended.
 |--------------|-----------------------|
 | `ir`/`ar`    | aliases for `i[`/`a[` |
 | `ia`/`aa`    | aliases for `i<`/`a<` |
+
+* with these added, you have three full sets of motions for the common brackets:
+  * *characters*: `ib`/`ab`, `iB`/`aB`, `ir`/`ar`, `ia`/`aa`
+  * *open delimiter*: `ib`/`ab`, `iB`/`aB`, `ir`/`ar`, `ia`/`aa`
+  * *close delimiter*: `ib`/`ab`, `iB`/`aB`, `ir`/`ar`, `ia`/`aa`
+
+* this fact is important for the coming *[expression motions](#expression-motions)* and *[field motions](#field-motions)*
 
 ## Expression motions
 
@@ -31,13 +40,14 @@ ensures they all work as intended.
 | `ieB`        | braces preceded by a WORD              |
 | `ier`        | square brackets preceded by a WORD     |
 | `iea`        | angle brackets preceded by a WORD      |
-
 | `aeb`        | parentheses preceded by anything     |
 | `aeB`        | braces preceded by anything          |
 | `aer`        | square brackets preceded by anything |
 | `aea`        | angle brackets preceded by anything  |
 
 * these are way more powerful than might be first visible
+
+* TODO add cast
 
 ## Field motions
 
@@ -49,19 +59,14 @@ ensures they all work as intended.
 | `ifB`       | comma-delimited field within braces                     |
 | `ifr`       | comma-delimited field within square brackets            |
 | `ifa`       | comma-delimited field within angle brackets (requires `set matchpairs+=<:>` to work) |
-
-* 
-
 | `afb`       | select comma-separated argument within parentheses with comma     |
 | `afB`       | select comma-separated argument within braces with comma          |
 | `afr`       | select comma-separated argument within square brackets with comma |
 | `afa`       | select comma-separated argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
-
 | `if;b`       | select semicolon-separated argument within parentheses                |
 | `if;B`       | select semicolon-separated argument within braces                     |
 | `if;r`       | select semicolon-separated argument within square brackets            |
 | `if;a`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
-
 | `af;b`       | select semicolon-separated argument within parentheses with semicolon     |
 | `af;B`       | select semicolon-separated argument within braces with semicolon          |
 | `af;r`       | select semicolon-separated argument within square brackets with semicolon |
@@ -112,6 +117,8 @@ ensures they all work as intended.
         </tr>
     </tbody>
 </table> 
+
+* TODO add cast once they work as intended
 
 > ## Segment motions
 > ## Pair motions
