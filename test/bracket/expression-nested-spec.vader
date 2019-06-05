@@ -9,12 +9,12 @@ Expect (All deleted):
   
 
 Do (dieb with cursor on d):
-  fddied
+  fddieb
 Expect (All deleted):
   
 
 Do (dieb with cursor on b):
-  fbdied
+  fbdieb
 Expect (delete inner expression):
   xyz(def )
 

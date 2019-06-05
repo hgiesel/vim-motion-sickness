@@ -38,6 +38,15 @@ jobs:
       name: "Bracket: Expressions: Nested"
       script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-nested-spec.vader' > /dev/null
     - stage: test
+      name: "Bracket: Expressions: Multiline: Trailing-symbol styel"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-trailing-spec.vader' > /dev/null
+    - stage: test
+      name: "Bracket: Expressions: Multiline: Leading-symbol style"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-leading-spec.vader' > /dev/null
+    - stage: test
+      name: "Bracket: Expressions: Multiline: Operator-indented style"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-indented-spec.vader' > /dev/null
+    - stage: test
 
       name: "Bracket: Fields"
       script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/fields-spec.vader' > /dev/null
