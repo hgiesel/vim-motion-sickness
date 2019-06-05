@@ -20,7 +20,8 @@ let g:sick_symbol_maps = [
       \ ['slash', '/'],
       \ ['bar', '<bar>'],
       \ ]
-      " \ ['percent', '%'],
+
+" \ ['percent', '%'],
 
 " Expression function {{{1
 function! Symbol_maps_add(matchpairs)
