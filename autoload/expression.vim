@@ -7,12 +7,12 @@ function! expression#motion(cur_pos, open_char, close_char, reach)
   while l:recursions < 10
     " This block makes an assumption to what the qb section may look like with the
     " cursor ending on the end of the selection (how it should be)
-    call expression#sick_find_nth_char(l:recursions, a:close_char)
-    call expression#sick_make_a_q(a:open_char, a:close_char, a:reach)
+    call s:Find_nth_char(l:recursions, a:close_char)
+    call s:Make_a_q(a:open_char, a:close_char, a:reach)
     execute 'normal! o'
 
-    if expression#sick_cmp(getpos('v')[1:2], a:cur_pos[1:2]) !=# 1
-          \ && expression#sick_cmp(a:cur_pos[1:2], getpos('.')[1:2]) !=# 1
+    if s:Cmp(getpos('v')[1:2], a:cur_pos[1:2]) !=# 1
+          \ && s:Cmp(a:cur_pos[1:2], getpos('.')[1:2]) !=# 1
       " legit qb section: reset window and finish
       call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
       return 0
@@ -30,7 +30,7 @@ function! expression#motion(cur_pos, open_char, close_char, reach)
   call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
 endfunction
 
-function! expression#sick_make_a_q(open_char, close_char, reach)
+function! s:Make_a_q(open_char, close_char, reach)
   let l:invalid = 0
   let l:recursion = 0
   let l:finished  = 0
@@ -149,7 +149,7 @@ function! expression#sick_make_a_q(open_char, close_char, reach)
   return l:invalid
 endfunction
 
-function! expression#sick_find_nth_char(n, char)
+function! s:Find_nth_char(n, char)
   if getline('.')[col('.') - 1] !=# a:char
     for i in range(a:n)
       silent! execute "normal! /" . a:char . "\<cr>"
@@ -160,7 +160,7 @@ function! expression#sick_find_nth_char(n, char)
 endfunction
 
 " like C {{{2
-function! expression#sick_cmp(a, b)
+function! s:Cmp(a, b)
   for i in range(len(a:a))
     if a:a[i] < a:b[i]
       return -1

@@ -2,10 +2,10 @@
 " `iqb` `aqb`, etc. is used to select parameters (or arguments) within
 " braces, very helpful for any kind of programming language
 
-if exists('g:loaded_motion_sickness_iqmotion') || &compatible || v:version < 700
+if exists('g:loaded_motion_sickness_field') || &compatible || v:version < 700
   finish
 endif
-let g:loaded_motion_sickness_iqmotion = 1
+let g:loaded_motion_sickness_field = 1
 
 " Setting user mappings {{{1
 omap ifb <plug>(Oifbmotion)
@@ -50,104 +50,104 @@ vmap afa <plug>(Vafamotion)
 
 onoremap <silent>
       \ <plug>(Oifbmotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '(', ')', ',')<CR>
+      \ :<c-u>call field#motion(1, 0, '(', ')', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vifbmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '(', ')', ',')<CR>
+      \ <esc>:<c-u>call field#motion(1, 1, '(', ')', ',')<CR>
 onoremap <silent>
       \ <plug>(Oafbmotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '(', ')', ',')<CR>
+      \ :<c-u>call field#motion(0, 0, '(', ')', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vafbmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '(', ')', ',')<CR>
+      \ <esc>:<c-u>call field#motion(0, 1, '(', ')', ',')<CR>
 
 onoremap <silent>
       \ <plug>(OifBmotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '{', '}', ',')<CR>
+      \ :<c-u>call field#motion(1, 0, '{', '}', ',')<CR>
 vnoremap <silent>
       \ <plug>(VifBmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '{', '}', ',')<CR>
+      \ <esc>:<c-u>call field#motion(1, 1, '{', '}', ',')<CR>
 onoremap <silent>
       \ <plug>(OafBmotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '{', '}', ',')<CR>
+      \ :<c-u>call field#motion(0, 0, '{', '}', ',')<CR>
 vnoremap <silent>
       \ <plug>(VafBmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '{', '}', ',')<CR>
+      \ <esc>:<c-u>call field#motion(0, 1, '{', '}', ',')<CR>
 
 onoremap <silent>
       \ <plug>(Oifrmotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '[', ']', ',')<CR>
+      \ :<c-u>call field#motion(1, 0, '[', ']', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vifrmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '[', ']', ',')<CR>
+      \ <esc>:<c-u>call field#motion(1, 1, '[', ']', ',')<CR>
 onoremap <silent>
       \ <plug>(Oafrmotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '[', ']', ',')<CR>
+      \ :<c-u>call field#motion(0, 0, '[', ']', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vafrmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '[', ']', ',')<CR>
+      \ <esc>:<c-u>call field#motion(0, 1, '[', ']', ',')<CR>
 
 onoremap <silent>
       \ <plug>(Oifamotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '<', '>', ',')<CR>
+      \ :<c-u>call field#motion(1, 0, '<', '>', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vifamotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '<', '>', ',')<CR>
+      \ <esc>:<c-u>call field#motion(1, 1, '<', '>', ',')<CR>
 onoremap <silent>
       \ <plug>(Oafamotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '<', '>', ',')<CR>
+      \ :<c-u>call field#motion(0, 0, '<', '>', ',')<CR>
 vnoremap <silent>
       \ <plug>(Vafamotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '<', '>', ',')<CR>
+      \ <esc>:<c-u>call field#motion(0, 1, '<', '>', ',')<CR>
 
 " onoremap <silent>
 "       \ <plug>(OiQbmotion)
-"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '(', ')', ';')<CR>
+"       \ :<c-u>call field#motion(1, 0, '(', ')', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(ViQbmotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '(', ')', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(1, 1, '(', ')', ';')<CR>
 " onoremap <silent>
 "       \ <plug>(OaQbmotion)
-"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '(', ')', ';')<CR>
+"       \ :<c-u>call field#motion(0, 0, '(', ')', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(VaQbmotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '(', ')', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(0, 1, '(', ')', ';')<CR>
 
 " onoremap <silent>
 "       \ <plug>(OiQBmotion)
-"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '{', '}', ';')<CR>
+"       \ :<c-u>call field#motion(1, 0, '{', '}', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(ViQBmotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '{', '}', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(1, 1, '{', '}', ';')<CR>
 " onoremap <silent>
 "       \ <plug>(OaQBmotion)
-"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '{', '}', ';')<CR>
+"       \ :<c-u>call field#motion(0, 0, '{', '}', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(VaQBmotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '{', '}', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(0, 1, '{', '}', ';')<CR>
 
 " onoremap <silent>
 "       \ <plug>(OiQrmotion)
-"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '[', ']', ';')<CR>
+"       \ :<c-u>call field#motion(1, 0, '[', ']', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(ViQrmotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '[', ']', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(1, 1, '[', ']', ';')<CR>
 " onoremap <silent>
 "       \ <plug>(OaQrmotion)
-"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '[', ']', ';')<CR>
+"       \ :<c-u>call field#motion(0, 0, '[', ']', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(VaQrmotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '[', ']', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(0, 1, '[', ']', ';')<CR>
 
 " onoremap <silent>
 "       \ <plug>(OiQamotion)
-"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '<', '>', ';')<CR>
+"       \ :<c-u>call field#motion(1, 0, '<', '>', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(ViQamotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '<', '>', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(1, 1, '<', '>', ';')<CR>
 " onoremap <silent>
 "       \ <plug>(OaQamotion)
-"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '<', '>', ';')<CR>
+"       \ :<c-u>call field#motion(0, 0, '<', '>', ';')<CR>
 " vnoremap <silent>
 "       \ <plug>(VaQamotion)
-"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '<', '>', ';')<CR>
+"       \ <esc>:<c-u>call field#motion(0, 1, '<', '>', ';')<CR>

@@ -2,7 +2,7 @@
 " Version: 1.1.1 (Vim 7.1)
 " Licence: MIT Licence
 
-function! iqmotion#GetOutOfDoubleQuote()
+function! s:GetOutOfDoubleQuote()
   " get out of double quoteed string (one letter before the beginning)
   let line = getline('.')
   let pos_save = getpos('.')
@@ -37,7 +37,7 @@ function! iqmotion#GetOutOfDoubleQuote()
   endif
 endfunction
 
-function! iqmotion#GetOuterFunctionParenthesis(opendelim)
+function! s:GetOuterFunctionParenthesis(opendelim)
   let pos_save = getpos('.')
   let rightup_before = pos_save
 
@@ -70,7 +70,7 @@ function! iqmotion#GetOuterFunctionParenthesis(opendelim)
   return rightup_p
 endfunction
 
-function! iqmotion#GetPair(pos)
+function! s:GetPair(pos)
   let pos_save = getpos('.')
   call setpos('.', a:pos)
   execute "normal! %\<bs>"
@@ -79,7 +79,7 @@ function! iqmotion#GetPair(pos)
   return pair_pos
 endfunction
 
-function! iqmotion#GetInnerText(r1, r2)
+function! s:GetInnerText(r1, r2)
   let pos_save = getpos('.')
   let reg_save = @@
   call setpos('.', a:r1)
@@ -92,13 +92,13 @@ function! iqmotion#GetInnerText(r1, r2)
   return val
 endfunction
 
-function! iqmotion#GetPrevCommaOrBeginArgs(arglist, offset, fielddelim)
+function! s:GetPrevCommaOrBeginArgs(arglist, offset, fielddelim)
   let commapos = strridx(a:arglist, a:fielddelim, a:offset)
   " echo 'prev commapos '. string(a:offset) . ':'. commapos
   return max([commapos + 1, 0])
 endfunction
 
-function! iqmotion#GetNextCommaOrEndArgs(arglist, offset, fielddelim)
+function! s:GetNextCommaOrEndArgs(arglist, offset, fielddelim)
   let commapos = stridx(a:arglist, a:fielddelim, a:offset)
   " echo 'next commapos '. string(a:offset) . ':' .commapos
   if commapos ==# -1
@@ -108,7 +108,7 @@ function! iqmotion#GetNextCommaOrEndArgs(arglist, offset, fielddelim)
   endif
 endfunction
 
-function! iqmotion#MoveToNextNonSpace()
+function! s:MoveToNextNonSpace()
   let oldp = getpos('.')
   let moved = 0
   while getline('.')[getpos('.')[2]-1] ==# ' '
@@ -122,35 +122,35 @@ function! iqmotion#MoveToNextNonSpace()
   return moved
 endfunction
 
-function! iqmotion#MoveLeft(num)
+function! s:MoveLeft(num)
   if a:num>0
     execute 'normal ' . a:num . "\<bs>"
   endif
 endfunction
 
-function! iqmotion#MoveRight(num)
+function! s:MoveRight(num)
   if a:num>0
     execute 'normal ' . a:num . ' '
   endif
 endfunction
 
-function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddelim)
+function! field#motion(inner, visual, opendelim, closedelim, fielddelim)
   let current_c = getline('.')[getpos('.')[2]-1]
   if current_c ==# a:fielddelim || current_c ==# a:opendelim
     normal l
   endif
 
   " get out of "double quoted string" because [( does not take effect in it
-  call iqmotion#GetOutOfDoubleQuote()
+  call s:GetOutOfDoubleQuote()
 
-  let rightup = iqmotion#GetOuterFunctionParenthesis(a:opendelim)       " on (
+  let rightup = s:GetOuterFunctionParenthesis(a:opendelim)       " on (
 
   " if getline('.')[rightup[2]-1] != a:opendelim
   "   " not in a function declaration nor call
   "   return
   " endif
-  let rightup_pair = iqmotion#GetPair(rightup)                    " before )
-  let arglist_str  = iqmotion#GetInnerText(rightup, rightup_pair) " inside ()
+  let rightup_pair = s:GetPair(rightup)                    " before )
+  let arglist_str  = s:GetInnerText(rightup, rightup_pair) " inside ()
   let arglist_sub  = arglist_str
   " cursor offset from rightup
 
@@ -205,8 +205,8 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
   " echo arglist_sub
 
   " the beginning/end of this argument
-  let thisargbegin = iqmotion#GetPrevCommaOrBeginArgs(arglist_sub, offset, a:fielddelim)
-  let thisargend   = iqmotion#GetNextCommaOrEndArgs(arglist_sub, offset, a:fielddelim)
+  let thisargbegin = s:GetPrevCommaOrBeginArgs(arglist_sub, offset, a:fielddelim)
+  let thisargend   = s:GetNextCommaOrEndArgs(arglist_sub, offset, a:fielddelim)
 
   " echo string(thisargbegin).':'.string(thisargend)
 
@@ -218,23 +218,23 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
   let delete_trailing_space = 0
   if a:inner
     " ia
-    call iqmotion#MoveLeft(left)
-    let right -= iqmotion#MoveToNextNonSpace()
+    call s:MoveLeft(left)
+    let right -= s:MoveToNextNonSpace()
   else
     " aa
     if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub) - 1
       " only single argument
       " echo 'single '.thisargbegin . ':'.thisargend
-      call iqmotion#MoveLeft(left)
+      call s:MoveLeft(left)
     elseif thisargbegin ==# 0
       " head of the list (do not delete '(')
-      call iqmotion#MoveLeft(left)
+      call s:MoveLeft(left)
       let right += 1
       let delete_trailing_space = 1
       " echo 'head '.right
     else
       " normal or tail of the list
-      call iqmotion#MoveLeft(left+1)
+      call s:MoveLeft(left+1)
       let right += 1
       " echo 'tail ' . right
     endif
@@ -242,10 +242,10 @@ function! iqmotion#MotionArgument(inner, visual, opendelim, closedelim, fielddel
 
   execute 'normal v'
 
-  call iqmotion#MoveRight(right)
+  call s:MoveRight(right)
   if delete_trailing_space
     execute 'normal! 1 '
-    call iqmotion#MoveToNextNonSpace()
+    call s:MoveToNextNonSpace()
     if (!a:inner && (col('.') + 1 == col('$')))
       execute "normal! $"
     else
