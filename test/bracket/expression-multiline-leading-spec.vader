@@ -23,6 +23,7 @@ Expect (All deleted):
 Do (dieb with cursor on whitespace before close paren):
   jjjdieb
 Expect (All deleted):
+  
 
 Do (dieb with cursor on a in another_word):
   jjfadieb
