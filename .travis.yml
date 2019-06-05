@@ -35,7 +35,7 @@ jobs:
       name: "Bracket: Expressions: Whitespace"
       script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-whitespace-spec.vader' > /dev/null
     - stage: test
-      name: "Bracket: Expressions: Nexted"
+      name: "Bracket: Expressions: Nested"
       script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-nested-spec.vader' > /dev/null
     - stage: test
 

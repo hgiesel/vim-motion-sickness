@@ -1,6 +1,6 @@
 " Using die {{{1
-" {{{2 Given (xyz(foo(bar))):
-Given (xyz(foo(bar))):
+" {{{2 Given (xyz(def foo(bar))):
+Given (xyz(def foo(bar))):
   xyz(def foo(bar))
 
 Do (dieb with cursor on x):
@@ -24,7 +24,7 @@ Expect (All deleted):
   
 
 Do (dieb with cursor on second close paren):
-  f)dieb
+  f)f)dieb
 Expect (All deleted):
   
 
@@ -225,7 +225,7 @@ Expect (delete inner expression):
 Do (daea with cursor on open paren):
   f<daea
 Expect (All deleted):
-   
+  
 
 Do (daea with cursor on second second close paren):
   f>f>daea

@@ -38,12 +38,12 @@ Expect (All deleted):
   
 
 Do (dieB with cursor on open paren):
-  f(dieB
+  f{dieB
 Expect (All deleted):
   
 
 Do (dieB with cursor on close paren):
-  f)dieB
+  f}dieB
 Expect (All deleted):
   
 
@@ -62,12 +62,12 @@ Expect (All deleted):
   
 
 Do (dier with cursor on open paren):
-  f(dier
+  f[dier
 Expect (All deleted):
   
 
 Do (dier with cursor on close paren):
-  f)dier
+  f]dier
 Expect (All deleted):
   
 
@@ -86,12 +86,12 @@ Expect (All deleted):
   
 
 Do (diea with cursor on open paren):
-  f(diea
+  f<diea
 Expect (All deleted):
   
 
 Do (diea with cursor on close paren):
-  f)diea
+  f>diea
 Expect (All deleted):
   
 
@@ -135,12 +135,12 @@ Expect (All deleted):
   
 
 Do (daeB with cursor on open paren):
-  f(daeB
+  f{daeB
 Expect (All deleted):
   
 
 Do (daeB with cursor on close paren):
-  f)daeB
+  f}daeB
 Expect (All deleted):
   
 
@@ -159,12 +159,12 @@ Expect (All deleted):
   
 
 Do (daer with cursor on open paren):
-  f(daer
+  f[daer
 Expect (All deleted):
   
 
 Do (daer with cursor on close paren):
-  f)daer
+  f]daer
 Expect (All deleted):
   
 
@@ -183,12 +183,12 @@ Expect (All deleted):
   
 
 Do (daea with cursor on open paren):
-  f(daea
+  f<daea
 Expect (All deleted):
   
 
 Do (daea with cursor on close paren):
-  f)daea
+  f>daea
 Expect (All deleted):
   
 
