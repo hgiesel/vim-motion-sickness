@@ -8,146 +8,146 @@ endif
 let g:loaded_motion_sickness_iqmotion = 1
 
 " Setting user mappings {{{1
-omap iqb <plug>(Oiqbmotion)
-vmap iqb <plug>(Viqbmotion)
-omap aqb <plug>(Oaqbmotion)
-vmap aqb <plug>(Vaqbmotion)
+omap ifb <plug>(Oifbmotion)
+vmap ifb <plug>(Vifbmotion)
+omap afb <plug>(Oafbmotion)
+vmap afb <plug>(Vafbmotion)
 
-omap iQb <plug>(OiQbmotion)
-vmap iQb <plug>(ViQbmotion)
-omap aQb <plug>(OaQbmotion)
-vmap aQb <plug>(VaQbmotion)
+omap ifr <plug>(Oifrmotion)
+vmap ifr <plug>(Vifrmotion)
+omap afr <plug>(Oafrmotion)
+vmap afr <plug>(Vafrmotion)
 
-omap iqB <plug>(OiqBmotion)
-vmap iqB <plug>(ViqBmotion)
-omap aqB <plug>(OaqBmotion)
-vmap aqB <plug>(VaqBmotion)
+omap ifB <plug>(OifBmotion)
+vmap ifB <plug>(VifBmotion)
+omap afB <plug>(OafBmotion)
+vmap afB <plug>(VafBmotion)
 
-omap iQB <plug>(OiQBmotion)
-vmap iQB <plug>(ViQBmotion)
-omap aQB <plug>(OaQBmotion)
-vmap aQB <plug>(VaQBmotion)
+omap ifa <plug>(Oifamotion)
+vmap ifa <plug>(Vifamotion)
+omap afa <plug>(Oafamotion)
+vmap afa <plug>(Vafamotion)
 
-omap iqr <plug>(Oiqrmotion)
-vmap iqr <plug>(Viqrmotion)
-omap aqr <plug>(Oaqrmotion)
-vmap aqr <plug>(Vaqrmotion)
+" omap iQb <plug>(OiQbmotion)
+" vmap iQb <plug>(ViQbmotion)
+" omap aQb <plug>(OaQbmotion)
+" vmap aQb <plug>(VaQbmotion)
 
-omap iQr <plug>(OiQrmotion)
-vmap iQr <plug>(ViQrmotion)
-omap aQr <plug>(OaQrmotion)
-vmap aQr <plug>(VaQrmotion)
+" omap iQB <plug>(OiQBmotion)
+" vmap iQB <plug>(ViQBmotion)
+" omap aQB <plug>(OaQBmotion)
+" vmap aQB <plug>(VaQBmotion)
 
-omap iqa <plug>(Oiqamotion)
-vmap iqa <plug>(Viqamotion)
-omap aqa <plug>(Oaqamotion)
-vmap aqa <plug>(Vaqamotion)
+" omap iQr <plug>(OiQrmotion)
+" vmap iQr <plug>(ViQrmotion)
+" omap aQr <plug>(OaQrmotion)
+" vmap aQr <plug>(VaQrmotion)
 
-omap iQa <plug>(OiQamotion)
-vmap iQa <plug>(ViQamotion)
-omap aQa <plug>(OaQamotion)
-vmap aQa <plug>(VaQamotion)
+" omap iQa <plug>(OiQamotion)
+" vmap iQa <plug>(ViQamotion)
+" omap aQa <plug>(OaQamotion)
+" vmap aQa <plug>(VaQamotion)
 
 onoremap <silent>
-      \ <plug>(Oiqbmotion)
+      \ <plug>(Oifbmotion)
       \ :<c-u>call iqmotion#MotionArgument(1, 0, '(', ')', ',')<CR>
 vnoremap <silent>
-      \ <plug>(Viqbmotion)
+      \ <plug>(Vifbmotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '(', ')', ',')<CR>
 onoremap <silent>
-      \ <plug>(Oaqbmotion)
+      \ <plug>(Oafbmotion)
       \ :<c-u>call iqmotion#MotionArgument(0, 0, '(', ')', ',')<CR>
 vnoremap <silent>
-      \ <plug>(Vaqbmotion)
+      \ <plug>(Vafbmotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '(', ')', ',')<CR>
 
 onoremap <silent>
-      \ <plug>(OiQbmotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '(', ')', ';')<CR>
-vnoremap <silent>
-      \ <plug>(ViQbmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '(', ')', ';')<CR>
-onoremap <silent>
-      \ <plug>(OaQbmotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '(', ')', ';')<CR>
-vnoremap <silent>
-      \ <plug>(VaQbmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '(', ')', ';')<CR>
-
-onoremap <silent>
-      \ <plug>(OiqBmotion)
+      \ <plug>(OifBmotion)
       \ :<c-u>call iqmotion#MotionArgument(1, 0, '{', '}', ',')<CR>
 vnoremap <silent>
-      \ <plug>(ViqBmotion)
+      \ <plug>(VifBmotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '{', '}', ',')<CR>
 onoremap <silent>
-      \ <plug>(OaqBmotion)
+      \ <plug>(OafBmotion)
       \ :<c-u>call iqmotion#MotionArgument(0, 0, '{', '}', ',')<CR>
 vnoremap <silent>
-      \ <plug>(VaqBmotion)
+      \ <plug>(VafBmotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '{', '}', ',')<CR>
 
 onoremap <silent>
-      \ <plug>(OiQBmotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '{', '}', ';')<CR>
-vnoremap <silent>
-      \ <plug>(ViQBmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '{', '}', ';')<CR>
-onoremap <silent>
-      \ <plug>(OaQBmotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '{', '}', ';')<CR>
-vnoremap <silent>
-      \ <plug>(VaQBmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '{', '}', ';')<CR>
-
-onoremap <silent>
-      \ <plug>(Oiqrmotion)
+      \ <plug>(Oifrmotion)
       \ :<c-u>call iqmotion#MotionArgument(1, 0, '[', ']', ',')<CR>
 vnoremap <silent>
-      \ <plug>(Viqrmotion)
+      \ <plug>(Vifrmotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '[', ']', ',')<CR>
 onoremap <silent>
-      \ <plug>(Oaqrmotion)
+      \ <plug>(Oafrmotion)
       \ :<c-u>call iqmotion#MotionArgument(0, 0, '[', ']', ',')<CR>
 vnoremap <silent>
-      \ <plug>(Vaqrmotion)
+      \ <plug>(Vafrmotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '[', ']', ',')<CR>
 
 onoremap <silent>
-      \ <plug>(OiQrmotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '[', ']', ';')<CR>
-vnoremap <silent>
-      \ <plug>(ViQrmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '[', ']', ';')<CR>
-onoremap <silent>
-      \ <plug>(OaQrmotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '[', ']', ';')<CR>
-vnoremap <silent>
-      \ <plug>(VaQrmotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '[', ']', ';')<CR>
-
-onoremap <silent>
-      \ <plug>(Oiqamotion)
+      \ <plug>(Oifamotion)
       \ :<c-u>call iqmotion#MotionArgument(1, 0, '<', '>', ',')<CR>
 vnoremap <silent>
-      \ <plug>(Viqamotion)
+      \ <plug>(Vifamotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '<', '>', ',')<CR>
 onoremap <silent>
-      \ <plug>(Oaqamotion)
+      \ <plug>(Oafamotion)
       \ :<c-u>call iqmotion#MotionArgument(0, 0, '<', '>', ',')<CR>
 vnoremap <silent>
-      \ <plug>(Vaqamotion)
+      \ <plug>(Vafamotion)
       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '<', '>', ',')<CR>
 
-onoremap <silent>
-      \ <plug>(OiQamotion)
-      \ :<c-u>call iqmotion#MotionArgument(1, 0, '<', '>', ';')<CR>
-vnoremap <silent>
-      \ <plug>(ViQamotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '<', '>', ';')<CR>
-onoremap <silent>
-      \ <plug>(OaQamotion)
-      \ :<c-u>call iqmotion#MotionArgument(0, 0, '<', '>', ';')<CR>
-vnoremap <silent>
-      \ <plug>(VaQamotion)
-      \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '<', '>', ';')<CR>
+" onoremap <silent>
+"       \ <plug>(OiQbmotion)
+"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '(', ')', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(ViQbmotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '(', ')', ';')<CR>
+" onoremap <silent>
+"       \ <plug>(OaQbmotion)
+"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '(', ')', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(VaQbmotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '(', ')', ';')<CR>
+
+" onoremap <silent>
+"       \ <plug>(OiQBmotion)
+"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '{', '}', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(ViQBmotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '{', '}', ';')<CR>
+" onoremap <silent>
+"       \ <plug>(OaQBmotion)
+"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '{', '}', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(VaQBmotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '{', '}', ';')<CR>
+
+" onoremap <silent>
+"       \ <plug>(OiQrmotion)
+"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '[', ']', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(ViQrmotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '[', ']', ';')<CR>
+" onoremap <silent>
+"       \ <plug>(OaQrmotion)
+"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '[', ']', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(VaQrmotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '[', ']', ';')<CR>
+
+" onoremap <silent>
+"       \ <plug>(OiQamotion)
+"       \ :<c-u>call iqmotion#MotionArgument(1, 0, '<', '>', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(ViQamotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(1, 1, '<', '>', ';')<CR>
+" onoremap <silent>
+"       \ <plug>(OaQamotion)
+"       \ :<c-u>call iqmotion#MotionArgument(0, 0, '<', '>', ';')<CR>
+" vnoremap <silent>
+"       \ <plug>(VaQamotion)
+"       \ <esc>:<c-u>call iqmotion#MotionArgument(0, 1, '<', '>', ';')<CR>
