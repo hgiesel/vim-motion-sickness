@@ -1,6 +1,46 @@
 " ORIGINAL Author:  Takahiro SUZUKI <takahiro.suzuki.ja@gmDELETEMEail.com>
 " Version: 1.1.1 (Vim 7.1)
 " Licence: MIT Licence
+"
+" Terminology:
+" - fielddelim: typically comma, might be semicolon, etc.
+" - opendelim: ({[<
+" - closedelim: )}]>
+" - blanks: space and tab
+" - field character: everything except blanks, linefeeds, and fielddelim
+"
+" Algorithm:
+" (*) for head element:
+" - delete elem
+" - delete right till first field character
+" - DONE
+"
+" (*) for middle/tail element:
+" - delete elem
+" - check if on right is field character before newline
+"   | if not:
+"     - delete left until first field character
+"     - DONE
+"   | if yes:
+"     - delete fielddelim and blanks on right
+"     - DONE
+"
+" (*) for single element:
+" - delete elem
+" - check if cursor on same line as opendelim, but not as closedelim
+"   | if yes:
+"     - delete left and remember col of opendelim
+"     - delete right until newline
+"     - look up col of closedelim on the next line
+"       | if same as col of opendelim:
+"         - DONE
+"       | if not:
+"         - delete right until closedelim
+"         - DONE
+"   | if not:
+"     - delete left until you reach opendelim
+"     - delete right until you reach closedelim
+"     - DONE
 
 function! s:GetOutOfDoubleQuote()
   " get out of double quoteed string (one letter before the beginning)
