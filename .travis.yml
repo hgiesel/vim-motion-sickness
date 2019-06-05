@@ -22,6 +22,21 @@ install:
 before_script:
   - export PATH="/usr/local/bin:${PATH}"
 
-script: |
-  vim -u 'test/vimrc-test.vim' -c 'Vader! test/*.vader' > /dev/null
+jobs:
+  include:
+    - stage: test
+      name: "Aliases"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/alias-spec.vader' > /dev/null
+    - stage: test
+      name: "Expressions"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/expression-spec.vader' > /dev/null
+    - stage: test
+      name: "Fields"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/fields-spec.vader' > /dev/null
+    - stage: test
+      name: "Indents"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/indent-spec.vader' > /dev/null
+    - stage: test
+      name: "Symbols"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/symbol-spec.vader' > /dev/null
 ...
