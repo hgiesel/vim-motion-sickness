@@ -6,10 +6,11 @@ ensures they all work as intended.
 #### List of text objects
 
 * alias motions
-* symbol motions
-* indent motions
 * expression motions
 * field motions
+
+* indent motions
+* symbol motions
 
 ## Alias motions
 
@@ -19,37 +20,6 @@ ensures they all work as intended.
 |--------------|-----------------------|
 | `ir`/`ar`    | aliases for `i[`/`a[` |
 | `ia`/`aa`    | aliases for `i<`/`a<` |
-
-## Symbol motions
-
-| text object  | effect                             |
-|--------------|------------------------------------|
-| `i*`/`a*`    | similar to `i"`/`a"`, but for `*`  |
-| `i_`/`a_`    | similar to `i"`/`a"`, but for `_`  |
-| `i-`/`a-`    | similar to `i"`/`a"`, but for `-`  |
-| `i:`/`a:`    | similar to `i"`/`a"`, but for `:`  |
-| `i@`/`a@`    | similar to `i"`/`a"`, but for `@`  |
-| `i!`/`a!`    | similar to `i"`/`a"`, but for `!`  |
-| `i?`/`a?`    | similar to `i"`/`a"`, but for `?`  |
-| `i/`/`a/`    | similar to `i"`/`a"`, but for `/`  |
-| `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
-| `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
-
-## Indent motions
-
-* inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
-
-| text object | effect                                        |
-|-------------|-----------------------------------------------|
-| `ii`        | select current indent level and above         |
-| `ai`        | select current indent level and above, and first line of one indent level below |
-| `iI`        | select current indent leven and above going beyond empty lines |
-| `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
-
-* these were built to imitate `ip`/`ap` on some level, but also offer many more uses
-* `aI` can extends either only to the top, or to the bottom as well
-  * defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`
-  * in languages which are indent heavy, like Python or Haskell, reach down is discouraged
 
 ## Expression motions
 
@@ -145,6 +115,37 @@ ensures they all work as intended.
 
 > ## Segment motions
 > ## Pair motions
+
+## Indent motions
+
+* inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
+
+| text object | effect                                        |
+|-------------|-----------------------------------------------|
+| `ii`        | select current indent level and above         |
+| `ai`        | select current indent level and above, and first line of one indent level below |
+| `iI`        | select current indent leven and above going beyond empty lines |
+| `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
+
+* these were built to imitate `ip`/`ap` on some level, but also offer many more uses
+* `aI` can extends either only to the top, or to the bottom as well
+  * defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`
+  * in languages which are indent heavy, like Python or Haskell, reach down is discouraged
+
+## Symbol motions
+
+| text object  | effect                             |
+|--------------|------------------------------------|
+| `i*`/`a*`    | similar to `i"`/`a"`, but for `*`  |
+| `i_`/`a_`    | similar to `i"`/`a"`, but for `_`  |
+| `i-`/`a-`    | similar to `i"`/`a"`, but for `-`  |
+| `i:`/`a:`    | similar to `i"`/`a"`, but for `:`  |
+| `i@`/`a@`    | similar to `i"`/`a"`, but for `@`  |
+| `i!`/`a!`    | similar to `i"`/`a"`, but for `!`  |
+| `i?`/`a?`    | similar to `i"`/`a"`, but for `?`  |
+| `i/`/`a/`    | similar to `i"`/`a"`, but for `/`  |
+| `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
+| `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
 
 ## TODO
 
