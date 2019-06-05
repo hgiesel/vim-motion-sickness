@@ -2,31 +2,142 @@
 " `iqb` `aqb`, etc. is used to select parameters (or arguments) within
 " braces, very helpful for any kind of programming language
 
-if exists('g:loaded_motion_sickness_field') || &compatible || v:version < 700
+if exists('g:loaded_sick_field') || &compatible || v:version < 700
   finish
 endif
-let g:loaded_motion_sickness_field = 1
+let g:loaded_sick_field = 1
 
 " Setting user mappings {{{1
-omap ifb <plug>(Oifbmotion)
-vmap ifb <plug>(Vifbmotion)
-omap afb <plug>(Oafbmotion)
-vmap afb <plug>(Vafbmotion)
+if !exists('g:sick_field_maps')
+  let g:sick_field_maps = 'f-prefix'
+endif
 
-omap ifr <plug>(Oifrmotion)
-vmap ifr <plug>(Vifrmotion)
-omap afr <plug>(Oafrmotion)
-vmap afr <plug>(Vafrmotion)
+" Setting user mappings {{{1
+" Option 1: f-prefix ib/iB/ir/ia {{{1
+if g:sick_field_maps == 'f-prefix'
+  omap ifb <plug>(Oifbmotion)
+  vmap ifb <plug>(Vifbmotion)
+  omap afb <plug>(Oafbmotion)
+  vmap afb <plug>(Vafbmotion)
 
-omap ifB <plug>(OifBmotion)
-vmap ifB <plug>(VifBmotion)
-omap afB <plug>(OafBmotion)
-vmap afB <plug>(VafBmotion)
+  omap ifr <plug>(Oifrmotion)
+  vmap ifr <plug>(Vifrmotion)
+  omap afr <plug>(Oafrmotion)
+  vmap afr <plug>(Vafrmotion)
 
-omap ifa <plug>(Oifamotion)
-vmap ifa <plug>(Vifamotion)
-omap afa <plug>(Oafamotion)
-vmap afa <plug>(Vafamotion)
+  omap ifB <plug>(OifBmotion)
+  vmap ifB <plug>(VifBmotion)
+  omap afB <plug>(OafBmotion)
+  vmap afB <plug>(VafBmotion)
+
+  omap ifa <plug>(Oifamotion)
+  vmap ifa <plug>(Vifamotion)
+  omap afa <plug>(Oafamotion)
+  vmap afa <plug>(Vafamotion)
+
+  omap if( <plug>(Oifbmotion)
+  vmap if( <plug>(Vifbmotion)
+  omap af( <plug>(Oafbmotion)
+  vmap af( <plug>(Vafbmotion)
+
+  omap if[ <plug>(Oifrmotion)
+  vmap if[ <plug>(Vifrmotion)
+  omap af[ <plug>(Oafrmotion)
+  vmap af[ <plug>(Vafrmotion)
+
+  omap if{ <plug>(OifBmotion)
+  vmap if{ <plug>(VifBmotion)
+  omap af{ <plug>(OafBmotion)
+  vmap af{ <plug>(VafBmotion)
+
+  omap if< <plug>(Oifamotion)
+  vmap if< <plug>(Vifamotion)
+  omap af< <plug>(Oafamotion)
+  vmap af< <plug>(Vafamotion)
+
+  omap if) <plug>(Oifbmotion)
+  vmap if) <plug>(Vifbmotion)
+  omap af) <plug>(Oafbmotion)
+  vmap af) <plug>(Vafbmotion)
+
+  omap if] <plug>(Oifrmotion)
+  vmap if] <plug>(Vifrmotion)
+  omap af] <plug>(Oafrmotion)
+  vmap af] <plug>(Vafrmotion)
+
+  omap if} <plug>(OifBmotion)
+  vmap if} <plug>(VifBmotion)
+  omap af} <plug>(OafBmotion)
+  vmap af} <plug>(VafBmotion)
+
+  omap if> <plug>(Oifamotion)
+  vmap if> <plug>(Vifamotion)
+  omap af> <plug>(Oafamotion)
+  vmap af> <plug>(Vafamotion)
+
+elseif g:sick_field_maps == 'char'
+  omap ib <plug>(Oifbmotion)
+  vmap ib <plug>(Vifbmotion)
+  omap ab <plug>(Oafbmotion)
+  vmap ab <plug>(Vafbmotion)
+
+  omap ir <plug>(Oifrmotion)
+  vmap ir <plug>(Vifrmotion)
+  omap ar <plug>(Oafrmotion)
+  vmap ar <plug>(Vafrmotion)
+
+  omap iB <plug>(OifBmotion)
+  vmap iB <plug>(VifBmotion)
+  omap aB <plug>(OafBmotion)
+  vmap aB <plug>(VafBmotion)
+
+  omap ia <plug>(Oifamotion)
+  vmap ia <plug>(Vifamotion)
+  omap aa <plug>(Oafamotion)
+  vmap aa <plug>(Vafamotion)
+
+elseif g:sick_field_maps == 'opendelim'
+  omap i( <plug>(Oifbmotion)
+  vmap i( <plug>(Vifbmotion)
+  omap a( <plug>(Oafbmotion)
+  vmap a( <plug>(Vafbmotion)
+
+  omap i{ <plug>(OifBmotion)
+  vmap i{ <plug>(VifBmotion)
+  omap a{ <plug>(OafBmotion)
+  vmap a{ <plug>(VafBmotion)
+
+  omap i( <plug>(Oifrmotion)
+  vmap i( <plug>(Vifrmotion)
+  omap a( <plug>(Oafrmotion)
+  vmap a( <plug>(Vafrmotion)
+
+  omap i< <plug>(Oifamotion)
+  vmap i< <plug>(Vifamotion)
+  omap a< <plug>(Oafamotion)
+  vmap a< <plug>(Vafamotion)
+
+elseif g:sick_field_maps == 'closedelim'
+  omap i) <plug>(Oifbmotion)
+  vmap i) <plug>(Vifbmotion)
+  omap a) <plug>(Oafbmotion)
+  vmap a) <plug>(Vafbmotion)
+
+  omap i} <plug>(OifBmotion)
+  vmap i} <plug>(VifBmotion)
+  omap a} <plug>(OafBmotion)
+  vmap a} <plug>(VafBmotion)
+
+  omap i] <plug>(Oifrmotion)
+  vmap i] <plug>(Vifrmotion)
+  omap a] <plug>(Oafrmotion)
+  vmap a] <plug>(Vafrmotion)
+
+  omap i> <plug>(Oifamotion)
+  vmap i> <plug>(Vifamotion)
+  omap a> <plug>(Oafamotion)
+  vmap a> <plug>(Vafamotion)
+endif
 
 " omap iQb <plug>(OiQbmotion)
 " vmap iQb <plug>(ViQbmotion)

@@ -7,125 +7,187 @@ let g:loaded_sick_expression = 1
 
 " Setting user mappings {{{1
 if !exists('g:sick_expression_maps')
-  let g:sick_expression_maps = 'char'
+  let g:sick_expression_maps = 'e-prefix'
 endif
 
-" Option 1: character ib/iB/ir/ia {{{1
-if g:sick_expression_maps == 'char'
-  omap ib <plug>(Oibmotion)
-  vmap ib <plug>(Vibmotion)
-  omap ab <plug>(Oabmotion)
-  vmap ab <plug>(Vabmotion)
+" Option 1: e prefix ieb/ieB/ier/iea {{{1
+if g:sick_field_maps == 'e-prefix'
+  omap ieb <plug>(Oiebmotion)
+  vmap ieb <plug>(Viebmotion)
+  omap aeb <plug>(Oaebmotion)
+  vmap aeb <plug>(Vaebmotion)
 
-  omap iB <plug>(OiBmotion)
-  vmap iB <plug>(ViBmotion)
-  omap aB <plug>(OaBmotion)
-  vmap aB <plug>(VaBmotion)
+  omap ier <plug>(Oiermotion)
+  vmap ier <plug>(Viermotion)
+  omap aer <plug>(Oaermotion)
+  vmap aer <plug>(Vaermotion)
 
-  omap ir <plug>(Oirmotion)
-  vmap ir <plug>(Virmotion)
-  omap ar <plug>(Oarmotion)
-  vmap ar <plug>(Varmotion)
+  omap ieB <plug>(OieBmotion)
+  vmap ieB <plug>(VieBmotion)
+  omap aeB <plug>(OaeBmotion)
+  vmap aeB <plug>(VaeBmotion)
 
-  omap ia <plug>(Oiamotion)
-  vmap ia <plug>(Viamotion)
-  omap aa <plug>(Obamotion)
-  vmap aa <plug>(Vbamotion)
+  omap iea <plug>(Oieamotion)
+  vmap iea <plug>(Vieamotion)
+  omap aea <plug>(Oaeamotion)
+  vmap aea <plug>(Vaeamotion)
 
-" Option 2: open delims i(/i{/i[/i< {{{1
+  omap ie( <plug>(Oiebmotion)
+  vmap ie( <plug>(Viebmotion)
+  omap ae( <plug>(Oaebmotion)
+  vmap ae( <plug>(Vaebmotion)
+
+  omap ie[ <plug>(Oiermotion)
+  vmap ie[ <plug>(Viermotion)
+  omap ae[ <plug>(Oaermotion)
+  vmap ae[ <plug>(Vaermotion)
+
+  omap ie{ <plug>(OieBmotion)
+  vmap ie{ <plug>(VieBmotion)
+  omap ae{ <plug>(OaeBmotion)
+  vmap ae{ <plug>(VaeBmotion)
+
+  omap ie< <plug>(Oieamotion)
+  vmap ie< <plug>(Vieamotion)
+  omap ae< <plug>(Oaeamotion)
+  vmap ae< <plug>(Vaeamotion)
+
+  omap ie) <plug>(Oiebmotion)
+  vmap ie) <plug>(Viebmotion)
+  omap ae) <plug>(Oaebmotion)
+  vmap ae) <plug>(Vaebmotion)
+
+  omap ie] <plug>(Oiermotion)
+  vmap ie] <plug>(Viermotion)
+  omap ae] <plug>(Oaermotion)
+  vmap ae] <plug>(Vaermotion)
+
+  omap ie} <plug>(OieBmotion)
+  vmap ie} <plug>(VieBmotion)
+  omap ae} <plug>(OaeBmotion)
+  vmap ae} <plug>(VaeBmotion)
+
+  omap ie> <plug>(Oieamotion)
+  vmap ie> <plug>(Vieamotion)
+  omap ae> <plug>(Oaeamotion)
+  vmap ae> <plug>(Vaeamotion)
+
+" Option 2: character ib/iB/ir/ia {{{1
+elseif g:sick_expression_maps == 'char'
+  omap ib <plug>(Oiebmotion)
+  vmap ib <plug>(Viebmotion)
+  omap ab <plug>(Oaebmotion)
+  vmap ab <plug>(Vaebmotion)
+
+  omap iB <plug>(OieBmotion)
+  vmap iB <plug>(VieBmotion)
+  omap aB <plug>(OaeBmotion)
+  vmap aB <plug>(VaeBmotion)
+
+  omap ir <plug>(Oiermotion)
+  vmap ir <plug>(Viermotion)
+  omap ar <plug>(Oaermotion)
+  vmap ar <plug>(Vaermotion)
+
+  omap ia <plug>(Oieamotion)
+  vmap ia <plug>(Vieamotion)
+  omap aa <plug>(Obeamotion)
+  vmap aa <plug>(Vbeamotion)
+
+" Option 3: open delims i(/i{/i[/i< {{{1
 elseif g:sick_expression_maps == 'opendelim'
-  omap i( <plug>(Oibmotion)
-  vmap i( <plug>(Vibmotion)
-  omap a( <plug>(Oabmotion)
-  vmap a( <plug>(Vabmotion)
+  omap i( <plug>(Oiebmotion)
+  vmap i( <plug>(Viebmotion)
+  omap a( <plug>(Oaebmotion)
+  vmap a( <plug>(Vaebmotion)
 
-  omap i{ <plug>(OiBmotion)
-  vmap i{ <plug>(ViBmotion)
-  omap a{ <plug>(OaBmotion)
-  vmap a{ <plug>(VaBmotion)
+  omap i{ <plug>(OieBmotion)
+  vmap i{ <plug>(VieBmotion)
+  omap a{ <plug>(OaeBmotion)
+  vmap a{ <plug>(VaeBmotion)
 
-  omap i[ <plug>(Oirmotion)
-  vmap i[ <plug>(Virmotion)
-  omap a[ <plug>(Oarmotion)
-  vmap a[ <plug>(Varmotion)
+  omap i[ <plug>(Oiermotion)
+  vmap i[ <plug>(Viermotion)
+  omap a[ <plug>(Oaermotion)
+  vmap a[ <plug>(Vaermotion)
 
-  omap i< <plug>(Oiamotion)
-  vmap i< <plug>(Viamotion)
-  omap a< <plug>(Oaamotion)
-  vmap a< <plug>(Vaamotion)
+  omap i< <plug>(Oieamotion)
+  vmap i< <plug>(Vieamotion)
+  omap a< <plug>(Oaeamotion)
+  vmap a< <plug>(Vaeamotion)
 
-" Option 3: close delims i)/i}/i]/i> {{{1
+" Option 4: close delims i)/i}/i]/i> {{{1
 elseif g:sick_expression_maps == 'closedelim'
-  omap i) <plug>(Oibmotion)
-  vmap i) <plug>(Vibmotion)
-  omap a) <plug>(Oabmotion)
-  vmap a) <plug>(Vabmotion)
+  omap i) <plug>(Oiebmotion)
+  vmap i) <plug>(Viebmotion)
+  omap a) <plug>(Oaebmotion)
+  vmap a) <plug>(Vaebmotion)
 
-  omap i} <plug>(OiBmotion)
-  vmap i} <plug>(ViBmotion)
-  omap a} <plug>(OaBmotion)
-  vmap a} <plug>(VaBmotion)
+  omap i} <plug>(OieBmotion)
+  vmap i} <plug>(VieBmotion)
+  omap a} <plug>(OaeBmotion)
+  vmap a} <plug>(VaeBmotion)
 
-  omap i] <plug>(Oirmotion)
-  vmap i] <plug>(Virmotion)
-  omap a] <plug>(Oarmotion)
-  vmap a] <plug>(Varmotion)
+  omap i] <plug>(Oiermotion)
+  vmap i] <plug>(Viermotion)
+  omap a] <plug>(Oaermotion)
+  vmap a] <plug>(Vaermotion)
 
-  omap i> <plug>(Oiamotion)
-  vmap i> <plug>(Viamotion)
-  omap I> <plug>(Oaamotion)
-  vmap I> <plug>(Vaamotion)
+  omap i> <plug>(Oieamotion)
+  vmap i> <plug>(Vieamotion)
+  omap I> <plug>(Oaeamotion)
+  vmap I> <plug>(Vaeamotion)
 endif
 
 " Setting plug mappings {{{1
 onoremap <silent>
-      \ <plug>(Oibmotion)
+      \ <plug>(Oiebmotion)
       \ :<c-u>call expression#motion(getpos('.'), '(', ')', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(Vibmotion)
+      \ <plug>(Viebmotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '(', ')', 'W')<cr>
 onoremap <silent>
-      \ <plug>(Oabmotion)
+      \ <plug>(Oaebmotion)
       \ :<c-u>call expression#motion(getpos('.'), '(', ')', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(Vabmotion)
+      \ <plug>(Vaebmotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '(', ')', 'f')<cr>
 
 onoremap <silent>
-      \ <plug>(OiBmotion)
+      \ <plug>(OieBmotion)
       \ :<c-u>call expression#motion(getpos('.'), '{', '}', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(ViBmotion)
+      \ <plug>(VieBmotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '{', '}', 'W')<cr>
 onoremap <silent>
-      \ <plug>(OaBmotion)
+      \ <plug>(OaeBmotion)
       \ :<c-u>call expression#motion(getpos('.'), '{', '}', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(VaBmotion)
+      \ <plug>(VaeBmotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '{', '}', 'f')<cr>
 
 onoremap <silent>
-      \ <plug>(Oirmotion)
+      \ <plug>(Oiermotion)
       \ :<c-u>call expression#motion(getpos('.'), '[', ']', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(Virmotion)
+      \ <plug>(Viermotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '[', ']', 'W')<cr>
 onoremap <silent>
-      \ <plug>(Oarmotion)
+      \ <plug>(Oaermotion)
       \ :<c-u>call expression#motion(getpos('.'), '[', ']', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(Varmotion)
+      \ <plug>(Vaermotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '[', ']', 'f')<cr>
 
 onoremap <silent>
-      \ <plug>(Oiamotion)
+      \ <plug>(Oieamotion)
       \ :<c-u>call expression#motion(getpos('.'), '<', '>', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(Viamotion)
+      \ <plug>(Vieamotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '<', '>', 'W')<cr>
 onoremap <silent>
-      \ <plug>(Oaamotion)
+      \ <plug>(Oaeamotion)
       \ :<c-u>call expression#motion(getpos('.'), '<', '>', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(Vaamotion)
+      \ <plug>(Vaeamotion)
       \ <esc>:<c-u>call expression#motion(getpos('.'), '<', '>', 'f')<cr>
