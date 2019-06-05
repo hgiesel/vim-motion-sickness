@@ -18,9 +18,9 @@ let g:sick_symbol_maps = [
       \ ['bang', '!'],
       \ ['question', '?'],
       \ ['slash', '/'],
-      " \ ['percent', '%'],
       \ ['bar', '<bar>'],
       \ ]
+      " \ ['percent', '%'],
 
 " Expression function {{{1
 function! Symbol_maps_add(matchpairs)

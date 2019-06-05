@@ -1,166 +1,166 @@
-" with leading-symbol style multiline {{{2
-Given (leading-symbol style multiline):
+" dafb {{{1
+Given (leading-symbol style):
   foo( bar
      , arg
      , xyz
      )
 
-Do (daqb with cursor on f):
-  daqb
+Do (dafb with cursor on f):
+  dafb
 Expect (Nothing deleted):
   foo( bar
      , arg
      , xyz
      )
 
-Do (daqb with cursor on b):
-  fbdaqb
+Do (dafb with cursor on b):
+  fbdafb
 Expect (First argument deleted):
   foo( arg
      , xyz
      )
 
-Do (daqbdaqb with cursor on b):
-  fbdaqbdaqb
+Do (dafbdafb with cursor on b):
+  fbdafbdafb
 Expect (First two arguments deleted):
   foo( xyz
      )
 
-Do (daqb with cursor on second a):
-  jfadaqb
+Do (dafb with cursor on second a):
+  jfadafb
 Expect (Second argument deleted):
   foo( bar
      , xyz
      )
 
-Do (daqb with cursor on x):
-  jjfxdaqb
+Do (dafb with cursor on x):
+  jjfxdafb
 Expect (Third argument deleted):
   foo( bar
      , arg
      )
 
-" with leading-symbol style multiline {{{2
-Given (leading-symbol style multiline):
+" dafB {{{1
+Given (leading-symbol style):
   foo{ bar
      , arg
      , xyz
      }
 
-Do (daqB with cursor on f):
-  daqB
+Do (dafB with cursor on f):
+  dafB
 Expect (Nothing deleted):
   foo{ bar
      , arg
      , xyz
      }
 
-Do (daqB with cursor on b):
-  fbdaqB
+Do (dafB with cursor on b):
+  fbdafB
 Expect (First argument deleted):
   foo{ arg
      , xyz
      }
 
-Do (daqBdaqB with cursor on b):
-  fbdaqBdaqB
+Do (dafBdafB with cursor on b):
+  fbdafBdafB
 Expect (First two arguments deleted):
   foo{ xyz
      }
 
-Do (daqB with cursor on second a):
-  jfadaqB
+Do (dafB with cursor on second a):
+  jfadafB
 Expect (Second argument deleted):
   foo{ bar
      , xyz
      }
 
-Do (daqB with cursor on x):
-  jjfxdaqB
+Do (dafB with cursor on x):
+  jjfxdafB
 Expect (Third argument deleted):
   foo{ bar
      , arg
      }
 
-" with leading-symbol style multiline {{{2
+" dafr {{{1
 Given (leading-symbol style multiline):
   foo[ bar
      , arg
      , xyz
      ]
 
-Do (daqr with cursor on f):
-  daqr
+Do (dafr with cursor on f):
+  dafr
 Expect (Nothing deleted):
   foo[ bar
      , arg
      , xyz
      ]
 
-Do (daqr with cursor on b):
-  fbdaqr
+Do (dafr with cursor on b):
+  fbdafr
 Expect (First argument deleted):
   foo[ arg
      , xyz
      ]
 
-Do (daqrdaqr with cursor on b):
-  fbdaqrdaqr
+Do (dafrdafr with cursor on b):
+  fbdafrdafr
 Expect (First two arguments deleted):
   foo[ xyz
      ]
 
-Do (daqr with cursor on second a):
-  jfadaqr
+Do (dafr with cursor on second a):
+  jfadafr
 Expect (Second argument deleted):
   foo[ bar
      , xyz
      ]
 
-Do (daqr with cursor on x):
-  jjfxdaqr
+Do (dafr with cursor on x):
+  jjfxdafr
 Expect (Third argument deleted):
   foo[ bar
      , arg
      ]
 
-" with leading-symbol style multiline {{{2
-Given (leading-symbol style multiline):
+" dafa {{{1
+Given (leading-symbol style):
   foo< bar
      , arg
      , xyz
      >
 
-Do (daqa with cursor on f):
-  daqa
+Do (dafa with cursor on f):
+  dafa
 Expect (Nothing deleted):
   foo< bar
      , arg
      , xyz
      >
 
-Do (daqa with cursor on b):
-  fbdaqa
+Do (dafa with cursor on b):
+  fbdafa
 Expect (First argument deleted):
   foo< arg
      , xyz
      >
 
-Do (daqadaqa with cursor on b):
-  fbdaqadaqa
+Do (dafadafa with cursor on b):
+  fbdafadafa
 Expect (First two arguments deleted):
   foo< xyz
      >
 
-Do (daqa with cursor on second a):
-  jfadaqa
+Do (dafa with cursor on second a):
+  jfadafa
 Expect (Second argument deleted):
   foo< bar
      , xyz
      >
 
-Do (daqa with cursor on x):
-  jjfxdaqa
+Do (dafa with cursor on x):
+  jjfxdafa
 Expect (Third argument deleted):
   foo< bar
      , arg

@@ -1,155 +1,155 @@
-" with leading-symbol style multiline {{{2
-Given (leading-symbol style multiline):
+" difb {{{1
+Given (leading style):
   foo( bar
      , arg
      , xyz
      )
 
-Do (diqa with cursor on f):
-  diqa
+Do (difb with cursor on f):
+  difb
 Expect (Nothing deleted):
   foo( bar
      , arg
      , xyz
      )
 
-Do (diqa with cursor on b):
-  fbdiqa
+Do (difb with cursor on b):
+  fbdifb
 Expect (First argument deleted):
   foo( 
      , arg
      , xyz
      )
 
-Do (diqa with cursor on second a):
-  jfadiqa
+Do (difb with cursor on second a):
+  jfadifb
 Expect (Second argument deleted):
   foo( bar
      , 
      , xyz
      )
 
-Do (diqa with cursor on x):
-  jjfxdiqa
+Do (difb with cursor on x):
+  jjfxdifb
 Expect (Third argument deleted):
   foo( bar
      , arg
      , 
      )
 
-" with leading-symbol style multiline {{{2
-Given (leading-symbol style multiline):
-  foo[ bar
-     , arg
-     , xyz
-     ]
-
-Do (diqr with cursor on f):
-  diqr
-Expect (Nothing deleted):
-  foo[ bar
-     , arg
-     , xyz
-     ]
-
-Do (diqr with cursor on b):
-  fbdiqr
-Expect (First argument deleted):
-  foo[ 
-     , arg
-     , xyz
-     ]
-
-Do (diqr with cursor on second a):
-  jfadiqr
-Expect (Second argument deleted):
-  foo[ bar
-     , 
-     , xyz
-     ]
-
-Do (diqr with cursor on x):
-  jjfxdiqr
-Expect (Third argument deleted):
-  foo[ bar
-     , arg
-     , 
-     ]
-
-" with leading-symbol style multiline {{{2
-Given (leading-symbol style multiline):
+" difB {{{1
+Given (leading-symbol style):
   foo{ bar
      , arg
      , xyz
      }
 
-Do (diqB with cursor on f):
-  diqB
+Do (difB with cursor on f):
+  difB
 Expect (Nothing deleted):
   foo{ bar
      , arg
      , xyz
      }
 
-Do (diqB with cursor on b):
-  fbdiqB
+Do (difB with cursor on b):
+  fbdifB
 Expect (First argument deleted):
   foo{ 
      , arg
      , xyz
      }
 
-Do (diqB with cursor on second a):
-  jfadiqB
+Do (difB with cursor on second a):
+  jfadifB
 Expect (Second argument deleted):
   foo{ bar
      , 
      , xyz
      }
 
-Do (diqB with cursor on x):
-  jjfxdiqB
+Do (difB with cursor on x):
+  jjfxdifB
 Expect (Third argument deleted):
   foo{ bar
      , arg
      , 
      }
 
-" with leading-symbol style multiline {{{2
-Given (leading-symbol style multiline):
-  foo( bar
+" difr {{{1
+Given (leading-symbol style):
+  foo[ bar
      , arg
      , xyz
-     )
+     ]
 
-Do (diqb with cursor on f):
-  diqb
+Do (difr with cursor on f):
+  difr
 Expect (Nothing deleted):
-  foo( bar
+  foo[ bar
      , arg
      , xyz
-     )
+     ]
 
-Do (diqb with cursor on b):
-  fbdiqb
+Do (difr with cursor on b):
+  fbdifr
 Expect (First argument deleted):
-  foo( 
+  foo[ 
      , arg
      , xyz
-     )
+     ]
 
-Do (diqb with cursor on second a):
-  jfadiqb
+Do (difr with cursor on second a):
+  jfadifr
 Expect (Second argument deleted):
-  foo( bar
+  foo[ bar
      , 
      , xyz
-     )
+     ]
 
-Do (diqb with cursor on x):
-  jjfxdiqb
+Do (difr with cursor on x):
+  jjfxdifr
 Expect (Third argument deleted):
-  foo( bar
+  foo[ bar
      , arg
      , 
-     )
+     ]
+
+" difa {{{1
+Given (leading-symbol style):
+  foo< bar
+     , arg
+     , xyz
+     >
+
+Do (difa with cursor on f):
+  difa
+Expect (Nothing deleted):
+  foo< bar
+     , arg
+     , xyz
+     >
+
+Do (difa with cursor on b):
+  fbdifa
+Expect (First argument deleted):
+  foo< 
+     , arg
+     , xyz
+     >
+
+Do (difa with cursor on second a):
+  jfadifa
+Expect (Second argument deleted):
+  foo< bar
+     , 
+     , xyz
+     >
+
+Do (difa with cursor on x):
+  jjfxdifa
+Expect (Third argument deleted):
+  foo< bar
+     , arg
+     , 
+     >

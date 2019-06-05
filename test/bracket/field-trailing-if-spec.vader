@@ -1,13 +1,13 @@
-" with trailing-symbol style multiline {{{2
-Given (trailing-symbol style multiline):
+" difb without last trailing comma {{{2
+Given (difb without last trailing comma):
   foo(
     bar,
     arg,
     xyz
   )
 
-Do (diqb with cursor on f):
-  diqb
+Do (difb with cursor on f):
+  difb
 Expect (Nothing deleted):
   foo(
     bar,
@@ -15,8 +15,8 @@ Expect (Nothing deleted):
     xyz
   )
 
-Do (diqb with cursor on b):
-  jfbdiqb
+Do (difb with cursor on b):
+  jfbdifb
 Expect (First argument deleted):
   foo(
     ,
@@ -24,8 +24,8 @@ Expect (First argument deleted):
     xyz
   )
 
-Do (diqb with cursor on second a):
-  jjfadiqb
+Do (difb with cursor on second a):
+  jjfadifb
 Expect (Second argument deleted):
   foo(
     bar,
@@ -33,8 +33,8 @@ Expect (Second argument deleted):
     xyz
   )
 
-Do (diqb with cursor on z):
-  jjjfxdiqb
+Do (difb with cursor on z):
+  jjjfxdifb
 Expect (Third argument deleted):
   foo(
     bar,
@@ -44,17 +44,16 @@ Expect (Third argument deleted):
 
 
 
-" with trailing-symbol style multiline {{{2
-Given (trailing-symbol style multiline):
+" difr without last trailing comma {{{2
+Given (difr without last trailing comma):
   foo[
     bar,
     arg,
     xyz
   ]
 
-" start on f {{{3
-Do (diqr with cursor on f):
-  diqr
+Do (difr with cursor on f):
+  difr
 Expect (Nothing deleted):
   foo[
     bar,
@@ -62,9 +61,8 @@ Expect (Nothing deleted):
     xyz
   ]
 
-" start on b {{{3
-Do (diqr with cursor on b):
-  jfbdiqr
+Do (difr with cursor on b):
+  jfbdifr
 Expect (First argument deleted):
   foo[
     ,
@@ -72,9 +70,8 @@ Expect (First argument deleted):
     xyz
   ]
 
-" start on second a {{{3
-Do (diqr with cursor on second a):
-  jjfadiqr
+Do (difr with cursor on second a):
+  jjfadifr
 Expect (Second argument deleted):
   foo[
     bar,
@@ -82,9 +79,8 @@ Expect (Second argument deleted):
     xyz
   ]
 
-" " start on z {{{3
-Do (diqr with cursor on z):
-  jjjfxdiqr
+Do (difr with cursor on z):
+  jjjfxdifr
 Expect (Third argument deleted):
   foo[
     bar,

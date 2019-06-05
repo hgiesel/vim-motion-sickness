@@ -1,115 +1,115 @@
-" with opening delimiter style multiline {{{2
-Given (opening delimiter style multiline):
+" difb with two line {{{1
+Given (difb with two line):
   foo(bar, arg
       xyz)
 
-Do (diqb with cursor on f):
-  diqb
+Do (difb with cursor on f):
+  difb
 Expect (Nothing deleted):
   foo(bar, arg,
       xyz)
 
-Do (diqb with cursor on b):
-  fbdiqb
+Do (difb with cursor on b):
+  fbdifb
 Expect (First argument deleted):
   foo(, arg,
       xyz)
 
-Do (diqb with cursor on second a):
-  2fadiqb
+Do (difb with cursor on second a):
+  2fadifb
 Expect (Second argument deleted):
   foo(bar, ,
       xyz)
 
-Do (diqb with cursor on x):
-  jfxdiqb
+Do (difb with cursor on x):
+  jfxdifb
 Expect (Third argument deleted):
   foo(bar, arg,
       )
 
-" with opening delimiter style multiline {{{2
-Given (opening delimiter style multiline):
+" difB with two line {{{1
+Given (difB with two line):
   foo{bar, arg
       xyz}
 
-Do (diqB with cursor on f):
-  diqB
+Do (difB with cursor on f):
+  difB
 Expect (Nothing deleted):
   foo{bar, arg,
       xyz}
 
-Do (diqB with cursor on b):
-  fbdiqB
+Do (difB with cursor on b):
+  fbdifB
 Expect (First argument deleted):
   foo{, arg,
       xyz}
 
-Do (diqB with cursor on second a):
-  2fadiqB
+Do (difB with cursor on second a):
+  2fadifB
 Expect (Second argument deleted):
   foo{bar, ,
       xyz}
 
-Do (diqB with cursor on x):
-  jfxdiqB
+Do (difB with cursor on x):
+  jfxdifB
 Expect (Third argument deleted):
   foo{bar, arg,
       }
 
-" with opening delimiter style multiline {{{2
-Given (opening delimiter style multiline):
+" difr with two line {{{1
+Given (difr with two line):
   foo[bar, arg
       xyz]
 
-Do (diqr with cursor on f):
-  diqr
+Do (difr with cursor on f):
+  difr
 Expect (Nothing deleted):
   foo[bar, arg,
       xyz]
 
-Do (diqr with cursor on b):
-  fbdiqr
+Do (difr with cursor on b):
+  fbdifr
 Expect (First argument deleted):
   foo[, arg,
       xyz]
 
-Do (diqr with cursor on second a):
-  2fadiqr
+Do (difr with cursor on second a):
+  2fadifr
 Expect (Second argument deleted):
   foo[bar, ,
       xyz]
 
-Do (diqr with cursor on x):
-  jfxdiqr
+Do (difr with cursor on x):
+  jfxdifr
 Expect (Third argument deleted):
   foo[bar, arg,
       ]
 
-" with opening delimiter style multiline {{{2
-Given (opening delimiter style multiline):
+" difa with two line {{{1
+Given (difa with two line):
   foo<bar, arg
       xyz>
 
-Do (diqa with cursor on f):
-  diqa
+Do (difa with cursor on f):
+  difa
 Expect (Nothing deleted):
   foo<bar, arg,
       xyz>
 
-Do (diqa with cursor on b):
-  fbdiqa
+Do (difa with cursor on b):
+  fbdifa
 Expect (First argument deleted):
   foo<, arg,
       xyz>
 
-Do (diqa with cursor on second a):
-  2fadiqa
+Do (difa with cursor on second a):
+  2fadifa
 Expect (Second argument deleted):
   foo<bar, ,
       xyz>
 
-Do (diqa with cursor on x):
-  jfxdiqa
+Do (difa with cursor on x):
+  jfxdifa
 Expect (Third argument deleted):
   foo<bar, arg,
       >

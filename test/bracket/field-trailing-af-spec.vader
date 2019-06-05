@@ -1,4 +1,4 @@
-" with trailing-symbol style multiline {{{2
+" dafb without last trailing comma {{{2
 Given (trailing-symbol style multiline):
   foo(
     bar,
@@ -6,8 +6,8 @@ Given (trailing-symbol style multiline):
     xyz
   )
 
-Do (daqb with cursor on f):
-  daqb
+Do (dafb with cursor on f):
+  dafb
 Expect (Nothing deleted):
   foo(
     bar,
@@ -15,47 +15,47 @@ Expect (Nothing deleted):
     xyz
   )
 
-Do (daqb with cursor on b):
-  jfbdaqb
+Do (dafb with cursor on b):
+  jfbdafb
 Expect (First argument deleted):
   foo(
     arg,
     xyz
   )
 
-Do (daqbdaqb with cursor on b):
-  jfbdaqbdaqb
+Do (dafbdafb with cursor on b):
+  jfbdafbdafb
 Expect (First two arguments deleted):
   foo(
     xyz
   )
 
-Do (daqb with cursor on second a):
-  jjfadaqb
+Do (dafb with cursor on second a):
+  jjfadafb
 Expect (Second argument deleted):
   foo(
     bar,
     xyz
   )
 
-Do (daqb with cursor on z):
-  jjjfxdaqb
+Do (dafb with cursor on z):
+  jjjfxdafb
 Expect (Third argument deleted):
   foo(
     bar,
     arg
   )
 
-" with trailing-symbol style multiline {{{2
-Given (trailing-symbol style multiline):
+" dafB without last trailing comma {{{2
+Given (dafB without last trailing comma):
   foo{
     bar,
     arg,
     xyz
   }
 
-Do (daqB with cursor on f):
-  daqB
+Do (dafB with cursor on f):
+  dafB
 Expect (Nothing deleted):
   foo{
     bar,
@@ -63,47 +63,47 @@ Expect (Nothing deleted):
     xyz
   }
 
-Do (daqB with cursor on b):
-  jfbdaqB
+Do (dafB with cursor on b):
+  jfbdafB
 Expect (First argument deleted):
   foo{
     arg,
     xyz
   }
 
-Do (daqBdaqB with cursor on b):
-  jfbdaqBdaqB
+Do (dafBdafB with cursor on b):
+  jfbdafBdafB
 Expect (First two arguments deleted):
   foo{
     xyz
   }
 
-Do (daqB with cursor on second a):
-  jjfadaqB
+Do (dafB with cursor on second a):
+  jjfadafB
 Expect (Second argument deleted):
   foo{
     bar,
     xyz
   }
 
-Do (daqB with cursor on z):
-  jjjfxdaqB
+Do (dafB with cursor on z):
+  jjjfxdafB
 Expect (Third argument deleted):
   foo{
     bar,
     arg
   }
 
-" with trailing-symbol style multiline {{{2
-Given (trailing-symbol style multiline):
+" dafr without last trailing comma {{{2
+Given (dafr without last trailing comma):
   foo[
     bar,
     arg,
     xyz
   ]
 
-Do (daqr with cursor on f):
-  daqr
+Do (dafr with cursor on f):
+  dafr
 Expect (Nothing deleted):
   foo[
     bar,
@@ -111,47 +111,47 @@ Expect (Nothing deleted):
     xyz
   ]
 
-Do (daqr with cursor on b):
-  jfbdaqr
+Do (dafr with cursor on b):
+  jfbdafr
 Expect (First argument deleted):
   foo[
     arg,
     xyz
   ]
 
-Do (daqrdaqr with cursor on b):
-  jfbdaqrdaqr
+Do (dafrdafr with cursor on b):
+  jfbdafrdafr
 Expect (First two arguments deleted):
   foo[
     xyz
   ]
 
-Do (daqr with cursor on second a):
-  jjfadaqr
+Do (dafr with cursor on second a):
+  jjfadafr
 Expect (Second argument deleted):
   foo[
     bar,
     xyz
   ]
 
-Do (daqr with cursor on z):
-  jjjfxdaqr
+Do (dafr with cursor on z):
+  jjjfxdafr
 Expect (Third argument deleted):
   foo[
     bar,
     arg
   ]
 
-" with trailing-symbol style multiline {{{2
-Given (trailing-symbol style multiline):
+" dafa without last trailing comma {{{2
+Given (dafa without last trailing comma):
   foo<
     bar,
     arg,
     xyz
   >
 
-Do (daqa with cursor on f):
-  daqa
+Do (dafa with cursor on f):
+  dafa
 Expect (Nothing deleted):
   foo<
     bar,
@@ -159,31 +159,31 @@ Expect (Nothing deleted):
     xyz
   >
 
-Do (daqa with cursor on b):
-  jfbdaqa
+Do (dafa with cursor on b):
+  jfbdafa
 Expect (First argument deleted):
   foo<
     arg,
     xyz
   >
 
-Do (daqadaqa with cursor on b):
-  jfbdaqadaqa
+Do (dafadafa with cursor on b):
+  jfbdafadafa
 Expect (First two arguments deleted):
   foo<
     xyz
   >
 
-Do (daqa with cursor on second a):
-  jjfadaqa
+Do (dafa with cursor on second a):
+  jjfadafa
 Expect (Second argument deleted):
   foo<
     bar,
     xyz
   >
 
-Do (daqa with cursor on z):
-  jjjfxdaqa
+Do (dafa with cursor on z):
+  jjjfxdafa
 Expect (Third argument deleted):
   foo<
     bar,
