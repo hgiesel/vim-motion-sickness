@@ -73,17 +73,17 @@ function Field_maps_add(matchtriples)
       endif
     endif
 
-    execute "onoremap <silent> <plug>(Oif".l:triple[0]."motion) :<c-u>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
-    execute "vnoremap <silent> <plug>(Vif".l:triple[0]."motion) <esc>:<c-u>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
-    execute "onoremap <silent> <plug>(Oaf".l:triple[0]."motion) :<c-u>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
-    execute "vnoremap <silent> <plug>(Vaf".l:triple[0]."motion) <esc>:<c-u>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "onoremap <silent> <plug>(Oif".l:triple[0]."motion) <cmd>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "vnoremap <silent> <plug>(Vif".l:triple[0]."motion) <cmd>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "onoremap <silent> <plug>(Oaf".l:triple[0]."motion) <cmd>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "vnoremap <silent> <plug>(Vaf".l:triple[0]."motion) <cmd>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
 
     if exists('g:sick_field_extra_delimiter')
       for l:pair in g:sick_field_extra_deliter
-        execute "onoremap <silent> <plug>(Oif".l:pair[0].l:triple[0]."motion) :<c-u>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
-        execute "vnoremap <silent> <plug>(Vif".l:pair[0].l:triple[0]."motion) <esc>:<c-u>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
-        execute "onoremap <silent> <plug>(Oaf".l:pair[0].l:triple[0]."motion) :<c-u>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
-        execute "vnoremap <silent> <plug>(Vaf".l:pair[0].l:triple[0]."motion) <esc>:<c-u>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "onoremap <silent> <plug>(Oif".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "vnoremap <silent> <plug>(Vif".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "onoremap <silent> <plug>(Oaf".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "vnoremap <silent> <plug>(Vaf".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
       endfor
     endif
   endfor
@@ -115,10 +115,10 @@ function Expression_maps_add(matchtriples)
       execute 'vmap a'.l:triple[l:theindex].' <plug>(Vae'.l:triple[0].'motion)'
     endif
 
-    execute "onoremap <silent> <plug>(Oie".l:triple[0]."motion) :<c-u>call expression#motion(getpos('.'), '".l:triple[1]."', '".l:triple[2]."', 'W')<cr>"
-    execute "vnoremap <silent> <plug>(Vie".l:triple[0]."motion) <esc>:<c-u>call expression#motion(getpos('.'), '".l:triple[1]."', '".l:triple[2]."', 'W')<cr>"
-    execute "onoremap <silent> <plug>(Oae".l:triple[0]."motion) :<c-u>call expression#motion(getpos('.'), '".l:triple[1]."', '".l:triple[2]."', 'f')<cr>"
-    execute "vnoremap <silent> <plug>(Vae".l:triple[0]."motion) <esc>:<c-u>call expression#motion(getpos('.'), '".l:triple[1]."', '".l:triple[2]."', 'f')<cr>"
+    execute "onoremap <silent> <plug>(Oie".l:triple[0]."motion) <cmd>call expression#motion('".l:triple[1]."', '".l:triple[2]."', 'W')<cr>"
+    execute "vnoremap <silent> <plug>(Vie".l:triple[0]."motion) <cmd>call expression#motion('".l:triple[1]."', '".l:triple[2]."', 'W')<cr>"
+    execute "onoremap <silent> <plug>(Oae".l:triple[0]."motion) <cmd>call expression#motion('".l:triple[1]."', '".l:triple[2]."', 'f')<cr>"
+    execute "vnoremap <silent> <plug>(Vae".l:triple[0]."motion) <cmd>call expression#motion('".l:triple[1]."', '".l:triple[2]."', 'f')<cr>"
   endfor
 endfunction
 

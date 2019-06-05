@@ -44,13 +44,14 @@
 
 function! s:GetOutOfDoubleQuote()
   " get out of double quoteed string (one letter before the beginning)
-  let line = getline('.')
+  let line     = getline('.')
   let pos_save = getpos('.')
-  let mark_b = getpos("'<")
-  let mark_e = getpos("'>")
-  let repl='_'
+  let mark_b   = getpos("'<")
+  let mark_e   = getpos("'>")
+  let repl     = '_'
+
   if getline('.')[getpos('.')[2]-1] ==# '_'
-    let repl='?'
+    let repl = '?'
   endif
 
   while 1
@@ -175,6 +176,8 @@ function! s:MoveRight(num)
 endfunction
 
 function! field#motion(inner, visual, opendelim, closedelim, fielddelim)
+
+  normal! 
   let current_c = getline('.')[getpos('.')[2]-1]
   if current_c ==# a:fielddelim || current_c ==# a:opendelim
     normal l
@@ -182,8 +185,7 @@ function! field#motion(inner, visual, opendelim, closedelim, fielddelim)
 
   " get out of "double quoted string" because [( does not take effect in it
   call s:GetOutOfDoubleQuote()
-
-  let rightup = s:GetOuterFunctionParenthesis(a:opendelim)       " on (
+  let rightup = s:GetOuterFunctionParenthesis(a:opendelim)
 
   " if getline('.')[rightup[2]-1] != a:opendelim
   "   " not in a function declaration nor call

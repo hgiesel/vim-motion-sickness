@@ -12,7 +12,7 @@ ensures they all work as intended.
 
 * **other motions**:
   * [indent motions](#indent-motions)
-  * [symbol motions](#alias-motions)
+  * [symbol motions](#alias-motions, asdf, asdf)
 
 ## Alias motions
 
@@ -24,55 +24,70 @@ ensures they all work as intended.
 | `ia`/`aa`    | aliases for `i<`/`a<` |
 
 * with these added, you have three full sets of motions for the common brackets:
-  * *characters*: `ib`/`ab`, `iB`/`aB`, `ir`/`ar`, `ia`/`aa`
-  * *open delimiter*: `ib`/`ab`, `iB`/`aB`, `ir`/`ar`, `ia`/`aa`
-  * *close delimiter*: `ib`/`ab`, `iB`/`aB`, `ir`/`ar`, `ia`/`aa`
 
-* this fact is important for the coming *[expression motions](#expression-motions)* and *[field motions](#field-motions)*
+|              |  parentheses | braces    | square brackets | angle brackets |
+|--------------|--------------|-----------|-----------------|----------------|
+| *char*       | `ib`/`ab`    | `iB`/`aB` | `ir`/`ar`       | `ia`/`aa`      |
+| *opendelim*  | `i(`/`a(`    | `i{`/`a{` | `i[`/`a[`       | `i<`/`a<`      |
+| *closedelim* | `i)`/`a)`    | `i}`/`a}` | `i]`/`a]`       | `i>`/`a>`      |
+
+* these motions are exactly equal in functionality
+  * this fact is important for the upcoming [expression motions](#expression-motions) and [field motions](#field-motions)
 
 ## Expression motions
 
 * inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
 
-| text object | effect                                        |
-|-------------|-----------------------------------------------|
-| `ieb`        | parentheses preceded by a WORD         |
-| `ieB`        | braces preceded by a WORD              |
-| `ier`        | square brackets preceded by a WORD     |
-| `iea`        | angle brackets preceded by a WORD      |
-| `aeb`        | parentheses preceded by anything     |
-| `aeB`        | braces preceded by anything          |
-| `aer`        | square brackets preceded by anything |
-| `aea`        | angle brackets preceded by anything  |
+**Expression motions** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
 
-* these are way more powerful than might be first visible
+An *inner expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by a WORD.
+While going back a word, `motion-sickness` is smart about not going beyond opening brackets, etc. 
 
-* TODO add cast
+// TODO add cast
+
+An *all expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by anything.
+The same restrictions that apply to *inner expressions* apply here too.
+
+// TODO add cast
+
+The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
+Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
+them to the shorter version. Just put this into your vimrc.
+
+```vim
+let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
+let g:sick_expression_maps = 'closedelim' " uses {i,a}{),},],>} for expression motions
+let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motions
+```
 
 ## Field motions
 
 * inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
 
-| text object | effect                                                                |
-|-------------|-----------------------------------------------------------------------|
-| `ifb`       | comma-delimited field within parentheses                |
-| `ifB`       | comma-delimited field within braces                     |
-| `ifr`       | comma-delimited field within square brackets            |
-| `ifa`       | comma-delimited field within angle brackets (requires `set matchpairs+=<:>` to work) |
-| `afb`       | select comma-separated argument within parentheses with comma     |
-| `afB`       | select comma-separated argument within braces with comma          |
-| `afr`       | select comma-separated argument within square brackets with comma |
-| `afa`       | select comma-separated argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
-| `if;b`       | select semicolon-separated argument within parentheses                |
-| `if;B`       | select semicolon-separated argument within braces                     |
-| `if;r`       | select semicolon-separated argument within square brackets            |
-| `if;a`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
-| `af;b`       | select semicolon-separated argument within parentheses with semicolon     |
-| `af;B`       | select semicolon-separated argument within braces with semicolon          |
-| `af;r`       | select semicolon-separated argument within square brackets with semicolon |
-| `af;a`       | select semicolon-separated argument within angle brackets with semicolon (requires `set matchpairs+=<:>` to work) |
+**Field motions** have the structure "{`i`,`a`}`f`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
 
-* 4 types of list styles are supported, or in other words, are checked against to make sure the motions behave as expected:
+An *inner field* selects the current field, enclosed in the specific brace. Think of
+arguments in function, list elements, dictionary entries, etc.
+
+// TODO add cast
+
+An *all field* selects an inner field, together with the field delimiter (usually a comma)
+
+// TODO add cast
+
+The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
+Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
+them to the shorter version. Just put this into your vimrc.
+
+```vim
+let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
+let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for expression motions
+let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motions
+```
+
+4 types of list styles are supported.
+In other words, these are basis for the unit tests, and for the algorithm governing
+these motions.
 
 <table>
     <thead>
@@ -116,9 +131,7 @@ ensures they all work as intended.
             </td>
         </tr>
     </tbody>
-</table> 
-
-* TODO add cast once they work as intended
+</table>
 
 > ## Segment motions
 > ## Pair motions

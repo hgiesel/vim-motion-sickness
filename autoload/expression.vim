@@ -1,8 +1,10 @@
 " Defining functions {{{1
-function! expression#motion(cur_pos, open_char, close_char, reach)
-  let l:recursions  = 1
-  let l:winview     = winsaveview()
+function! expression#motion(open_char, close_char, reach)
+  let l:cur_pos    = getpos('.')
+  let l:recursions = 1
+  let l:winview    = winsaveview()
 
+  normal! 
   " this will only work with 10 recursions, because this could go on forever
   while l:recursions < 10
     " This block makes an assumption to what the qb section may look like with the
@@ -11,8 +13,8 @@ function! expression#motion(cur_pos, open_char, close_char, reach)
     call s:Make_a_q(a:open_char, a:close_char, a:reach)
     execute 'normal! o'
 
-    if s:Cmp(getpos('v')[1:2], a:cur_pos[1:2]) !=# 1
-          \ && s:Cmp(a:cur_pos[1:2], getpos('.')[1:2]) !=# 1
+    if s:Cmp(getpos('v')[1:2], l:cur_pos[1:2]) !=# 1
+          \ && s:Cmp(l:cur_pos[1:2], getpos('.')[1:2]) !=# 1
       " legit qb section: reset window and finish
       call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
       return 0
@@ -21,7 +23,7 @@ function! expression#motion(cur_pos, open_char, close_char, reach)
     else
       " no legit qb section
       normal! v
-      call setpos('.', a:cur_pos)
+      call setpos('.', l:cur_pos)
       let l:recursions += 1
     endif
   endwhile
