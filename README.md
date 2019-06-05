@@ -5,12 +5,12 @@ ensures they all work as intended.
 
 #### List of text objects
 
-* alias motions
-* expression motions
-* field motions
+* [alias motions](https://github.com/hgiesel/vim-motion-sickness#alias-motions)
+* [expression motions](https://github.com/hgiesel/vim-motion-sickness#expression-motions)
+* [field motions](https://github.com/hgiesel/vim-motion-sickness#field-motions)
 
-* indent motions
-* symbol motions
+* [indent motions](#indent-motions)
+* [symbol motions](https://github.com/hgiesel/vim-motion-sickness#alias-motions)
 
 ## Alias motions
 
