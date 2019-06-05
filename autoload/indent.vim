@@ -1,6 +1,6 @@
 " Defining functions {{{1
 if !exists('g:indent#aI_reach_down')
-  if &filetype == 'haskell' || $filetype == 'python'
+  if &filetype == 'haskell' || &filetype == 'python'
     let g:indent#aI_reach_down = v:false
   else
     let g:indent#aI_reach_down = v:true
@@ -72,27 +72,27 @@ function indent#motion(margin, specialcmd)
         let l:minindent = indent(line('.'))
       endif
 
-      while (indent(line('.') + 1) >= l:minindent || getline(line('.') + 1) ==# '')
+      while (indent(line('.') + 1) >= l:minindent || empty(getline(line('.') + 1)))
         execute 'normal! j'
         if line('.') == line('$')
           break
         endif
       endwhile
 
-      while (getline('.') ==# '')
+      while empty(getline('.'))
         execute 'normal! k'
       endwhile
 
       execute 'normal! o'
 
-      while (indent(line('.') - 1) >= l:minindent || getline(line('.') - 1) ==# '')
+      while (indent(line('.') - 1) >= l:minindent || empty(getline(line('.') - 1)))
         execute 'normal! k'
         if line('.') == 1
           break
         endif
       endwhile
 
-      while (getline('.') ==# '')
+      while empty(getline('.')) && line('.') !=# line('$')
         execute 'normal! j'
       endwhile
 
@@ -113,7 +113,7 @@ function indent#motion(margin, specialcmd)
       if g:indent#aI_reach_down
         while (v:true)
           execute 'normal! j'
-          if indent('.') < l:minindent && getline('.') != ''
+          if (indent('.') < l:minindent && !empty(getline('.'))) || line('.') ==# line('$')
             break
           endif
         endwhile
@@ -129,14 +129,16 @@ function indent#motion(margin, specialcmd)
 
       execute 'normal! o'
 
-      while (v:true) " indent(line('.') - 1) >= l:minindent || getline(line('.') - 1) ==# '')
+      " walk up and cach first lower indent level
+      while (v:true)
         execute 'normal! k'
-        if indent('.') < l:minindent && getline('.') != ''
+        if ((indent('.') < l:minindent && !empty(getline('.'))) || line('.') ==# 1)
           break
         endif
       endwhile
 
-      while (getline('.') ==# '')
+      " walk back from from going up
+      while empty(getline('.')) && !(line('.') ==# line('$'))
         execute 'normal! j'
       endwhile
 

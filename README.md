@@ -4,11 +4,12 @@ This plugin adds a slew of new possible text objects. [Vader](https://github.com
 ensures they all work as intended.
 
 #### List of text objects
+
 * alias motions
 * symbol motions
 * indent motions
-* q motions
-* iq motions
+* expression motions
+* field motions
 
 ## Alias motions
 
@@ -50,46 +51,51 @@ ensures they all work as intended.
   * defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`
   * in languages which are indent heavy, like Python or Haskell, reach down is discouraged
 
-## Q motions
+## Expression motions
 
 * inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
 
 | text object | effect                                        |
 |-------------|-----------------------------------------------|
-| `qb`        | select parentheses preceded by a WORD         |
-| `qB`        | select braces preceded by a WORD              |
-| `qr`        | select square brackets preceded by a WORD     |
-| `qa`        | select angle brackets preceded by a WORD      |
+| `ieb`        | parentheses preceded by a WORD         |
+| `ieB`        | braces preceded by a WORD              |
+| `ier`        | square brackets preceded by a WORD     |
+| `iea`        | angle brackets preceded by a WORD      |
 
-| `Qb`        | select parentheses preceded by anything     |
-| `QB`        | select braces preceded by anything          |
-| `Qr`        | select square brackets preceded by anything |
-| `Qa`        | select angle brackets preceded by anything  |
+| `aeb`        | parentheses preceded by anything     |
+| `aeB`        | braces preceded by anything          |
+| `aer`        | square brackets preceded by anything |
+| `aea`        | angle brackets preceded by anything  |
 
 * these are way more powerful than might be first visible
 
-## IQ motions
+## Field motions
 
 * inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
 
 | text object | effect                                                                |
 |-------------|-----------------------------------------------------------------------|
-| `iqb`       | select comma-separated argument within parentheses                |
-| `aqb`       | select comma-separated argument within parentheses with comma     |
-| `iqB`       | select comma-separated argument within braces                     |
-| `aqB`       | select comma-separated argument within braces with comma          |
-| `iqr`       | select comma-separated argument within square brackets            |
-| `aqr`       | select comma-separated argument within square brackets with comma |
-| `iqa`       | select comma-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
-| `aqa`       | select comma-separated argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
-| `iQb`       | select semicolon-separated argument within parentheses                |
-| `aQb`       | select semicolon-separated argument within parentheses with semicolon     |
-| `iQB`       | select semicolon-separated argument within braces                     |
-| `aQB`       | select semicolon-separated argument within braces with semicolon          |
-| `iQr`       | select semicolon-separated argument within square brackets            |
-| `aQr`       | select semicolon-separated argument within square brackets with semicolon |
-| `iQa`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
-| `aQa`       | select semicolon-separated argument within angle brackets with semicolon (requires `set matchpairs+=<:>` to work) |
+| `ifb`       | comma-delimited field within parentheses                |
+| `ifB`       | comma-delimited field within braces                     |
+| `ifr`       | comma-delimited field within square brackets            |
+| `ifa`       | comma-delimited field within angle brackets (requires `set matchpairs+=<:>` to work) |
+
+* 
+
+| `afb`       | select comma-separated argument within parentheses with comma     |
+| `afB`       | select comma-separated argument within braces with comma          |
+| `afr`       | select comma-separated argument within square brackets with comma |
+| `afa`       | select comma-separated argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
+
+| `if;b`       | select semicolon-separated argument within parentheses                |
+| `if;B`       | select semicolon-separated argument within braces                     |
+| `if;r`       | select semicolon-separated argument within square brackets            |
+| `if;a`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
+
+| `af;b`       | select semicolon-separated argument within parentheses with semicolon     |
+| `af;B`       | select semicolon-separated argument within braces with semicolon          |
+| `af;r`       | select semicolon-separated argument within square brackets with semicolon |
+| `af;a`       | select semicolon-separated argument within angle brackets with semicolon (requires `set matchpairs+=<:>` to work) |
 
 * 4 types of list styles are supported, or in other words, are checked against to make sure the motions behave as expected:
 

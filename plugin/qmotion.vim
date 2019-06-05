@@ -12,75 +12,127 @@ endif
 let g:loaded_motion_sickness_qmotion = 1
 
 " Setting user mappings {{{1
-omap qb <plug>(Oqbmotion)
-vmap qb <plug>(Vqbmotion)
-omap Qb <plug>(OQbmotion)
-vmap Qb <plug>(VQbmotion)
 
-omap qB <plug>(OqBmotion)
-vmap qB <plug>(VqBmotion)
-omap QB <plug>(OQBmotion)
-vmap QB <plug>(VQBmotion)
+if !exists('g:sick_expression_maps')
+  g:sick_expression_maps = 'opendelim'
+endif
 
-omap qr <plug>(Oqrmotion)
-vmap qr <plug>(Vqrmotion)
-omap Qr <plug>(OQrmotion)
-vmap Qr <plug>(VQrmotion)
+" Option 1: character ib/iB/ir/ia {{{2
+if g:sick_expression_maps == 'char'
+  omap ib <plug>(Oibmotion)
+  vmap ib <plug>(Vibmotion)
+  omap ab <plug>(Oabmotion)
+  vmap ab <plug>(Vabmotion)
 
-omap qa <plug>(Oqamotion)
-vmap qa <plug>(Vqamotion)
-omap Qa <plug>(OQamotion)
-vmap Qa <plug>(VQamotion)
+  omap iB <plug>(OiBmotion)
+  vmap iB <plug>(ViBmotion)
+  omap aB <plug>(OaBmotion)
+  vmap aB <plug>(VaBmotion)
+
+  omap ir <plug>(Oirmotion)
+  vmap ir <plug>(Virmotion)
+  omap ar <plug>(Oarmotion)
+  vmap ar <plug>(Varmotion)
+
+  omap ia <plug>(Oiamotion)
+  vmap ia <plug>(Viamotion)
+  omap aa <plug>(Obamotion)
+  vmap aa <plug>(Vbamotion)
+
+  " Option 1: open delims i(/i{/i[/i< {{{2
+elseif g:sick_expression_maps == 'opendelim'
+  omap i( <plug>(Oibmotion)
+  vmap i( <plug>(Vibmotion)
+  omap a( <plug>(Oabmotion)
+  vmap a( <plug>(Vabmotion)
+
+  omap i{ <plug>(OiBmotion)
+  vmap i{ <plug>(ViBmotion)
+  omap a{ <plug>(OaBmotion)
+  vmap a{ <plug>(VaBmotion)
+
+  omap i[ <plug>(Oirmotion)
+  vmap i[ <plug>(Virmotion)
+  omap a[ <plug>(Oarmotion)
+  vmap a[ <plug>(Varmotion)
+
+  omap i< <plug>(Oiamotion)
+  vmap i< <plug>(Viamotion)
+  omap a< <plug>(Oaamotion)
+  vmap a< <plug>(Vaamotion)
+
+  " Option 3: close delims i)/i}/i]/i> {{{2
+elseif g:sick_expression_maps == 'closedelim'
+  omap i) <plug>(Oibmotion)
+  vmap i) <plug>(Vibmotion)
+  omap a) <plug>(Oabmotion)
+  vmap a) <plug>(Vabmotion)
+
+  omap i} <plug>(OiBmotion)
+  vmap i} <plug>(ViBmotion)
+  omap a} <plug>(OaBmotion)
+  vmap a} <plug>(VaBmotion)
+
+  omap i] <plug>(Oirmotion)
+  vmap i] <plug>(Virmotion)
+  omap a] <plug>(Oarmotion)
+  vmap a] <plug>(Varmotion)
+
+  omap i> <plug>(Oiamotion)
+  vmap i> <plug>(Viamotion)
+  omap I> <plug>(Oaamotion)
+  vmap I> <plug>(Vaamotion)
+endif
 
 " Setting plug mappings {{{1
 onoremap <silent>
-      \ <plug>(Oqbmotion)
+      \ <plug>(Oibmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(Vqbmotion)
+      \ <plug>(Vibmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'W')<cr>
 onoremap <silent>
-      \ <plug>(OQbmotion)
+      \ <plug>(Oabmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(VQbmotion)
+      \ <plug>(Vabmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '(', ')', 'f')<cr>
 
 onoremap <silent>
-      \ <plug>(OqBmotion)
+      \ <plug>(OiBmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(VqBmotion)
+      \ <plug>(ViBmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'W')<cr>
 onoremap <silent>
-      \ <plug>(OQBmotion)
+      \ <plug>(OaBmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(VQBmotion)
+      \ <plug>(VaBmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '{', '}', 'f')<cr>
 
 onoremap <silent>
-      \ <plug>(Oqrmotion)
+      \ <plug>(Oirmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(Vqrmotion)
+      \ <plug>(Virmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'W')<cr>
 onoremap <silent>
-      \ <plug>(OQrmotion)
+      \ <plug>(Oarmotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(VQrmotion)
+      \ <plug>(Varmotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '[', ']', 'f')<cr>
 
 onoremap <silent>
-      \ <plug>(Oqamotion)
+      \ <plug>(Oiamotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'W')<cr>
 vnoremap <silent>
-      \ <plug>(Vqamotion)
+      \ <plug>(Viamotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'W')<cr>
 onoremap <silent>
-      \ <plug>(OQamotion)
+      \ <plug>(Oaamotion)
       \ :<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'f')<cr>
 vnoremap <silent>
-      \ <plug>(VQamotion)
+      \ <plug>(Vaamotion)
       \ <esc>:<c-u>call qmotion#sick_qb_motion(getpos('.'), '<', '>', 'f')<cr>
