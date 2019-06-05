@@ -28,9 +28,17 @@ jobs:
       name: "Bracket: Aliases"
       script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/alias-spec.vader' > /dev/null
     - stage: test
-      name: "Bracket: Expressions"
-      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-spec.vader' > /dev/null
+
+      name: "Bracket: Expressions: General"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-general-spec.vader' > /dev/null
     - stage: test
+      name: "Bracket: Expressions: Whitespace"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-whitespace-spec.vader' > /dev/null
+    - stage: test
+      name: "Bracket: Expressions: Nexted"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-nested-spec.vader' > /dev/null
+    - stage: test
+
       name: "Bracket: Fields"
       script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/fields-spec.vader' > /dev/null
     - stage: test
