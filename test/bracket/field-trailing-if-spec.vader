@@ -1,0 +1,93 @@
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (diqb with cursor on b):
+  jfbdiqb
+Expect (First argument deleted):
+  foo(
+    ,
+    arg,
+    xyz
+  )
+
+Do (diqb with cursor on second a):
+  jjfadiqb
+Expect (Second argument deleted):
+  foo(
+    bar,
+    ,
+    xyz
+  )
+
+Do (diqb with cursor on z):
+  jjjfxdiqb
+Expect (Third argument deleted):
+  foo(
+    bar,
+    arg,
+    
+  )
+
+
+
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+" start on f {{{3
+Do (diqr with cursor on f):
+  diqr
+Expect (Nothing deleted):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+" start on b {{{3
+Do (diqr with cursor on b):
+  jfbdiqr
+Expect (First argument deleted):
+  foo[
+    ,
+    arg,
+    xyz
+  ]
+
+" start on second a {{{3
+Do (diqr with cursor on second a):
+  jjfadiqr
+Expect (Second argument deleted):
+  foo[
+    bar,
+    ,
+    xyz
+  ]
+
+" " start on z {{{3
+Do (diqr with cursor on z):
+  jjjfxdiqr
+Expect (Third argument deleted):
+  foo[
+    bar,
+    arg,
+    
+  ]

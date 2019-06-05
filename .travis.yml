@@ -48,8 +48,32 @@ jobs:
       script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-indented-spec.vader' > /dev/null
     - stage: test
 
-      name: "Bracket: Fields"
-      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/fields-spec.vader' > /dev/null
+      name: "Bracket: Fields: Short: if"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-short-if-spec.vader' > /dev/null
+    - stage: test
+      name: "Bracket: Fields: Short: af"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-short-af-spec.vader' > /dev/null
+
+    - stage: test
+      name: "Bracket: Fields: Trailing: if"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-trailing-if-spec.vader' > /dev/null
+    - stage: test
+      name: "Bracket: Fields: Trailing: af"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-trailing-af-spec.vader' > /dev/null
+
+    - stage: test
+      name: "Bracket: Fields: Indented: if"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-indented-if-spec.vader' > /dev/null
+    - stage: test
+      name: "Bracket: Fields: Indented: af"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-indented-af-spec.vader' > /dev/null
+    - stage: test
+
+      name: "Bracket: Fields: Leading: if"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-leading-if-spec.vader' > /dev/null
+    - stage: test
+      name: "Bracket: Fields: Leading: af"
+      script: vim -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-leading-af-spec.vader' > /dev/null
     - stage: test
 
       name: "Other: Indents"

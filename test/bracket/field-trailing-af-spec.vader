@@ -1,0 +1,191 @@
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (daqb with cursor on f):
+  daqb
+Expect (Nothing deleted):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (daqb with cursor on b):
+  jfbdaqb
+Expect (First argument deleted):
+  foo(
+    arg,
+    xyz
+  )
+
+Do (daqbdaqb with cursor on b):
+  jfbdaqbdaqb
+Expect (First two arguments deleted):
+  foo(
+    xyz
+  )
+
+Do (daqb with cursor on second a):
+  jjfadaqb
+Expect (Second argument deleted):
+  foo(
+    bar,
+    xyz
+  )
+
+Do (daqb with cursor on z):
+  jjjfxdaqb
+Expect (Third argument deleted):
+  foo(
+    bar,
+    arg
+  )
+
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo{
+    bar,
+    arg,
+    xyz
+  }
+
+Do (daqB with cursor on f):
+  daqB
+Expect (Nothing deleted):
+  foo{
+    bar,
+    arg,
+    xyz
+  }
+
+Do (daqB with cursor on b):
+  jfbdaqB
+Expect (First argument deleted):
+  foo{
+    arg,
+    xyz
+  }
+
+Do (daqBdaqB with cursor on b):
+  jfbdaqBdaqB
+Expect (First two arguments deleted):
+  foo{
+    xyz
+  }
+
+Do (daqB with cursor on second a):
+  jjfadaqB
+Expect (Second argument deleted):
+  foo{
+    bar,
+    xyz
+  }
+
+Do (daqB with cursor on z):
+  jjjfxdaqB
+Expect (Third argument deleted):
+  foo{
+    bar,
+    arg
+  }
+
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+Do (daqr with cursor on f):
+  daqr
+Expect (Nothing deleted):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+Do (daqr with cursor on b):
+  jfbdaqr
+Expect (First argument deleted):
+  foo[
+    arg,
+    xyz
+  ]
+
+Do (daqrdaqr with cursor on b):
+  jfbdaqrdaqr
+Expect (First two arguments deleted):
+  foo[
+    xyz
+  ]
+
+Do (daqr with cursor on second a):
+  jjfadaqr
+Expect (Second argument deleted):
+  foo[
+    bar,
+    xyz
+  ]
+
+Do (daqr with cursor on z):
+  jjjfxdaqr
+Expect (Third argument deleted):
+  foo[
+    bar,
+    arg
+  ]
+
+" with trailing-symbol style multiline {{{2
+Given (trailing-symbol style multiline):
+  foo<
+    bar,
+    arg,
+    xyz
+  >
+
+Do (daqa with cursor on f):
+  daqa
+Expect (Nothing deleted):
+  foo<
+    bar,
+    arg,
+    xyz
+  >
+
+Do (daqa with cursor on b):
+  jfbdaqa
+Expect (First argument deleted):
+  foo<
+    arg,
+    xyz
+  >
+
+Do (daqadaqa with cursor on b):
+  jfbdaqadaqa
+Expect (First two arguments deleted):
+  foo<
+    xyz
+  >
+
+Do (daqa with cursor on second a):
+  jjfadaqa
+Expect (Second argument deleted):
+  foo<
+    bar,
+    xyz
+  >
+
+Do (daqa with cursor on z):
+  jjjfxdaqa
+Expect (Third argument deleted):
+  foo<
+    bar,
+    arg
+  >

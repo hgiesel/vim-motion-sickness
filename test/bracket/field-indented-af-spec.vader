@@ -1,0 +1,131 @@
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo(bar, arg
+      xyz)
+
+Do (daqb with cursor on f):
+  daqb
+Expect (Nothing deleted):
+  foo(bar, arg,
+      xyz)
+
+Do (daqb with cursor on b):
+  fbdaqb
+Expect (First argument deleted):
+  foo(arg,
+      xyz)
+
+Do (daqbdaqb with cursor on b):
+  fbdaqbdaqb
+Expect (First two arguments deleted):
+  foo(xyz)
+
+Do (daqb with cursor on second a):
+  2fadaqb
+Expect (Second argument deleted):
+  foo(bar,
+      xyz)
+
+Do (daqb with cursor on x):
+  jfxdaqb
+Expect (Third argument deleted):
+  foo(bar, arg)
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo{bar, arg
+      xyz}
+
+Do (daqB with cursor on f):
+  daqB
+Expect (Nothing deleted):
+  foo{bar, arg,
+      xyz}
+
+Do (daqB with cursor on b):
+  fbdaqB
+Expect (First argument deleted):
+  foo{arg,
+      xyz}
+
+Do (daqBdaqB with cursor on b):
+  fbdaqBdaqB
+Expect (First two arguments deleted):
+  foo{xyz}
+
+Do (daqB with cursor on second a):
+  2fadaqB
+Expect (Second argument deleted):
+  foo{bar,
+      xyz}
+
+Do (daqB with cursor on x):
+  jfxdaqB
+Expect (Third argument deleted):
+  foo{bar, arg}
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo[bar, arg
+      xyz]
+
+Do (daqr with cursor on f):
+  daqr
+Expect (Nothing deleted):
+  foo[bar, arg,
+      xyz]
+
+Do (daqr with cursor on b):
+  fbdaqr
+Expect (First argument deleted):
+  foo[arg,
+      xyz]
+
+Do (daqrdaqr with cursor on b):
+  fbdaqrdaqr
+Expect (First two arguments deleted):
+  foo[xyz]
+
+Do (daqr with cursor on second a):
+  2fadaqr
+Expect (Second argument deleted):
+  foo[bar,
+      xyz]
+
+Do (daqr with cursor on x):
+  jfxdaqr
+Expect (Third argument deleted):
+  foo[bar, arg]
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo<bar, arg
+      xyz>
+
+Do (daqa with cursor on f):
+  daqa
+Expect (Nothing deleted):
+  foo<bar, arg,
+      xyz>
+
+Do (daqa with cursor on b):
+  fbdaqa
+Expect (First argument deleted):
+  foo<arg,
+      xyz>
+
+Do (daqadaqb with cursor on b):
+  fbdaqadaqa
+Expect (First two arguments deleted):
+  foo<xyz>
+
+Do (daqa with cursor on second a):
+  2fadaqa
+Expect (Second argument deleted):
+  foo<bar,
+      xyz>
+
+Do (daqa with cursor on x):
+  jfxdaqa
+Expect (Third argument deleted):
+  foo<bar, arg>

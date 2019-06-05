@@ -1,0 +1,115 @@
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo(bar, arg
+      xyz)
+
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo(bar, arg,
+      xyz)
+
+Do (diqb with cursor on b):
+  fbdiqb
+Expect (First argument deleted):
+  foo(, arg,
+      xyz)
+
+Do (diqb with cursor on second a):
+  2fadiqb
+Expect (Second argument deleted):
+  foo(bar, ,
+      xyz)
+
+Do (diqb with cursor on x):
+  jfxdiqb
+Expect (Third argument deleted):
+  foo(bar, arg,
+      )
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo{bar, arg
+      xyz}
+
+Do (diqB with cursor on f):
+  diqB
+Expect (Nothing deleted):
+  foo{bar, arg,
+      xyz}
+
+Do (diqB with cursor on b):
+  fbdiqB
+Expect (First argument deleted):
+  foo{, arg,
+      xyz}
+
+Do (diqB with cursor on second a):
+  2fadiqB
+Expect (Second argument deleted):
+  foo{bar, ,
+      xyz}
+
+Do (diqB with cursor on x):
+  jfxdiqB
+Expect (Third argument deleted):
+  foo{bar, arg,
+      }
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo[bar, arg
+      xyz]
+
+Do (diqr with cursor on f):
+  diqr
+Expect (Nothing deleted):
+  foo[bar, arg,
+      xyz]
+
+Do (diqr with cursor on b):
+  fbdiqr
+Expect (First argument deleted):
+  foo[, arg,
+      xyz]
+
+Do (diqr with cursor on second a):
+  2fadiqr
+Expect (Second argument deleted):
+  foo[bar, ,
+      xyz]
+
+Do (diqr with cursor on x):
+  jfxdiqr
+Expect (Third argument deleted):
+  foo[bar, arg,
+      ]
+
+" with opening delimiter style multiline {{{2
+Given (opening delimiter style multiline):
+  foo<bar, arg
+      xyz>
+
+Do (diqa with cursor on f):
+  diqa
+Expect (Nothing deleted):
+  foo<bar, arg,
+      xyz>
+
+Do (diqa with cursor on b):
+  fbdiqa
+Expect (First argument deleted):
+  foo<, arg,
+      xyz>
+
+Do (diqa with cursor on second a):
+  2fadiqa
+Expect (Second argument deleted):
+  foo<bar, ,
+      xyz>
+
+Do (diqa with cursor on x):
+  jfxdiqa
+Expect (Third argument deleted):
+  foo<bar, arg,
+      >

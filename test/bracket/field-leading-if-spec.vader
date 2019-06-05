@@ -1,0 +1,155 @@
+" with leading-symbol style multiline {{{2
+Given (leading-symbol style multiline):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+Do (diqa with cursor on f):
+  diqa
+Expect (Nothing deleted):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+Do (diqa with cursor on b):
+  fbdiqa
+Expect (First argument deleted):
+  foo( 
+     , arg
+     , xyz
+     )
+
+Do (diqa with cursor on second a):
+  jfadiqa
+Expect (Second argument deleted):
+  foo( bar
+     , 
+     , xyz
+     )
+
+Do (diqa with cursor on x):
+  jjfxdiqa
+Expect (Third argument deleted):
+  foo( bar
+     , arg
+     , 
+     )
+
+" with leading-symbol style multiline {{{2
+Given (leading-symbol style multiline):
+  foo[ bar
+     , arg
+     , xyz
+     ]
+
+Do (diqr with cursor on f):
+  diqr
+Expect (Nothing deleted):
+  foo[ bar
+     , arg
+     , xyz
+     ]
+
+Do (diqr with cursor on b):
+  fbdiqr
+Expect (First argument deleted):
+  foo[ 
+     , arg
+     , xyz
+     ]
+
+Do (diqr with cursor on second a):
+  jfadiqr
+Expect (Second argument deleted):
+  foo[ bar
+     , 
+     , xyz
+     ]
+
+Do (diqr with cursor on x):
+  jjfxdiqr
+Expect (Third argument deleted):
+  foo[ bar
+     , arg
+     , 
+     ]
+
+" with leading-symbol style multiline {{{2
+Given (leading-symbol style multiline):
+  foo{ bar
+     , arg
+     , xyz
+     }
+
+Do (diqB with cursor on f):
+  diqB
+Expect (Nothing deleted):
+  foo{ bar
+     , arg
+     , xyz
+     }
+
+Do (diqB with cursor on b):
+  fbdiqB
+Expect (First argument deleted):
+  foo{ 
+     , arg
+     , xyz
+     }
+
+Do (diqB with cursor on second a):
+  jfadiqB
+Expect (Second argument deleted):
+  foo{ bar
+     , 
+     , xyz
+     }
+
+Do (diqB with cursor on x):
+  jjfxdiqB
+Expect (Third argument deleted):
+  foo{ bar
+     , arg
+     , 
+     }
+
+" with leading-symbol style multiline {{{2
+Given (leading-symbol style multiline):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+Do (diqb with cursor on f):
+  diqb
+Expect (Nothing deleted):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+Do (diqb with cursor on b):
+  fbdiqb
+Expect (First argument deleted):
+  foo( 
+     , arg
+     , xyz
+     )
+
+Do (diqb with cursor on second a):
+  jfadiqb
+Expect (Second argument deleted):
+  foo( bar
+     , 
+     , xyz
+     )
+
+Do (diqb with cursor on x):
+  jjfxdiqb
+Expect (Third argument deleted):
+  foo( bar
+     , arg
+     , 
+     )

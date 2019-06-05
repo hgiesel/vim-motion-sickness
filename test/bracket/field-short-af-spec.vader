@@ -1,0 +1,96 @@
+" Short style field spec with af commmands {{{1
+" dafb with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo(bar, arg, xyz)
+
+Do (dafb with cursor on f):
+  dafb
+Expect (Nothing deleted):
+  foo(bar, arg, xyz)
+
+Do (dafb with cursor on b):
+  fbdafb
+Expect (First argument deleted):
+  foo(arg, xyz)
+
+Do (dafb with cursor on second a):
+  2fadafb
+Expect (Second argument deleted):
+  foo(bar, xyz)
+
+Do (dafb with cursor on x):
+  fxdafb
+Expect (Third argument deleted):
+  foo(bar, arg)
+
+" dafB with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo{bar, arg, xyz}
+
+Do (dafB with cursor on f):
+  dafB
+Expect (Nothing deleted):
+  foo{bar, arg, xyz}
+
+Do (dafB with cursor on b):
+  fbdafB
+Expect (First argument deleted):
+  foo{arg, xyz}
+
+Do (dafB with cursor on second a):
+  2fadafB
+Expect (Second argument deleted):
+  foo{bar, xyz}
+
+Do (dafB with cursor on x):
+  fxdafB
+Expect (Third argument deleted):
+  foo{bar, arg}
+
+" dafr with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo[bar, arg, xyz]
+
+Do (dafr with cursor on f):
+  dafr
+Expect (Nothing deleted):
+  foo[bar, arg, xyz]
+
+Do (dafr with cursor on b):
+  fbdafr
+Expect (First argument deleted):
+  foo[arg, xyz]
+
+Do (dafr with cursor on second a):
+  2fadafr
+Expect (Second argument deleted):
+  foo[bar, xyz]
+
+Do (dafr with cursor on x):
+  fxdafr
+Expect (Third argument deleted):
+  foo[bar, arg]
+
+" dafa with doc foo(bar) {{{2
+Given (foo<bar, arg, xyz>):
+  foo<bar, arg, xyz>
+
+Do (dafa with cursor on f):
+  dafa
+Expect (Nothing deleted):
+  foo<bar, arg, xyz>
+
+Do (dafa with cursor on b):
+  fbdafa
+Expect (First argument deleted):
+  foo<arg, xyz>
+
+Do (dafa with cursor on second a):
+  2fadafa
+Expect (Second argument deleted):
+  foo<bar, xyz>
+
+Do (dafa with cursor on x):
+  fxdafa
+Expect (Third argument deleted):
+  foo<bar, arg>
