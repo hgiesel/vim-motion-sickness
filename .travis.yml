@@ -41,59 +41,59 @@ jobs:
 
     - stage: test
       name: "Bracket: Aliases"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/alias-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/alias-spec.vader'
 
     - stage: test
       name: "Bracket: Expressions: General"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-general-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-general-spec.vader'
     - stage: test
       name: "Bracket: Expressions: Whitespace"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-whitespace-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-whitespace-spec.vader'
     - stage: test
       name: "Bracket: Expressions: Nested"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-nested-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-nested-spec.vader'
     - stage: test
       name: "Bracket: Expressions: Multiline: Trailing"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-trailing-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-trailing-spec.vader'
     - stage: test
       name: "Bracket: Expressions: Multiline: Leading"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-leading-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-leading-spec.vader'
     - stage: test
       name: "Bracket: Expressions: Multiline: Indented"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-indented-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/expression-multiline-indented-spec.vader'
 
     - stage: test
       name: "Bracket: Fields: Short: if"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-short-if-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-short-if-spec.vader'
     - stage: test
       name: "Bracket: Fields: Short: af"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-short-af-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-short-af-spec.vader'
 
     - stage: test
       name: "Bracket: Fields: Trailing: if"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-trailing-if-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-trailing-if-spec.vader'
     - stage: test
       name: "Bracket: Fields: Trailing: af"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-trailing-af-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-trailing-af-spec.vader'
 
     - stage: test
       name: "Bracket: Fields: Indented: if"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-indented-if-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-indented-if-spec.vader'
     - stage: test
       name: "Bracket: Fields: Indented: af"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-indented-af-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-indented-af-spec.vader'
 
     - stage: test
       name: "Bracket: Fields: Leading: if"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-leading-if-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-leading-if-spec.vader'
     - stage: test
       name: "Bracket: Fields: Leading: af"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-leading-af-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/field-leading-af-spec.vader'
 
     - stage: test
       name: "Other: Indents"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/other/indent-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/other/indent-spec.vader'
     - stage: test
       name: "Other: Symbols"
-      script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/other/symbol-spec.vader'
+      script: nvim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/other/symbol-spec.vader'
 ...
