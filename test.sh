@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [[ "$1" ]]; then
+  TARGET=1
+fi
+
 tests_alias=(
   'test/bracket/alias-spec.vader'
 )

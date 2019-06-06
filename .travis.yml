@@ -35,6 +35,5 @@ env:
     - TARGET=TESTS_EXPRESSION
     - TARGET=TESTS_FIELD
 
-- stage: test
-  script: ./test.sh
+- script: ./test.sh
 ...
