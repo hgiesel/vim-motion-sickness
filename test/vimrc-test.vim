@@ -3,6 +3,7 @@ filetype off
 
 set rtp+=~/.vim/plugged/vader.vim
 set rtp+=.
+set rtp+=..
 
 set matchpairs+=<:>
 

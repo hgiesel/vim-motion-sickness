@@ -24,6 +24,9 @@ before_script:
 
 jobs:
   include:
+    - stage: whereami
+      script: pwd
+
     - stage: test
       name: "Bracket: Aliases"
       script: vim -Es -u 'test/vimrc-test.vim' -c 'Vader! test/bracket/alias-spec.vader'
