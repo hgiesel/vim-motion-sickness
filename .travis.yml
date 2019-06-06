@@ -18,8 +18,26 @@ before_script:
 
 env:
   matrix:
-    - TARGET=TESTS_EXPRESSION
-    - TARGET=TESTS_FIELD
+    - TARGET='alias'
+
+    - TARGET='expression-general'
+    - TARGET='expression-multiline-indented'
+    - TARGET='expression-multiline-leading'
+    - TARGET='expression-multiline-trailing'
+    - TARGET='expression-nested'
+    - TARGET='expression-whitespace'
+
+    - TARGET='field-indented-af'
+    - TARGET='field-indented-if'
+    - TARGET='field-leading-if'
+    - TARGET='field-leading-af'
+    - TARGET='field-short-if'
+    - TARGET='field-short-af'
+    - TARGET='field-trailing-if'
+    - TARGET='field-trailing-af'
+
+    - TARGET='indent'
+    - TARGET='symbol'
 
 script: ./test.sh
 ...
