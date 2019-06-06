@@ -96,7 +96,6 @@ function! s:GetInnerText(opendelim_pos, closedelim_pos)
   let l:result = []
 
 
-  echo range(a:opendelim_pos[1], a:closedelim_pos[1])
   for i in range(a:opendelim_pos[1], a:closedelim_pos[1])
     if i ==# a:opendelim_pos[1]
       call add(l:result, strcharpart(getline(i), a:opendelim_pos[2]))
@@ -109,17 +108,18 @@ function! s:GetInnerText(opendelim_pos, closedelim_pos)
     endif
   endfor
 
-  echo l:result
   return l:result
 endfunction
 
 function! s:GetPrevCommaOrBeginArgs(innertext, offset, fielddelim)
   let commapos_prev = strridx(a:innertext, a:fielddelim, a:offset)
+
   return max([commapos_prev + 1, 0])
 endfunction
 
 function! s:GetNextCommaOrEndArgs(innertext, offset, fielddelim)
   let commapos_next = stridx(a:innertext, a:fielddelim, a:offset)
+
   if commapos_next ==# -1
     return strlen(a:innertext) - 1
   else
@@ -153,20 +153,21 @@ endfunction
 " the offset means:
 " you can stand on a:startpoint and `execute 'normal! '.l:offset.' '`
 " you'll end up on a:pos
+
+" now gets the text offset in the text
 """
 function! s:GetPositionOffset(startpoint, pos)
   let l:offset = 0
 
   if a:pos[1] < a:startpoint[1] || (a:pos[1] == a:startpoint[1] && a:pos[2] < a:startpoint[2])
     echomsg 'startpoint behind'
-    return -1
+    return [-1, -1]
   endif
 
   for i in range(a:startpoint[1], a:pos[1])
     if i ==# a:startpoint[1]
       if i ==# a:pos[1]
-        let l:offset += a:pos[2] - (strchars(getline(i)) - a:startpoint[2])
-        return l:offset
+        let l:offset += (a:pos[2] - a:startpoint[2])
       else
         let l:offset += strchars(getline(i)) - a:startpoint[2]
       end
@@ -177,18 +178,22 @@ function! s:GetPositionOffset(startpoint, pos)
     endif
   endfor
 
-  return l:offset
+  let l:offsetInInnerText = l:offset - ((a:startpoint[1] - a:pos[1]) + 1)
+
+  return [l:offset, l:offsetInInnerText]
 endfunction
 
-function! field#motion(inner, visual, opendelim, closedelim, fielddelim)
+function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   " echomsg mode() -> either "n" or "v"
-  let l:current_pos = getpos('.')
-
   normal! 
+
+  " Avoid dealing with ambiguity on called field on fielddelim
   let current_c = strcharpart(getline('.'), col('.') - 1, 1)
-  if current_c ==# a:opendelim || current_c ==# a:opendelim
+  if current_c ==# a:opendelim || current_c ==# a:fielddelim
     normal 1 
   endif
+
+  let l:current_pos = getpos('.')
 
   " get out of "double quoted string" because [( does not take effect in it
   call s:GetOutOfDoubleQuote()
@@ -208,77 +213,61 @@ function! field#motion(inner, visual, opendelim, closedelim, fielddelim)
     let l:innertext = substitute(l:innertext, '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
   endwhile
 
-  let l:offset = s:GetPositionOffset(l:opendelim_pos, l:current_pos)
+  let [l:offsetJump, l:offset] = s:GetPositionOffset(l:opendelim_pos, l:current_pos)
 
-  echo 'offset: : '.string(l:opendelim_pos).string(l:current_pos)
-  echo 'offset'.string(l:offset)
+  if l:offsetJump ==# -1
+    return
+  endif
 
-  " the beginning/end of this argument
+  " the beginning/end of this argument they don't work
   let l:fieldbegin = s:GetPrevCommaOrBeginArgs(l:innertext, l:offset, a:fielddelim)
   let l:fieldend   = s:GetNextCommaOrEndArgs(l:innertext, l:offset, a:fielddelim)
-  let l:fieldlength = l:fieldend - l:fieldbegin
 
-  echo string(l:fieldbegin).':'.string(l:fieldend).':'.l:fieldlength
+  let l:fieldbeginJump = l:fieldbegin - (l:offset - l:offsetJump)
+  let l:fieldendJump   = l:fieldend - (l:offset - l:offsetJump)
 
+  """" Offsets in l:innertext
+  echo 'fieldbegin: "'.string(l:fieldbegin).'"'
+  echo 'offset: "'.string(l:offset).'"'
+  echo 'fieldend: "'.string(l:fieldend).'"'
 
-  """ GET TO START OF INNER FIELD
+  """" Offsets in l:innertext
+  echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
+  echo 'offsetJump: "'.string(l:offsetJump).'"'
+  echo 'fieldendJump: "'.string(l:fieldendJump).'"'
+
+  """ GET START OF INNER FIELD
+  normal! 
   call setpos('.', l:opendelim_pos)
-  execute 'normal! '
-  if l:fieldbegin !=# 0
-    execute 'normal! '.l:fieldbegin.' '
-    execute 'normal! '.(getpos('.')[1] - l:opendelim_pos[1] - 2)."\<bs>"
+
+  " start 1 space before field, so the search
+  " starts in the first character of the field
+  if (l:fieldbeginJump - 1) !=# 0
+    execute 'normal! '.(l:fieldbeginJump - 1).' '
   endif
 
-  call search('[^ \t\n'.a:fielddelim.']')
-  execute 'normal! v'
+  call search('[^ \t\n'.a:fielddelim.a:opendelim.']')
+  let l:startpos = getpos('.')
 
-  """ GET TO END OF INNER FIELD
-  let l:matchstart_pos = getpos('.')
-  if l:fieldlength !=# 0
-    " echo l:fieldlength
+  """ GET END OF INNER FIELD
+  call setpos('.', l:opendelim_pos)
+  execute 'normal! '.(l:fieldendJump + 1).' '
+
+  if a:closedelim ==# ']'
+    call search('[^ \t\n'.a:fielddelim.'\'.a:closedelim.']', 'b')
+  else
+    call search('[^ \t\n'.a:fielddelim.a:closedelim.']', 'b')
   endif
-  "   execute 'normal! '.l:fieldbegin.' '
-  "   execute 'normal! '.(getpos('.')[1] - l:matchstart_pos[1] - 2)."\<bs>"
-  " endif
 
-  " " function(..., the_nth_arg, ...)
-  " "             [^left]    [^right]
-  " let left  = l:offset - thisargbegin
-  " let right = thisargend - thisargbegin
+  """ SET FIELD
+  let l:endpos = getpos('.')
+  call setpos('.', l:startpos)
+  normal! v
+  call setpos('.', l:endpos)
+  return
 
+  if a:all
 
-  " let delete_trailing_space = 0
-  " if a:inner
-  "   " ia
-  "   call s:Move(left)
-  " else
-  "   " aa
-  "   if thisargbegin ==# 0 && thisargend ==# strlen(l:innertext) - 1
-  "     " only single argument
-  "     " echo 'single '.thisargbegin . ':'.thisargend
-  "     call s:Move(left)
-  "   elseif thisargbegin ==# 0
-  "     " head of the list (do not delete '(')
-  "     call s:Move(left)
-  "     let right += 1
-  "     let delete_trailing_space = 1
-  "     " echo 'head '.right
-  "   else
-  "     " normal or tail of the list
-  "     call s:Move(left+1)
-  "     let right += 1
-  "     " echo 'tail ' . right
-  "   endif
-  " endif
+  endif
 
-  " call s:Move(right)
-  " if delete_trailing_space
-  "   execute 'normal! 1 '
-  "   call s:MoveToNextNonSpace()
-  "   if (!a:inner && (col('.') + 1 == col('$')))
-  "     execute "normal! $"
-  "   else
-  "     execute "normal! \<bs>"
-  "   endif
-  " endif
 endfunction

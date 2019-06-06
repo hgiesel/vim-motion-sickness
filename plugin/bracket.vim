@@ -73,17 +73,17 @@ function Field_maps_add(matchtriples)
       endif
     endif
 
-    execute "onoremap <silent> <plug>(Oif".l:triple[0]."motion) <cmd>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
-    execute "vnoremap <silent> <plug>(Vif".l:triple[0]."motion) <cmd>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
-    execute "onoremap <silent> <plug>(Oaf".l:triple[0]."motion) <cmd>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
-    execute "vnoremap <silent> <plug>(Vaf".l:triple[0]."motion) <cmd>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "onoremap <silent> <plug>(Oif".l:triple[0]."motion) <cmd>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "vnoremap <silent> <plug>(Vif".l:triple[0]."motion) <cmd>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "onoremap <silent> <plug>(Oaf".l:triple[0]."motion) <cmd>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
+    execute "vnoremap <silent> <plug>(Vaf".l:triple[0]."motion) <cmd>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', ',')<cr>"
 
     if exists('g:sick_field_extra_delimiter')
       for l:pair in g:sick_field_extra_deliter
-        execute "onoremap <silent> <plug>(Oif".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
-        execute "vnoremap <silent> <plug>(Vif".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
-        execute "onoremap <silent> <plug>(Oaf".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
-        execute "vnoremap <silent> <plug>(Vaf".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "onoremap <silent> <plug>(Oif".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(0, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "vnoremap <silent> <plug>(Vif".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(0, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "onoremap <silent> <plug>(Oaf".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(1, 0, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
+        execute "vnoremap <silent> <plug>(Vaf".l:pair[0].l:triple[0]."motion) <cmd>call field#motion(1, 1, '".l:triple[1]."', '".l:triple[2]."', '".l:pair[1]."')<cr>"
       endfor
     endif
   endfor
