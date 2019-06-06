@@ -96,6 +96,9 @@ endfunction
 function! s:GetInnerText(opendelim_pos, closedelim_pos)
   let l:result = []
 
+  if a:closedelim_pos[1] < a:opendelim_pos[1]
+    return l:result
+  endif
 
   for i in range(a:opendelim_pos[1], a:closedelim_pos[1])
     if i ==# a:opendelim_pos[1]
@@ -208,6 +211,18 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
 
   let [l:opendelim_pos, l:closedelim_pos] = s:GetDelimPos(a:opendelim)
   let l:innertext_orig = s:GetInnerText(l:opendelim_pos, l:closedelim_pos)
+
+  if empty(l:innertext_orig)
+    silent normal! 
+    call winrestview(winsave)
+    if modesave == 'v'
+        call setpos('.', before_posv)
+        silent normal! v
+        call setpos('.', before_pos)
+    endif
+    return
+  endif
+
   let l:innertext = join(l:innertext_orig, "\n")
 
   " replace all parentheses and commas inside them to '_'
