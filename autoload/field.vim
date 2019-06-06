@@ -101,15 +101,20 @@ function! s:GetInnerText(opendelim_pos, closedelim_pos)
   endif
 
   for i in range(a:opendelim_pos[1], a:closedelim_pos[1])
-    if i ==# a:opendelim_pos[1]
-      call add(l:result, strcharpart(getline(i), a:opendelim_pos[2]))
+    if (i ==# a:opendelim_pos[1] && i ==# a:closedelim_pos[1]) " single line
+      let l:theline = strcharpart(getline(i), a:opendelim_pos[2], a:closedelim_pos[2] - a:opendelim_pos[2] - 1)
 
-    elseif i ==# a:closedelim_pos[1]
-      call add(l:result, strcharpart(getline(i), 0, a:closedelim_pos[2] - 1))
+    elseif (i ==# a:opendelim_pos[1]) " firstline
+      let l:theline = strcharpart(getline(i), a:opendelim_pos[2])
 
-    else
-      call add(l:result, getline(i))
+    elseif (i ==# a:closedelim_pos[1]) " lastline
+      let l:theline = strcharpart(getline(i), 0, a:closedelim_pos[2] - 1)
+
+    else " middleline
+      let l:theline = getline(i)
     endif
+
+    call add(l:result, l:theline)
   endfor
 
   return l:result
@@ -129,12 +134,12 @@ endfunction
 
 "" return [position, istailfield]
 function! s:GetNextCommaOrEndArgs(innertext, offset, fielddelim)
-  let commapos_next = stridx(a:innertext, a:fielddelim, a:offset)
+  let l:commapos_next = stridx(a:innertext, a:fielddelim, a:offset)
 
-  if commapos_next ==# -1
+  if l:commapos_next ==# -1
     return [strlen(a:innertext) - 1, v:true]
   else
-    return [commapos_next - 1, v:false]
+    return [l:commapos_next - 1, v:false]
   endif
 endfunction
 
@@ -239,7 +244,8 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   let l:innertext = substitute(l:innertext, '"\([^'."'".']\{-}\)"', '(\1)', 'g') " replace ''..'' => (..)
 
   " replaces commas:
-  while stridx(l:innertext, a:opendelim) >= 0 && stridx(l:innertext, a:closedelim) >= 0
+  while stridx(l:innertext, a:opendelim) >= 0
+        \ && stridx(l:innertext, a:closedelim) >= 0
     let l:innertext = substitute(l:innertext, '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
   endwhile
 
@@ -294,18 +300,10 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   call setpos('.', l:opendelim_pos)
   execute 'normal! '.(l:fieldendJump + 1).' '
 
-  if a:closedelim ==# ']'
-    call search('[^ \t\n'.a:fielddelim.'\'.a:closedelim.']', 'b')
-  else
-    call search('[^ \t\n'.a:fielddelim.a:closedelim.']', 'b')
-  endif
+  call search('[^ \t\n'.a:fielddelim.']', 'b')
   let l:endpos = getpos('.')
 
   """ SET FIELD
-  echo 'fba'
-  echo l:startpos
-  echo l:endpos
-
   if !a:all
 
     " if field is empty, you startpos will be behind endpos
