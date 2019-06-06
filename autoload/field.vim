@@ -115,19 +115,26 @@ function! s:GetInnerText(opendelim_pos, closedelim_pos)
   return l:result
 endfunction
 
+"" return [position, isheadfield]
 function! s:GetPrevCommaOrBeginArgs(innertext, offset, fielddelim)
-  let commapos_prev = strridx(a:innertext, a:fielddelim, a:offset)
+  let commapos_prev = max([strridx(a:innertext, a:fielddelim, a:offset) + 1, 0])
 
-  return max([commapos_prev + 1, 0])
+  if commapos_prev == 0
+    return [commapos_prev, v:true]
+  else
+    return [commapos_prev, v:false]
+  endif
+
 endfunction
 
+"" return [position, istailfield]
 function! s:GetNextCommaOrEndArgs(innertext, offset, fielddelim)
   let commapos_next = stridx(a:innertext, a:fielddelim, a:offset)
 
   if commapos_next ==# -1
-    return strlen(a:innertext) - 1
+    return [strlen(a:innertext) - 1, v:true]
   else
-    return commapos_next - 1
+    return [commapos_next - 1, v:false]
   endif
 endfunction
 
@@ -250,30 +257,34 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   endif
 
   " the beginning/end of this argument they don't work
-  let l:fieldbegin = s:GetPrevCommaOrBeginArgs(l:innertext, l:offset, a:fielddelim)
-  let l:fieldend   = s:GetNextCommaOrEndArgs(l:innertext, l:offset, a:fielddelim)
+  let [l:fieldbegin, l:isheadfield] = s:GetPrevCommaOrBeginArgs(l:innertext, l:offset, a:fielddelim)
+  let [l:fieldend, l:istailfield]   = s:GetNextCommaOrEndArgs(l:innertext, l:offset, a:fielddelim)
 
   let l:fieldbeginJump = l:fieldbegin - (l:offset - l:offsetJump)
   let l:fieldendJump   = l:fieldend - (l:offset - l:offsetJump)
+  normal! 
 
-  " """" Offsets in l:innertext
-  " echo 'fieldbegin: "'.string(l:fieldbegin).'"'
-  " echo 'offset: "'.string(l:offset).'"'
-  " echo 'fieldend: "'.string(l:fieldend).'"'
+  """" Positions
+  echo 'opendelim_pos: "'.string(l:opendelim_pos).'"'
+  echo 'closedelim_pos: "'.string(l:closedelim_pos).'"'
 
-  " """" Offsets in l:innertext
-  " echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
-  " echo 'offsetJump: "'.string(l:offsetJump).'"'
-  " echo 'fieldendJump: "'.string(l:fieldendJump).'"'
+  """" Offsets in l:innertext
+  echo 'fieldbegin: "'.string(l:fieldbegin).'"'
+  echo 'offset: "'.string(l:offset).'"'
+  echo 'fieldend: "'.string(l:fieldend).'"'
+
+  """" Offsets in terms of moving with space/backspace
+  echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
+  echo 'offsetJump: "'.string(l:offsetJump).'"'
+  echo 'fieldendJump: "'.string(l:fieldendJump).'"'
 
   """ GET START OF INNER FIELD
-  normal! 
   call setpos('.', l:opendelim_pos)
 
   " start 1 space before field, so the search
   " starts in the first character of the field
-  if (l:fieldbeginJump - 1) !=# 0
-    execute 'normal! '.(l:fieldbeginJump - 1).' '
+  if ! l:isheadfield " (l:fieldbeginJump) ># 0
+    execute 'normal! '.(l:fieldbeginJump).' '
   endif
 
   call search('[^ \t\n'.a:fielddelim.a:opendelim.']')
@@ -288,14 +299,35 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   else
     call search('[^ \t\n'.a:fielddelim.a:closedelim.']', 'b')
   endif
+  let l:endpos = getpos('.')
 
   """ SET FIELD
-  let l:endpos = getpos('.')
-  call setpos('.', l:startpos)
-  normal! v
-  call setpos('.', l:endpos)
-  return
+  echo 'fba'
+  echo l:startpos
+  echo l:endpos
 
-  if a:all
+  if !a:all
+
+    " if field is empty, you startpos will be behind endpos
+    if (l:startpos[1] ># l:endpos[1]) ||
+          \ (l:startpos[1] ==# l:endpos[1] && l:startpos[2] ># l:endpos[2])
+      silent normal! 
+      call winrestview(winsave)
+      if modesave == 'v'
+        call setpos('.', before_posv)
+        silent normal! v
+        call setpos('.', before_pos)
+      endif
+      return
+    endif
+
+    call setpos('.', l:startpos)
+    normal! v
+    call setpos('.', l:endpos)
+
+  else
+    " they work
+    " echo 'headfield:'.l:isheadfield
+    " echo 'tailfield:'.l:istailfield
   endif
 endfunction

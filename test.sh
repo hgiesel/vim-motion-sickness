@@ -9,7 +9,19 @@ else
 fi
 
 if [[ "$TARGET" == 'try' ]]; then
-  exec nvim -u 'tests/vimrc-test.vim'
+  exec nvim -u 'tests/vimrc-test.vim' <<FOO
+foo("meh", bla, fo)
+
+foo_function(
+  "foo",
+  "bar",
+)
+
+foo ( "meh"
+    , bla
+    , fo
+    )
+FOO
 fi
 
 declare test_name="tests/${TARGET}*-spec.vader"
