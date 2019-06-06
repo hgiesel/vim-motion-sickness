@@ -5,19 +5,27 @@ sudo: required
 notifications:
   email: false
 
+# before_install:
+#   - git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/vader.vim
+#   - git clone https://github.com/vim/vim
+#   - rvm use system
+
+# install:
+#   - >
+#     (cd vim ; ./configure
+#     --with-features=huge
+#     --enable-rubyinterp
+#     --enable-pythoninterp)
+#   - make -C ./vim -j4
+#   - sudo make -C ./vim install
+
 before_install:
   - git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/vader.vim
-  - git clone https://github.com/vim/vim
+  - git clone https://github.com/neovim/neovim.git
   - rvm use system
 
 install:
-  - >
-    (cd vim ; ./configure
-    --with-features=huge
-    --enable-rubyinterp
-    --enable-pythoninterp)
-  - make -C ./vim -j4
-  - sudo make -C ./vim install
+  - (cd neovim ; make CMAKE_BUILD_TYPE=Release; sudo make install)
 
 before_script:
   - export PATH="/usr/local/bin:${PATH}"
