@@ -8,4 +8,7 @@ else
   fi
 fi
 
-nvim -Es -u 'test/vimrc-test.vim' -c "Vader! test/${test_name}-spec.vader"
+
+declare test_name="tests/${TARGET}-spec.vader"
+
+nvim -Es -u 'tests/vimrc-test.vim' -c "Vader! ${test_name}"
