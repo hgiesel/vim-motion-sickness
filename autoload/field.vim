@@ -55,12 +55,12 @@ function! s:GetOutOfDoubleQuote()
   endif
 
   while 1
-    exe 'silent! normal ^va"'
+    execute 'silent! normal ^va"'
     normal :\<ESC>\<CR>
     if getpos("'<") ==# getpos("'>")
       break
     endif
-    exe 'normal gvr' . repl
+    execute 'normal gvr' . repl
   endwhile
 
   call setpos('.', pos_save)
@@ -78,81 +78,59 @@ function! s:GetOutOfDoubleQuote()
   endif
 endfunction
 
-function! s:GetOuterFunctionParenthesis(opendelim)
-  let pos_save = getpos('.')
-  let rightup_before = pos_save
+function! s:GetDelimPos(opendelim)
+  let l:winsave = winsaveview()
+  let l:reg_save = @@
 
-  if a:opendelim ==# '('
-    silent! normal [(
-  elseif a:opendelim ==# '{'
-    silent! normal [{
-  else
-    execute 'silent! normal F' . a:opendelim
-  endif
+  execute 'silent! normal! va' . a:opendelim
+  let l:closedelim_pos = getpos('.')
 
-  let rightup_p = getpos('.')
-  while rightup_p != rightup_before
-    if ! g:argumentobject_force_toplevel && getline('.')[getpos('.')[2]-1-1] =~ '[a-zA-Z0-9_]'
-      " found a function
-      break
-    endif
-    let rightup_before = rightup_p
+  execute "silent! normal! %"
+  let l:opendelim_pos = getpos('.')
 
-    if a:opendelim ==# '('
-      silent! normal [(
-    elseif a:opendelim ==# '{'
-      silent! normal [{
+  call winrestview(l:winsave)
+  return [l:opendelim_pos, l:closedelim_pos]
+endfunction
+
+function! s:GetInnerText(opendelim_pos, closedelim_pos)
+  let l:result = []
+
+
+  echo range(a:opendelim_pos[1], a:closedelim_pos[1])
+  for i in range(a:opendelim_pos[1], a:closedelim_pos[1])
+    if i ==# a:opendelim_pos[1]
+      call add(l:result, strcharpart(getline(i), a:opendelim_pos[2]))
+
+    elseif i ==# a:closedelim_pos[1]
+      call add(l:result, strcharpart(getline(i), 0, a:closedelim_pos[2] - 1))
+
     else
-      execute 'silent! normal F' . a:opendelim
+      call add(l:result, getline(i))
     endif
-    let rightup_p = getpos('.')
-  endwhile
-  call setpos('.', pos_save)
-  return rightup_p
+  endfor
+
+  echo l:result
+  return l:result
 endfunction
 
-function! s:GetPair(pos)
-  let pos_save = getpos('.')
-  call setpos('.', a:pos)
-  execute "normal! %\<bs>"
-  let pair_pos = getpos('.')
-  call setpos('.', pos_save)
-  return pair_pos
+function! s:GetPrevCommaOrBeginArgs(innertext, offset, fielddelim)
+  let commapos_prev = strridx(a:innertext, a:fielddelim, a:offset)
+  return max([commapos_prev + 1, 0])
 endfunction
 
-function! s:GetInnerText(r1, r2)
-  let pos_save = getpos('.')
-  let reg_save = @@
-  call setpos('.', a:r1)
-  normal! 1 v
-  call setpos('.', a:r2)
-  normal! y
-  let val = @@
-  call setpos('.', pos_save)
-  let @@ = reg_save
-  return val
-endfunction
-
-function! s:GetPrevCommaOrBeginArgs(arglist, offset, fielddelim)
-  let commapos = strridx(a:arglist, a:fielddelim, a:offset)
-  " echo 'prev commapos '. string(a:offset) . ':'. commapos
-  return max([commapos + 1, 0])
-endfunction
-
-function! s:GetNextCommaOrEndArgs(arglist, offset, fielddelim)
-  let commapos = stridx(a:arglist, a:fielddelim, a:offset)
-  " echo 'next commapos '. string(a:offset) . ':' .commapos
-  if commapos ==# -1
-    return strlen(a:arglist) - 1
+function! s:GetNextCommaOrEndArgs(innertext, offset, fielddelim)
+  let commapos_next = stridx(a:innertext, a:fielddelim, a:offset)
+  if commapos_next ==# -1
+    return strlen(a:innertext) - 1
   else
-    return commapos - 1
+    return commapos_next - 1
   endif
 endfunction
 
 function! s:MoveToNextNonSpace()
   let oldp = getpos('.')
   let moved = 0
-  while getline('.')[getpos('.')[2]-1] ==# ' '
+  while getline('.')[getpos('.')[2]-1] ==# ' ' || 
     normal l
     if oldp == getpos('.')
       break
@@ -163,140 +141,144 @@ function! s:MoveToNextNonSpace()
   return moved
 endfunction
 
-function! s:MoveLeft(num)
-  if a:num>0
+function! s:Move(num)
+  if a:num < 0
     execute 'normal ' . a:num . "\<bs>"
-  endif
-endfunction
-
-function! s:MoveRight(num)
-  if a:num>0
+  elseif a:num > 0
     execute 'normal ' . a:num . ' '
   endif
 endfunction
 
+"""
+" the offset means:
+" you can stand on a:startpoint and `execute 'normal! '.l:offset.' '`
+" you'll end up on a:pos
+"""
+function! s:GetPositionOffset(startpoint, pos)
+  let l:offset = 0
+
+  if a:pos[1] < a:startpoint[1] || (a:pos[1] == a:startpoint[1] && a:pos[2] < a:startpoint[2])
+    echomsg 'startpoint behind'
+    return -1
+  endif
+
+  for i in range(a:startpoint[1], a:pos[1])
+    if i ==# a:startpoint[1]
+      if i ==# a:pos[1]
+        let l:offset += a:pos[2] - (strchars(getline(i)) - a:startpoint[2])
+        return l:offset
+      else
+        let l:offset += strchars(getline(i)) - a:startpoint[2]
+      end
+    elseif i < a:pos[1]
+      let l:offset += strchars(getline(i))
+    else
+      let l:offset += a:pos[2]
+    endif
+  endfor
+
+  return l:offset
+endfunction
+
 function! field#motion(inner, visual, opendelim, closedelim, fielddelim)
+  " echomsg mode() -> either "n" or "v"
+  let l:current_pos = getpos('.')
 
   normal! 
-  let current_c = getline('.')[getpos('.')[2]-1]
-  if current_c ==# a:fielddelim || current_c ==# a:opendelim
-    normal l
+  let current_c = strcharpart(getline('.'), col('.') - 1, 1)
+  if current_c ==# a:opendelim || current_c ==# a:opendelim
+    normal 1 
   endif
 
   " get out of "double quoted string" because [( does not take effect in it
   call s:GetOutOfDoubleQuote()
-  let rightup = s:GetOuterFunctionParenthesis(a:opendelim)
 
-  " if getline('.')[rightup[2]-1] != a:opendelim
-  "   " not in a function declaration nor call
-  "   return
-  " endif
-  let rightup_pair = s:GetPair(rightup)                    " before )
-  let arglist_str  = s:GetInnerText(rightup, rightup_pair) " inside ()
-  let arglist_sub  = arglist_str
-  " cursor offset from rightup
-
-
-  let offset = 0
-  let idx = 0
-  let l:continue = v:true
-  while l:continue
-    if idx == 0 && rightup[1] == getpos('.')[1]
-      " last line
-      let offset += getpos('.')[2] - rightup[2] - 1 " -1 for the removed parenthesis
-      " echo 'case0 '.offset
-      break
-
-    elseif idx == 0 && rightup[1] < getpos('.')[1]
-      " get the characters starting from the opendelim
-      " e.g. `foo(asdf,` will be three characters
-      let offset += strlen(getline(rightup[1])) - rightup[2]
-      " echo 'case1 '.offset
-
-    elseif rightup[1] + idx < getpos('.')[1]
-      " get the whole line
-      " e.g. `"sdf",` will be 6 characters
-      let offset += strlen(getline(rightup[1] + idx))
-      " echo 'case2 '.offset
-
-    else " rightup[1] == getpos('.')[1]
-      " last line
-      let offset += getpos('.')[2] - 1
-      " echo 'case3 '.offset
-      break
-    endif
-
-    let idx += 1
-  endwhile
-
-  if l:offset < 0
-    return
-  endif
+  let [l:opendelim_pos, l:closedelim_pos] = s:GetDelimPos(a:opendelim)
+  let l:innertext_orig = s:GetInnerText(l:opendelim_pos, l:closedelim_pos)
+  let l:innertext = join(l:innertext_orig, "\n")
 
   " replace all parentheses and commas inside them to '_'
-  let arglist_sub = substitute(arglist_sub, "'".'\([^'."'".']\{-}\)'."'", '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g') " replace '..' => (__)
-  let arglist_sub = substitute(arglist_sub, '\[\([^'."'".']\{-}\)\]', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')     " replace [..] => (__)
-  let arglist_sub = substitute(arglist_sub, '<\([^'."'".']\{-}\)>', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')       " replace <..> => (__I
-  let arglist_sub = substitute(arglist_sub, '"\([^'."'".']\{-}\)"', '(\1)', 'g') " replace ''..'' => (..)
+  let l:innertext = substitute(l:innertext, "'".'\([^'."'".']\{-}\)'."'", '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g') " replace '..' => (__)
+  let l:innertext = substitute(l:innertext, '\[\([^'."'".']\{-}\)\]', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')     " replace [..] => (__)
+  let l:innertext = substitute(l:innertext, '<\([^'."'".']\{-}\)>', '\="(".substitute(submatch(1), ".", "_", "g").")"', 'g')       " replace <..> => (__I
+  let l:innertext = substitute(l:innertext, '"\([^'."'".']\{-}\)"', '(\1)', 'g') " replace ''..'' => (..)
 
   " replaces commas:
-  while stridx(arglist_sub, a:opendelim) >= 0 && stridx(arglist_sub, a:closedelim) >= 0
-    let arglist_sub = substitute(arglist_sub, '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
+  while stridx(l:innertext, a:opendelim) >= 0 && stridx(l:innertext, a:closedelim) >= 0
+    let l:innertext = substitute(l:innertext, '(\([^()]\{-}\))', '\="<".substitute(submatch(1), ",", "_", "g").">"', 'g')
   endwhile
 
-  " echo arglist_sub
+  let l:offset = s:GetPositionOffset(l:opendelim_pos, l:current_pos)
+
+  echo 'offset: : '.string(l:opendelim_pos).string(l:current_pos)
+  echo 'offset'.string(l:offset)
 
   " the beginning/end of this argument
-  let thisargbegin = s:GetPrevCommaOrBeginArgs(arglist_sub, offset, a:fielddelim)
-  let thisargend   = s:GetNextCommaOrEndArgs(arglist_sub, offset, a:fielddelim)
+  let l:fieldbegin = s:GetPrevCommaOrBeginArgs(l:innertext, l:offset, a:fielddelim)
+  let l:fieldend   = s:GetNextCommaOrEndArgs(l:innertext, l:offset, a:fielddelim)
+  let l:fieldlength = l:fieldend - l:fieldbegin
 
-  " echo string(thisargbegin).':'.string(thisargend)
+  echo string(l:fieldbegin).':'.string(l:fieldend).':'.l:fieldlength
 
-  " function(..., the_nth_arg, ...)
-  "             [^left]    [^right]
-  let left  = offset - thisargbegin
-  let right = thisargend - thisargbegin
 
-  let delete_trailing_space = 0
-  if a:inner
-    " ia
-    call s:MoveLeft(left)
-    let right -= s:MoveToNextNonSpace()
-  else
-    " aa
-    if thisargbegin ==# 0 && thisargend ==# strlen(arglist_sub) - 1
-      " only single argument
-      " echo 'single '.thisargbegin . ':'.thisargend
-      call s:MoveLeft(left)
-    elseif thisargbegin ==# 0
-      " head of the list (do not delete '(')
-      call s:MoveLeft(left)
-      let right += 1
-      let delete_trailing_space = 1
-      " echo 'head '.right
-    else
-      " normal or tail of the list
-      call s:MoveLeft(left+1)
-      let right += 1
-      " echo 'tail ' . right
-    endif
+  """ GET TO START OF INNER FIELD
+  call setpos('.', l:opendelim_pos)
+  execute 'normal! '
+  if l:fieldbegin !=# 0
+    execute 'normal! '.l:fieldbegin.' '
+    execute 'normal! '.(getpos('.')[1] - l:opendelim_pos[1] - 2)."\<bs>"
   endif
 
-  execute 'normal v'
+  call search('[^ \t\n'.a:fielddelim.']')
+  execute 'normal! v'
 
-  call s:MoveRight(right)
-  if delete_trailing_space
-    execute 'normal! 1 '
-    call s:MoveToNextNonSpace()
-    if (!a:inner && (col('.') + 1 == col('$')))
-      execute "normal! $"
-    else
-      execute "normal! \<bs>"
-    endif
+  """ GET TO END OF INNER FIELD
+  let l:matchstart_pos = getpos('.')
+  if l:fieldlength !=# 0
+    " echo l:fieldlength
   endif
+  "   execute 'normal! '.l:fieldbegin.' '
+  "   execute 'normal! '.(getpos('.')[1] - l:matchstart_pos[1] - 2)."\<bs>"
+  " endif
+
+  " " function(..., the_nth_arg, ...)
+  " "             [^left]    [^right]
+  " let left  = l:offset - thisargbegin
+  " let right = thisargend - thisargbegin
+
+
+  " let delete_trailing_space = 0
+  " if a:inner
+  "   " ia
+  "   call s:Move(left)
+  " else
+  "   " aa
+  "   if thisargbegin ==# 0 && thisargend ==# strlen(l:innertext) - 1
+  "     " only single argument
+  "     " echo 'single '.thisargbegin . ':'.thisargend
+  "     call s:Move(left)
+  "   elseif thisargbegin ==# 0
+  "     " head of the list (do not delete '(')
+  "     call s:Move(left)
+  "     let right += 1
+  "     let delete_trailing_space = 1
+  "     " echo 'head '.right
+  "   else
+  "     " normal or tail of the list
+  "     call s:Move(left+1)
+  "     let right += 1
+  "     " echo 'tail ' . right
+  "   endif
+  " endif
+
+  " call s:Move(right)
+  " if delete_trailing_space
+  "   execute 'normal! 1 '
+  "   call s:MoveToNextNonSpace()
+  "   if (!a:inner && (col('.') + 1 == col('$')))
+  "     execute "normal! $"
+  "   else
+  "     execute "normal! \<bs>"
+  "   endif
+  " endif
 endfunction
-
-" option. turn 1 to search the most toplevel function
-if !exists('g:argumentobject_force_toplevel')
-  let g:argumentobject_force_toplevel = 0
-endif
