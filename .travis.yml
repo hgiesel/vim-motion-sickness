@@ -24,8 +24,12 @@ before_script:
 
 jobs:
   include:
-    - stage: whereami
+    - stage: debug
+      name: "pwd"
       script: pwd
+    - stage: debug
+      name: "ls"
+      script: ls *
 
     - stage: test
       name: "Bracket: Aliases"
