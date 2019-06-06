@@ -8,6 +8,7 @@
 " - closedelim: )}]>
 " - blanks: space and tab
 " - field character: everything except blanks, linefeeds, and fielddelim
+"   '[^ \t\n'.a:fielddelim.']'
 
 " Making an inner field to an all field:
 " Algorithm:
@@ -304,11 +305,15 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   let l:endpos = getpos('.')
 
   """ SET FIELD
-  if !a:all
 
-    " if field is empty, you startpos will be behind endpos
-    if (l:startpos[1] ># l:endpos[1]) ||
-          \ (l:startpos[1] ==# l:endpos[1] && l:startpos[2] ># l:endpos[2])
+  " if field is empty and you're inner, you startpos will be behind endpos
+  if (l:startpos[1] ># l:endpos[1]) ||
+        \ (l:startpos[1] ==# l:endpos[1] && l:startpos[2] ># l:endpos[2])
+
+    if a:all " you'll still be able delete the fielddelim
+      let l:startpos = l:current_pos
+      let l:endpos = l:current_pos
+    else
       silent normal! 
       call winrestview(winsave)
       if modesave == 'v'
@@ -318,14 +323,108 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
       endif
       return
     endif
-
-    call setpos('.', l:startpos)
-    normal! v
-    call setpos('.', l:endpos)
-
-  else
-    " they work
-    " echo 'headfield:'.l:isheadfield
-    " echo 'tailfield:'.l:istailfield
   endif
+
+  if a:all
+
+    " (*) for single element:
+    " - delete elem
+    " - check if cursor on same line as opendelim, but not as closedelim
+    "   | if yes:
+    "     - delete left and remember col of opendelim
+    "     - delete right until newline
+    "     - look up col of closedelim on the next line
+    "       | if same as col of opendelim:
+    "         - DONE
+    "       | if not:
+    "         - delete right until closedelim
+    "         - DONE
+    "   | if not:
+    "     - delete left until you reach opendelim
+    "     - delete right until you reach closedelim
+    "     - DONE
+    if l:isheadfield && l:istailfield
+      if (l:opendelim_pos[1] == l:startpos[1]) &&
+            \ (l:opendelim_pos[1] != l:endpos[1])
+        call setpos('.', l:startpos)
+
+        call search('[^ \t\n'.a:fielddelim.']', 'Wb')
+        execute "normal! 1 "
+        let l:startpos = getpos('.')
+
+        if l:opendelim_pos[2] == l:closedelim_pos[2]
+          call setpos('.', l:endpos)
+          call search('[^ \t'.a:fielddelim.']', 'W')
+          execute "normal! 1\<bs>"
+          let l:endpos = getpos('.')
+
+        else
+          call setpos('.', l:endpos)
+          call search('[^ \t\n'.a:fielddelim.']', 'W')
+          execute "normal! 1\<bs>"
+          let l:endpos = getpos('.')
+        endif
+      else
+        call setpos('.', l:startpos)
+        call search('[^ \t\n'.a:fielddelim.']', 'Wb')
+        execute "normal! 1 "
+        let l:startpos = getpos('.')
+
+        call setpos('.', l:endpos)
+        call search('[^ \t\n'.a:fielddelim.']', 'W')
+        execute "normal! 1\<bs>"
+        let l:endpos = getpos('.')
+      endif
+
+      " (*) for head element:
+      " - delete elem
+      " - delete right till first field character
+      " - DONE
+    elseif l:isheadfield
+      call setpos('.', l:endpos)
+      call search('[^ \t\n'.a:fielddelim.']', 'W')
+      execute "normal! 1\<bs>"
+
+      let l:endpos = getpos('.')
+
+      " (*) for middle/tail element:
+      " - delete elem
+      " - check if on right is field character before you reach newline
+      "   | if yes:
+      "     - delete right until first field character
+      "     - DONE
+      "   | if not:
+      "     - delete left until first field character
+      "     - DONE
+    else
+
+      call setpos('.', l:endpos)
+
+      if a:closedelim ==# ']'
+        let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.'\'.a:closedelim.']', col('.'))
+      else
+        let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.a:closedelim.']', col('.'))
+      endif
+
+      " there is a character
+      if l:isnonfieldchar != -1
+        echo 'there is char'
+        call search('[^ \t\n'.a:fielddelim.']', 'W')
+        execute "normal! 1\<bs>"
+        let l:endpos = getpos('.')
+
+      else
+        echo 'there is no char'
+        call setpos('.', l:startpos)
+        call search('[^ \t\n'.a:fielddelim.']', 'Wb')
+        execute "normal! 1 "
+        let l:startpos = getpos('.')
+      endif
+    end
+  endif
+
+  call setpos('.', l:startpos)
+  normal! v
+  call setpos('.', l:endpos)
+
 endfunction
