@@ -1,6 +1,6 @@
 " difb with two line {{{1
 Given (difb with two line):
-  foo(bar, arg
+  foo(bar, arg,
       xyz)
 
 Do (difb with cursor on f):
@@ -29,7 +29,7 @@ Expect (Third argument deleted):
 
 " difB with two line {{{1
 Given (difB with two line):
-  foo{bar, arg
+  foo{bar, arg,
       xyz}
 
 Do (difB with cursor on f):
@@ -58,7 +58,7 @@ Expect (Third argument deleted):
 
 " difr with two line {{{1
 Given (difr with two line):
-  foo[bar, arg
+  foo[bar, arg,
       xyz]
 
 Do (difr with cursor on f):
@@ -87,7 +87,7 @@ Expect (Third argument deleted):
 
 " difa with two line {{{1
 Given (difa with two line):
-  foo<bar, arg
+  foo<bar, arg,
       xyz>
 
 Do (difa with cursor on f):

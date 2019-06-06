@@ -1,6 +1,6 @@
 " dafb with two line {{{1
 Given (dafb with two line):
-  foo(bar, arg
+  foo(bar, arg,
       xyz)
 
 Do (dafb with cursor on f):
@@ -33,7 +33,7 @@ Expect (Third argument deleted):
 
 " dafB with two line {{{1
 Given (dafB with two line):
-  foo{bar, arg
+  foo{bar, arg,
       xyz}
 
 Do (dafB with cursor on f):
@@ -66,7 +66,7 @@ Expect (Third argument deleted):
 
 " dafr with two line {{{1
 Given (dafr with two line):
-  foo[bar, arg
+  foo[bar, arg,
       xyz]
 
 Do (dafr with cursor on f):
@@ -99,7 +99,7 @@ Expect (Third argument deleted):
 
 " dafa with two line {{{1
 Given (dafa with two line):
-  foo<bar, arg
+  foo<bar, arg,
       xyz>
 
 Do (dafa with cursor on f):

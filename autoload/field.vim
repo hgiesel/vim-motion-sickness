@@ -161,7 +161,7 @@ function! s:GetPositionOffset(startpoint, pos)
   let l:offset = 0
 
   if a:pos[1] < a:startpoint[1] || (a:pos[1] == a:startpoint[1] && a:pos[2] < a:startpoint[2])
-    echomsg 'startpoint behind'
+    " echomsg 'startpoint behind'
     return [-1, -1]
   endif
 
@@ -186,7 +186,14 @@ endfunction
 
 function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   " echomsg mode() -> either "n" or "v"
-  normal! 
+  let winsave = winsaveview()
+  let modesave = mode()
+  let before_pos = getpos('.')
+  let before_posv = getpos('v')
+
+  if modesave == 'v'
+    normal! 
+  endif
 
   " Avoid dealing with ambiguity on called field on fielddelim
   let current_c = strcharpart(getline('.'), col('.') - 1, 1)
@@ -216,7 +223,14 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
 
   let [l:offsetJump, l:offset] = s:GetPositionOffset(l:opendelim_pos, l:current_pos)
 
-  if l:offsetJump ==# -1
+  if l:offsetJump <=# 0
+    silent normal! 
+    call winrestview(winsave)
+    if modesave == 'v'
+        call setpos('.', before_posv)
+        silent normal! v
+        call setpos('.', before_pos)
+    endif
     return
   endif
 
@@ -227,15 +241,15 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   let l:fieldbeginJump = l:fieldbegin - (l:offset - l:offsetJump)
   let l:fieldendJump   = l:fieldend - (l:offset - l:offsetJump)
 
-  """" Offsets in l:innertext
-  echo 'fieldbegin: "'.string(l:fieldbegin).'"'
-  echo 'offset: "'.string(l:offset).'"'
-  echo 'fieldend: "'.string(l:fieldend).'"'
+  " """" Offsets in l:innertext
+  " echo 'fieldbegin: "'.string(l:fieldbegin).'"'
+  " echo 'offset: "'.string(l:offset).'"'
+  " echo 'fieldend: "'.string(l:fieldend).'"'
 
-  """" Offsets in l:innertext
-  echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
-  echo 'offsetJump: "'.string(l:offsetJump).'"'
-  echo 'fieldendJump: "'.string(l:fieldendJump).'"'
+  " """" Offsets in l:innertext
+  " echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
+  " echo 'offsetJump: "'.string(l:offsetJump).'"'
+  " echo 'fieldendJump: "'.string(l:fieldendJump).'"'
 
   """ GET START OF INNER FIELD
   normal! 
@@ -268,7 +282,5 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   return
 
   if a:all
-
   endif
-
 endfunction
