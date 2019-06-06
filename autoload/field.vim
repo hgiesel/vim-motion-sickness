@@ -1,20 +1,21 @@
 " ORIGINAL Author:  Takahiro SUZUKI <takahiro.suzuki.ja@gmDELETEMEail.com>
 " Version: 1.1.1 (Vim 7.1)
 " Licence: MIT Licence
-"
+
 " Terminology:
 " - fielddelim: typically comma, might be semicolon, etc.
 " - opendelim: ({[<
 " - closedelim: )}]>
 " - blanks: space and tab
 " - field character: everything except blanks, linefeeds, and fielddelim
-"
+
+" Making an inner field to an all field:
 " Algorithm:
 " (*) for head element:
 " - delete elem
 " - delete right till first field character
 " - DONE
-"
+
 " (*) for middle/tail element:
 " - delete elem
 " - check if on right is field character before newline
@@ -24,7 +25,7 @@
 "   | if yes:
 "     - delete fielddelim and blanks on right
 "     - DONE
-"
+
 " (*) for single element:
 " - delete elem
 " - check if cursor on same line as opendelim, but not as closedelim
