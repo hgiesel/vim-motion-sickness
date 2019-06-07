@@ -12,7 +12,7 @@ ensures they all work as intended.
 
 * **other motions**:
   * [indent motions](#indent-motions)
-  * [symbol motions](#alias-motions)
+  * [symbol motions](#symbol-motions)
 
 ## Alias motions
 
@@ -114,7 +114,7 @@ foo_function(
 
 #### leading-symbol style
 
-````c
+```c
 Foo ( arg1
     , arg2
     , arg2
