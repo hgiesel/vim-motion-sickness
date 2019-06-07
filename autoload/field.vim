@@ -325,11 +325,12 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     endif
   endif
 
-  if a:all
+  let l:innerparen = v:false
 
+  if a:all
     " (*) for single element:
     " - delete elem
-    " - check if cursor on same line as opendelim, but not as closedelim
+    " - check if elem on same line as opendelim, but not as closedelim
     "   | if yes:
     "     - delete left and remember col of opendelim
     "     - delete right until newline
@@ -343,19 +344,26 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     "     - delete left until you reach opendelim
     "     - delete right until you reach closedelim
     "     - DONE
+
     if l:isheadfield && l:istailfield
-      if (l:opendelim_pos[1] == l:startpos[1]) &&
-            \ (l:opendelim_pos[1] != l:endpos[1])
+      " " leading symbol style behaves a bit different than i<delim>
+
+      " trailing symbol style, leading symbol style
+      if (l:opendelim_pos[1] ==# l:startpos[1]) &&
+            \ (l:endpos[1] !=# l:closedelim_pos[1])
         call setpos('.', l:startpos)
 
         call search('[^ \t\n'.a:fielddelim.']', 'Wb')
         execute "normal! 1 "
         let l:startpos = getpos('.')
 
+        " leading symbol style
         if l:opendelim_pos[2] == l:closedelim_pos[2]
-          call setpos('.', l:endpos)
-          call search('[^ \t'.a:fielddelim.']', 'W')
-          execute "normal! 1\<bs>"
+          echo 'hihi'
+          call setpos('.', l:opendelim_pos)
+          execute "normal! 1 "
+          let l:startpos = getpos('.')
+          execute "normal! $"
           let l:endpos = getpos('.')
 
         else
@@ -376,16 +384,24 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
         let l:endpos = getpos('.')
       endif
 
-      " (*) for head element:
-      " - delete elem
-      " - delete right till first field character
-      " - DONE
+      " " (*) for head element:
+      " " - delete elem
+      " " - delete right till first field character
+      " " - DONE
     elseif l:isheadfield
       call setpos('.', l:endpos)
       call search('[^ \t\n'.a:fielddelim.']', 'W')
-      execute "normal! 1\<bs>"
 
+      execute "normal! 1\<bs>"
       let l:endpos = getpos('.')
+
+      " check if maybe actually single field
+      " in trailing symbol style with trailing comma
+      call search('[^ \t\n]', 'W')
+      if getline('.')[col('.') - 1] == a:closedelim
+        let l:innerparen = v:true
+      endif
+
 
       " (*) for middle/tail element:
       " - delete elem
@@ -394,37 +410,59 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
       "     - delete right until first field character
       "     - DONE
       "   | if not:
-      "     - delete left until first field character
-      "     - DONE
+      "     - check if on fielddelim is on the left (for leading)
+      "       | if yes
+      "         - delete left till fielddelim (including)
+      "         - delete right till fielddelim or closeparen (excluding)
+      "       | if not
+      "         - delete left until first field character
+      "         - DONE
     else
-
       call setpos('.', l:endpos)
 
       if a:closedelim ==# ']'
-        let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.'\'.a:closedelim.']', col('.'))
+        let l:modifieddelim = '\'.a:closedelim
       else
-        let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.a:closedelim.']', col('.'))
+        let l:modifieddelim = a:closedelim
       endif
 
-      " there is a character
+      let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.l:modifieddelim.']', col('.'))
+
       if l:isnonfieldchar != -1
-        echo 'there is char'
+        " there is a field on the right
+        " (e.g. short style, or delimiter intended style)
         call search('[^ \t\n'.a:fielddelim.']', 'W')
         execute "normal! 1\<bs>"
         let l:endpos = getpos('.')
 
       else
-        echo 'there is no char'
         call setpos('.', l:startpos)
-        call search('[^ \t\n'.a:fielddelim.']', 'Wb')
-        execute "normal! 1 "
-        let l:startpos = getpos('.')
+        call search(a:fielddelim, 'Wb')
+
+        if getpos('.')[1] ==# l:startpos[1]
+          " leading symbol style
+          let l:startpos = getpos('.')
+          call setpos('.', l:endpos)
+          call search('['.a:fielddelim.a:closedelim.']', 'W')
+          execute "normal! 1\<bs>"
+          let l:endpos = getpos('.')
+
+        else
+          " trailing symbol style
+          call search('[^ \t\n'.a:fielddelim.']', 'Wb')
+          execute "normal! 1 "
+          let l:startpos = getpos('.')
+        endif
+
       endif
     end
   endif
 
-  call setpos('.', l:startpos)
-  normal! v
-  call setpos('.', l:endpos)
-
+  if l:innerparen
+    execute "normal! vi".a:opendelim
+  else
+    call setpos('.', l:startpos)
+    normal! v
+    call setpos('.', l:endpos)
+  endif
 endfunction

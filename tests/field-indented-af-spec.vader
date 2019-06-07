@@ -81,8 +81,8 @@ Expect (First argument deleted):
   foo[arg,
       xyz]
 
-Do (dafrdaqr with cursor on b):
-  fbdafrdaqr
+Do (dafrdafr with cursor on b):
+  fbdafrdafr
 Expect (First two arguments deleted):
   foo[xyz]
 

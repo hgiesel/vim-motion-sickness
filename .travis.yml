@@ -37,7 +37,7 @@ env:
     - TARGET='field-trailing-af'
 
     - TARGET='indent'
-    - TARGET='symbol'
+    - TARGET='symbol-all'
 
 script: ./test.sh
 ...
