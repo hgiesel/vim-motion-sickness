@@ -15,39 +15,46 @@ endif
 let g:loaded_motion_sickness_indent = 1
 
 " Setting user mappings {{{1
-omap ii <plug>(Oiimotion)
-vmap ii <plug>(Viimotion)
-omap ai <plug>(Oaimotion)
-vmap ai <plug>(Vaimotion)
+omap iip <plug>(Oiipmotion)
+vmap iip <plug>(Viipmotion)
+omap aip <plug>(Oaipmotion)
+vmap aip <plug>(Vaipmotion)
 
-omap iI <plug>(OiImotion)
-vmap iI <plug>(ViImotion)
-omap aI <plug>(OaImotion)
-vmap aI <plug>(VaImotion)
+omap iil <plug>(Oiilmotion)
+vmap iil <plug>(Viilmotion)
+omap ail <plug>(Oailmotion)
+vmap ail <plug>(Vailmotion)
 
-" Setting plug mappings {{{1
+omap iib <plug>(Oiibmotion)
+vmap iib <plug>(Viibmotion)
+omap aib <plug>(Oaibmotion)
+vmap aib <plug>(Vaibmotion)
+
+omap il <plug>(Oilmotion)
+vmap il <plug>(Vilmotion)
+omap al <plug>(Oalmotion)
+vmap al <plug>(Valmotion)
+
+" " Setting plug mappings {{{1
 onoremap <silent>
-      \ <plug>(Oiimotion) :<c-u>call
-      \ indent#motion(v:false, '')<cr>
+      \ <plug>(Oiipmotion) <cmd>call indent#motion(v:false, '')<cr>
 vnoremap <silent>
-      \ <plug>(Viimotion) :<c-u>call
-      \ indent#motion(v:false, '')<cr>
+      \ <plug>(Viipmotion) <cmd>call indent#motion(v:false, '')<cr>
 onoremap <silent>
-      \ <plug>(Oaimotion) :<c-u>call
-      \ indent#motion(v:true, '')<cr>
+      \ <plug>(Oaipmotion) <cmd>call indent#motion(v:true, '')<cr>
 vnoremap <silent>
-      \ <plug>(Vaimotion) :<c-u>call
-      \ indent#motion(v:true, '')<cr>
+      \ <plug>(Vaipmotion) <cmd>call indent#motion(v:true, '')<cr>
 
 onoremap <silent>
-      \ <plug>(OiImotion) :<c-u>call
-      \ indent#motion(v:false, 'all')<cr>
+      \ <plug>(Oiibmotion) <cmd>call indent#motion(v:false, 'all')<cr>
 vnoremap <silent>
-      \ <plug>(ViImotion) :<c-u>call
-      \ indent#motion(v:false, 'all')<cr>
+      \ <plug>(Viibmotion) <cmd>call indent#motion(v:false, 'all')<cr>
 onoremap <silent>
-      \ <plug>(OaImotion) :<c-u>call
-      \ indent#motion(v:false, 'escape')<cr>
+      \ <plug>(Oaibmotion) <cmd>call indent#motion(v:false, 'escape')<cr>
 vnoremap <silent>
-      \ <plug>(VaImotion) :<c-u>call
-      \ indent#motion(v:false, 'escape')<cr>
+      \ <plug>(Vaibmotion) <cmd>call indent#motion(v:false, 'escape')<cr>
+
+onoremap <silent> <plug>(Oilmotion) $v^o
+vnoremap <silent> <plug>(Vilmotion) <esc>$v^o
+onoremap <silent> <plug>(Oalmotion) g_v0o
+vnoremap <silent> <plug>(Valmotion) <esc>g_v0o

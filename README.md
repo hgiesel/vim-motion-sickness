@@ -12,7 +12,8 @@ ensures they all work as intended.
 
 * **other motions**:
   * [indent motions](#indent-motions)
-  * [symbol motions](#alias-motions, asdf, asdf)
+  * [line motions](#line-motions)
+  * [symbol motions](#symbol-motions)
 
 ## Alias motions
 
@@ -151,6 +152,11 @@ these motions.
 * `aI` can extends either only to the top, or to the bottom as well
   * defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`
   * in languages which are indent heavy, like Python or Haskell, reach down is discouraged
+
+## Line motions
+
+* inspired by [vim-textobj-line](https://github.com/kana/vim-textobj-line)
+
 
 ## Symbol motions
 
