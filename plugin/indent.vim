@@ -1,7 +1,7 @@
 " 7. indentation motion
 " ii: select current indentation delimited by lines with one indentation less or
 " empty lines
-" ai: select current indentation delimited by lines with one indentation less
+
 " (which are included) or empty lines
 " iI: select current indentation delimited by lines with one indentation less
 " (note that this would select the whole file on an empty line)
@@ -30,11 +30,6 @@ vmap iib <plug>(Viibmotion)
 omap aib <plug>(Oaibmotion)
 vmap aib <plug>(Vaibmotion)
 
-omap il <plug>(Oilmotion)
-vmap il <plug>(Vilmotion)
-omap al <plug>(Oalmotion)
-vmap al <plug>(Valmotion)
-
 " " Setting plug mappings {{{1
 onoremap <silent>
       \ <plug>(Oiipmotion) <cmd>call indent#motion(v:false, '')<cr>
@@ -54,7 +49,12 @@ onoremap <silent>
 vnoremap <silent>
       \ <plug>(Vaibmotion) <cmd>call indent#motion(v:false, 'escape')<cr>
 
-onoremap <silent> <plug>(Oilmotion) $v^o
-vnoremap <silent> <plug>(Vilmotion) <esc>$v^o
-onoremap <silent> <plug>(Oalmotion) g_v0o
-vnoremap <silent> <plug>(Valmotion) <esc>g_v0o
+omap il <plug>(Oilmotion)
+vmap il <plug>(Vilmotion)
+omap al <plug>(Oalmotion)
+vmap al <plug>(Valmotion)
+
+onoremap <silent> <plug>(Oilmotion) <cmd>call line#motion('i')<cr>
+vnoremap <silent> <plug>(Vilmotion) <cmd>call line#motion('i')<cr>
+onoremap <silent> <plug>(Oalmotion) <cmd>call line#motion('a')<cr>
+vnoremap <silent> <plug>(Valmotion) <cmd>call line#motion('a')<cr>
