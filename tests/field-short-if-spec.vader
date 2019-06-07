@@ -1,0 +1,97 @@
+" field short style spec with dif commands {{{1
+" difb with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo(bar, arg, xyz)
+
+Do (difb with cursor on f):
+  difb
+Expect (Nothing deleted):
+  foo(bar, arg, xyz)
+
+Do (difb with cursor on b):
+  fbdifb
+Expect (First argument deleted):
+  foo(, arg, xyz)
+
+Do (difb with cursor on second a):
+  2fadifb
+Expect (Second argument deleted):
+  foo(bar, , xyz)
+
+Do (difb with cursor on x):
+  fxdifb
+Expect (Third argument deleted):
+  foo(bar, arg, )
+
+" difB with doc foo(bar) {{{2
+Given (foo{bar, arg, xyz}):
+  foo{bar, arg, xyz}
+
+Do (difB with cursor on f):
+  difB
+Expect (Nothing deleted):
+  foo{bar, arg, xyz}
+
+Do (difB with cursor on b):
+  fbdifB
+Expect (First argument deleted):
+  foo{, arg, xyz}
+
+Do (difB with cursor on second a):
+  2fadifB
+Expect (Second argument deleted):
+  foo{bar, , xyz}
+
+Do (difB with cursor on x):
+  fxdifB
+Expect (Third argument deleted):
+  foo{bar, arg, }
+
+" difr with doc foo(bar) {{{2
+Given (foo[bar, arg, xyz]):
+  foo[bar, arg, xyz]
+
+Do (difr with cursor on f):
+  difr
+Expect (Nothing deleted):
+  foo[bar, arg, xyz]
+
+Do (difr with cursor on b):
+  fbdifr
+Expect (First argument deleted):
+  foo[, arg, xyz]
+
+Do (difr with cursor on second a):
+  2fadifr
+Expect (Second argument deleted):
+  foo[bar, , xyz]
+
+Do (difr with cursor on x):
+  fxdifr
+Expect (Third argument deleted):
+  foo[bar, arg, ]
+
+" difa with doc foo(bar) {{{2
+Given (foo(bar, arg, xyz)):
+  foo<bar, arg, xyz>
+
+Do (difa with cursor on f):
+  difa
+Expect (Nothing deleted):
+  foo<bar, arg, xyz>
+
+Do (difa with cursor on b):
+  fbdifa
+Expect (First argument deleted):
+  foo<, arg, xyz>
+
+Do (difa with cursor on second a):
+  2fadifa
+Expect (Second argument deleted):
+  foo<bar, , xyz>
+
+Do (difa with cursor on x):
+  fxdifa
+Expect (Third argument deleted):
+  foo<bar, arg, >
+

@@ -1,0 +1,167 @@
+" dafb {{{1
+Given (leading-symbol style):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+Do (dafb with cursor on f):
+  dafb
+Expect (Nothing deleted):
+  foo( bar
+     , arg
+     , xyz
+     )
+
+Do (dafb with cursor on b):
+  fbdafb
+Expect (First argument deleted):
+  foo( arg
+     , xyz
+     )
+
+Do (dafbdafb with cursor on b):
+  fbdafbdafb
+Expect (First two arguments deleted):
+  foo( xyz
+     )
+
+Do (dafb with cursor on second a):
+  jfadafb
+Expect (Second argument deleted):
+  foo( bar
+     , xyz
+     )
+
+Do (dafb with cursor on x):
+  jjfxdafb
+Expect (Third argument deleted):
+  foo( bar
+     , arg
+     )
+
+" dafB {{{1
+Given (leading-symbol style):
+  foo{ bar
+     , arg
+     , xyz
+     }
+
+Do (dafB with cursor on f):
+  dafB
+Expect (Nothing deleted):
+  foo{ bar
+     , arg
+     , xyz
+     }
+
+Do (dafB with cursor on b):
+  fbdafB
+Expect (First argument deleted):
+  foo{ arg
+     , xyz
+     }
+
+Do (dafBdafB with cursor on b):
+  fbdafBdafB
+Expect (First two arguments deleted):
+  foo{ xyz
+     }
+
+Do (dafB with cursor on second a):
+  jfadafB
+Expect (Second argument deleted):
+  foo{ bar
+     , xyz
+     }
+
+Do (dafB with cursor on x):
+  jjfxdafB
+Expect (Third argument deleted):
+  foo{ bar
+     , arg
+     }
+
+" dafr {{{1
+Given (leading-symbol style multiline):
+  foo[ bar
+     , arg
+     , xyz
+     ]
+
+Do (dafr with cursor on f):
+  dafr
+Expect (Nothing deleted):
+  foo[ bar
+     , arg
+     , xyz
+     ]
+
+Do (dafr with cursor on b):
+  fbdafr
+Expect (First argument deleted):
+  foo[ arg
+     , xyz
+     ]
+
+Do (dafrdafr with cursor on b):
+  fbdafrdafr
+Expect (First two arguments deleted):
+  foo[ xyz
+     ]
+
+Do (dafr with cursor on second a):
+  jfadafr
+Expect (Second argument deleted):
+  foo[ bar
+     , xyz
+     ]
+
+Do (dafr with cursor on x):
+  jjfxdafr
+Expect (Third argument deleted):
+  foo[ bar
+     , arg
+     ]
+
+" dafa {{{1
+Given (leading-symbol style):
+  foo< bar
+     , arg
+     , xyz
+     >
+
+Do (dafa with cursor on f):
+  dafa
+Expect (Nothing deleted):
+  foo< bar
+     , arg
+     , xyz
+     >
+
+Do (dafa with cursor on b):
+  fbdafa
+Expect (First argument deleted):
+  foo< arg
+     , xyz
+     >
+
+Do (dafadafa with cursor on b):
+  fbdafadafa
+Expect (First two arguments deleted):
+  foo< xyz
+     >
+
+Do (dafa with cursor on second a):
+  jfadafa
+Expect (Second argument deleted):
+  foo< bar
+     , xyz
+     >
+
+Do (dafa with cursor on x):
+  jjfxdafa
+Expect (Third argument deleted):
+  foo< bar
+     , arg
+     >

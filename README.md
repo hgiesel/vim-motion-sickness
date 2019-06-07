@@ -3,9 +3,18 @@
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
 ensures they all work as intended.
 
-## List of text object
+#### List of text objects
 
-### Alias motions
+* **bracket motions**:
+  * [alias motions](#alias-motions)
+  * [expression motions](#expression-motions)
+  * [field motions](#field-motions)
+
+* **other motions**:
+  * [indent motions](#indent-motions)
+  * [symbol motions](#alias-motions, asdf, asdf)
+
+## Alias motions
 
 * inspired by [Tim Pope's vim-surround](https://github.com/tpope/vim-surround)
 
@@ -14,7 +23,136 @@ ensures they all work as intended.
 | `ir`/`ar`    | aliases for `i[`/`a[` |
 | `ia`/`aa`    | aliases for `i<`/`a<` |
 
-### Symbol motions
+* with these added, you have three full sets of motions for the common brackets:
+
+|              |  parentheses | braces    | square brackets | angle brackets |
+|--------------|--------------|-----------|-----------------|----------------|
+| *char*       | `ib`/`ab`    | `iB`/`aB` | `ir`/`ar`       | `ia`/`aa`      |
+| *opendelim*  | `i(`/`a(`    | `i{`/`a{` | `i[`/`a[`       | `i<`/`a<`      |
+| *closedelim* | `i)`/`a)`    | `i}`/`a}` | `i]`/`a]`       | `i>`/`a>`      |
+
+* these motions are exactly equal in functionality
+  * this fact is important for the upcoming [expression motions](#expression-motions) and [field motions](#field-motions)
+
+## Expression motions
+
+* inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
+
+**Expression motions** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
+
+An *inner expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by a WORD.
+While going back a word, `motion-sickness` is smart about not going beyond opening brackets, etc. 
+
+// TODO add cast
+
+An *all expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by anything.
+The same restrictions that apply to *inner expressions* apply here too.
+
+// TODO add cast
+
+The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
+Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
+them to the shorter version. Just put this into your vimrc.
+
+```vim
+let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
+let g:sick_expression_maps = 'closedelim' " uses {i,a}{),},],>} for expression motions
+let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motions
+```
+
+## Field motions
+
+* inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
+
+**Field motions** have the structure "{`i`,`a`}`f`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
+
+An *inner field* selects the current field, enclosed in the specific brace. Think of
+arguments in function, list elements, dictionary entries, etc.
+
+// TODO add cast
+
+An *all field* selects an inner field, together with the field delimiter (usually a comma)
+
+// TODO add cast
+
+The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
+Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
+them to the shorter version. Just put this into your vimrc.
+
+```vim
+let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
+let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for expression motions
+let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motions
+```
+
+4 types of list styles are supported.
+In other words, these are basis for the unit tests, and for the algorithm governing
+these motions.
+
+<table>
+    <thead>
+        <tr>
+            <th>list style</th>
+            <th>example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>short style</td>
+            <td>
+                <pre><code>foo(arg1, arg2, arg3)</code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>delimiter-indented style</td>
+            <td>
+                <pre><code>foo_function(arg1, arg2,
+             arg3)</code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>trailing-symbol style</td>
+            <td>
+                <pre><code>foo_function(
+    arg1,
+    arg2,
+    arg3
+)</code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>leading-symbol style</td>
+            <td>
+                <pre><code>foo( arg1
+   , arg2
+   , arg2
+   , arg3
+   )</code></pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+> ## Segment motions
+> ## Pair motions
+
+## Indent motions
+
+* inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
+
+| text object | effect                                        |
+|-------------|-----------------------------------------------|
+| `ii`        | select current indent level and above         |
+| `ai`        | select current indent level and above, and first line of one indent level below |
+| `iI`        | select current indent leven and above going beyond empty lines |
+| `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
+
+* these were built to imitate `ip`/`ap` on some level, but also offer many more uses
+* `aI` can extends either only to the top, or to the bottom as well
+  * defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`
+  * in languages which are indent heavy, like Python or Haskell, reach down is discouraged
+
+## Symbol motions
 
 | text object  | effect                             |
 |--------------|------------------------------------|
@@ -28,58 +166,6 @@ ensures they all work as intended.
 | `i/`/`a/`    | similar to `i"`/`a"`, but for `/`  |
 | `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
 | `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
-
-### Indent motions
-
-* inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
-
-| text object | effect                |
-|-------------|-----------------------|
-| `ii`        | select current indent level and above |
-| `ai`        | select current indent level and above, and first line of one indent level below |
-| `iI`        | select current indent leven and above going beyond empty lines |
-| `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
-
-### Q motions
-
-* inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
-
-| text object | effect                |
-|-------------|-----------------------|
-| `qb`        | select parentheses preceded by a word     |
-| `qB`        | select braces preceded by a word          |
-| `qr`        | select square brackets preceded by a word |
-| `qa`        | select angle brackets preceded by a word  |
-| `Qb`        | select parentheses preceded by a WORD     |
-| `QB`        | select braces preceded by a WORD          |
-| `Qr`        | select square brackets preceded by a WORD |
-| `Qa`        | select angle brackets preceded by a WORD  |
-
-### IQ motions
-
-* inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
-
-| text object | effect                |
-|-------------|-----------------------|
-| `iqb`       | select comma-separated argument within parentheses                |
-| `aqb`       | select comma-separated argument within parentheses with comma     |
-| `iqB`       | select comma-separated argument within braces                     |
-| `aqB`       | select comma-separated argument within braces with comma          |
-| `iqr`       | select comma-separated argument within square brackets            |
-| `aqr`       | select comma-separated argument within square brackets with comma |
-| `iqa`       | select comma-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
-| `aqa`       | select comma-separated argument within angle brackets with comma (requires `set matchpairs+=<:>` to work) |
-| `iQb`       | select semicolon-separated argument within parentheses                |
-| `aQb`       | select semicolon-separated argument within parentheses with semicolon     |
-| `iQB`       | select semicolon-separated argument within braces                     |
-| `aQB`       | select semicolon-separated argument within braces with semicolon          |
-| `iQr`       | select semicolon-separated argument within square brackets            |
-| `aQr`       | select semicolon-separated argument within square brackets with semicolon |
-| `iQa`       | select semicolon-separated argument within angle brackets (requires `set matchpairs+=<:>` to work) |
-| `aQa`       | select semicolon-separated argument within angle brackets with semicolon (requires `set matchpairs+=<:>` to work) |
-
-> ### Segment motions
-> ### Pair motions
 
 ## TODO
 

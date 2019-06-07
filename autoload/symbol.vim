@@ -1,5 +1,5 @@
 " Defining functinos {{{1
-function! symbol#sick_symbol_motion(wrap, symbol, mode)
+function! symbol#motion(wrap, symbol, mode)
   let l:start_col = col('.')
   let l:valid     = v:true
 

@@ -1,0 +1,234 @@
+" Using die {{{1
+" {{{2 Given (xyz(def foo(bar))):
+Given (xyz(def foo(bar))):
+  xyz(def foo(bar))
+
+Do (dieb with cursor on x):
+  dieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on d):
+  fddieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on b):
+  fbdieb
+Expect (delete inner expression):
+  xyz(def )
+
+Do (dieb with cursor on open paren):
+  f(dieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on second close paren):
+  f)f)dieb
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz{def foo{bar}}):
+Given (xyz{def foo{bar}}):
+  xyz{def foo{bar}}
+
+Do (dieB with cursor on x):
+  dieB
+Expect (All deleted):
+  
+
+Do (dieB with cursor on d):
+  fddieB
+Expect (All deleted):
+  
+
+Do (dieB with cursor on b):
+  fbdieB
+Expect (delete inner expression):
+  xyz{def }
+
+Do (dieB with cursor on open paren):
+  f{dieB
+Expect (All deleted):
+  
+
+Do (dieB with cursor on second close paren):
+  f}f}dieB
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz[def foo[bar]]):
+Given (xyz[def foo[bar]]):
+  xyz[def foo[bar]]
+
+Do (dier with cursor on x):
+  dier
+Expect (All deleted):
+  
+
+Do (dier with cursor on d):
+  fddier
+Expect (All deleted):
+  
+
+Do (dier with cursor on b):
+  fbdier
+Expect (delete inner expression):
+  xyz[def ]
+
+Do (dier with cursor on open paren):
+  f[dier
+Expect (All deleted):
+  
+
+Do (dier with cursor on second close paren):
+  f]f]dier
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz<def foo<bar>>):
+Given (xyz<def foo<bar>>):
+  xyz<def foo<bar>>
+
+Do (diea with cursor on x):
+  diea
+Expect (All deleted):
+  
+
+Do (diea with cursor on d):
+  fddiea
+Expect (All deleted):
+  
+
+Do (diea with cursor on b):
+  fbdiea
+Expect (delete inner expression):
+  xyz<def >
+
+Do (diea with cursor on open paren):
+  f<diea
+Expect (All deleted):
+  
+
+Do (diea with cursor on second close paren):
+  f>f>diea
+Expect (All deleted):
+  
+
+" {{{1 Using dae
+" {{{2 Given (xyz(def foo(bar))):
+Given (xyz(def foo(bar))):
+  xyz(def foo(bar))
+
+Do (daeb with cursor on x):
+  daeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on d):
+  fddaeb
+Expect (delete inner expression):
+  xyz()
+
+Do (daeb with cursor on b):
+  fbdaeb
+Expect (delete inner expression):
+  xyz()
+
+Do (daeb with cursor on open paren):
+  f(daeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on second close paren):
+  f)f)daeb
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz{def foo{bar}}):
+Given (xyz{def foo{bar}}):
+  xyz{def foo{bar}}
+
+Do (daeB with cursor on x):
+  daeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on d):
+  fddaeB
+Expect (delete inner expression):
+  xyz{}
+
+Do (daeB with cursor on b):
+  fbdaeB
+Expect (delete inner expression):
+  xyz{}
+
+Do (daeB with cursor on open paren):
+  f{daeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on second close paren):
+  f}f}daeB
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz[def foo[bar]]):
+Given (xyz[def foo[bar]]):
+  xyz[def foo[bar]]
+
+Do (daer with cursor on x):
+  daer
+Expect (All deleted):
+  
+
+Do (daer with cursor on d):
+  fddaer
+Expect (delete inner expression):
+  xyz[]
+
+Do (daer with cursor on b):
+  fbdaer
+Expect (delete inner expression):
+  xyz[]
+
+Do (daer with cursor on open paren):
+  f[daer
+Expect (All deleted):
+  
+
+Do (daer with cursor on second close paren):
+  f]f]daer
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz<def foo<bar>>):
+Given (xyz<def foo<bar>>):
+  xyz<def foo<bar>>
+
+Do (daea with cursor on x):
+  daea
+Expect (All deleted):
+  
+
+Do (daea with cursor on d):
+  fddaea
+Expect (All deleted):
+  xyz<>
+
+Do (daea with cursor on b):
+  fbdaea
+Expect (delete inner expression):
+  xyz<>
+
+Do (daea with cursor on open paren):
+  f<daea
+Expect (All deleted):
+  
+
+Do (daea with cursor on second second close paren):
+  f>f>daea
+Expect (All deleted):
+  
+

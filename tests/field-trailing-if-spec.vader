@@ -1,0 +1,89 @@
+" difb without last trailing comma {{{2
+Given (difb without last trailing comma):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (difb with cursor on f):
+  difb
+Expect (Nothing deleted):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (difb with cursor on b):
+  jfbdifb
+Expect (First argument deleted):
+  foo(
+    ,
+    arg,
+    xyz
+  )
+
+Do (difb with cursor on second a):
+  jjfadifb
+Expect (Second argument deleted):
+  foo(
+    bar,
+    ,
+    xyz
+  )
+
+Do (difb with cursor on z):
+  jjjfxdifb
+Expect (Third argument deleted):
+  foo(
+    bar,
+    arg,
+    
+  )
+
+
+
+" difr without last trailing comma {{{2
+Given (difr without last trailing comma):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+Do (difr with cursor on f):
+  difr
+Expect (Nothing deleted):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+Do (difr with cursor on b):
+  jfbdifr
+Expect (First argument deleted):
+  foo[
+    ,
+    arg,
+    xyz
+  ]
+
+Do (difr with cursor on second a):
+  jjfadifr
+Expect (Second argument deleted):
+  foo[
+    bar,
+    ,
+    xyz
+  ]
+
+Do (difr with cursor on z):
+  jjjfxdifr
+Expect (Third argument deleted):
+  foo[
+    bar,
+    arg,
+    
+  ]

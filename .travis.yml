@@ -7,21 +7,37 @@ notifications:
 
 before_install:
   - git clone https://github.com/junegunn/vader.vim.git ~/.vim/plugged/vader.vim
-  - git clone https://github.com/vim/vim
+  - git clone https://github.com/neovim/neovim.git
   - rvm use system
 
 install:
-  - >
-    (cd vim ; ./configure
-    --with-features=huge
-    --enable-rubyinterp
-    --enable-pythoninterp)
-  - make -C ./vim -j4
-  - sudo make -C ./vim install
+  - (cd neovim ; make CMAKE_BUILD_TYPE=Release; sudo make install)
 
 before_script:
   - export PATH="/usr/local/bin:${PATH}"
 
-script: |
-  vim -u 'test/vimrc-test.vim' -c 'Vader! test/*.vader' > /dev/null
+env:
+  matrix:
+    - TARGET='alias'
+
+    - TARGET='expression-general'
+    - TARGET='expression-multiline-indented'
+    - TARGET='expression-multiline-leading'
+    - TARGET='expression-multiline-trailing'
+    - TARGET='expression-nested'
+    - TARGET='expression-whitespace'
+
+    - TARGET='field-indented-af'
+    - TARGET='field-indented-if'
+    - TARGET='field-leading-if'
+    - TARGET='field-leading-af'
+    - TARGET='field-short-if'
+    - TARGET='field-short-af'
+    - TARGET='field-trailing-if'
+    - TARGET='field-trailing-af'
+
+    - TARGET='indent'
+    - TARGET='symbol-all'
+
+script: ./test.sh
 ...

@@ -1,0 +1,194 @@
+" Using die {{{1
+" {{{2 Given (foo(bar)):
+Given (foo(bar)):
+  foo(bar)
+
+Do (dieb with cursor on f):
+  dieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on b):
+  fbdieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on open paren):
+  f(dieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on close paren):
+  f)dieb
+Expect (All deleted):
+  
+
+" {{{2 Given (foo{bar}):
+Given (foo{bar}):
+  foo{bar}
+
+Do (dieB with cursor on f):
+  dieB
+Expect (All deleted):
+  
+
+Do (dieB with cursor on b):
+  fbdieB
+Expect (All deleted):
+  
+
+Do (dieB with cursor on open paren):
+  f{dieB
+Expect (All deleted):
+  
+
+Do (dieB with cursor on close paren):
+  f}dieB
+Expect (All deleted):
+  
+
+" {{{2 Given (foo[bar]):
+Given (foo[bar]):
+  foo[bar]
+
+Do (dier with cursor on f):
+  dier
+Expect (All deleted):
+  
+
+Do (dier with cursor on b):
+  fbdier
+Expect (All deleted):
+  
+
+Do (dier with cursor on open paren):
+  f[dier
+Expect (All deleted):
+  
+
+Do (dier with cursor on close paren):
+  f]dier
+Expect (All deleted):
+  
+
+" {{{2 Given (foo<bar>):
+Given (foo<bar>):
+  foo<bar>
+
+Do (diea with cursor on f):
+  diea
+Expect (All deleted):
+  
+
+Do (diea with cursor on b):
+  fbdiea
+Expect (All deleted):
+  
+
+Do (diea with cursor on open paren):
+  f<diea
+Expect (All deleted):
+  
+
+Do (diea with cursor on close paren):
+  f>diea
+Expect (All deleted):
+  
+
+" {{{1 Using dae
+" {{{2 Given (foo(bar)):
+Given (foo(bar)):
+  foo(bar)
+
+Do (daeb with cursor on f):
+  daeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on b):
+  fbdaeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on open paren):
+  f(daeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on close paren):
+  f)daeb
+Expect (All deleted):
+  
+
+" {{{2 Given (foo{bar}):
+Given (foo{bar}):
+  foo{bar}
+
+Do (daeB with cursor on f):
+  daeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on b):
+  fbdaeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on open paren):
+  f{daeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on close paren):
+  f}daeB
+Expect (All deleted):
+  
+
+" {{{2 Given (foo[bar]):
+Given (foo[bar]):
+  foo[bar]
+
+Do (daer with cursor on f):
+  daer
+Expect (All deleted):
+  
+
+Do (daer with cursor on b):
+  fbdaer
+Expect (All deleted):
+  
+
+Do (daer with cursor on open paren):
+  f[daer
+Expect (All deleted):
+  
+
+Do (daer with cursor on close paren):
+  f]daer
+Expect (All deleted):
+  
+
+" {{{2 Given (foo<bar>):
+Given (foo<bar>):
+  foo<bar>
+
+Do (daea with cursor on f):
+  daea
+Expect (All deleted):
+  
+
+Do (daea with cursor on b):
+  fbdaea
+Expect (All deleted):
+  
+
+Do (daea with cursor on open paren):
+  f<daea
+Expect (All deleted):
+  
+
+Do (daea with cursor on close paren):
+  f>daea
+Expect (All deleted):
+  
+

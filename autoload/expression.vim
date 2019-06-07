@@ -1,18 +1,20 @@
 " Defining functions {{{1
-function! qmotion#sick_qb_motion(cur_pos, open_char, close_char, reach)
-  let l:recursions  = 1
-  let l:winview     = winsaveview()
+function! expression#motion(open_char, close_char, reach)
+  let l:cur_pos    = getpos('.')
+  let l:recursions = 1
+  let l:winview    = winsaveview()
 
+  normal! 
   " this will only work with 10 recursions, because this could go on forever
   while l:recursions < 10
     " This block makes an assumption to what the qb section may look like with the
     " cursor ending on the end of the selection (how it should be)
-    call qmotion#sick_find_nth_char(l:recursions, a:close_char)
-    call qmotion#sick_make_a_q(a:open_char, a:close_char, a:reach)
+    call s:Find_nth_char(l:recursions, a:close_char)
+    call s:Make_a_q(a:open_char, a:close_char, a:reach)
     execute 'normal! o'
 
-    if qmotion#sick_cmp(getpos('v')[1:2], a:cur_pos[1:2]) !=# 1
-          \ && qmotion#sick_cmp(a:cur_pos[1:2], getpos('.')[1:2]) !=# 1
+    if s:Cmp(getpos('v')[1:2], l:cur_pos[1:2]) !=# 1
+          \ && s:Cmp(l:cur_pos[1:2], getpos('.')[1:2]) !=# 1
       " legit qb section: reset window and finish
       call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
       return 0
@@ -21,7 +23,7 @@ function! qmotion#sick_qb_motion(cur_pos, open_char, close_char, reach)
     else
       " no legit qb section
       normal! v
-      call setpos('.', a:cur_pos)
+      call setpos('.', l:cur_pos)
       let l:recursions += 1
     endif
   endwhile
@@ -30,7 +32,7 @@ function! qmotion#sick_qb_motion(cur_pos, open_char, close_char, reach)
   call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
 endfunction
 
-function! qmotion#sick_make_a_q(open_char, close_char, reach)
+function! s:Make_a_q(open_char, close_char, reach)
   let l:invalid = 0
   let l:recursion = 0
   let l:finished  = 0
@@ -47,7 +49,7 @@ function! qmotion#sick_make_a_q(open_char, close_char, reach)
     " A
     " if there is a space or bol to the left of proposed statement, it's
     " no statement
-    if l:next_char ==# ' ' || col('.') == 1
+    if col('.') == 1
       let l:invalid = 1
 
       " B
@@ -81,28 +83,66 @@ function! qmotion#sick_make_a_q(open_char, close_char, reach)
         endif
       endif
 
-      " D
       " if character next to such an statement is a character, it is
       " probably its name
-    elseif l:next_char =~ '\v[a-zA-Z0-9_]'
-      if a:reach
-        " don't reach beyon ({[<
-        " ex. foo[bar::baz[arg]]
-        call search('\m\%(\s\|[(\[<{]\|^\)', 'bW')
-        if getpos('.')[2] != 1
-          normal! l
+    elseif l:next_char =~ '\v[a-zA-Z0-9_\$\<\>\=\# ]'
+
+      if a:reach ==# 'f'
+        " if possible, reach full line, but don't reach beyond ({[<
+        " ex. if (hello) { bla; }
+        let l:theline_unreversed = getline('.')[0:col('.') - 2] " cut out opendelim of qb match
+        let l:theline = join(reverse(split(l:theline_unreversed, '.\zs')), '')
+        let l:oldline = ''
+
+        while (l:theline !=# l:oldline)
+          let l:oldline = l:theline
+          let l:theline = substitute(l:theline, '\%()\(.\{-}\)(\|\]\(.\{-}\)\[\|>\(.\{-}\)<\|}\(.\{-}\){\)', '_\1_', 'g')
+        endwhile
+
+        let l:opendelim_pos = match(l:theline, '.*\zs[(\[{<]')
+        if l:opendelim_pos == -1
+          normal! ^
+        else
+          let l:opendelim_pos = (len(l:theline) - l:opendelim_pos) + 1
+          execute 'normal! '.l:opendelim_pos.'|'
         endif
-      else
+
+      elseif a:reach ==# 'W'
+        " reach a WORD, but don't reach beyond ({[<
+        " ex. foo[bar::baz[arg]]
+        let l:theline_unreversed = getline('.')[0:col('.') - 2] " cut out opendelim of qb match
+        let l:theline = join(reverse(split(l:theline_unreversed, '.\zs')), '')
+        let l:oldline = ''
+
+        while (l:theline !=# l:oldline)
+          let l:oldline = l:theline
+          let l:theline = substitute(l:theline, '\%()\(.\{-}\)(\|\]\(.\{-}\)\[\|>\(.\{-}\)<\|}\(.\{-}\){\)', '_\1_', 'g')
+        endwhile
+
+        " biggest possible occurence of delims
+        let l:opendelim_pos = match(l:theline, '.*\zs[(\[{<]')
+        " first occurence of space
+        let l:space_pos = match(l:theline, ' ')
+
+        if l:opendelim_pos ==# -1
+          let l:the_pos = l:space_pos
+        elseif l:space_pos ==# -1
+          let l:the_pos = l:opendelim_pos
+        else
+          let l:the_pos = min([l:opendelim_pos, l:space_pos])
+        endif
+
+        if l:the_pos == -1
+          normal! ^
+        else
+          let l:the_pos = (len(l:theline) - l:the_pos) + 1
+          execute 'normal! '.l:the_pos.'|'
+        endif
+
+      else " a:reach ==# 'w'
         normal! b
       endif
 
-      let l:finished = 1
-
-      " E
-      " for common structures like `$()` `<()` `>()` `=()` `#()`
-      " which are found e.g. in shell scripts or jquery or ruby
-    elseif l:next_char =~# '\v[\$\<\>\=\#]'
-      normal! h
       let l:finished = 1
     endif
 
@@ -111,7 +151,7 @@ function! qmotion#sick_make_a_q(open_char, close_char, reach)
   return l:invalid
 endfunction
 
-function! qmotion#sick_find_nth_char(n, char)
+function! s:Find_nth_char(n, char)
   if getline('.')[col('.') - 1] !=# a:char
     for i in range(a:n)
       silent! execute "normal! /" . a:char . "\<cr>"
@@ -122,7 +162,7 @@ function! qmotion#sick_find_nth_char(n, char)
 endfunction
 
 " like C {{{2
-function! qmotion#sick_cmp(a, b)
+function! s:Cmp(a, b)
   for i in range(len(a:a))
     if a:a[i] < a:b[i]
       return -1

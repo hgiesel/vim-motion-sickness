@@ -1,0 +1,191 @@
+" dafb without last trailing comma {{{2
+Given (trailing-symbol style multiline):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (dafb with cursor on f):
+  dafb
+Expect (Nothing deleted):
+  foo(
+    bar,
+    arg,
+    xyz
+  )
+
+Do (dafb with cursor on b):
+  jfbdafb
+Expect (First argument deleted):
+  foo(
+    arg,
+    xyz
+  )
+
+Do (dafbdafb with cursor on b):
+  jfbdafbdafb
+Expect (First two arguments deleted):
+  foo(
+    xyz
+  )
+
+Do (dafb with cursor on second a):
+  jjfadafb
+Expect (Second argument deleted):
+  foo(
+    bar,
+    xyz
+  )
+
+Do (dafb with cursor on z):
+  jjjfxdafb
+Expect (Third argument deleted):
+  foo(
+    bar,
+    arg
+  )
+
+" dafB without last trailing comma {{{2
+Given (dafB without last trailing comma):
+  foo{
+    bar,
+    arg,
+    xyz
+  }
+
+Do (dafB with cursor on f):
+  dafB
+Expect (Nothing deleted):
+  foo{
+    bar,
+    arg,
+    xyz
+  }
+
+Do (dafB with cursor on b):
+  jfbdafB
+Expect (First argument deleted):
+  foo{
+    arg,
+    xyz
+  }
+
+Do (dafBdafB with cursor on b):
+  jfbdafBdafB
+Expect (First two arguments deleted):
+  foo{
+    xyz
+  }
+
+Do (dafB with cursor on second a):
+  jjfadafB
+Expect (Second argument deleted):
+  foo{
+    bar,
+    xyz
+  }
+
+Do (dafB with cursor on z):
+  jjjfxdafB
+Expect (Third argument deleted):
+  foo{
+    bar,
+    arg
+  }
+
+" dafr without last trailing comma {{{2
+Given (dafr without last trailing comma):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+Do (dafr with cursor on f):
+  dafr
+Expect (Nothing deleted):
+  foo[
+    bar,
+    arg,
+    xyz
+  ]
+
+Do (dafr with cursor on b):
+  jfbdafr
+Expect (First argument deleted):
+  foo[
+    arg,
+    xyz
+  ]
+
+Do (dafrdafr with cursor on b):
+  jfbdafrdafr
+Expect (First two arguments deleted):
+  foo[
+    xyz
+  ]
+
+Do (dafr with cursor on second a):
+  jjfadafr
+Expect (Second argument deleted):
+  foo[
+    bar,
+    xyz
+  ]
+
+Do (dafr with cursor on z):
+  jjjfxdafr
+Expect (Third argument deleted):
+  foo[
+    bar,
+    arg
+  ]
+
+" dafa without last trailing comma {{{2
+Given (dafa without last trailing comma):
+  foo<
+    bar,
+    arg,
+    xyz
+  >
+
+Do (dafa with cursor on f):
+  dafa
+Expect (Nothing deleted):
+  foo<
+    bar,
+    arg,
+    xyz
+  >
+
+Do (dafa with cursor on b):
+  jfbdafa
+Expect (First argument deleted):
+  foo<
+    arg,
+    xyz
+  >
+
+Do (dafadafa with cursor on b):
+  jfbdafadafa
+Expect (First two arguments deleted):
+  foo<
+    xyz
+  >
+
+Do (dafa with cursor on second a):
+  jjfadafa
+Expect (Second argument deleted):
+  foo<
+    bar,
+    xyz
+  >
+
+Do (dafa with cursor on z):
+  jjjfxdafa
+Expect (Third argument deleted):
+  foo<
+    bar,
+    arg
+  >

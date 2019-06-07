@@ -1,0 +1,53 @@
+" Using dieb {{{1
+Given (leading-symbol style):
+  foo( bar
+     , a_longer_word
+     , another_word
+     )
+
+Do (dieb with cursor on f):
+  dieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on open paren):
+  f(dieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on whitespace before a_longer_word):
+  jdieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on whitespace before close paren):
+  jjjdieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on a in another_word):
+  jjfadieb
+Expect (All deleted):
+  
+
+Do (dieb with cursor on close paren):
+  jjjdieb
+Expect (All deleted):
+  
+
+Given (leading-symbol style with whitespace after):
+  foo( bar
+     , a_longer_word
+     ) 
+
+Do (dieb with cursor on f):
+  dieb
+Expect (Whitespace after remains):
+   
+
+Do (dieb with cursor behind close paren):
+  jj$ldieb
+Expect (Nothing changed):
+  foo( bar
+     , a_longer_word
+     ) 

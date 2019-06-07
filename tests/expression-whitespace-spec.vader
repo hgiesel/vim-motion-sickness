@@ -1,0 +1,194 @@
+" Using die {{{1
+" {{{2 Given (xyz foo(bar)):
+Given (xyz foo(bar)):
+  xyz foo(bar)
+
+Do (dieb with cursor on x):
+  dieb
+Expect (Nothing deleted):
+  xyz foo(bar)
+
+Do (dieb with cursor on b):
+  fbdieb
+Expect (xyz remains):
+  xyz 
+
+Do (dieb with cursor on open paren):
+  f(dieb
+Expect (xyz remains):
+  xyz 
+
+Do (dieb with cursor on close paren):
+  f)dieb
+Expect (xyz remains):
+  xyz 
+
+" {{{2 Given (xyz foo{bar}):
+Given (xyz foo{bar}):
+  xyz foo{bar}
+
+Do (dieB with cursor on x):
+  dieB
+Expect (Nothing deleted):
+  xyz foo{bar}
+
+Do (dieB with cursor on b):
+  fbdieB
+Expect (xyz remains):
+  xyz 
+
+Do (dieB with cursor on open paren):
+  f{dieB
+Expect (xyz remains):
+  xyz 
+
+Do (dieB with cursor on close paren):
+  f}dieB
+Expect (xyz remains):
+  xyz 
+
+" {{{2 Given (xyz foo[bar]):
+Given (xyz foo[bar]):
+  xyz foo[bar]
+
+Do (dier with cursor on x):
+  dier
+Expect (Nothing deleted):
+  xyz foo[bar]
+
+Do (dier with cursor on b):
+  fbdier
+Expect (xyz remains):
+  xyz 
+
+Do (dier with cursor on open paren):
+  f[dier
+Expect (xyz remains):
+  xyz 
+
+Do (dier with cursor on close paren):
+  f]dier
+Expect (xyz remains):
+  xyz 
+
+" {{{2 Given (xyz foo<bar>):
+Given (xyz foo<bar>):
+  xyz foo<bar>
+
+Do (diea with cursor on x):
+  diea
+Expect (Nothing deleted):
+  xyz foo<bar>
+
+Do (diea with cursor on b):
+  fbdiea
+Expect (xyz remains):
+  xyz 
+
+Do (diea with cursor on open paren):
+  f<diea
+Expect (xyz remains):
+  xyz 
+
+Do (diea with cursor on close paren):
+  f>diea
+Expect (xyz remains):
+  xyz 
+
+" {{{1 Using dae
+" {{{2 Given (xyz foo(bar)):
+Given (xyz foo(bar)):
+  xyz foo(bar)
+
+Do (daeb with cursor on x):
+  daeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on b):
+  fbdaeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on open paren):
+  f(daeb
+Expect (All deleted):
+  
+
+Do (daeb with cursor on close paren):
+  f)daeb
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz foo{bar}):
+Given (xyz foo{bar}):
+  xyz foo{bar}
+
+Do (daeB with cursor on x):
+  daeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on b):
+  fbdaeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on open paren):
+  f{daeB
+Expect (All deleted):
+  
+
+Do (daeB with cursor on close paren):
+  f}daeB
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz foo[bar]):
+Given (xyz foo[bar]):
+  xyz foo[bar]
+
+Do (daer with cursor on x):
+  daer
+Expect (All deleted):
+  
+
+Do (daer with cursor on b):
+  fbdaer
+Expect (All deleted):
+  
+
+Do (daer with cursor on open paren):
+  f[daer
+Expect (All deleted):
+  
+
+Do (daer with cursor on close paren):
+  f]daer
+Expect (All deleted):
+  
+
+" {{{2 Given (xyz foo<bar>):
+Given (xyz foo<bar>):
+  xyz foo<bar>
+
+Do (daea with cursor on x):
+  daea
+Expect (All deleted):
+  
+
+Do (daea with cursor on b):
+  fbdaea
+Expect (All deleted):
+  
+
+Do (daea with cursor on open paren):
+  f<daea
+Expect (All deleted):
+  
+
+Do (daea with cursor on close paren):
+  f>daea
+Expect (All deleted):
+  
+

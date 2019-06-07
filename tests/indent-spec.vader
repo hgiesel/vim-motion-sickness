@@ -21,10 +21,12 @@ Expect (Inner indent deleted):
 
 Do (daz with cursor on baz):
   dai
-Expect (All indent deleted):
+Expect (Inner indent deleted):
   arg
 
   abc
+  foo
+  foo
 
 " iI or aI motions {{{1
 Given:
@@ -39,7 +41,7 @@ Given:
 Before (Go to baz):
   call search('baz')
 
-Do (diZ with cursor on baz):
+Do (diI with cursor on baz):
   diI
 Expect (Inner indent deleted):
   arg
@@ -48,7 +50,7 @@ Expect (Inner indent deleted):
   foo
   foo
 
-Do (daZ with cursor on baz):
+Do (daI with cursor on baz):
   daI
 Expect (All indent deleted):
   arg
