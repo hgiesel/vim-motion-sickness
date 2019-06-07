@@ -12,7 +12,7 @@ ensures they all work as intended.
 
 * **other motions**:
   * [indent motions](#indent-motions)
-  * [symbol motions](#alias-motions, asdf, asdf)
+  * [symbol motions](#alias-motions)
 
 ## Alias motions
 
