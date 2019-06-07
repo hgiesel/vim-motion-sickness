@@ -13,6 +13,11 @@ Before (Go to baz):
 Do (dii with cursor on baz):
   dii
 Expect (Inner indent deleted):
+  arg
+
+  abc
+  foo
+  foo
 
 Do (daz with cursor on baz):
   dai

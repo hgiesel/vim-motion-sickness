@@ -211,6 +211,18 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     normal! 
   endif
 
+  if a:closedelim ==# ']'
+    let l:closedelim_mod = '\'.a:closedelim
+  else
+    let l:closedelim_mod = a:closedelim
+  endif
+
+  if a:opendelim ==# '['
+    let l:opendelim_mod = '\'.a:opendelim
+  else
+    let l:opendelim_mod = a:opendelim
+  endif
+
   " Avoid dealing with ambiguity on called field on fielddelim
   let current_c = strcharpart(getline('.'), col('.') - 1, 1)
   if current_c ==# a:opendelim || current_c ==# a:fielddelim
@@ -294,7 +306,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     execute 'normal! '.(l:fieldbeginJump).' '
   endif
 
-  call search('[^ \t\n'.a:fielddelim.a:opendelim.']')
+  call search('[^ \t\n'.a:fielddelim.l:opendelim_mod.']')
   let l:startpos = getpos('.')
 
   """ GET END OF INNER FIELD
@@ -420,13 +432,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     else
       call setpos('.', l:endpos)
 
-      if a:closedelim ==# ']'
-        let l:modifieddelim = '\'.a:closedelim
-      else
-        let l:modifieddelim = a:closedelim
-      endif
-
-      let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.l:modifieddelim.']', col('.'))
+      let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.l:closedelim_mod.']', col('.'))
 
       if l:isnonfieldchar != -1
         " there is a field on the right
@@ -443,7 +449,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
           " leading symbol style
           let l:startpos = getpos('.')
           call setpos('.', l:endpos)
-          call search('['.a:fielddelim.a:closedelim.']', 'W')
+          call search('['.a:fielddelim.l:closedelim_mod.']', 'W')
           execute "normal! 1\<bs>"
           let l:endpos = getpos('.')
 
