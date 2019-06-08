@@ -1,173 +1,173 @@
 " " % percent {{{1
 " " doc: doo%bar%xyz {{{2
-" Given (foo%bar%xyz):
+" Given:
 "   foo%bar%xyz
 
 " " start at f {{{3
-" Do (di% with cursor on f):
+" Do:
 "   di%
-" Expect (bar deleted):
+" Expect:
 "   foo%%xyz
 
-" Do (da% with cursor on f):
+" Do:
 "   da%
-" Expect (Inner embrace deleted):
+" Expect:
 "   fooxyz
 
 " " start at b {{{3
-" Do (di% with cursor on b):
+" Do:
 "   fbdi%
-" Expect (bar deleted):
+" Expect:
 "   foo%%xyz
 
-" Do (da% with cursor on b):
+" Do:
 "   fbda%
-" Expect (Inner embrace deleted):
+" Expect:
 "   fooxyz
 
 " " start at x {{{3
-" Do (di% with cursor on x):
+" Do:
 "   fxdi%
-" Expect (Nothing happened):
+" Expect:
 "   foo%bar%xyz
 
-" Do (da% with cursor on x):
+" Do:
 "   fxda%
-" Expect (Nothing happened):
+" Expect:
 "   foo%bar%xyz
 
 " " doc: %foo\nbar% {{{2
-" Given (%foo\nbar%):
+" Given:
 "   %foo
 "   bar%
 
 " " start at f {{{3
-" Do (di% with cursor on f):
+" Do:
 "   ffdi%
 " Expect:
 "   %foo
 "   bar%
 
-" Do (di% with cursor on f):
+" Do:
 "   ffda%
 " Expect:
 "   %foo
 "   bar%
 
 " " start b {{{3
-" Do (di% with cursor on b):
+" Do:
 "   +di%
 " Expect:
 "   %foo
 "   bar%
 
-" Do (di% with cursor on b):
+" Do:
 "   +da%
 " Expect:
 "   %foo
 "   bar%
 
 " " doc: foo%%foobar%% {{{2
-" Given (foo%%foobar%%):
+" Given:
 "   foo%%foobar%%
 
 " " start at b {{{3
-" Do (di% with cursor on b):
+" Do:
 "   fbdi%
-" Expect (Inner symbol deleted):
+" Expect:
 "   foo%%%%
 
-" Do (di%di% with cursor on b):
+" Do:
 "   fbdi%di%
-" Expect (Second di% did nothing):
+" Expect:
 "   foo%%%%
 
-" Do (da% with cursor on b):
+" Do:
 "   fbda%
-" Expect (First symbol embrace deleted):
+" Expect:
 "   foo%%
 
-" Do (da%da% with cursor on b):
+" Do:
 "   fbda%da%
-" Expect (All symbols deleted):
+" Expect:
 "   foo
 
-" Do (yi%x with cursor on b):
+" Do:
 "   fbyi%x
-" Expect (f deleted):
+" Expect:
 "   foo%%oobar%%
 
-" Do (da% with cursor on b):
+" Do:
 "   fbya%x
-" Expect (Symbol left to f deleted):
+" Expect:
 "   foo%foobar%%
 
-" Do (vi%d with cursor on b):
+" Do:
 "   fbvi%d
-" Expect (Inner symbol deleted):
+" Expect:
 "   foo%%%%
 
-" Do (va%d with cursor on b):
+" Do:
 "   fbva%d
-" Expect (First symbol embrace deleted):
+" Expect:
 "   foo%%
 
-" Do (va%a%d with cursor on b):
+" Do:
 "   fbva%a%d
-" Expect (All symbol embraces deleted):
+" Expect:
 "   foo
 
 " " doc: foo%%b%% {{{2
-" Given (foo%%b%%):
+" Given:
 "   foo%%b%%
 
 " " start at b
-" Do (di% with cursor on b):
+" Do:
 "   fbdi%
-" Expect (Inner symbol deleted):
+" Expect:
 "   foo%%%%
 
-" Do (di%di% with cursor on b):
+" Do:
 "   fbdi%di%
-" Expect (Inner symbol deleted):
+" Expect:
 "   foo%%%%
 
-" Do (da% with cursor on b):
+" Do:
 "   fbda%
-" Expect (first symbol embraced deleted):
+" Expect:
 "   foo%%
 
-" Do (da%da% with cursor on b):
+" Do:
 "   fbda%da%
-" Expect (all symbols deleted):
+" Expect:
 "   foo
 
-" Do (yi%x with cursor on b):
+" Do:
 "   fbyi%x
-" Expect (b deleted):
+" Expect:
 "   foo%%%%
 
-" Do (da% with cursor on b):
+" Do:
 "   fbya%x
-" Expect (Symbol to left of b deleted):
+" Expect:
 "   foo%b%%
 
-" Do (vi%d with cursor on b):
+" Do:
 "   fbvi%d
-" Expect (Inner symbol deleted):
+" Expect:
 "   foo%%%%
 
-" Do (va%d with cursor on b):
+" Do:
 "   fbva%d
-" Expect (First symbol embraced deleted):
+" Expect:
 "   foo%%
 
-" Do (vi%i%d with cursor on b):
+" Do:
 "   fbvi%i%d
-" Expect (Only inner symbol deleted):
+" Expect:
 "   foo%%%%
 
-" Do (va%a%d with cursor on b):
+" Do:
 "   fbva%a%d
-" Expect (All symbols deleted):
+" Expect:
 "   foo

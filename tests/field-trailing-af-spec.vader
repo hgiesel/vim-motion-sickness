@@ -1,190 +1,190 @@
 " dafb without last trailing comma {{{2
-Given (trailing-symbol style multiline):
+Given:
   foo(
     bar,
     arg,
     xyz
   )
 
-Do (dafb with cursor on f):
+Do:
   dafb
-Expect (Nothing deleted):
+Expect:
   foo(
     bar,
     arg,
     xyz
   )
 
-Do (dafb with cursor on b):
+Do:
   jfbdafb
-Expect (First argument deleted):
+Expect:
   foo(
     arg,
     xyz
   )
 
-Do (dafbdafb with cursor on b):
+Do:
   jfbdafbdafb
-Expect (First two arguments deleted):
+Expect:
   foo(
     xyz
   )
 
-Do (dafb with cursor on second a):
+Do:
   jjfadafb
-Expect (Second argument deleted):
+Expect:
   foo(
     bar,
     xyz
   )
 
-Do (dafb with cursor on z):
+Do:
   jjjfxdafb
-Expect (Third argument deleted):
+Expect:
   foo(
     bar,
     arg
   )
 
 " dafB without last trailing comma {{{2
-Given (dafB without last trailing comma):
+Given:
   foo{
     bar,
     arg,
     xyz
   }
 
-Do (dafB with cursor on f):
+Do:
   dafB
-Expect (Nothing deleted):
+Expect:
   foo{
     bar,
     arg,
     xyz
   }
 
-Do (dafB with cursor on b):
+Do:
   jfbdafB
-Expect (First argument deleted):
+Expect:
   foo{
     arg,
     xyz
   }
 
-Do (dafBdafB with cursor on b):
+Do:
   jfbdafBdafB
-Expect (First two arguments deleted):
+Expect:
   foo{
     xyz
   }
 
-Do (dafB with cursor on second a):
+Do:
   jjfadafB
-Expect (Second argument deleted):
+Expect:
   foo{
     bar,
     xyz
   }
 
-Do (dafB with cursor on z):
+Do:
   jjjfxdafB
-Expect (Third argument deleted):
+Expect:
   foo{
     bar,
     arg
   }
 
 " dafr without last trailing comma {{{2
-Given (dafr without last trailing comma):
+Given:
   foo[
     bar,
     arg,
     xyz
   ]
 
-Do (dafr with cursor on f):
+Do:
   dafr
-Expect (Nothing deleted):
+Expect:
   foo[
     bar,
     arg,
     xyz
   ]
 
-Do (dafr with cursor on b):
+Do:
   jfbdafr
-Expect (First argument deleted):
+Expect:
   foo[
     arg,
     xyz
   ]
 
-Do (dafrdafr with cursor on b):
+Do:
   jfbdafrdafr
-Expect (First two arguments deleted):
+Expect:
   foo[
     xyz
   ]
 
-Do (dafr with cursor on second a):
+Do:
   jjfadafr
-Expect (Second argument deleted):
+Expect:
   foo[
     bar,
     xyz
   ]
 
-Do (dafr with cursor on z):
+Do:
   jjjfxdafr
-Expect (Third argument deleted):
+Expect:
   foo[
     bar,
     arg
   ]
 
 " dafa without last trailing comma {{{2
-Given (dafa without last trailing comma):
+Given:
   foo<
     bar,
     arg,
     xyz
   >
 
-Do (dafa with cursor on f):
+Do:
   dafa
-Expect (Nothing deleted):
+Expect:
   foo<
     bar,
     arg,
     xyz
   >
 
-Do (dafa with cursor on b):
+Do:
   jfbdafa
-Expect (First argument deleted):
+Expect:
   foo<
     arg,
     xyz
   >
 
-Do (dafadafa with cursor on b):
+Do:
   jfbdafadafa
-Expect (First two arguments deleted):
+Expect:
   foo<
     xyz
   >
 
-Do (dafa with cursor on second a):
+Do:
   jjfadafa
-Expect (Second argument deleted):
+Expect:
   foo<
     bar,
     xyz
   >
 
-Do (dafa with cursor on z):
+Do:
   jjjfxdafa
-Expect (Third argument deleted):
+Expect:
   foo<
     bar,
     arg

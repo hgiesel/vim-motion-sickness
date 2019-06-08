@@ -1,131 +1,131 @@
 " dafb with two line {{{1
-Given (dafb with two line):
+Given:
   foo(bar, arg,
       xyz)
 
-Do (dafb with cursor on f):
+Do:
   dafb
-Expect (Nothing deleted):
+Expect:
   foo(bar, arg,
       xyz)
 
-Do (dafb with cursor on b):
+Do:
   fbdafb
-Expect (First argument deleted):
+Expect:
   foo(arg,
       xyz)
 
-Do (dafbdafb with cursor on b):
+Do:
   fbdafbdafb
-Expect (First two arguments deleted):
+Expect:
   foo(xyz)
 
-Do (dafb with cursor on second a):
+Do:
   2fadafb
-Expect (Second argument deleted):
+Expect:
   foo(bar,
       xyz)
 
-Do (dafb with cursor on x):
+Do:
   jfxdafb
-Expect (Third argument deleted):
+Expect:
   foo(bar, arg)
 
 " dafB with two line {{{1
-Given (dafB with two line):
+Given:
   foo{bar, arg,
       xyz}
 
-Do (dafB with cursor on f):
+Do:
   dafB
-Expect (Nothing deleted):
+Expect:
   foo{bar, arg,
       xyz}
 
-Do (dafB with cursor on b):
+Do:
   fbdafB
-Expect (First argument deleted):
+Expect:
   foo{arg,
       xyz}
 
-Do (dafBdafB with cursor on b):
+Do:
   fbdafBdafB
-Expect (First two arguments deleted):
+Expect:
   foo{xyz}
 
-Do (dafB with cursor on second a):
+Do:
   2fadafB
-Expect (Second argument deleted):
+Expect:
   foo{bar,
       xyz}
 
-Do (dafB with cursor on x):
+Do:
   jfxdafB
-Expect (Third argument deleted):
+Expect:
   foo{bar, arg}
 
 " dafr with two line {{{1
-Given (dafr with two line):
+Given:
   foo[bar, arg,
       xyz]
 
-Do (dafr with cursor on f):
+Do:
   dafr
-Expect (Nothing deleted):
+Expect:
   foo[bar, arg,
       xyz]
 
-Do (dafr with cursor on b):
+Do:
   fbdafr
-Expect (First argument deleted):
+Expect:
   foo[arg,
       xyz]
 
-Do (dafrdafr with cursor on b):
+Do:
   fbdafrdafr
-Expect (First two arguments deleted):
+Expect:
   foo[xyz]
 
-Do (dafr with cursor on second a):
+Do:
   2fadafr
-Expect (Second argument deleted):
+Expect:
   foo[bar,
       xyz]
 
-Do (dafr with cursor on x):
+Do:
   jfxdafr
-Expect (Third argument deleted):
+Expect:
   foo[bar, arg]
 
 " dafa with two line {{{1
-Given (dafa with two line):
+Given:
   foo<bar, arg,
       xyz>
 
-Do (dafa with cursor on f):
+Do:
   dafa
-Expect (Nothing deleted):
+Expect:
   foo<bar, arg,
       xyz>
 
-Do (dafa with cursor on b):
+Do:
   fbdafa
-Expect (First argument deleted):
+Expect:
   foo<arg,
       xyz>
 
-Do (dafadafa with cursor on b):
+Do:
   fbdafadafa
-Expect (First two arguments deleted):
+Expect:
   foo<xyz>
 
-Do (dafa with cursor on second a):
+Do:
   2fadafa
-Expect (Second argument deleted):
+Expect:
   foo<bar,
       xyz>
 
-Do (dafa with cursor on x):
+Do:
   jfxdafa
-Expect (Third argument deleted):
+Expect:
   foo<bar, arg>

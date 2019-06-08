@@ -1,49 +1,49 @@
 " Using dieb {{{1
-Given (trailing-symbol style):
+Given:
   foo(
     bar,
     a_longer_word
   )
 
-Do (dieb with cursor on f):
+Do:
   dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on open paren):
+Do:
   f(dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on whitespace before b):
+Do:
   jdieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on d in word):
+Do:
   jjfwdieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on close paren):
+Do:
   jjjdieb
-Expect (All deleted):
+Expect:
   
 
-Given (trailing-symbol style with one white space after):
+Given:
   foo(
     bar,
     a_longer_word
   ) 
 
-Do (dieb with cursor on f):
+Do:
   dieb
-Expect (Whitespace after remains):
+Expect:
    
 
-Do (dieb with cursor behind close paren):
+Do:
   jjjldieb
-Expect (Nothing changed):
+Expect:
   foo(
     bar,
     a_longer_word

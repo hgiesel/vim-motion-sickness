@@ -1,96 +1,96 @@
 " Short style field spec with af commmands {{{1
 " dafb with doc foo(bar) {{{2
-Given (foo(bar, arg, xyz)):
+Given:
   foo(bar, arg, xyz)
 
-Do (dafb with cursor on f):
+Do:
   dafb
-Expect (Nothing deleted):
+Expect:
   foo(bar, arg, xyz)
 
-Do (dafb with cursor on b):
+Do:
   fbdafb
-Expect (First argument deleted):
+Expect:
   foo(arg, xyz)
 
-Do (dafb with cursor on second a):
+Do:
   2fadafb
-Expect (Second argument deleted):
+Expect:
   foo(bar, xyz)
 
-Do (dafb with cursor on x):
+Do:
   fxdafb
-Expect (Third argument deleted):
+Expect:
   foo(bar, arg)
 
 " dafB with doc foo(bar) {{{2
-Given (foo(bar, arg, xyz)):
+Given:
   foo{bar, arg, xyz}
 
-Do (dafB with cursor on f):
+Do:
   dafB
-Expect (Nothing deleted):
+Expect:
   foo{bar, arg, xyz}
 
-Do (dafB with cursor on b):
+Do:
   fbdafB
-Expect (First argument deleted):
+Expect:
   foo{arg, xyz}
 
-Do (dafB with cursor on second a):
+Do:
   2fadafB
-Expect (Second argument deleted):
+Expect:
   foo{bar, xyz}
 
-Do (dafB with cursor on x):
+Do:
   fxdafB
-Expect (Third argument deleted):
+Expect:
   foo{bar, arg}
 
 " dafr with doc foo(bar) {{{2
-Given (foo(bar, arg, xyz)):
+Given:
   foo[bar, arg, xyz]
 
-Do (dafr with cursor on f):
+Do:
   dafr
-Expect (Nothing deleted):
+Expect:
   foo[bar, arg, xyz]
 
-Do (dafr with cursor on b):
+Do:
   fbdafr
-Expect (First argument deleted):
+Expect:
   foo[arg, xyz]
 
-Do (dafr with cursor on second a):
+Do:
   2fadafr
-Expect (Second argument deleted):
+Expect:
   foo[bar, xyz]
 
-Do (dafr with cursor on x):
+Do:
   fxdafr
-Expect (Third argument deleted):
+Expect:
   foo[bar, arg]
 
 " dafa with doc foo(bar) {{{2
-Given (foo<bar, arg, xyz>):
+Given:
   foo<bar, arg, xyz>
 
-Do (dafa with cursor on f):
+Do:
   dafa
-Expect (Nothing deleted):
+Expect:
   foo<bar, arg, xyz>
 
-Do (dafa with cursor on b):
+Do:
   fbdafa
-Expect (First argument deleted):
+Expect:
   foo<arg, xyz>
 
-Do (dafa with cursor on second a):
+Do:
   2fadafa
-Expect (Second argument deleted):
+Expect:
   foo<bar, xyz>
 
-Do (dafa with cursor on x):
+Do:
   fxdafa
-Expect (Third argument deleted):
+Expect:
   foo<bar, arg>

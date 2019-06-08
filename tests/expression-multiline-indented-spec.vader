@@ -1,28 +1,28 @@
 " Using dieb {{{1
-Given (delimiter-indented style):
+Given:
   a_very_long_foo(bar, a_longer_word,
                   meh, bla)
 
-Do (dieb with cursor on a):
+Do:
   dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on open paren):
+Do:
   f(dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on whitespace before b):
+Do:
   jdieb
-Expect (All deleted):
+Expect:
   
 
-Given (delimiter-indented style with whitespace after):
+Given:
   a_very_long_foo(bar, a_longer_word,
                   meh, bla) 
 
-Do (dieb with cursor on whitespace before b):
+Do:
   jdieb
-Expect (Whitespace after remains):
+Expect:
    

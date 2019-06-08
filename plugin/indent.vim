@@ -1,4 +1,4 @@
-" 7. indentation motion
+" INDENTATION MOTION
 " ii: select current indentation delimited by lines with one indentation less or
 " empty lines
 
@@ -48,6 +48,21 @@ onoremap <silent>
       \ <plug>(Oaibmotion) <cmd>call indent#motion(v:false, 'escape')<cr>
 vnoremap <silent>
       \ <plug>(Vaibmotion) <cmd>call indent#motion(v:false, 'escape')<cr>
+
+" onoremap <plug>(Oiipmotion) <cmd>call indent#motion(v:false, '')<cr>
+" vnoremap <plug>(Viipmotion) <cmd>call indent#motion(v:false, '')<cr>
+" onoremap <plug>(Oaipmotion) <cmd>call indent#motion(v:false, '')<cr>
+" vnoremap <plug>(Vaipmotion) <cmd>call indent#motion(v:false, '')<cr>
+
+" onoremap <plug>(Oiilmotion) <cmd>call indent#motion(v:false, '')<cr>
+" vnoremap <plug>(Viilmotion) <cmd>call indent#motion(v:false, '')<cr>
+" onoremap <plug>(Oailmotion) <cmd>call indent#motion(v:false, '')<cr>
+" vnoremap <plug>(Vailmotion) <cmd>call indent#motion(v:false, '')<cr>
+
+" onoremap <plug>(Oiibmotion) <cmd>call indent#motion(v:false, '')<cr>
+" vnoremap <plug>(Viibmotion) <cmd>call indent#motion(v:false, '')<cr>
+" onoremap <plug>(Oaibmotion) <cmd>call indent#motion(v:false, '')<cr>
+" vnoremap <plug>(Vaibmotion) <cmd>call indent#motion(v:false, '')<cr>
 
 omap il <plug>(Oilmotion)
 vmap il <plug>(Vilmotion)

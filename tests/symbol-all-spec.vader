@@ -1,227 +1,227 @@
 " * asterisk {{{1
 " doc: doo*bar*xyz {{{2
-Given (foo*bar*xyz):
+Given:
   foo*bar*xyz
 
 " start at f {{{3
-Do (di* with cursor on f):
+Do:
   di*
 Expect:
   foo**xyz
 
-Do (da* with cursor on f):
+Do:
   da*
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di* with cursor on b):
+Do:
   fbdi*
 Expect:
   foo**xyz
 
-Do (da* with cursor on b):
+Do:
   fbda*
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di* with cursor on x):
+Do:
   fxdi*
 Expect:
   foo*bar*xyz
 
-Do (da* with cursor on x):
+Do:
   fxda*
 Expect:
   foo*bar*xyz
 
 " doc: *foo\nbar* {{{2
-Given (*foo\nbar*):
+Given:
   *foo
   bar*
 
 " start at f {{{3
-Do (ffdi* with cursor on f):
+Do:
   ffdi*
 Expect:
   *foo
   bar*
 
-Do (di* with cursor on f):
+Do:
   ffda*
 Expect:
   *foo
   bar*
 
 " start b {{{3
-Do (di* with cursor on b):
+Do:
   +di*
 Expect:
   *foo
   bar*
 
-Do (di* with cursor on b):
+Do:
   +da*
 Expect:
   *foo
   bar*
 
 " doc: foo**foobar** {{{2
-Given (foo**foobar**):
+Given:
   foo**foobar**
 
 " start at b {{{3
-Do (di* with cursor on b):
+Do:
   fbdi*
-Expect (Inner symbol deleted):
+Expect:
   foo****
 
-Do (di*di* with cursor on b):
+Do:
   fbdi*di*
 Expect:
   foo****
 
-Do (da* with cursor on b):
+Do:
   fbda*
-Expect (First symbol embrace deleted):
+Expect:
   foo**
 
-Do (da*da* with cursor on b):
+Do:
   fbda*da*
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi*x with cursor on b):
+Do:
   fbyi*x
-Expect (f deleted):
+Expect:
   foo**oobar**
 
-Do (da* with cursor on b):
+Do:
   fbya*x
-Expect (symbol left to f deleted):
+Expect:
   foo*foobar**
 
-Do (vi*d with cursor on b):
+Do:
   fbvi*d
-Expect (Inner symbol deleted):
+Expect:
   foo****
 
-Do (va*d with cursor on b):
+Do:
   fbva*d
-Expect (First symbol embrace deleted):
+Expect:
   foo**
 
-Do (va*a*d with cursor on b):
+Do:
   fbva*a*d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo**b** {{{2
-Given (foo**b**):
+Given:
   foo**b**
 
 " start at b {{{3
-Do (di* with cursor on b):
+Do:
   fbdi*
-Expect (Inner symbol deleted):
+Expect:
   foo****
 
-Do (di*di* with cursor on b):
+Do:
   fbdi*di*
-Expect (Inner symbol deleted):
+Expect:
   foo****
 
-Do (da* with cursor on b):
+Do:
   fbda*
-Expect (first symbol embraced deleted):
+Expect:
   foo**
 
-Do (da*da* with cursor on b):
+Do:
   fbda*da*
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi*x with cursor on b):
+Do:
   fbyi*x
-Expect (b deleted):
+Expect:
   foo****
 
-Do (da* with cursor on b):
+Do:
   fbya*x
-Expect (symbol to left of b deleted):
+Expect:
   foo*b**
 
-Do (vi*d with cursor on b):
+Do:
   fbvi*d
-Expect (Inner symbol deleted):
+Expect:
   foo****
 
-Do (va*d with cursor on b):
+Do:
   fbva*d
-Expect (First symbol embraced deleted):
+Expect:
   foo**
 
-Do (vi*i*d with cursor on b):
+Do:
   fbvi*i*d
-Expect (Only inner symbol deleted):
+Expect:
   foo****
 
-Do (va*a*d with cursor on b):
+Do:
   fbva*a*d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " _ underscore {{{1
 " doc: doo_bar_xyz {{{2
-Given (foo_bar_xyz):
+Given:
   foo_bar_xyz
 
 " start at f {{{3
-Do (di_):
+Do:
   di_
 Expect:
   foo__xyz
 
-Do (da_):
+Do:
   da_
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di_ with cursor on b):
+Do:
   fbdi_
 Expect:
   foo__xyz
-Do (da_ with cursor on b):
+Do:
   fbda_
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di_ with cursor on x):
+Do:
   fxdi_
 Expect:
   foo_bar_xyz
 
-Do (da_ with cursor on x):
+Do:
   fxda_
 Expect:
   foo_bar_xyz
 
 " doc: _foo\nbar_ {{{2
-Given (_foo\nbar_):
+Given:
   _foo
   bar_
 
 " start at f {{{3
-Do (di_ with cursor on f):
+Do:
   ffdi_
 Expect:
   _foo
   bar_
 
-Do (di_ with cursor on f):
+Do:
   ffda_
 Expect:
   _foo
@@ -229,348 +229,348 @@ Expect:
 
 
 " start b {{{3
-Do (di_ with cursor on b):
+Do:
   +di_
 Expect:
   _foo
   bar_
 
-Do (di_ with cursor on b):
+Do:
   +da_
 Expect:
   _foo
   bar_
 
 " doc: foo__foobar__ {{{2
-Given (foo__foobar__):
+Given:
   foo__foobar__
 
 " start at b {{{3
-Do (di_ with cursor on b):
+Do:
   fbdi_
-Expect (Inner symbol deleted):
+Expect:
   foo____
 
-Do (di_di_ with cursor on b):
+Do:
   fbdi_di_
 Expect:
   foo____
 
-Do (da_ with cursor on b):
+Do:
   fbda_
-Expect (First symbol embrace deleted):
+Expect:
   foo__
 
-Do (da_da_ with cursor on b):
+Do:
   fbda_da_
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi_x with cursor on b):
+Do:
   fbyi_x
-Expect (f deleted):
+Expect:
   foo__oobar__
 
-Do (da_ with cursor on b):
+Do:
   fbya_x
-Expect (symbol left to f deleted):
+Expect:
   foo_foobar__
 
-Do (vi_d with cursor on b):
+Do:
   fbvi_d
-Expect (Inner symbol deleted):
+Expect:
   foo____
 
-Do (va_d with cursor on b):
+Do:
   fbva_d
-Expect (First symbol embrace deleted):
+Expect:
   foo__
 
-Do (va_a_d with cursor on b):
+Do:
   fbva_a_d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo__b__ {{{2
-Given (foo__b__):
+Given:
   foo__b__
 
 " start at b
-Do (di_ with cursor on b):
+Do:
   fbdi_
-Expect (Inner symbol deleted):
+Expect:
   foo____
 
-Do (di_di_ with cursor on b):
+Do:
   fbdi_di_
-Expect (Inner symbol deleted):
+Expect:
   foo____
 
-Do (da_ with cursor on b):
+Do:
   fbda_
-Expect (first symbol embraced deleted):
+Expect:
   foo__
 
-Do (da_da_ with cursor on b):
+Do:
   fbda_da_
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi_x with cursor on b):
+Do:
   fbyi_x
-Expect (b deleted):
+Expect:
   foo____
 
-Do (da_ with cursor on b):
+Do:
   fbya_x
-Expect (symbol to left of b deleted):
+Expect:
   foo_b__
 
-Do (vi_d with cursor on b):
+Do:
   fbvi_d
-Expect (Inner symbol deleted):
+Expect:
   foo____
 
-Do (va_d with cursor on b):
+Do:
   fbva_d
-Expect (First symbol embraced deleted):
+Expect:
   foo__
 
-Do (vi_i_d with cursor on b):
+Do:
   fbvi_i_d
-Expect (Only inner symbol deleted):
+Expect:
   foo____
 
-Do (va_a_d with cursor on b):
+Do:
   fbva_a_d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " - dash {{{1
 " doc: doo-bar-xyz {{{2
-Given (foo-bar-xyz):
+Given:
   foo-bar-xyz
 
 " start at f {{{3
-Do (di- with cursor on f):
+Do:
   di-
 Expect:
   foo--xyz
 
-Do (da- with cursor on f):
+Do:
   da-
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di- with cursor on b):
+Do:
   fbdi-
 Expect:
   foo--xyz
 
-Do (da- with cursor on b):
+Do:
   fbda-
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di- with cursor on x):
+Do:
   fxdi-
 Expect:
   foo-bar-xyz
 
-Do (fada- with cursor on x):
+Do:
   fxda-
 Expect:
   foo-bar-xyz
 
 " doc: -foo\nbar- {{{2
-Given (-foo\nbar-):
+Given:
   -foo
   bar-
 
 " start at f {{{3
-Do (di- with cursor on f):
+Do:
   ffdi-
 Expect:
   -foo
   bar-
 
-Do (di- with cursor on f):
+Do:
   ffda-
 Expect:
   -foo
   bar-
 
 " start b {{{3
-Do (di- with cursor on b):
+Do:
   +di-
 Expect:
   -foo
   bar-
 
-Do (di- with cursor on b):
+Do:
   +da-
 Expect:
   -foo
   bar-
 
 " doc: foo--foobar-- {{{2
-Given (foo--foobar--):
+Given:
   foo--foobar--
 
 " start at b {{{3
-Do (di- with cursor on b):
+Do:
   fbdi-
-Expect (Inner symbol deleted):
+Expect:
   foo----
 
-Do (di-di- with cursor on b):
+Do:
   fbdi-di-
 Expect:
   foo----
 
-Do (da- with cursor on b):
+Do:
   fbda-
-Expect (First symbol embrace deleted):
+Expect:
   foo--
 
-Do (da-da- with cursor on b):
+Do:
   fbda-da-
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi-x with cursor on b):
+Do:
   fbyi-x
-Expect (f deleted):
+Expect:
   foo--oobar--
 
-Do (da- with cursor on b):
+Do:
   fbya-x
-Expect (symbol left to f deleted):
+Expect:
   foo-foobar--
 
-Do (vi-d with cursor on b):
+Do:
   fbvi-d
-Expect (Inner symbol deleted):
+Expect:
   foo----
 
-Do (va-d with cursor on b):
+Do:
   fbva-d
-Expect (First symbol embrace deleted):
+Expect:
   foo--
 
-Do (va-a-d with cursor on b):
+Do:
   fbva-a-d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo--b-- {{{2
-Given (foo--b--):
+Given:
   foo--b--
 
 " start at b {{{3
-Do (di- with cursor on b):
+Do:
   fbdi-
-Expect (Inner symbol deleted):
+Expect:
   foo----
 
-Do (di-di- with cursor on b):
+Do:
   fbdi-di-
-Expect (Inner symbol deleted):
+Expect:
   foo----
 
-Do (da- with cursor on b):
+Do:
   fbda-
-Expect (first symbol embraced deleted):
+Expect:
   foo--
 
-Do (da-da- with cursor on b):
+Do:
   fbda-da-
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi-x with cursor on b):
+Do:
   fbyi-x
-Expect (b deleted):
+Expect:
   foo----
 
-Do (da- with cursor on b):
+Do:
   fbya-x
-Expect (symbol to left of b deleted):
+Expect:
   foo-b--
 
-Do (vi-d with cursor on b):
+Do:
   fbvi-d
-Expect (Inner symbol deleted):
+Expect:
   foo----
 
-Do (va-d with cursor on b):
+Do:
   fbva-d
-Expect (First symbol embraced deleted):
+Expect:
   foo--
 
-Do (vi-i-d with cursor on b):
+Do:
   fbvi-i-d
-Expect (Only inner symbol deleted):
+Expect:
   foo----
 
-Do (va-a-d with cursor on b):
+Do:
   fbva-a-d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " : colon {{{1
 " doc: doo:bar:xyz {{{2
-Given (foo:bar:xyz):
+Given:
   foo:bar:xyz
 
 " start at f {{{3
-Do (di:):
+Do:
   di:
 Expect:
   foo::xyz
 
-Do (da:):
+Do:
   da:
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di: with cursor on b):
+Do:
   fbdi:
 Expect:
   foo::xyz
 
-Do (da: with cursor on b):
+Do:
   fbda:
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di: with cursor on x):
+Do:
   fxdi:
 Expect:
   foo:bar:xyz
 
-Do (da: with cursor on x):
+Do:
   fxda:
 Expect:
   foo:bar:xyz
 
 " doc: :foo\nbar: {{{2
-Given (:foo\nbar:):
+Given:
   :foo
   bar:
 
 " start at f {{{3
-Do (di: with cursor on f):
+Do:
   ffdi:
 Expect:
   :foo
   bar:
 
-Do (di: with cursor on f):
+Do:
   ffda:
 Expect:
   :foo
@@ -578,522 +578,522 @@ Expect:
 
 
 " start b {{{3
-Do (di: with cursor on b):
+Do:
   +di:
 Expect:
   :foo
   bar:
 
-Do (di: with cursor on b):
+Do:
   +da:
 Expect:
   :foo
   bar:
 
 " doc: foo::foobar:: {{{2
-Given (foo::foobar::):
+Given:
   foo::foobar::
 
 " start at b {{{3
-Do (di: with cursor on b):
+Do:
   fbdi:
-Expect (Inner symbol deleted):
+Expect:
   foo::::
 
-Do (di:di: with cursor on b):
+Do:
   fbdi:di:
 Expect:
   foo::::
 
-Do (da: with cursor on b):
+Do:
   fbda:
-Expect (First symbol embrace deleted):
+Expect:
   foo::
 
-Do (da:da: with cursor on b):
+Do:
   fbda:da:
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi:x with cursor on b):
+Do:
   fbyi:x
-Expect (f deleted):
+Expect:
   foo::oobar::
 
-Do (da: with cursor on b):
+Do:
   fbya:x
-Expect (symbol left to f deleted):
+Expect:
   foo:foobar::
 
-Do (vi:d with cursor on b):
+Do:
   fbvi:d
-Expect (Inner symbol deleted):
+Expect:
   foo::::
 
-Do (va:d with cursor on b):
+Do:
   fbva:d
-Expect (First symbol embrace deleted):
+Expect:
   foo::
 
-Do (va:a:d with cursor on b):
+Do:
   fbva:a:d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo::b:: {{{2
-Given (foo::b::):
+Given:
   foo::b::
 
 " start at b {{{3
-Do (di: with cursor on b):
+Do:
   fbdi:
-Expect (Inner symbol deleted):
+Expect:
   foo::::
 
-Do (di:di: with cursor on b):
+Do:
   fbdi:di:
-Expect (Inner symbol deleted):
+Expect:
   foo::::
 
-Do (da: with cursor on b):
+Do:
   fbda:
-Expect (first symbol embraced deleted):
+Expect:
   foo::
 
-Do (da:da: with cursor on b):
+Do:
   fbda:da:
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi:x with cursor on b):
+Do:
   fbyi:x
-Expect (b deleted):
+Expect:
   foo::::
 
-Do (da: with cursor on b):
+Do:
   fbya:x
-Expect (symbol to left of b deleted):
+Expect:
   foo:b::
 
-Do (vi:d with cursor on b):
+Do:
   fbvi:d
-Expect (Inner symbol deleted):
+Expect:
   foo::::
 
-Do (va:d with cursor on b):
+Do:
   fbva:d
-Expect (First symbol embraced deleted):
+Expect:
   foo::
 
-Do (vi:i:d with cursor on b):
+Do:
   fbvi:i:d
-Expect (Only inner symbol deleted):
+Expect:
   foo::::
 
-Do (va:a:d with cursor on b):
+Do:
   fbva:a:d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " @ at {{{1
 " doc: doo@bar@xyz {{{2
-Given (foo@bar@xyz):
+Given:
   foo@bar@xyz
 
 " start at f {{{3
-Do (di@ with cursor on f):
+Do:
   di@
 Expect:
   foo@@xyz
 
-Do (da@ with cursor on f):
+Do:
   da@
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di@ with cursor on b):
+Do:
   fbdi@
 Expect:
   foo@@xyz
 
-Do (da@ with cursor on b):
+Do:
   fbda@
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di@ with cursor on x):
+Do:
   fxdi@
 Expect:
   foo@bar@xyz
 
-Do (da@ with cursor on x):
+Do:
   fxda@
 Expect:
   foo@bar@xyz
 
 " doc: @foo\nbar@ {{{2
-Given (@foo\nbar@):
+Given:
   @foo
   bar@
 
 " start at f {{{3
-Do (di@ with cursor on f):
+Do:
   ffdi@
 Expect:
   @foo
   bar@
 
-Do (ffdi@ with cursor on f):
+Do:
   ffda@
 Expect:
   @foo
   bar@
 
 " start b {{{3
-Do (di@ with cursor on b):
+Do:
   +di@
 Expect:
   @foo
   bar@
 
-Do (di@ with cursor on b):
+Do:
   +da@
 Expect:
   @foo
   bar@
 
 " doc: foo@@foobar@@ {{{2
-Given (foo@@foobar@@):
+Given:
   foo@@foobar@@
 
 " start at b {{{3
-Do (di@ with cursor on b):
+Do:
   fbdi@
-Expect (Inner symbol deleted):
+Expect:
   foo@@@@
 
-Do (di@di@ with cursor on b):
+Do:
   fbdi@di@
 Expect:
   foo@@@@
 
-Do (da@ with cursor on b):
+Do:
   fbda@
-Expect (First symbol embrace deleted):
+Expect:
   foo@@
 
-Do (da@da@ with cursor on b):
+Do:
   fbda@da@
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi@x with cursor on b):
+Do:
   fbyi@x
-Expect (f deleted):
+Expect:
   foo@@oobar@@
 
-Do (da@ with cursor on b):
+Do:
   fbya@x
-Expect (symbol left to f deleted):
+Expect:
   foo@foobar@@
 
-Do (vi@d with cursor on b):
+Do:
   fbvi@d
-Expect (Inner symbol deleted):
+Expect:
   foo@@@@
 
-Do (va@d with cursor on b):
+Do:
   fbva@d
-Expect (First symbol embrace deleted):
+Expect:
   foo@@
 
-Do (va@a@d with cursor on b):
+Do:
   fbva@a@d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo@@b@@ {{{2
-Given (foo@@b@@):
+Given:
   foo@@b@@
 
 " start at b
-Do (di@ with cursor on b):
+Do:
   fbdi@
-Expect (Inner symbol deleted):
+Expect:
   foo@@@@
 
-Do (di@di@ with cursor on b):
+Do:
   fbdi@di@
-Expect (Inner symbol deleted):
+Expect:
   foo@@@@
 
-Do (da@ with cursor on b):
+Do:
   fbda@
-Expect (first symbol embraced deleted):
+Expect:
   foo@@
 
-Do (da@da@ with cursor on b):
+Do:
   fbda@da@
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi@x with cursor on b):
+Do:
   fbyi@x
-Expect (b deleted):
+Expect:
   foo@@@@
 
-Do (da@ with cursor on b):
+Do:
   fbya@x
-Expect (symbol to left of b deleted):
+Expect:
   foo@b@@
 
-Do (vi@d with cursor on b):
+Do:
   fbvi@d
-Expect (Inner symbol deleted):
+Expect:
   foo@@@@
 
-Do (va@d with cursor on b):
+Do:
   fbva@d
-Expect (First symbol embraced deleted):
+Expect:
   foo@@
 
-Do (vi@i@d with cursor on b):
+Do:
   fbvi@i@d
-Expect (Only inner symbol deleted):
+Expect:
   foo@@@@
 
-Do (va@a@d with cursor on b):
+Do:
   fbva@a@d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " ! bang {{{1
 " doc: doo!bar!xyz {{{2
-Given (foo!bar!xyz):
+Given:
   foo!bar!xyz
 
 " start at f {{{3
-Do (di! with cursor on f):
+Do:
   di!
 Expect:
   foo!!xyz
 
-Do (da! with cursor on f):
+Do:
   da!
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di! with cursor on b):
+Do:
   fbdi!
 Expect:
   foo!!xyz
 
-Do (da! with cursor on b):
+Do:
   fbda!
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di! with cursor on x):
+Do:
   fxdi!
 Expect:
   foo!bar!xyz
 
-Do (fada! with cursor on x):
+Do:
   fxda!
 Expect:
   foo!bar!xyz
 
 " doc: !foo\nbar! {{{2
-Given (!foo\nbar!):
+Given:
   !foo
   bar!
 
 " start at f {{{3
-Do (di! with cursor on f):
+Do:
   ffdi!
 Expect:
   !foo
   bar!
 
-Do (di! with cursor on f):
+Do:
   ffda!
 Expect:
   !foo
   bar!
 
 " start b {{{3
-Do (di! with cursor on b):
+Do:
   +di!
 Expect:
   !foo
   bar!
 
-Do (di! with cursor on b):
+Do:
   +da!
 Expect:
   !foo
   bar!
 
 " doc: foo!!foobar!! {{{2
-Given (foo!!foobar!!):
+Given:
   foo!!foobar!!
 
 " start at b {{{3
-Do (di! with cursor on b):
+Do:
   fbdi!
-Expect (Inner symbol deleted):
+Expect:
   foo!!!!
 
-Do (di!di! with cursor on b):
+Do:
   fbdi!di!
 Expect:
   foo!!!!
 
-Do (da! with cursor on b):
+Do:
   fbda!
-Expect (First symbol embrace deleted):
+Expect:
   foo!!
 
-Do (da!da! with cursor on b):
+Do:
   fbda!da!
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi!x with cursor on b):
+Do:
   fbyi!x
-Expect (f deleted):
+Expect:
   foo!!oobar!!
 
-Do (da! with cursor on b):
+Do:
   fbya!x
-Expect (symbol left to f deleted):
+Expect:
   foo!foobar!!
 
-Do (vi!d with cursor on b):
+Do:
   fbvi!d
-Expect (Inner symbol deleted):
+Expect:
   foo!!!!
 
-Do (va!d with cursor on b):
+Do:
   fbva!d
-Expect (First symbol embrace deleted):
+Expect:
   foo!!
 
-Do (va!a!d with cursor on b):
+Do:
   fbva!a!d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo!!b!! {{{2
-Given (foo!!b!!):
+Given:
   foo!!b!!
 
 " start at b {{{3
-Do (di! with cursor on b):
+Do:
   fbdi!
-Expect (Inner symbol deleted):
+Expect:
   foo!!!!
 
-Do (di!di! with cursor on b):
+Do:
   fbdi!di!
-Expect (Inner symbol deleted):
+Expect:
   foo!!!!
 
-Do (da! with cursor on b):
+Do:
   fbda!
-Expect (first symbol embraced deleted):
+Expect:
   foo!!
 
-Do (da!da! with cursor on b):
+Do:
   fbda!da!
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi!x with cursor on b):
+Do:
   fbyi!x
-Expect (b deleted):
+Expect:
   foo!!!!
 
-Do (da! with cursor on b):
+Do:
   fbya!x
-Expect (symbol to left of b deleted):
+Expect:
   foo!b!!
 
-Do (vi!d with cursor on b):
+Do:
   fbvi!d
-Expect (Inner symbol deleted):
+Expect:
   foo!!!!
 
-Do (va!d with cursor on b):
+Do:
   fbva!d
-Expect (First symbol embraced deleted):
+Expect:
   foo!!
 
-Do (vi!i!d with cursor on b):
+Do:
   fbvi!i!d
-Expect (Only inner symbol deleted):
+Expect:
   foo!!!!
 
-Do (va!a!d with cursor on b):
+Do:
   fbva!a!d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " ? question mark {{{1
 " doc: doo?bar?xyz {{{2
-Given (foo?bar?xyz):
+Given:
   foo?bar?xyz
 
 " start at f {{{3
-Do (di? with cursor on f):
+Do:
   di?
 Expect:
   foo??xyz
 
-Do (da? with cursor on f):
+Do:
   da?
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di? with cursor on b):
+Do:
   fbdi?
 Expect:
   foo??xyz
 
-Do (da? with cursor on b):
+Do:
   fbda?
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di? with cursor on x):
+Do:
   fxdi?
 Expect:
   foo?bar?xyz
 
-Do (da? with cursor on x):
+Do:
   fxda?
 Expect:
   foo?bar?xyz
 
 " doc: ?foo\nbar? {{{2
-Given (?foo\nbar?):
+Given:
   ?foo
   bar?
 
 " start at f {{{3
-Do (di? with cursor on f):
+Do:
   ffdi?
 Expect:
   ?foo
   bar?
 
-Do (ffdi? with cursor on f):
+Do:
   ffda?
 Expect:
   ?foo
@@ -1101,468 +1101,468 @@ Expect:
 
 
 " start b {{{3
-Do (di? with cursor on b):
+Do:
   +di?
 Expect:
   ?foo
   bar?
 
-Do (di? with cursor on b):
+Do:
   +da?
 Expect:
   ?foo
   bar?
 
 " doc: foo??foobar?? {{{2
-Given (foo??foobar??):
+Given:
   foo??foobar??
 
 " start at b {{{3
-Do (di? with cursor on b):
+Do:
   fbdi?
-Expect (Inner symbol deleted):
+Expect:
   foo????
 
-Do (di?di? with cursor on b):
+Do:
   fbdi?di?
 Expect:
   foo????
 
-Do (da? with cursor on b):
+Do:
   fbda?
-Expect (First symbol embrace deleted):
+Expect:
   foo??
 
-Do (da?da? with cursor on b):
+Do:
   fbda?da?
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi?x with cursor on b):
+Do:
   fbyi?x
-Expect (f deleted):
+Expect:
   foo??oobar??
 
-Do (da? with cursor on b):
+Do:
   fbya?x
-Expect (symbol left to f deleted):
+Expect:
   foo?foobar??
 
-Do (vi?d with cursor on b):
+Do:
   fbvi?d
-Expect (Inner symbol deleted):
+Expect:
   foo????
 
-Do (va?d with cursor on b):
+Do:
   fbva?d
-Expect (First symbol embrace deleted):
+Expect:
   foo??
 
-Do (va?a?d with cursor on b):
+Do:
   fbva?a?d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo??b?? {{{2
-Given (foo??b??):
+Given:
   foo??b??
 
 " start at b
-Do (di? with cursor on b):
+Do:
   fbdi?
-Expect (Inner symbol deleted):
+Expect:
   foo????
 
-Do (di?di? with cursor on b):
+Do:
   fbdi?di?
-Expect (Inner symbol deleted):
+Expect:
   foo????
 
-Do (da? with cursor on b):
+Do:
   fbda?
-Expect (first symbol embraced deleted):
+Expect:
   foo??
 
-Do (da?da? with cursor on b):
+Do:
   fbda?da?
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi?x with cursor on b):
+Do:
   fbyi?x
-Expect (b deleted):
+Expect:
   foo????
 
-Do (da? with cursor on b):
+Do:
   fbya?x
-Expect (symbol to left of b deleted):
+Expect:
   foo?b??
 
-Do (vi?d with cursor on b):
+Do:
   fbvi?d
-Expect (Inner symbol deleted):
+Expect:
   foo????
 
-Do (va?d with cursor on b):
+Do:
   fbva?d
-Expect (First symbol embraced deleted):
+Expect:
   foo??
 
-Do (vi?i?d with cursor on b):
+Do:
   fbvi?i?d
-Expect (Only inner symbol deleted):
+Expect:
   foo????
 
-Do (va?a?d with cursor on b):
+Do:
   fbva?a?d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " / slash {{{1
 " doc: doo/bar/xyz {{{2
-Given (foo/bar/xyz):
+Given:
   foo/bar/xyz
 
 " start at f {{{3
-Do (di/ with cursor on f):
+Do:
   di/
 Expect:
   foo//xyz
 
-Do (da/ with cursor on f):
+Do:
   da/
 Expect:
   fooxyz
 
 " start at b {{{3
-Do (di/ with cursor on b):
+Do:
   fbdi/
 Expect:
   foo//xyz
 
-Do (da/ with cursor on b):
+Do:
   fbda/
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di/ with cursor on x):
+Do:
   fxdi/
-Expect (Nothing happened):
+Expect:
   foo/bar/xyz
 
-Do (fada/ with cursor on x):
+Do:
   fxda/
-Expect (Nothing happened):
+Expect:
   foo/bar/xyz
 
 " doc: /foo\nbar/ {{{2
-Given (/foo\nbar/):
+Given:
   /foo
   bar/
 
 " start at f {{{3
-Do (ffdi/ with cursor on f):
+Do:
   ffdi/
 Expect:
   /foo
   bar/
 
-Do (ffdi/ with cursor on f):
+Do:
   ffda/
 Expect:
   /foo
   bar/
 
 " start b {{{3
-Do (di/ with cursor on b):
+Do:
   +di/
 Expect:
   /foo
   bar/
 
-Do (ffdi/ with cursor on b):
+Do:
   +da/
 Expect:
   /foo
   bar/
 
 " doc: foo//foobar// {{{2
-Given (foo//foobar//):
+Given:
   foo//foobar//
 
 " start at b {{{3
-Do (di/ with cursor on b):
+Do:
   fbdi/
-Expect (Inner symbol deleted):
+Expect:
   foo////
 
-Do (di/di/ with cursor on b):
+Do:
   fbdi/di/
 Expect:
   foo////
 
-Do (da/ with cursor on b):
+Do:
   fbda/
-Expect (First symbol embrace deleted):
+Expect:
   foo//
 
-Do (da/da/ with cursor on b):
+Do:
   fbda/da/
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi/x with cursor on b):
+Do:
   fbyi/x
-Expect (f deleted):
+Expect:
   foo//oobar//
 
-Do (da/ with cursor on b):
+Do:
   fbya/x
-Expect (symbol left to f deleted):
+Expect:
   foo/foobar//
 
-Do (vi/d with cursor on b):
+Do:
   fbvi/d
-Expect (Inner symbol deleted):
+Expect:
   foo////
 
-Do (va/d with cursor on b):
+Do:
   fbva/d
-Expect (First symbol embrace deleted):
+Expect:
   foo//
 
-Do (va/a/d with cursor on b):
+Do:
   fbva/a/d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo//b// {{{2
-Given (foo//b//):
+Given:
   foo//b//
 
 " start at b
-Do (di/ with cursor on b):
+Do:
   fbdi/
-Expect (Inner symbol deleted):
+Expect:
   foo////
 
-Do (di/di/ with cursor on b):
+Do:
   fbdi/di/
-Expect (Inner symbol deleted):
+Expect:
   foo////
 
-Do (da/ with cursor on b):
+Do:
   fbda/
-Expect (first symbol embraced deleted):
+Expect:
   foo//
 
-Do (da/da/ with cursor on b):
+Do:
   fbda/da/
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi/x with cursor on b):
+Do:
   fbyi/x
-Expect (b deleted):
+Expect:
   foo////
 
-Do (da/ with cursor on b):
+Do:
   fbya/x
-Expect (symbol to left of b deleted):
+Expect:
   foo/b//
 
-Do (vi/d with cursor on b):
+Do:
   fbvi/d
-Expect (Inner symbol deleted):
+Expect:
   foo////
 
-Do (va/d with cursor on b):
+Do:
   fbva/d
-Expect (First symbol embraced deleted):
+Expect:
   foo//
 
-Do (vi/i/d with cursor on b):
+Do:
   fbvi/i/d
-Expect (Only inner symbol deleted):
+Expect:
   foo////
 
-Do (va/a/d with cursor on b):
+Do:
   fbva/a/d
-Expect (all symbol deleted):
+Expect:
   foo
 
 " | bar {{{1
 " doc: doo|bar|xyz {{{2
-Given (foo|bar|xyz):
+Given:
   foo|bar|xyz
 
 " start at f {{{3
-Do (di| with cursor on f):
+Do:
   di|
-Expect (bar deleted):
+Expect:
   foo||xyz
 
-Do (da| with cursor on f):
+Do:
   da|
-Expect (Inner embrace deleted):
+Expect:
   fooxyz
 
 " start at b {{{3
-Do (di| with cursor on b):
+Do:
   fbdi|
 Expect:
   foo||xyz
 
-Do (da| with cursor on b):
+Do:
   fbda|
 Expect:
   fooxyz
 
 " start at x {{{3
-Do (di| with cursor on x):
+Do:
   fxdi|
 Expect:
   foo|bar|xyz
 
-Do (fada| with cursor on x):
+Do:
   fxda|
 Expect:
   foo|bar|xyz
 
 " doc: |foo\nbar| {{{2
-Given (|foo\nbar|):
+Given:
   |foo
   bar|
 
 " start at f {{{3
-Do (ffdi| with cursor on f):
+Do:
   ffdi|
-Expect (Nothing happened):
+Expect:
   |foo
   bar|
 
-Do (ffdi| with cursor on f):
+Do:
   ffda|
-Expect (Nothing happened):
+Expect:
   |foo
   bar|
 
 " start b {{{3
-Do (di| with cursor on b):
+Do:
   +di|
 Expect:
   |foo
   bar|
 
-Do (ffdi| with cursor on b):
+Do:
   +da|
 Expect:
   |foo
   bar|
 
 " doc: foo||foobar|| {{{2
-Given (foo||foobar||):
+Given:
   foo||foobar||
 
 " start at b {{{3
-Do (di| with cursor on b):
+Do:
   fbdi|
-Expect (Inner symbol deleted):
+Expect:
   foo||||
 
-Do (di|di| with cursor on b):
+Do:
   fbdi|di|
 Expect:
   foo||||
 
-Do (da| with cursor on b):
+Do:
   fbda|
-Expect (First symbol embrace deleted):
+Expect:
   foo||
 
-Do (da|da| with cursor on b):
+Do:
   fbda|da|
-Expect (All symbols deleted):
+Expect:
   foo
 
-Do (yi|x with cursor on b):
+Do:
   fbyi|x
-Expect (f deleted):
+Expect:
   foo||oobar||
 
-Do (da| with cursor on b):
+Do:
   fbya|x
-Expect (symbol left to f deleted):
+Expect:
   foo|foobar||
 
-Do (vi|d with cursor on b):
+Do:
   fbvi|d
-Expect (Inner symbol deleted):
+Expect:
   foo||||
 
-Do (va|d with cursor on b):
+Do:
   fbva|d
-Expect (First symbol embrace deleted):
+Expect:
   foo||
 
-Do (va|a|d with cursor on b):
+Do:
   fbva|a|d
-Expect (All symbol embraces deleted):
+Expect:
   foo
 
 " doc: foo||b|| {{{2
-Given (foo||b||):
+Given:
   foo||b||
 
 " start at b
-Do (di| with cursor on b):
+Do:
   fbdi|
-Expect (Inner symbol deleted):
+Expect:
   foo||||
 
-Do (di|di| with cursor on b):
+Do:
   fbdi|di|
-Expect (Inner symbol deleted):
+Expect:
   foo||||
 
-Do (da| with cursor on b):
+Do:
   fbda|
-Expect (first symbol embraced deleted):
+Expect:
   foo||
 
-Do (da|da| with cursor on b):
+Do:
   fbda|da|
-Expect (all symbols deleted):
+Expect:
   foo
 
-Do (yi|x with cursor on b):
+Do:
   fbyi|x
-Expect (b deleted):
+Expect:
   foo||||
 
-Do (da| with cursor on b):
+Do:
   fbya|x
-Expect (symbol to left of b deleted):
+Expect:
   foo|b||
 
-Do (vi|d with cursor on b):
+Do:
   fbvi|d
-Expect (Inner symbol deleted):
+Expect:
   foo||||
 
-Do (va|d with cursor on b):
+Do:
   fbva|d
-Expect (First symbol embraced deleted):
+Expect:
   foo||
 
-Do (vi|i|d with cursor on b):
+Do:
   fbvi|i|d
-Expect (Only inner symbol deleted):
+Expect:
   foo||||
 
-Do (va|a|d with cursor on b):
+Do:
   fbva|a|d
-Expect (all symbol deleted):
+Expect:
   foo
 

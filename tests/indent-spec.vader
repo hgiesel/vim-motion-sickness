@@ -7,21 +7,21 @@ Given:
     bar
     baz
   foo
-Before (Go to baz):
+Before:
   call search('baz')
 
-Do (dii with cursor on baz):
+Do:
   dii
-Expect (Inner indent deleted):
+Expect:
   arg
 
   abc
   foo
   foo
 
-Do (daz with cursor on baz):
+Do:
   dai
-Expect (Inner indent deleted):
+Expect:
   arg
 
   abc
@@ -38,21 +38,21 @@ Given:
 
     baz
   foo
-Before (Go to baz):
+Before:
   call search('baz')
 
-Do (diI with cursor on baz):
+Do:
   diI
-Expect (Inner indent deleted):
+Expect:
   arg
 
   abc
   foo
   foo
 
-Do (daI with cursor on baz):
+Do:
   daI
-Expect (All indent deleted):
+Expect:
   arg
 
   abc

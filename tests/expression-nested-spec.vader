@@ -1,234 +1,234 @@
 " Using die {{{1
-" {{{2 Given (xyz(def foo(bar))):
-Given (xyz(def foo(bar))):
+" {{{2 Given:
+Given:
   xyz(def foo(bar))
 
-Do (dieb with cursor on x):
+Do:
   dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on d):
+Do:
   fddieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on b):
+Do:
   fbdieb
-Expect (delete inner expression):
+Expect:
   xyz(def )
 
-Do (dieb with cursor on open paren):
+Do:
   f(dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on second close paren):
+Do:
   f)f)dieb
-Expect (All deleted):
+Expect:
   
 
-" {{{2 Given (xyz{def foo{bar}}):
-Given (xyz{def foo{bar}}):
+" {{{2 Given:
+Given:
   xyz{def foo{bar}}
 
-Do (dieB with cursor on x):
+Do:
   dieB
-Expect (All deleted):
+Expect:
   
 
-Do (dieB with cursor on d):
+Do:
   fddieB
-Expect (All deleted):
+Expect:
   
 
-Do (dieB with cursor on b):
+Do:
   fbdieB
-Expect (delete inner expression):
+Expect:
   xyz{def }
 
-Do (dieB with cursor on open paren):
+Do:
   f{dieB
-Expect (All deleted):
+Expect:
   
 
-Do (dieB with cursor on second close paren):
+Do:
   f}f}dieB
-Expect (All deleted):
+Expect:
   
 
-" {{{2 Given (xyz[def foo[bar]]):
-Given (xyz[def foo[bar]]):
+" {{{2 Given:
+Given:
   xyz[def foo[bar]]
 
-Do (dier with cursor on x):
+Do:
   dier
-Expect (All deleted):
+Expect:
   
 
-Do (dier with cursor on d):
+Do:
   fddier
-Expect (All deleted):
+Expect:
   
 
-Do (dier with cursor on b):
+Do:
   fbdier
-Expect (delete inner expression):
+Expect:
   xyz[def ]
 
-Do (dier with cursor on open paren):
+Do:
   f[dier
-Expect (All deleted):
+Expect:
   
 
-Do (dier with cursor on second close paren):
+Do:
   f]f]dier
-Expect (All deleted):
+Expect:
   
 
-" {{{2 Given (xyz<def foo<bar>>):
-Given (xyz<def foo<bar>>):
+" {{{2 Given:
+Given:
   xyz<def foo<bar>>
 
-Do (diea with cursor on x):
+Do:
   diea
-Expect (All deleted):
+Expect:
   
 
-Do (diea with cursor on d):
+Do:
   fddiea
-Expect (All deleted):
+Expect:
   
 
-Do (diea with cursor on b):
+Do:
   fbdiea
-Expect (delete inner expression):
+Expect:
   xyz<def >
 
-Do (diea with cursor on open paren):
+Do:
   f<diea
-Expect (All deleted):
+Expect:
   
 
-Do (diea with cursor on second close paren):
+Do:
   f>f>diea
-Expect (All deleted):
+Expect:
   
 
 " {{{1 Using dae
-" {{{2 Given (xyz(def foo(bar))):
-Given (xyz(def foo(bar))):
+" {{{2 Given:
+Given:
   xyz(def foo(bar))
 
-Do (daeb with cursor on x):
+Do:
   daeb
-Expect (All deleted):
+Expect:
   
 
-Do (daeb with cursor on d):
+Do:
   fddaeb
-Expect (delete inner expression):
+Expect:
   xyz()
 
-Do (daeb with cursor on b):
+Do:
   fbdaeb
-Expect (delete inner expression):
+Expect:
   xyz()
 
-Do (daeb with cursor on open paren):
+Do:
   f(daeb
-Expect (All deleted):
+Expect:
   
 
-Do (daeb with cursor on second close paren):
+Do:
   f)f)daeb
-Expect (All deleted):
+Expect:
   
 
-" {{{2 Given (xyz{def foo{bar}}):
-Given (xyz{def foo{bar}}):
+" {{{2 Given:
+Given:
   xyz{def foo{bar}}
 
-Do (daeB with cursor on x):
+Do:
   daeB
-Expect (All deleted):
+Expect:
   
 
-Do (daeB with cursor on d):
+Do:
   fddaeB
-Expect (delete inner expression):
+Expect:
   xyz{}
 
-Do (daeB with cursor on b):
+Do:
   fbdaeB
-Expect (delete inner expression):
+Expect:
   xyz{}
 
-Do (daeB with cursor on open paren):
+Do:
   f{daeB
-Expect (All deleted):
+Expect:
   
 
-Do (daeB with cursor on second close paren):
+Do:
   f}f}daeB
-Expect (All deleted):
+Expect:
   
 
-" {{{2 Given (xyz[def foo[bar]]):
-Given (xyz[def foo[bar]]):
+" {{{2 Given:
+Given:
   xyz[def foo[bar]]
 
-Do (daer with cursor on x):
+Do:
   daer
-Expect (All deleted):
+Expect:
   
 
-Do (daer with cursor on d):
+Do:
   fddaer
-Expect (delete inner expression):
+Expect:
   xyz[]
 
-Do (daer with cursor on b):
+Do:
   fbdaer
-Expect (delete inner expression):
+Expect:
   xyz[]
 
-Do (daer with cursor on open paren):
+Do:
   f[daer
-Expect (All deleted):
+Expect:
   
 
-Do (daer with cursor on second close paren):
+Do:
   f]f]daer
-Expect (All deleted):
+Expect:
   
 
-" {{{2 Given (xyz<def foo<bar>>):
-Given (xyz<def foo<bar>>):
+" {{{2 Given:
+Given:
   xyz<def foo<bar>>
 
-Do (daea with cursor on x):
+Do:
   daea
-Expect (All deleted):
+Expect:
   
 
-Do (daea with cursor on d):
+Do:
   fddaea
-Expect (All deleted):
+Expect:
   xyz<>
 
-Do (daea with cursor on b):
+Do:
   fbdaea
-Expect (delete inner expression):
+Expect:
   xyz<>
 
-Do (daea with cursor on open paren):
+Do:
   f<daea
-Expect (All deleted):
+Expect:
   
 
-Do (daea with cursor on second second close paren):
+Do:
   f>f>daea
-Expect (All deleted):
+Expect:
   
 

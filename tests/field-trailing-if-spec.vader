@@ -1,41 +1,41 @@
 " difb without last trailing comma {{{2
-Given (difb without last trailing comma):
+Given:
   foo(
     bar,
     arg,
     xyz
   )
 
-Do (difb with cursor on f):
+Do:
   difb
-Expect (Nothing deleted):
+Expect:
   foo(
     bar,
     arg,
     xyz
   )
 
-Do (difb with cursor on b):
+Do:
   jfbdifb
-Expect (First argument deleted):
+Expect:
   foo(
     ,
     arg,
     xyz
   )
 
-Do (difb with cursor on second a):
+Do:
   jjfadifb
-Expect (Second argument deleted):
+Expect:
   foo(
     bar,
     ,
     xyz
   )
 
-Do (difb with cursor on z):
+Do:
   jjjfxdifb
-Expect (Third argument deleted):
+Expect:
   foo(
     bar,
     arg,
@@ -45,43 +45,43 @@ Expect (Third argument deleted):
 
 
 " difr without last trailing comma {{{2
-Given (difr without last trailing comma):
+Given:
   foo[
     bar,
     arg,
     xyz
   ]
 
-Do (difr with cursor on f):
+Do:
   difr
-Expect (Nothing deleted):
+Expect:
   foo[
     bar,
     arg,
     xyz
   ]
 
-Do (difr with cursor on b):
+Do:
   jfbdifr
-Expect (First argument deleted):
+Expect:
   foo[
     ,
     arg,
     xyz
   ]
 
-Do (difr with cursor on second a):
+Do:
   jjfadifr
-Expect (Second argument deleted):
+Expect:
   foo[
     bar,
     ,
     xyz
   ]
 
-Do (difr with cursor on z):
+Do:
   jjjfxdifr
-Expect (Third argument deleted):
+Expect:
   foo[
     bar,
     arg,

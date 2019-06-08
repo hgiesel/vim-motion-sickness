@@ -1,97 +1,97 @@
 " field short style spec with dif commands {{{1
 " difb with doc foo(bar) {{{2
-Given (foo(bar, arg, xyz)):
+Given:
   foo(bar, arg, xyz)
 
-Do (difb with cursor on f):
+Do:
   difb
-Expect (Nothing deleted):
+Expect:
   foo(bar, arg, xyz)
 
-Do (difb with cursor on b):
+Do:
   fbdifb
-Expect (First argument deleted):
+Expect:
   foo(, arg, xyz)
 
-Do (difb with cursor on second a):
+Do:
   2fadifb
-Expect (Second argument deleted):
+Expect:
   foo(bar, , xyz)
 
-Do (difb with cursor on x):
+Do:
   fxdifb
-Expect (Third argument deleted):
+Expect:
   foo(bar, arg, )
 
 " difB with doc foo(bar) {{{2
-Given (foo{bar, arg, xyz}):
+Given:
   foo{bar, arg, xyz}
 
-Do (difB with cursor on f):
+Do:
   difB
-Expect (Nothing deleted):
+Expect:
   foo{bar, arg, xyz}
 
-Do (difB with cursor on b):
+Do:
   fbdifB
-Expect (First argument deleted):
+Expect:
   foo{, arg, xyz}
 
-Do (difB with cursor on second a):
+Do:
   2fadifB
-Expect (Second argument deleted):
+Expect:
   foo{bar, , xyz}
 
-Do (difB with cursor on x):
+Do:
   fxdifB
-Expect (Third argument deleted):
+Expect:
   foo{bar, arg, }
 
 " difr with doc foo(bar) {{{2
-Given (foo[bar, arg, xyz]):
+Given:
   foo[bar, arg, xyz]
 
-Do (difr with cursor on f):
+Do:
   difr
-Expect (Nothing deleted):
+Expect:
   foo[bar, arg, xyz]
 
-Do (difr with cursor on b):
+Do:
   fbdifr
-Expect (First argument deleted):
+Expect:
   foo[, arg, xyz]
 
-Do (difr with cursor on second a):
+Do:
   2fadifr
-Expect (Second argument deleted):
+Expect:
   foo[bar, , xyz]
 
-Do (difr with cursor on x):
+Do:
   fxdifr
-Expect (Third argument deleted):
+Expect:
   foo[bar, arg, ]
 
 " difa with doc foo(bar) {{{2
-Given (foo(bar, arg, xyz)):
+Given:
   foo<bar, arg, xyz>
 
-Do (difa with cursor on f):
+Do:
   difa
-Expect (Nothing deleted):
+Expect:
   foo<bar, arg, xyz>
 
-Do (difa with cursor on b):
+Do:
   fbdifa
-Expect (First argument deleted):
+Expect:
   foo<, arg, xyz>
 
-Do (difa with cursor on second a):
+Do:
   2fadifa
-Expect (Second argument deleted):
+Expect:
   foo<bar, , xyz>
 
-Do (difa with cursor on x):
+Do:
   fxdifa
-Expect (Third argument deleted):
+Expect:
   foo<bar, arg, >
 

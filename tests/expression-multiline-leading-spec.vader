@@ -1,53 +1,53 @@
 " Using dieb {{{1
-Given (leading-symbol style):
+Given:
   foo( bar
      , a_longer_word
      , another_word
      )
 
-Do (dieb with cursor on f):
+Do:
   dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on open paren):
+Do:
   f(dieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on whitespace before a_longer_word):
+Do:
   jdieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on whitespace before close paren):
+Do:
   jjjdieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on a in another_word):
+Do:
   jjfadieb
-Expect (All deleted):
+Expect:
   
 
-Do (dieb with cursor on close paren):
+Do:
   jjjdieb
-Expect (All deleted):
+Expect:
   
 
-Given (leading-symbol style with whitespace after):
+Given:
   foo( bar
      , a_longer_word
      ) 
 
-Do (dieb with cursor on f):
+Do:
   dieb
-Expect (Whitespace after remains):
+Expect:
    
 
-Do (dieb with cursor behind close paren):
+Do:
   jj$ldieb
-Expect (Nothing changed):
+Expect:
   foo( bar
      , a_longer_word
      ) 

@@ -1,27 +1,27 @@
-Given (foo[asdf]):
+Given:
   foo[asdf]
-Before (Go to `d`):
+Before:
   normal! fd
 
-Do (dir):
+Do:
   dir
-Expect (Inner Brackets deleted):
+Expect:
   foo[]
-Do (dar):
+Do:
   dar
-Expect (All Brackets deleted):
+Expect:
   foo
 
-Given (foo<asdf>):
+Given:
   foo<asdf>
-Before (Go to `d`):
+Before:
   normal! fd
 
-Do (dia):
+Do:
   dia
-Expect (Inner chevrons deleted):
+Expect:
   foo<>
-Do (daa):
+Do:
   daa
-Expect (All chevrons deleted):
+Expect:
   foo
