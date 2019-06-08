@@ -7,7 +7,11 @@ if !exists('g:indent#aI_reach_down')
   endif
 endif
 
-function indent#motion(margin, specialcmd)
+" mode is either:
+" - 'p': mimics p motion - supports counts
+" - 'l': select an entire indentation level - does not support counts
+" - 'b': select an indentation block - supports counts
+function! indent#motion(margin, mode)
   " difference between ii and ia is only the count
   " of margins you go down
   if a:margin
@@ -15,8 +19,6 @@ function indent#motion(margin, specialcmd)
   else
     let l:count = v:count1
   endif
-
-  normal! gv
 
   for i in range(l:count)
     if mode() ==# 'V'
@@ -64,7 +66,7 @@ function indent#motion(margin, specialcmd)
 
     " special cmds, if they hit, they end the motion
     """""""""""""""""""""""""""""""""""" iI special command
-    if a:specialcmd == 'all'
+    if a:mode == 'l'
       if mode() !=# 'V'
         execute 'normal! V'
       elseif !exists('l:minindent')
@@ -102,7 +104,7 @@ function indent#motion(margin, specialcmd)
       return
 
     """""""""""""""""""""""""""""""""""" aI special command
-    elseif a:specialcmd == 'escape'
+    elseif a:mode == 'b'
       if mode() !=# 'V'
         execute 'normal! V'
       elseif !exists('l:minindent')

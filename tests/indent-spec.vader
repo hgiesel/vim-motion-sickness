@@ -11,7 +11,7 @@ Before:
   call search('baz')
 
 Do:
-  dii
+  diip
 Expect:
   arg
 
@@ -20,39 +20,10 @@ Expect:
   foo
 
 Do:
-  dai
+  daip
 Expect:
   arg
 
   abc
   foo
   foo
-
-" iI or aI motions {{{1
-Given:
-  arg
-
-  abc
-  foo
-    bar
-
-    baz
-  foo
-Before:
-  call search('baz')
-
-Do:
-  diI
-Expect:
-  arg
-
-  abc
-  foo
-  foo
-
-Do:
-  daI
-Expect:
-  arg
-
-  abc
