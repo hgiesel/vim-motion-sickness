@@ -1,0 +1,57 @@
+" iit ait
+Given:
+  prevline()
+  
+  if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
+  
+      hello();
+  
+      world();
+      how();
+  
+      are();
+      you();
+  
+  
+  nextline()
+
+Before:
+  /hello
+
+Do:
+  diit
+Expect:
+  prevline()
+  
+  
+  
+  
+  nextline()
+
+
+Do:
+  dait
+Expect:
+  prevline()
+  nextline()
+
+Before:
+  /helloj
+
+Do:
+  diil
+Expect:
+  prevline()
+  
+  
+  
+  
+  nextline()
+
+
+Do:
+  dail
+Expect:
+  prevline()
+  nextline()

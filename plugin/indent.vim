@@ -20,6 +20,11 @@ vmap iib <plug>(Viibmotion)
 omap aib <plug>(Oaibmotion)
 vmap aib <plug>(Vaibmotion)
 
+omap iit <plug>(Oiitmotion)
+vmap iit <plug>(Viitmotion)
+omap ait <plug>(Oaitmotion)
+vmap ait <plug>(Vaitmotion)
+
 " Indentation Setting plug mappings {{{1
 onoremap <silent> <plug>(Oiipmotion) <cmd>call indent#motion(v:false, 'p')<cr>
 vnoremap <silent> <plug>(Viipmotion) <cmd>call indent#motion(v:false, 'p')<cr>
@@ -35,6 +40,11 @@ onoremap <silent> <plug>(Oiibmotion) <cmd>call indent#motion(v:false, 'b')<cr>
 vnoremap <silent> <plug>(Viibmotion) <cmd>call indent#motion(v:false, 'b')<cr>
 onoremap <silent> <plug>(Oaibmotion) <cmd>call indent#motion(v:true, 'b')<cr>
 vnoremap <silent> <plug>(Vaibmotion) <cmd>call indent#motion(v:true, 'b')<cr>
+
+onoremap <silent> <plug>(Oiibmotion) <cmd>call indent#motion(v:false, 't')<cr>
+vnoremap <silent> <plug>(Viibmotion) <cmd>call indent#motion(v:false, 't')<cr>
+onoremap <silent> <plug>(Oaibmotion) <cmd>call indent#motion(v:true, 't')<cr>
+vnoremap <silent> <plug>(Vaibmotion) <cmd>call indent#motion(v:true, 't')<cr>
 
 " Line Setting user mappings {{{1
 omap il <plug>(Oilmotion)

@@ -130,20 +130,20 @@ Foo ( arg1
 
 | text object | effect                                        |
 |-------------|-----------------------------------------------|
-| `ii`        | select current indent level and above         |
-| `ai`        | select current indent level and above, and first line of one indent level below |
-| `iI`        | select current indent leven and above going beyond empty lines |
-| `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
+| `iip`/`aip` | similar to `ip`/`ap`, except it does not exceed the current indentation level |
+| `iil`/`ail` | selects the entire current indentation level excluding / including leading and trailing empty lines |
+| `iib`/`aib` | like `ail` and it selects one line of lower indent before and after the section |
+| `iit`/`ait` | like `ail` and it selects one line of lower indent before the section |
 
-These were built to imitate `ip`/`ap` on some level, but also offer many more uses.
-Special command `aI` can extend either only to the top, or to the bottom as well.
-Defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`.
-In languages which are indent heavy, like Python or Haskell, reach down is discouraged.
+TODO cast
 
 ## Line motions
 
 * inspired by [vim-textobj-line](https://github.com/kana/vim-textobj-line)
 
+| text object  | effect                             |
+|--------------|------------------------------------|
+| `il`/`al`    | select the current line including / excluding leading/trailing blank characters |
 
 ## Symbol motions
 
@@ -159,7 +159,6 @@ In languages which are indent heavy, like Python or Haskell, reach down is disco
 | `i/`/`a/`    | similar to `i"`/`a"`, but for `/`  |
 | `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
 | `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
-
 
 > ## Segment motions
 > ## Pair motions

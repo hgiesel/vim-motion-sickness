@@ -36,7 +36,11 @@ env:
     - TARGET='field-trailing-if'
     - TARGET='field-trailing-af'
 
-    - TARGET='indent'
+    - TARGET='indent-paragraph'
+    - TARGET='indent-level'
+    - TARGET='indent-block'
+    - TARGET='indent-top'
+
     - TARGET='symbol-all'
 
 script: ./test.sh

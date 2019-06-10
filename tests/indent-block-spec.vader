@@ -1,35 +1,55 @@
 " iib aib
 Given:
-  if and only if (cond1() == True and cond2() == True and
-                  cond2() == True and cond3() == True)
+  prevline();
+  
+  int main(void) {
   
       hello();
-  
       world();
+  
       how();
-  
       are();
+  
       you();
+  }
   
-
-  nextline()
   
-  nextline_after()
+  nextline();
 
 Before:
-  /hello
+  /world
 
 Do:
-  diib
+  diit
 Expect:
+  prevline();
   
   
   
-  nextline()
+  nextline();
 
 
 Do:
-  daib
+  dait
 Expect:
+  prevline();
+  nextline();
+
+Before:
+  /worldj
+
+Do:
+  diil
+Expect:
+  prevline();
+  
+  
+  
+  nextline();
 
 
+Do:
+  dail
+Expect:
+  prevline();
+  nextline();
