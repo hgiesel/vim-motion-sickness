@@ -1,5 +1,9 @@
 " Defining functions {{{1
 
+if !exists('g:sick_exclude_leading_higher_indents')
+  let g:sick_exclude_leading_higher_indents = v:true
+endif
+
 " only having blank characters counts as empty
 function! s:IsLineEmpty(line)
   return match(a:line, '[^ \t]') ==# -1
@@ -12,6 +16,7 @@ function! s:SelectInnerLevel(minindent, include_emptylines)
         execute 'normal! V'
       endif
 
+      " get bottom line
       while (indent(line('.') + 1) >= a:minindent) || s:IsLineEmpty(getline(line('.') + 1))
         execute 'normal! j'
         if line('.') == line('$')
@@ -19,7 +24,6 @@ function! s:SelectInnerLevel(minindent, include_emptylines)
         endif
       endwhile
 
-      " get top line
       if !a:include_emptylines
         while s:IsLineEmpty(getline('.'))
           execute 'normal! k'
@@ -28,12 +32,27 @@ function! s:SelectInnerLevel(minindent, include_emptylines)
 
       execute 'normal! o'
 
+      " get top line
       while (indent(line('.') - 1) >= a:minindent) || s:IsLineEmpty(getline(line('.') - 1))
         execute 'normal! k'
         if line('.') == 1
           break
         endif
       endwhile
+
+      if g:sick_exclude_leading_higher_indents
+        " e.g. useful when using opening delimiter indentation style
+        " foo_function_name(bla bla,
+        "                   foo foo) {
+        "   hello; <- iil will start here
+        "   world;
+        " }
+        "
+
+        while indent(line('.')) > a:minindent && line('.') !=# line('$')
+          execute 'normal! j'
+        endwhile
+      endif
 
       if !a:include_emptylines
         while s:IsLineEmpty(getline('.')) && line('.') !=# line('$')
@@ -43,6 +62,7 @@ function! s:SelectInnerLevel(minindent, include_emptylines)
 
       "return with cursor at bottom
       execute 'normal! o'
+      return
 endfunction
 
 " mode is either:
