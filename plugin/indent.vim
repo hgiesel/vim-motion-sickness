@@ -41,10 +41,10 @@ vnoremap <silent> <plug>(Viibmotion) <cmd>call indent#motion(v:false, 'b')<cr>
 onoremap <silent> <plug>(Oaibmotion) <cmd>call indent#motion(v:true, 'b')<cr>
 vnoremap <silent> <plug>(Vaibmotion) <cmd>call indent#motion(v:true, 'b')<cr>
 
-onoremap <silent> <plug>(Oiibmotion) <cmd>call indent#motion(v:false, 't')<cr>
-vnoremap <silent> <plug>(Viibmotion) <cmd>call indent#motion(v:false, 't')<cr>
-onoremap <silent> <plug>(Oaibmotion) <cmd>call indent#motion(v:true, 't')<cr>
-vnoremap <silent> <plug>(Vaibmotion) <cmd>call indent#motion(v:true, 't')<cr>
+onoremap <silent> <plug>(Oiitmotion) <cmd>call indent#motion(v:false, 't')<cr>
+vnoremap <silent> <plug>(Viitmotion) <cmd>call indent#motion(v:false, 't')<cr>
+onoremap <silent> <plug>(Oaitmotion) <cmd>call indent#motion(v:true, 't')<cr>
+vnoremap <silent> <plug>(Vaitmotion) <cmd>call indent#motion(v:true, 't')<cr>
 
 " Line Setting user mappings {{{1
 omap il <plug>(Oilmotion)
