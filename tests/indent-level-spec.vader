@@ -1,0 +1,36 @@
+" iil ail
+Given:
+  if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
+  
+      hello();
+  
+      world();
+      how();
+  
+      are();
+      you();
+  
+
+  nextline()
+
+Before:
+  /hello
+
+Do:
+  diil
+Expect:
+  if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
+  
+  
+  
+  nextline()
+
+
+Do:
+  dail
+Expect:
+  if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
+  nextline()

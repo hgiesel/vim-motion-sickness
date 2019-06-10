@@ -1,0 +1,342 @@
+" iip aip motions {{{1
+Given:
+  arg
+  
+  abc
+  foo
+    bar
+    baz
+  foo
+Before:
+  call search('baz')
+
+Do:
+  diip
+Expect:
+  arg
+  
+  abc
+  foo
+  foo
+
+Do:
+  daip
+Expect:
+  arg
+  
+  abc
+  foo
+  foo
+
+
+" iip aip with longer text starting at inner1 {{{1
+Given:
+  if (cond) {
+      foo;
+      bar;
+
+      line3;
+      line4;
+
+      {
+          inner1;
+          inner2;
+
+          inner3;
+          inner4;
+      };
+
+      arg;
+      baz;
+  }
+
+Before:
+  /inner1
+
+Do:
+  diip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+
+          inner3;
+          inner4;
+      };
+  
+      arg;
+      baz;
+  }
+
+Do:
+  d2iip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+          inner3;
+          inner4;
+      };
+  
+      arg;
+      baz;
+  }
+
+
+Do:
+  d4iip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+      };
+  
+      arg;
+      baz;
+  }
+
+
+Do:
+  d6iip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+      };
+  
+      arg;
+      baz;
+  }
+
+
+Do:
+  daip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+          inner3;
+          inner4;
+      };
+  
+      arg;
+      baz;
+  }
+
+
+Do:
+  d2aip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+      };
+  
+      arg;
+      baz;
+  }
+
+Do:
+  d4aip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+      };
+  
+      arg;
+      baz;
+  }
+
+" iip aip with longer text starting at inner1 {{{1
+Before:
+  /inner3k
+
+Do:
+  diip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+          inner1;
+          inner2;
+  
+          inner3;
+          inner4;
+      };
+  
+      arg;
+      baz;
+  }
+
+Do:
+  d2iip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+          inner1;
+          inner2;
+  
+          inner3;
+          inner4;
+      };
+  
+      arg;
+      baz;
+  }
+
+Do:
+  d2iip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+          inner1;
+          inner2;
+  
+          inner3;
+          inner4;
+      };
+  
+      arg;
+      baz;
+  }
+
+Do:
+  d2aip
+Expect:
+  cond (cond) {
+      foo;
+      bar;
+  
+      line3;
+      line4;
+  
+      {
+          inner1;
+          inner2;
+  
+          inner3;
+          inner4;
+      };
+  
+      arg;
+      baz;
+  }
+
+" iip aip aip with lines filled with blank characters {{{1
+Given:
+  {
+      inner1;
+      inner2;
+      
+      inner3;
+      inner4;
+      
+      inner5;
+      inner6;
+  };
+
+Before:
+  3j
+
+Do:
+  diip
+Expect:
+  {
+      inner1;
+      inner2;
+      inner3;
+      inner4;
+      
+      inner5;
+      inner6;
+  };
+Do:
+  d2iip
+Expect:
+  {
+      inner1;
+      inner2;
+      
+      inner5;
+      inner6;
+  };
+
+Do:
+  d4iip
+Expect:
+  {
+      inner1;
+      inner2;
+  };
+
+Do:
+  daip
+Expect:
+  {
+      inner1;
+      inner2;
+      
+      inner5;
+      inner6;
+  };
+
+Do:
+  d2aip
+Expect:
+  {
+      inner1;
+      inner2;
+  };
