@@ -74,7 +74,7 @@ function! indent#motion(margin, mode)
 
     if mode() !=# 'V'
       " first `ii`/`ai`
-      if getline('.') !=# ''
+      if s:IsLineEmpty(getline('.'))
         execute 'normal! V'
         let l:minindent = indent('.')
 
@@ -92,7 +92,7 @@ function! indent#motion(margin, mode)
         execute 'normal! ip'
       endif
 
-    elseif len(l:lineindents) ==# 0 || getline(line('.') + 1) == ''
+    elseif len(l:lineindents) ==# 0 || s:IsLineEmpty(getline(line('.') + 1))
       " a block of empty lines
       " behave like `ip`/`ap`
       normal! ip

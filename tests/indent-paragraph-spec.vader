@@ -34,18 +34,18 @@ Given:
   if (cond) {
       foo;
       bar;
-
+  
       line3;
       line4;
-
+  
       {
           inner1;
           inner2;
-
+  
           inner3;
           inner4;
       };
-
+  
       arg;
       baz;
   }
