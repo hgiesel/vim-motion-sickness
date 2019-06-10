@@ -73,7 +73,6 @@ function! indent#motion(margin, mode)
     endif
 
     if mode() !=# 'V'
-      echo 'option1'
       " first `ii`/`ai`
       if !s:IsLineEmpty(getline('.'))
         " Get first viable block
@@ -99,13 +98,11 @@ function! indent#motion(margin, mode)
       endif
 
     elseif len(l:lineindents) ==# 0 || s:IsLineEmpty(getline(line('.') + 1))
-      echo 'option2'
       " a block of empty lines
       " behave like `ip`/`ap`
       normal! ip
 
     else
-      echo 'option3'
       " select down until you reach lower indent or empty line
       while !s:IsLineEmpty(getline(line('.') + 1)) && (indent(line('.') + 1) >= l:minindent)
         execute 'normal! j'
@@ -154,7 +151,6 @@ function! indent#motion(margin, mode)
 
       " reach down
       if a:mode ==# 'b'
-        echo 'hello foo'
 
         while (v:true)
           execute 'normal! j'
