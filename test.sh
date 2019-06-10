@@ -10,10 +10,7 @@ fi
 
 if [[ "$TARGET" == 'try' ]]; then
   exec nvim -u 'tests/vimrc-test.vim' <<FOO
-foo("meh", bla, fo)
-
-f(hello), g(world, how), h(are, you)
-
+f(hello, this_is_a_test), g(world, how), h(are, you)
 f(hello), g(world, how,
             are, you)
 

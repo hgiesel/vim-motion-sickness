@@ -283,19 +283,19 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   let l:fieldendJump   = l:fieldend - (l:offset - l:offsetJump)
   normal! 
 
-  """" Positions
-  echo 'opendelim_pos: "'.string(l:opendelim_pos).'"'
-  echo 'closedelim_pos: "'.string(l:closedelim_pos).'"'
+  " """" Positions
+  " echo 'opendelim_pos: "'.string(l:opendelim_pos).'"'
+  " echo 'closedelim_pos: "'.string(l:closedelim_pos).'"'
 
-  """" Offsets in l:innertext
-  echo 'fieldbegin: "'.string(l:fieldbegin).'"'
-  echo 'offset: "'.string(l:offset).'"'
-  echo 'fieldend: "'.string(l:fieldend).'"'
+  " """" Offsets in l:innertext
+  " echo 'fieldbegin: "'.string(l:fieldbegin).'"'
+  " echo 'offset: "'.string(l:offset).'"'
+  " echo 'fieldend: "'.string(l:fieldend).'"'
 
-  """" Offsets in terms of moving with space/backspace
-  echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
-  echo 'offsetJump: "'.string(l:offsetJump).'"'
-  echo 'fieldendJump: "'.string(l:fieldendJump).'"'
+  " """" Offsets in terms of moving with space/backspace
+  " echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
+  " echo 'offsetJump: "'.string(l:offsetJump).'"'
+  " echo 'fieldendJump: "'.string(l:fieldendJump).'"'
 
   """ GET START OF INNER FIELD
   call setpos('.', l:opendelim_pos)
@@ -371,7 +371,6 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
 
         " leading symbol style
         if l:opendelim_pos[2] == l:closedelim_pos[2]
-          echo 'hihi'
           call setpos('.', l:opendelim_pos)
           execute "normal! 1 "
           let l:startpos = getpos('.')

@@ -90,52 +90,38 @@ let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motion
 In other words, these are basis for the unit tests, and for the algorithm governing
 these motions.
 
-<table>
-    <thead>
-        <tr>
-            <th>list style</th>
-            <th>example</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>short style</td>
-            <td>
-                <pre><code>foo(arg1, arg2, arg3)</code></pre>
-            </td>
-        </tr>
-        <tr>
-            <td>delimiter-indented style</td>
-            <td>
-                <pre><code>foo_function(arg1, arg2,
-             arg3)</code></pre>
-            </td>
-        </tr>
-        <tr>
-            <td>trailing-symbol style</td>
-            <td>
-                <pre><code>foo_function(
+#### short style
+
+```c
+foo(arg1, arg2, arg3)
+```
+
+#### delimiter-indented style
+
+```c
+foo_function(arg1, arg2,
+             arg3, another_arg)
+```
+
+#### trailing-symbol style
+
+```c
+foo_function(
     arg1,
     arg2,
     arg3
-)</code></pre>
-            </td>
-        </tr>
-        <tr>
-            <td>leading-symbol style</td>
-            <td>
-                <pre><code>foo( arg1
-   , arg2
-   , arg2
-   , arg3
-   )</code></pre>
-            </td>
-        </tr>
-    </tbody>
-</table>
+)
+```
 
-> ## Segment motions
-> ## Pair motions
+#### leading-symbol style
+
+```c
+Foo ( arg1
+    , arg2
+    , arg2
+    , arg3
+    )
+```
 
 ## Indent motions
 
@@ -149,10 +135,10 @@ these motions.
 | `iI`        | select current indent leven and above going beyond empty lines |
 | `aI`        | select current indent level and above, and first line of one indent level below going beyond empty lines |
 
-* these were built to imitate `ip`/`ap` on some level, but also offer many more uses
-* `aI` can extends either only to the top, or to the bottom as well
-  * defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`
-  * in languages which are indent heavy, like Python or Haskell, reach down is discouraged
+These were built to imitate `ip`/`ap` on some level, but also offer many more uses.
+Special command `aI` can extend either only to the top, or to the bottom as well.
+Defined in the global variable `g:aI_reach_down` , which can be `v:true`, or `v:false`.
+In languages which are indent heavy, like Python or Haskell, reach down is discouraged.
 
 ## Line motions
 
@@ -174,6 +160,6 @@ these motions.
 | `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
 | `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
 
-## TODO
 
-* at the moment, none of the motions accept counts
+> ## Segment motions
+> ## Pair motions
