@@ -56,7 +56,7 @@ Before:
 Do:
   diip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -76,7 +76,7 @@ Expect:
 Do:
   d2iip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -96,7 +96,7 @@ Expect:
 Do:
   d4iip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -114,7 +114,7 @@ Expect:
 Do:
   d6iip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -132,7 +132,7 @@ Expect:
 Do:
   daip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -152,7 +152,7 @@ Expect:
 Do:
   d2aip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -169,7 +169,7 @@ Expect:
 Do:
   d4aip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -185,12 +185,12 @@ Expect:
 
 " iip aip with longer text starting at inner1 {{{1
 Before:
-  /inner3k
+  call search('inner3')
 
 Do:
   diip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -201,8 +201,6 @@ Expect:
           inner1;
           inner2;
   
-          inner3;
-          inner4;
       };
   
       arg;
@@ -212,7 +210,7 @@ Expect:
 Do:
   d2iip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -223,8 +221,6 @@ Expect:
           inner1;
           inner2;
   
-          inner3;
-          inner4;
       };
   
       arg;
@@ -232,9 +228,9 @@ Expect:
   }
 
 Do:
-  d2iip
+  daip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -245,8 +241,6 @@ Expect:
           inner1;
           inner2;
   
-          inner3;
-          inner4;
       };
   
       arg;
@@ -256,7 +250,7 @@ Expect:
 Do:
   d2aip
 Expect:
-  cond (cond) {
+  if (cond) {
       foo;
       bar;
   
@@ -267,8 +261,6 @@ Expect:
           inner1;
           inner2;
   
-          inner3;
-          inner4;
       };
   
       arg;
@@ -289,7 +281,7 @@ Given:
   };
 
 Before:
-  3j
+  normal! jjj
 
 Do:
   diip

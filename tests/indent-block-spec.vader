@@ -17,10 +17,10 @@ Given:
   nextline();
 
 Before:
-  /world
+  call search('world')
 
 Do:
-  diit
+  diib
 Expect:
   prevline();
   
@@ -30,16 +30,16 @@ Expect:
 
 
 Do:
-  dait
+  daib
 Expect:
   prevline();
   nextline();
 
 Before:
-  /worldj
+  call search('world')
 
 Do:
-  diil
+  diib
 Expect:
   prevline();
   
@@ -49,7 +49,7 @@ Expect:
 
 
 Do:
-  dail
+  daib
 Expect:
   prevline();
   nextline();

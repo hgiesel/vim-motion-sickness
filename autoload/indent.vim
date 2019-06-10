@@ -73,33 +73,41 @@ function! indent#motion(margin, mode)
     endif
 
     if mode() !=# 'V'
+      echo 'option1'
       " first `ii`/`ai`
-      if s:IsLineEmpty(getline('.'))
-        execute 'normal! V'
+      if !s:IsLineEmpty(getline('.'))
+        " Get first viable block
         let l:minindent = indent('.')
+        execute 'normal! V'
 
-        while (indent(line('.') + 1) >= l:minindent)
+        while (!s:IsLineEmpty(getline(line('.') + 1)) && indent(line('.') + 1) >= l:minindent)
           execute 'normal! j'
         endwhile
         execute 'normal! o'
 
-        while (indent(line('.') - 1) >= l:minindent)
+        while (!s:IsLineEmpty(getline(line('.') - 1)) && indent(line('.') - 1) >= l:minindent)
           execute 'normal! k'
         endwhile
         execute 'normal! o'
 
       else
-        execute 'normal! ip'
+        if mode() !=# 'v'
+          execute 'normal! vip'
+        else
+          execute 'normal! ip'
+        endif
       endif
 
     elseif len(l:lineindents) ==# 0 || s:IsLineEmpty(getline(line('.') + 1))
+      echo 'option2'
       " a block of empty lines
       " behave like `ip`/`ap`
       normal! ip
 
     else
+      echo 'option3'
       " select down until you reach lower indent or empty line
-      while (indent(line('.') + 1) >= l:minindent)
+      while !s:IsLineEmpty(getline(line('.') + 1)) && (indent(line('.') + 1) >= l:minindent)
         execute 'normal! j'
       endwhile
     endif
@@ -142,11 +150,11 @@ function! indent#motion(margin, mode)
         endif
 
         execute 'normal! o'
-        return
       endif
 
       " reach down
       if a:mode ==# 'b'
+        echo 'hello foo'
 
         while (v:true)
           execute 'normal! j'
@@ -158,7 +166,7 @@ function! indent#motion(margin, mode)
         if l:include_emptylines
           " walk further down to include empty lines
           while line('.') !=# line('$') && s:IsLineEmpty(getline(line('.') + 1))
-            execute 'normal! k'
+            execute 'normal! j'
           endwhile
         endif
 

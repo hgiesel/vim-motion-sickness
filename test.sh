@@ -12,17 +12,16 @@ if [[ "$TARGET" == 'try' ]]; then
   exec nvim -u 'tests/vimrc-test.vim' <<FOO
 prevline();
 
-foo_function(
-
-  hello();
-
-  world();
-  how();
-
-  are();
-  you();
-
-)
+{
+    inner1;
+    inner2;
+    
+    inner3;
+    inner4;
+    
+    inner5;
+    inner6;
+};
 
 nextline();
 FOO
