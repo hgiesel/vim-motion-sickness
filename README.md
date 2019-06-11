@@ -44,12 +44,8 @@ ensures they all work as intended.
 An *inner expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by a WORD.
 While going back a word, `motion-sickness` is smart about not going beyond opening brackets, etc. 
 
-// TODO add cast
-
 An *all expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by anything.
 The same restrictions that apply to *inner expressions* apply here too.
-
-// TODO add cast
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
@@ -70,11 +66,7 @@ let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression m
 An *inner field* selects the current field, enclosed in the specific brace. Think of
 arguments in function, list elements, dictionary entries, etc.
 
-// TODO add cast
-
 An *all field* selects an inner field, together with the field delimiter (usually a comma)
-
-// TODO add cast
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
@@ -122,6 +114,10 @@ Foo ( arg1
     , arg3
     )
 ```
+
+The following gif showcases some examples of expression and field motions:
+
+![expression motions cast](https://media.giphy.com/media/dApCdA2gycwomwrIGO/giphy.gif)
 
 ## Indent motions
 
