@@ -119,11 +119,8 @@ The following gif showcases some examples of expression and field motions:
 
 ![expression motions cast](https://media.giphy.com/media/dApCdA2gycwomwrIGO/giphy.gif)
 
-<<<<<<< HEAD
-=======
 ## Indent motions
 
->>>>>>> f590b1ccb14449907611f62c41a04bbc5d3ce2d2
 * inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
 
 These motions are meant to support the `ip` and `ap` text objects for selecting
