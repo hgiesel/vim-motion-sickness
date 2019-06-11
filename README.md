@@ -49,7 +49,7 @@ The same restrictions that apply to *inner expressions* apply here too.
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
-them to the shorter version. Just put this into your vimrc.
+them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
 let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
@@ -70,7 +70,7 @@ An *all field* selects an inner field, together with the field delimiter (usuall
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
-them to the shorter version. Just put this into your vimrc.
+them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
 let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
@@ -120,7 +120,6 @@ The following gif showcases some examples of expression and field motions:
 ![expression motions cast](https://media.giphy.com/media/dApCdA2gycwomwrIGO/giphy.gif)
 
 ## Indent motions
-
 
 * inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
 
