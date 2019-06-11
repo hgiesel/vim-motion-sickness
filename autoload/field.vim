@@ -384,13 +384,14 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     "     - DONE
 
     if l:isheadfield && l:istailfield
-      " echo 'single elem'
       " " leading symbol style behaves a bit different than i<delim>
 
+      " echo 'single elem'
       " trailing symbol style, leading symbol style
       if (l:opendelim_pos[1] ==# l:startpos[1]) &&
             \ (l:endpos[1] !=# l:closedelim_pos[1])
         call setpos('.', l:startpos)
+        " echo 'single elem1'
 
         call search('[^ \t\n'.a:fielddelim.']', 'Wb')
         execute "normal! 1 "
@@ -411,6 +412,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
           let l:endpos = getpos('.')
         endif
       else
+        " echo 'single elem2'
         call setpos('.', l:startpos)
         call search('[^ \t\n'.a:fielddelim.']', 'Wb')
         execute "normal! 1 "
@@ -420,6 +422,8 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
         call search('[^ \t\n'.a:fielddelim.']', 'W')
         execute "normal! 1\<bs>"
         let l:endpos = getpos('.')
+
+        let l:innerparen = v:true
       endif
 
       " " (*) for head element:
