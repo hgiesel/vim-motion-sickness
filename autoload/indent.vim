@@ -1,8 +1,6 @@
 " Defining functions {{{1
 
-if !exists('g:sick_exclude_leading_higher_indents')
-  let g:sick_exclude_leading_higher_indents = v:true
-endif
+let g:sick_indent_exclude_leading_indents = get(g:, 'sick_indent_exclude_leading_indents', v:true)
 
 " only having blank characters counts as empty
 function! s:IsLineEmpty(line)
