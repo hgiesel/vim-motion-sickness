@@ -1,5 +1,4 @@
 function! line#motion(mode)
-
   if !empty(getline('.'))
     normal! 
 
@@ -10,5 +9,4 @@ function! line#motion(mode)
       execute "normal! 0v$\<bs>"
     endif
   endif
-
 endfunction

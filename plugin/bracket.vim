@@ -5,18 +5,17 @@ endif
 let g:loaded_sick_bracket = 1
 
 " Setting user mappings {{{1
-if !exists('g:sick_matchtriples')
-  let g:sick_matchtriples = [
+let g:sick_matchtriples = get(g:, 'sick_matchtriples', [
         \ ['b', '(', ')'],
         \ ['B', '{', '}'],
         \ ['r', '[', ']'],
         \ ['a', '<', '>']
-        \ ]
-endif
+        \ ])
+
 
 " Alias remappings {{{1
-if
-      \ !(exists('g:sick_expression_maps') && g:sick_expression_maps == 'char') && 
+if get(g:, 'sick_alias_enabled', v:true) &&
+      \ !(exists('g:sick_expression_maps') && g:sick_expression_maps == 'char') &&
       \ !(exists('g:sick_field_maps') && g:sick_field_maps == 'char')
   onoremap <silent> ir i[
   vnoremap <silent> ir i[
@@ -30,7 +29,8 @@ if
 endif
 
 " Fields function {{{1
-function Field_maps_add(matchtriples)
+if get(g:, 'sick_field_enabled', v:true) 
+function s:Field_maps_add(matchtriples)
   for l:triple in a:matchtriples
     if !exists('g:sick_field_maps') " use prefix
       for l:elem in l:triple
@@ -89,8 +89,12 @@ function Field_maps_add(matchtriples)
   endfor
 endfunction
 
+call s:Field_maps_add(g:sick_matchtriples)
+endif
+
 " Expression function {{{1
-function Expression_maps_add(matchtriples)
+if get(g:, 'sick_expression_enabled', v:true) 
+function s:Expression_maps_add(matchtriples)
   for l:triple in a:matchtriples
     if !exists('g:sick_expression_maps') " use prefix
       for l:elem in l:triple
@@ -122,6 +126,5 @@ function Expression_maps_add(matchtriples)
   endfor
 endfunction
 
-" Function calls {{{1
-call Field_maps_add(g:sick_matchtriples)
-call Expression_maps_add(g:sick_matchtriples)
+call s:Expression_maps_add(g:sick_matchtriples)
+endif

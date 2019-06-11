@@ -4,6 +4,7 @@ if exists('g:loaded_motion_sickness_indent') || &compatible || v:version < 700
 endif
 let g:loaded_motion_sickness_indent = 1
 
+if get(g:, 'sick_field_enabled', v:true)
 " Indentation Setting user mappings {{{1
 omap iip <plug>(Oiipmotion)
 vmap iip <plug>(Viipmotion)
@@ -45,7 +46,9 @@ onoremap <silent> <plug>(Oiitmotion) <cmd>call indent#motion(v:false, 't')<cr>
 vnoremap <silent> <plug>(Viitmotion) <cmd>call indent#motion(v:false, 't')<cr>
 onoremap <silent> <plug>(Oaitmotion) <cmd>call indent#motion(v:true, 't')<cr>
 vnoremap <silent> <plug>(Vaitmotion) <cmd>call indent#motion(v:true, 't')<cr>
+endif
 
+if get(g:, 'sick_line_enabled', v:true)
 " Line Setting user mappings {{{1
 omap il <plug>(Oilmotion)
 vmap il <plug>(Vilmotion)
@@ -57,3 +60,4 @@ onoremap <silent> <plug>(Oilmotion) <cmd>call line#motion('i')<cr>
 vnoremap <silent> <plug>(Vilmotion) <cmd>call line#motion('i')<cr>
 onoremap <silent> <plug>(Oalmotion) <cmd>call line#motion('a')<cr>
 vnoremap <silent> <plug>(Valmotion) <cmd>call line#motion('a')<cr>
+endif

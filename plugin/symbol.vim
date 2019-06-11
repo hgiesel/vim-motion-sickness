@@ -9,7 +9,8 @@ if exists('g:loaded_motion_sickness_symbol') || &compatible || v:version < 700
 endif
 let g:loaded_motion_sickness_symbol = 1
 
-let g:sick_symbol_maps = [
+
+let g:sick_symbol_maps = get(g:, 'sick_symbol_maps', [
       \ ['asterisk', '*'],
       \ ['underscore', '_'],
       \ ['dash', '-'],
@@ -19,8 +20,9 @@ let g:sick_symbol_maps = [
       \ ['question', '?'],
       \ ['slash', '/'],
       \ ['bar', '<bar>'],
-      \ ]
+      \ ])
 
+if get(g:, 'sick_symbol_enabled', v:true)
 " Expression function {{{1
 function! Symbol_maps_add(matchpairs)
   for l:pair in a:matchpairs
@@ -38,3 +40,4 @@ endfunction
 
 " Function calls {{{1
 call Symbol_maps_add(g:sick_symbol_maps)
+endif

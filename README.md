@@ -3,19 +3,21 @@
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
 ensures they all work as intended.
 
+Each type of text object can be disabled with `g:sick_{type}_enabled = 0`, e.g. `g:sick_symbol_enabled = 0`
+
 #### List of text objects
 
-* **bracket motions**:
-  * [alias motions](#alias-motions)
-  * [expression motions](#expression-motions)
-  * [field motions](#field-motions)
+* **bracket text objects**:
+  * [alias text objects](#alias-text-objects)
+  * [expression text objects](#expression-text-objects)
+  * [field text objects](#field-text-objects)
 
-* **other motions**:
-  * [indent motions](#indent-motions)
-  * [line motions](#line-motions)
-  * [symbol motions](#symbol-motions)
+* **other text objects**:
+  * [indent text objects](#indent-text-objects)
+  * [line text objects](#line-text-objects)
+  * [symbol text objects](#symbol-text-objects)
 
-## Alias motions
+## Alias text objects
 
 * inspired by [Tim Pope's vim-surround](https://github.com/tpope/vim-surround)
 
@@ -24,7 +26,7 @@ ensures they all work as intended.
 | `ir`/`ar`    | Aliases for `i[`/`a[` |
 | `ia`/`aa`    | Aliases for `i<`/`a<` |
 
-* with these added, you have three full sets of motions for the common brackets:
+* with these added, you have three full sets of text objects for the common brackets:
 
 |              |  parentheses | braces    | square brackets | angle brackets |
 |--------------|--------------|-----------|-----------------|----------------|
@@ -32,14 +34,14 @@ ensures they all work as intended.
 | *opendelim*  | `i(`/`a(`    | `i{`/`a{` | `i[`/`a[`       | `i<`/`a<`      |
 | *closedelim* | `i)`/`a)`    | `i}`/`a}` | `i]`/`a]`       | `i>`/`a>`      |
 
-* these motions are exactly equal in functionality
-  * this fact is important for the upcoming [expression motions](#expression-motions) and [field motions](#field-motions)
+* these text objects are exactly equal in functionality
+  * this fact is important for the upcoming [expression text objects](#expression-text-objects) and [field text objects](#field-text-objects)
 
-## Expression motions
+## Expression text objects
 
 * inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
 
-**Expression motions** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
+**Expression text objects** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
 
 An *inner expression* selects the whole bracket (like "`a<bracket>`") preceded by a WORD.
 While going back a word, `motion-sickness` is smart about not going beyond opening brackets, etc. 
@@ -48,20 +50,20 @@ An *all expression* selects the whole bracket (like "`a<bracket>`") preceded by 
 The same restrictions that apply to *inner expressions* apply here too.
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
-Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
+Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-text-objects), you can set
 them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
-let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
-let g:sick_expression_maps = 'closedelim' " uses {i,a}{),},],>} for expression motions
-let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motions
+let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression text objects
+let g:sick_expression_maps = 'closedelim' " uses {i,a}{),},],>} for expression text objects
+let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression text objects
 ```
 
-## Field motions
+## Field text objects
 
 * inspired by [vim-textobj-argument](https://github.com/gaving/vim-textobj-argument)
 
-**Field motions** have the structure "{`i`,`a`}`f`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
+**Field text objects** have the structure "{`i`,`a`}`f`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
 
 An *inner field* selects the current field, enclosed in the specific brace. Think of
 arguments in function, list elements, dictionary entries, etc.
@@ -69,18 +71,18 @@ arguments in function, list elements, dictionary entries, etc.
 An *all field* selects an inner field, together with the field delimiter (usually a comma)
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
-Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
+Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-text-objects), you can set
 them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
-let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
-let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for expression motions
-let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motions
+let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression text objects
+let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for expression text objects
+let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for expression text objects
 ```
 
 4 types of list styles are supported.
 In other words, these are basis for the unit tests, and for the algorithm governing
-these motions.
+these text objects.
 
 #### short style
 
@@ -115,15 +117,15 @@ Foo ( arg1
     )
 ```
 
-The following gif showcases some examples of expression and field motions:
+The following gif showcases some examples of expression and field text objects:
 
-![expression motions cast](https://media.giphy.com/media/dApCdA2gycwomwrIGO/giphy.gif)
+![expression text objects cast](https://media.giphy.com/media/dApCdA2gycwomwrIGO/giphy.gif)
 
-## Indent motions
+## Indent text objects
 
 * inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
 
-These motions are meant to support the `ip` and `ap` text objects for selecting
+These text objects are meant to support the `ip` and `ap` text objects for selecting
 paragraphs. `ip` and `ap` simply disregard indentation.
 
 | text object | effect                                        |
@@ -133,9 +135,9 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 | `iib`/`aib` | Like `ail` and it selects one line of lower indent before and after the section. Does accept counts. Mnemonic is "inner/all indentation block". |
 | `iit`/`ait` | Like `ail` and it selects one line of lower indent before the section. Does accept counts. Mnemonic is "inner/all indentation top". |
 
-![Indent motions cast](https://media.giphy.com/media/hSEh6Plw8e40MhPf2e/giphy.gif)
+![Indent text objects cast](https://media.giphy.com/media/hSEh6Plw8e40MhPf2e/giphy.gif)
 
-## Line motions
+## Line text objects
 
 * inspired by [vim-textobj-line](https://github.com/kana/vim-textobj-line)
 
@@ -143,7 +145,7 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 |--------------|------------------------------------|
 | `il`/`al`    | Select the current line including / excluding leading/trailing blank characters. Does not accept a count. |
 
-## Symbol motions
+## Symbol text objects
 
 | text object  | effect                             |
 |--------------|------------------------------------|
