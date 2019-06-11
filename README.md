@@ -73,9 +73,9 @@ Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you ca
 them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
-let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
-let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for expression motions
-let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for expression motions
+let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for field motions
+let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for field motions
+let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for field motions
 ```
 
 4 types of list styles are supported.
