@@ -145,6 +145,8 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 
 ## Symbol motions
 
+* imitate commands like `i"` or `a'`
+
 | text object  | effect                             |
 |--------------|------------------------------------|
 | `i*`/`a*`    | similar to `i"`/`a"`, but for `*`  |
@@ -157,6 +159,3 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 | `i/`/`a/`    | similar to `i"`/`a"`, but for `/`  |
 | `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
 | `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
-
-> ## Segment motions
-> ## Pair motions
