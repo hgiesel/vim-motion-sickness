@@ -10,7 +10,10 @@ fi
 
 if [[ "$TARGET" == 'try' ]]; then
   exec nvim -u 'tests/vimrc-test.vim' <<FOO
-prevline();
+prevline(foo, bar,
+         xyz); g(hello, world);
+
+prevline(foo, bar, xyz); g(hello, world);
 
 {
     inner1;

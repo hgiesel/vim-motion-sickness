@@ -358,6 +358,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     "     - DONE
 
     if l:isheadfield && l:istailfield
+      echo 'single elem'
       " " leading symbol style behaves a bit different than i<delim>
 
       " trailing symbol style, leading symbol style
@@ -400,6 +401,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
       " " - delete right till first field character
       " " - DONE
     elseif l:isheadfield
+      echo 'head elem'
       call setpos('.', l:endpos)
       call search('[^ \t\n'.a:fielddelim.']', 'W')
 
@@ -416,8 +418,8 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
 
       " (*) for middle/tail element:
       " - delete elem
-      " - check if on right is field character before you reach newline
-      "   | if yes:
+      " - check if on right is field character before you reach closedelim
+      "   | if yes (opening-delim style, you don't want to delete the "gap"):
       "     - delete right until first field character
       "     - DONE
       "   | if not:
@@ -431,9 +433,9 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     else
       call setpos('.', l:endpos)
 
-      let l:isnonfieldchar = match(getline('.'), '[^ \t\n'.a:fielddelim.l:closedelim_mod.']', col('.'))
+      let l:maybeclosedelim = getline('.')[match(getline('.'), '[^ \t\n'.a:fielddelim.']', col('.'))]
 
-      if l:isnonfieldchar != -1
+      if l:maybeclosedelim != a:closedelim
         " there is a field on the right
         " (e.g. short style, or delimiter intended style)
         call search('[^ \t\n'.a:fielddelim.']', 'W')
