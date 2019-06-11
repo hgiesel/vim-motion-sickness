@@ -1,7 +1,7 @@
 # motion-sickness.vim ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=master) ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=devel)
 
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
-ensures they all work as intended.
+ensures they all work as intended. Only Neovim is supported at the moment.
 
 Each type of text object can be disabled with `let g:sick_{type}_enabled = 0`, e.g. `let g:sick_symbol_enabled = 0`.
 
