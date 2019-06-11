@@ -282,15 +282,15 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   let l:fieldbeginJump = l:fieldbegin - (l:offset - l:offsetJump) " - (l:current_pos[1] - l:opendelim_pos[1])
   let l:fieldendJump   = l:fieldend - (l:offset - l:offsetJump) " - (l:closedelim_pos[1] - l:current_pos[1])
 
-  echo l:innertext_orig
+  " echo l:innertext_orig
   " Deal with one off errors
   if match(l:innertext_orig[0], '[^ \t\n]') ==# -1
-    echo 'empty firstline'
+    " echo 'empty firstline'
     let l:fieldbeginJump += 1
   endif
 
   if match(l:innertext_orig[-1], '[^ \t\n]') ==# -1
-    echo 'empty lastline'
+    " echo 'empty lastline'
     let l:fieldendJump -= 1
 
     " deal with trailing symbol ambiguity
@@ -304,24 +304,24 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
 
   normal! 
 
-  """" Positions
-  echo '========================================='
-  echo 'innertext "'.string(l:innertext).'"'
-  echo 'opendelim_pos: "'.string(l:opendelim_pos).'"'
-  echo 'closedelim_pos: "'.string(l:closedelim_pos).'"'
-  echo '========================================='
+"   """" Positions
+"   echo '========================================='
+"   echo 'innertext "'.string(l:innertext).'"'
+"   echo 'opendelim_pos: "'.string(l:opendelim_pos).'"'
+"   echo 'closedelim_pos: "'.string(l:closedelim_pos).'"'
+"   echo '========================================='
 
-  """" Offsets in l:innertext
-  echo 'fieldbegin: "'.string(l:fieldbegin).'" "'.l:innertext[l:fieldbegin].'"'
-  echo 'offset: "'.string(l:offset).'" "'.l:innertext[l:offset].'"'
-  echo 'fieldend: "'.string(l:fieldend).'" "'.l:innertext[l:fieldend].'"'
-  echo '========================================='
+"   """" Offsets in l:innertext
+"   echo 'fieldbegin: "'.string(l:fieldbegin).'" "'.l:innertext[l:fieldbegin].'"'
+"   echo 'offset: "'.string(l:offset).'" "'.l:innertext[l:offset].'"'
+"   echo 'fieldend: "'.string(l:fieldend).'" "'.l:innertext[l:fieldend].'"'
+"   echo '========================================='
 
-  """" Offsets in terms of moving with space/backspace
-  echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
-  echo 'offsetJump: "'.string(l:offsetJump).'"'
-  echo 'fieldendJump: "'.string(l:fieldendJump).'"'
-  echo '========================================='
+"   """" Offsets in terms of moving with space/backspace
+"   echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
+"   echo 'offsetJump: "'.string(l:offsetJump).'"'
+"   echo 'fieldendJump: "'.string(l:fieldendJump).'"'
+"   echo '========================================='
 
   """ GET START OF INNER FIELD
   call setpos('.', l:opendelim_pos)
@@ -462,8 +462,8 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
       let l:maybeclosedelim = getline('.')[l:idx]
 
       if l:idx != -1 && l:maybeclosedelim != a:closedelim
-        echo 'idx: "'.l:idx.'"'
-        echo 'maybecldel: "'.l:maybeclosedelim.'"'
+        " echo 'idx: "'.l:idx.'"'
+        " echo 'maybecldel: "'.l:maybeclosedelim.'"'
         " there is a field on the right
         " (e.g. short style, or delimiter intended style)
         call search('[^ \t\n'.a:fielddelim.']', 'W')
