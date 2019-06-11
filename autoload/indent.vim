@@ -38,7 +38,7 @@ function! s:SelectInnerLevel(minindent, include_emptylines)
         endif
       endwhile
 
-      if g:sick_exclude_leading_higher_indents
+      if g:sick_indent_exclude_leading_indents
         " e.g. useful when using opening delimiter indentation style
         " foo_function_name(bla bla,
         "                   foo foo) {

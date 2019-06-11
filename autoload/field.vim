@@ -279,23 +279,46 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
   let [l:fieldbegin, l:isheadfield] = s:GetPrevCommaOrBeginArgs(l:innertext, l:offset, a:fielddelim)
   let [l:fieldend, l:istailfield]   = s:GetNextCommaOrEndArgs(l:innertext, l:offset, a:fielddelim)
 
-  let l:fieldbeginJump = l:fieldbegin - (l:offset - l:offsetJump)
-  let l:fieldendJump   = l:fieldend - (l:offset - l:offsetJump)
+  let l:fieldbeginJump = l:fieldbegin - (l:offset - l:offsetJump) " - (l:current_pos[1] - l:opendelim_pos[1])
+  let l:fieldendJump   = l:fieldend - (l:offset - l:offsetJump) " - (l:closedelim_pos[1] - l:current_pos[1])
+
+  echo l:innertext_orig
+  " Deal with one off errors
+  if match(l:innertext_orig[0], '[^ \t\n]') ==# -1
+    echo 'empty firstline'
+    let l:fieldbeginJump += 1
+  endif
+
+  if match(l:innertext_orig[-1], '[^ \t\n]') ==# -1
+    echo 'empty lastline'
+    let l:fieldendJump -= 1
+
+    " deal with trailing symbol ambiguity
+    if !l:istailfield && match(l:innertext_orig[-1], '[^ \t\n]') ==# -1
+      let l:fieldendJump += 1
+    endif
+  endif
+
   normal! 
 
-  " """" Positions
-  " echo 'opendelim_pos: "'.string(l:opendelim_pos).'"'
-  " echo 'closedelim_pos: "'.string(l:closedelim_pos).'"'
+  """" Positions
+  echo '========================================='
+  echo 'innertext "'.string(l:innertext).'"'
+  echo 'opendelim_pos: "'.string(l:opendelim_pos).'"'
+  echo 'closedelim_pos: "'.string(l:closedelim_pos).'"'
+  echo '========================================='
 
-  " """" Offsets in l:innertext
-  " echo 'fieldbegin: "'.string(l:fieldbegin).'"'
-  " echo 'offset: "'.string(l:offset).'"'
-  " echo 'fieldend: "'.string(l:fieldend).'"'
+  """" Offsets in l:innertext
+  echo 'fieldbegin: "'.string(l:fieldbegin).'" "'.l:innertext[l:fieldbegin].'"'
+  echo 'offset: "'.string(l:offset).'" "'.l:innertext[l:offset].'"'
+  echo 'fieldend: "'.string(l:fieldend).'" "'.l:innertext[l:fieldend].'"'
+  echo '========================================='
 
-  " """" Offsets in terms of moving with space/backspace
-  " echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
-  " echo 'offsetJump: "'.string(l:offsetJump).'"'
-  " echo 'fieldendJump: "'.string(l:fieldendJump).'"'
+  """" Offsets in terms of moving with space/backspace
+  echo 'fieldbeginJump: "'.string(l:fieldbeginJump).'"'
+  echo 'offsetJump: "'.string(l:offsetJump).'"'
+  echo 'fieldendJump: "'.string(l:fieldendJump).'"'
+  echo '========================================='
 
   """ GET START OF INNER FIELD
   call setpos('.', l:opendelim_pos)
@@ -358,7 +381,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     "     - DONE
 
     if l:isheadfield && l:istailfield
-      echo 'single elem'
+      " echo 'single elem'
       " " leading symbol style behaves a bit different than i<delim>
 
       " trailing symbol style, leading symbol style
@@ -401,7 +424,7 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
       " " - delete right till first field character
       " " - DONE
     elseif l:isheadfield
-      echo 'head elem'
+      " echo 'head elem'
       call setpos('.', l:endpos)
       call search('[^ \t\n'.a:fielddelim.']', 'W')
 
@@ -415,11 +438,10 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
         let l:innerparen = v:true
       endif
 
-
       " (*) for middle/tail element:
       " - delete elem
-      " - check if on right is field character before you reach closedelim
-      "   | if yes (opening-delim style, you don't want to delete the "gap"):
+      " - check if on right is field character before you reach closedelim or eol
+      "   | if yes (short style OR opening-delim style, you don't want to delete the "gap"):
       "     - delete right until first field character
       "     - DONE
       "   | if not:
@@ -433,9 +455,12 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     else
       call setpos('.', l:endpos)
 
-      let l:maybeclosedelim = getline('.')[match(getline('.'), '[^ \t\n'.a:fielddelim.']', col('.'))]
+      let l:idx = match(getline('.'), '[^ \t\n'.a:fielddelim.']', col('.'))
+      let l:maybeclosedelim = getline('.')[l:idx]
 
-      if l:maybeclosedelim != a:closedelim
+      if l:idx != -1 && l:maybeclosedelim != a:closedelim
+        echo 'idx: "'.l:idx.'"'
+        echo 'maybecldel: "'.l:maybeclosedelim.'"'
         " there is a field on the right
         " (e.g. short style, or delimiter intended style)
         call search('[^ \t\n'.a:fielddelim.']', 'W')
