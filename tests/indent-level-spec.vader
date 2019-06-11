@@ -21,6 +21,8 @@ Do:
   diil
 Expect:
   if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
+  
   
   
   nextline()
@@ -30,6 +32,7 @@ Do:
   dail
 Expect:
   if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
   nextline()
 
 Before:
@@ -39,6 +42,8 @@ Do:
   diil
 Expect:
   if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
+  
   
   
   nextline()
@@ -48,4 +53,5 @@ Do:
   dail
 Expect:
   if and only if (cond1() == True and cond2() == True and
+                  cond2() == True and cond3() == True)
   nextline()

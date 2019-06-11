@@ -90,7 +90,7 @@ these text objects.
 foo(arg1, arg2, arg3)
 ```
 
-#### delimiter-indented style
+#### opening delimiter-indented style
 
 ```c
 foo_function(arg1, arg2,
@@ -136,6 +136,23 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 | `iit`/`ait` | Like `ail` and it selects one line of lower indent before the section. Does accept counts. Mnemonic is "inner/all indentation top". |
 
 ![Indent text objects cast](https://media.giphy.com/media/hSEh6Plw8e40MhPf2e/giphy.gif)
+
+In a text like like the following, if you execute `iil` on any line within the
+function definition, the line featuring `argument3` will not be selected, but will
+be detected as probably belonging to the preceding line. This behavior is governed by
+the `g:sick_indent_exclude_leading_indents` variable.
+
+```c
+int my_function(int argument1, int argument2,
+                int argument3) { // <- will not be included in `iil` or `ail` text
+                // object if you set g:sick_indent_exclude_leading_indents to 0
+    line1();
+    line2();
+    line3();
+    ...
+    lineN();
+}
+```
 
 ## Line text objects
 
