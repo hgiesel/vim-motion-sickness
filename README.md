@@ -137,7 +137,7 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 | `iib`/`aib` | like `ail` and it selects one line of lower indent before and after the section. repeatable. |
 | `iit`/`ait` | like `ail` and it selects one line of lower indent before the section. repeatable |
 
-TODO cast
+![Indent motions cast](https://media.giphy.com/media/hSEh6Plw8e40MhPf2e/giphy.gif)
 
 ## Line motions
 
