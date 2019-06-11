@@ -41,19 +41,15 @@ ensures they all work as intended.
 
 **Expression motions** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
 
-An *inner expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by a WORD.
+An *inner expression* selects the whole bracket (like "`a<bracket>`") preceded by a WORD.
 While going back a word, `motion-sickness` is smart about not going beyond opening brackets, etc. 
 
-// TODO add cast
-
-An *all expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by anything.
+An *all expression* selects the whole bracket (like "`a<bracket`") preceded by anything.
 The same restrictions that apply to *inner expressions* apply here too.
-
-// TODO add cast
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
-them to the shorter version. Just put this into your vimrc.
+them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
 let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
@@ -70,15 +66,11 @@ let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression m
 An *inner field* selects the current field, enclosed in the specific brace. Think of
 arguments in function, list elements, dictionary entries, etc.
 
-// TODO add cast
-
 An *all field* selects an inner field, together with the field delimiter (usually a comma)
-
-// TODO add cast
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-motions), you can set
-them to the shorter version. Just put this into your vimrc.
+them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
 let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression motions
@@ -123,8 +115,15 @@ Foo ( arg1
     )
 ```
 
+The following gif showcases some examples of expression and field motions:
+
+![expression motions cast](https://media.giphy.com/media/dApCdA2gycwomwrIGO/giphy.gif)
+
+<<<<<<< HEAD
+=======
 ## Indent motions
 
+>>>>>>> f590b1ccb14449907611f62c41a04bbc5d3ce2d2
 * inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
 
 These motions are meant to support the `ip` and `ap` text objects for selecting
