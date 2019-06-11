@@ -21,8 +21,8 @@ ensures they all work as intended.
 
 | text object  | effect                |
 |--------------|-----------------------|
-| `ir`/`ar`    | aliases for `i[`/`a[` |
-| `ia`/`aa`    | aliases for `i<`/`a<` |
+| `ir`/`ar`    | Aliases for `i[`/`a[` |
+| `ia`/`aa`    | Aliases for `i<`/`a<` |
 
 * with these added, you have three full sets of motions for the common brackets:
 
@@ -128,10 +128,10 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 
 | text object | effect                                        |
 |-------------|-----------------------------------------------|
-| `iip`/`aip` | similar to `ip`/`ap`, except it does not exceed the current indentation level |
-| `iil`/`ail` | selects the entire current indentation level excluding / including leading and trailing empty lines |
-| `iib`/`aib` | like `ail` and it selects one line of lower indent before and after the section. repeatable. |
-| `iit`/`ait` | like `ail` and it selects one line of lower indent before the section. repeatable |
+| `iip`/`aip` | Similar to `ip`/`ap`, except it does not exceed the current indentation level. Does not accept counts. Mnemonic is "inner/all indentation paragraph"|
+| `iil`/`ail` | Selects the entire current indentation level excluding / including leading and trailing empty lines. Does not accept counts. Mnemonic is "inner/all indentation level".|
+| `iib`/`aib` | Like `ail` and it selects one line of lower indent before and after the section. Does accept counts. Mnemonic is "inner/all indentation block". |
+| `iit`/`ait` | Like `ail` and it selects one line of lower indent before the section. Does accept counts. Mnemonic is "inner/all indentation top". |
 
 ![Indent motions cast](https://media.giphy.com/media/hSEh6Plw8e40MhPf2e/giphy.gif)
 
@@ -141,21 +141,19 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 
 | text object  | effect                             |
 |--------------|------------------------------------|
-| `il`/`al`    | select the current line including / excluding leading/trailing blank characters |
+| `il`/`al`    | Select the current line including / excluding leading/trailing blank characters. Does not accept a count. |
 
 ## Symbol motions
 
-* imitate commands like `i"` or `a'`
-
 | text object  | effect                             |
 |--------------|------------------------------------|
-| `i*`/`a*`    | similar to `i"`/`a"`, but for `*`  |
-| `i_`/`a_`    | similar to `i"`/`a"`, but for `_`  |
-| `i-`/`a-`    | similar to `i"`/`a"`, but for `-`  |
-| `i:`/`a:`    | similar to `i"`/`a"`, but for `:`  |
-| `i@`/`a@`    | similar to `i"`/`a"`, but for `@`  |
-| `i!`/`a!`    | similar to `i"`/`a"`, but for `!`  |
-| `i?`/`a?`    | similar to `i"`/`a"`, but for `?`  |
-| `i/`/`a/`    | similar to `i"`/`a"`, but for `/`  |
-| `i%`/`a%`    | similar to `i"`/`a"`, but for `%`  |
-| `i\|`/`a\|`  | similar to `i"`/`a"`, but for `\|` |
+| `i*`/`a*`    | Similar to `i"`/`a"`, but for `*`  |
+| `i_`/`a_`    | Similar to `i"`/`a"`, but for `_`  |
+| `i-`/`a-`    | Similar to `i"`/`a"`, but for `-`  |
+| `i:`/`a:`    | Similar to `i"`/`a"`, but for `:`  |
+| `i@`/`a@`    | Similar to `i"`/`a"`, but for `@`  |
+| `i!`/`a!`    | Similar to `i"`/`a"`, but for `!`  |
+| `i?`/`a?`    | Similar to `i"`/`a"`, but for `?`  |
+| `i/`/`a/`    | Similar to `i"`/`a"`, but for `/`  |
+| `i%`/`a%`    | Similar to `i"`/`a"`, but for `%`  |
+| `i\|`/`a\|`  | Similar to `i"`/`a"`, but for `\|` |
