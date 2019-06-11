@@ -299,6 +299,9 @@ function! field#motion(all, visual, opendelim, closedelim, fielddelim)
     endif
   endif
 
+  " TODO Note that after this, opening delimiter indented field still have a one off error
+  " in a middle argument on the second line, however this should not affect anything
+
   normal! 
 
   """" Positions
