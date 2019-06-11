@@ -129,3 +129,37 @@ Do:
   jfxdafa
 Expect:
   foo<bar, arg>
+
+" dafb with two line {{{1
+Given:
+  foo(bar, arg,
+      xyz), g(hello, world)
+
+Do:
+  dafb
+Expect:
+  foo(bar, arg,
+      xyz), g(hello, world)
+
+Do:
+  fbdafb
+Expect:
+  foo(arg,
+      xyz), g(hello, world)
+
+Do:
+  fbdafbdafb
+Expect:
+  foo(xyz), g(hello, world)
+
+Do:
+  2fadafb
+Expect:
+  foo(bar,
+      xyz), g(hello, world)
+
+Do:
+  jfxdafb
+Expect:
+  foo(bar, arg), g(hello, world)
+
