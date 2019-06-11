@@ -125,15 +125,17 @@ Foo ( arg1
 
 ## Indent motions
 
-
 * inspired by [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object)
+
+These motions are meant to support the `ip` and `ap` text objects for selecting
+paragraphs. `ip` and `ap` simply disregard indentation.
 
 | text object | effect                                        |
 |-------------|-----------------------------------------------|
 | `iip`/`aip` | similar to `ip`/`ap`, except it does not exceed the current indentation level |
 | `iil`/`ail` | selects the entire current indentation level excluding / including leading and trailing empty lines |
-| `iib`/`aib` | like `ail` and it selects one line of lower indent before and after the section |
-| `iit`/`ait` | like `ail` and it selects one line of lower indent before the section |
+| `iib`/`aib` | like `ail` and it selects one line of lower indent before and after the section. repeatable. |
+| `iit`/`ait` | like `ail` and it selects one line of lower indent before the section. repeatable |
 
 TODO cast
 
