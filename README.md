@@ -41,10 +41,10 @@ ensures they all work as intended.
 
 **Expression motions** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
 
-An *inner expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by a WORD.
+An *inner expression* selects the whole bracket (like "`a<bracket>`") preceded by a WORD.
 While going back a word, `motion-sickness` is smart about not going beyond opening brackets, etc. 
 
-An *all expression* selects the whole bracket ("`a`{`b`,`B`,`r`,`a`}") preceded by anything.
+An *all expression* selects the whole bracket (like "`a<bracket`") preceded by anything.
 The same restrictions that apply to *inner expressions* apply here too.
 
 The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
