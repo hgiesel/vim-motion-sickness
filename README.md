@@ -18,6 +18,7 @@ and want to define the mappings yourself, set
 * **other text objects**:
   * [indent text objects](#indent-text-objects)
   * [line text objects](#line-text-objects)
+  * [view text objects](#view-text-objects)
   * [symbol text objects](#symbol-text-objects)
 
 ## Alias text objects
@@ -203,9 +204,9 @@ int my_function(int argument1, int argument2,
 }
 ```
 
-If you wish to set the mappings yourself, you can do so:
+If you wish to set the indent mappings yourself, you can do so:
 
-```vi
+```vim
 let g:sick_indent_default_mappings = 0
 
 omap iip <plug>(Oiipmotion)
@@ -239,13 +240,31 @@ vmap ait <plug>(Vaitmotion)
 
 If you wish to set the mappings yourself, you can do so:
 
-```vi
+```vim
 let g:sick_line_default_mappings = 0
 
 omap il <plug>(Oilmotion)
 vmap il <plug>(Vilmotion)
 omap al <plug>(Oalmotion)
 vmap al <plug>(Valmotion)
+```
+
+## Line text objects
+
+| text object  | effect                             |
+|--------------|------------------------------------|
+| `iv`         | Selects the currently visible window (from `H` to `L`). Does not accept a count |
+| `av`         | Selects the entire buffer (from `gg` to `G`). Does not accept a count. |
+
+If you wish to set the mappings yourself, you can do so:
+
+```vim
+let g:sick_view_default_mappings = 0
+
+omap iv <plug>(Oivmotion)
+vmap iv <plug>(Vivmotion)
+omap av <plug>(Oavmotion)
+vmap av <plug>(Vavmotion)
 ```
 
 ## Symbol text objects
