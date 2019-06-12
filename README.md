@@ -3,9 +3,10 @@
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
 ensures they all work as intended. Only Neovim is supported at the moment.
 
-Each type of text object can be disabled with `let g:sick_{type}_enabled = 0`, e.g.
-`let g:sick_symbol_enabled = 0`.  If you only want the `<plug>` metakeys
-and want to define the mappings yourself, set
+Each type of text object can be disabled with
+`let g:sick_{type}_enabled = 0`, e.g. `let g:sick_symbol_enabled = 0`.
+
+In case you only want the `<plug>` metakeys and want to define the mappings yourself, use
 `let g:sick_{type}_default_mappings = 0`, e.g. `let g:sick_symbol_default_mappings = 0`.
 
 #### List of text objects
