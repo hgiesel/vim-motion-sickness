@@ -205,7 +205,7 @@ int my_function(int argument1, int argument2,
 
 If you wish to set the mappings yourself, you can do so:
 
-```vi
+```vim
 let g:sick_indent_default_mappings = 0
 
 omap iip <plug>(Oiipmotion)
@@ -239,7 +239,7 @@ vmap ait <plug>(Vaitmotion)
 
 If you wish to set the mappings yourself, you can do so:
 
-```vi
+```vim
 let g:sick_line_default_mappings = 0
 
 omap il <plug>(Oilmotion)
