@@ -6,11 +6,11 @@ let g:loaded_sick_bracket = 1
 
 " Setting user mappings {{{1
 let g:sick_matchtriples = get(g:, 'sick_matchtriples', [
-        \ ['b', '(', ')'],
-        \ ['B', '{', '}'],
-        \ ['r', '[', ']'],
-        \ ['a', '<', '>']
-        \ ])
+      \ ['b', '(', ')'],
+      \ ['B', '{', '}'],
+      \ ['r', '[', ']'],
+      \ ['a', '<', '>']
+      \ ])
 
 
 " Alias remappings {{{1
@@ -31,45 +31,47 @@ endif
 " Fields function {{{1
 if get(g:, 'sick_field_enabled', v:true) 
   function s:Field_maps_add(matchtriples)
-    for l:triple in a:matchtriples
-      if !exists('g:sick_field_maps') " use prefix
-        for l:elem in l:triple
-          execute 'omap if'.l:elem.' <plug>(Oif'.l:triple[0].'motion)'
-          execute 'vmap if'.l:elem.' <plug>(Vif'.l:triple[0].'motion)'
-          execute 'omap af'.l:elem.' <plug>(Oaf'.l:triple[0].'motion)'
-          execute 'vmap af'.l:elem.' <plug>(Vaf'.l:triple[0].'motion)'
+    for l:triple in g:sick_matchtriples
+      if get(g:, 'sick_field_default_mappings', v:true)
+        if !exists('g:sick_field_maps') " use prefix
+          for l:elem in l:triple
+            execute 'omap if'.l:elem.' <plug>(Oif'.l:triple[0].'motion)'
+            execute 'vmap if'.l:elem.' <plug>(Vif'.l:triple[0].'motion)'
+            execute 'omap af'.l:elem.' <plug>(Oaf'.l:triple[0].'motion)'
+            execute 'vmap af'.l:elem.' <plug>(Vaf'.l:triple[0].'motion)'
+
+            if exists('g:sick_field_extra_delimiter')
+              for l:pair in g:sick_field_extra_delimiter
+                execute 'omap if'.l:pair[1].l:elem.' <plug>(Oif'.l:pair[0].l:triple[0].'motion)'
+                execute 'vmap if'.l:pair[1].l:elem.' <plug>(Vif'.l:pair[0].l:triple[0].'motion)'
+                execute 'omap af'.l:pair[1].l:elem.' <plug>(Oaf'.l:pair[0].l:triple[0].'motion)'
+                execute 'vmap af'.l:pair[1].l:elem.' <plug>(Vaf'.l:pair[0].l:triple[0].'motion)'
+              endfor
+            endif
+          endfor
+        else " g:sick_field_maps is defined
+
+          if g:sick_field_maps ==# 'char'
+            let l:theindex = 0
+          elseif g:sick_field_maps ==# 'opendelim'
+            let l:theindex = 1
+          else " g:sick_field_maps ==# 'closedelim'
+            let l:theindex = 2
+          endif
+
+          execute 'omap i'.l:triple[l:theindex].' <plug>(Oif'.l:triple[0].'motion)'
+          execute 'vmap i'.l:triple[l:theindex].' <plug>(Vif'.l:triple[0].'motion)'
+          execute 'omap a'.l:triple[l:theindex].' <plug>(Oaf'.l:triple[0].'motion)'
+          execute 'vmap a'.l:triple[l:theindex].' <plug>(Vaf'.l:triple[0].'motion)'
 
           if exists('g:sick_field_extra_delimiter')
-            for l:pair in g:sick_field_extra_delimiter
-              execute 'omap if'.l:pair[1].l:elem.' <plug>(Oif'.l:pair[0].l:triple[0].'motion)'
-              execute 'vmap if'.l:pair[1].l:elem.' <plug>(Vif'.l:pair[0].l:triple[0].'motion)'
-              execute 'omap af'.l:pair[1].l:elem.' <plug>(Oaf'.l:pair[0].l:triple[0].'motion)'
-              execute 'vmap af'.l:pair[1].l:elem.' <plug>(Vaf'.l:pair[0].l:triple[0].'motion)'
+            for l:pair in g:sick_field_extra_deliter
+              execute 'omap if'.l:pair[1].l:triple[l:theindex].' <plug>(Oif'.l:pair[0].l:triple[0].'motion)'
+              execute 'vmap if'.l:pair[1].l:triple[l:theindex].' <plug>(Vif'.l:pair[0].l:triple[0].'motion)'
+              execute 'omap af'.l:pair[1].l:triple[l:theindex].' <plug>(Oaf'.l:pair[0].l:triple[0].'motion)'
+              execute 'vmap af'.l:pair[1].l:triple[l:theindex].' <plug>(Vaf'.l:pair[0].l:triple[0].'motion)'
             endfor
           endif
-        endfor
-
-      else " g:sick_field_maps is defined
-        if g:sick_field_maps ==# 'char'
-          let l:theindex = 0
-        elseif g:sick_field_maps ==# 'opendelim'
-          let l:theindex = 1
-        else " g:sick_field_maps ==# 'closedelim'
-          let l:theindex = 2
-        endif
-
-        execute 'omap i'.l:triple[l:theindex].' <plug>(Oif'.l:triple[0].'motion)'
-        execute 'vmap i'.l:triple[l:theindex].' <plug>(Vif'.l:triple[0].'motion)'
-        execute 'omap a'.l:triple[l:theindex].' <plug>(Oaf'.l:triple[0].'motion)'
-        execute 'vmap a'.l:triple[l:theindex].' <plug>(Vaf'.l:triple[0].'motion)'
-
-        if exists('g:sick_field_extra_delimiter')
-          for l:pair in g:sick_field_extra_deliter
-            execute 'omap if'.l:pair[1].l:triple[l:theindex].' <plug>(Oif'.l:pair[0].l:triple[0].'motion)'
-            execute 'vmap if'.l:pair[1].l:triple[l:theindex].' <plug>(Vif'.l:pair[0].l:triple[0].'motion)'
-            execute 'omap af'.l:pair[1].l:triple[l:theindex].' <plug>(Oaf'.l:pair[0].l:triple[0].'motion)'
-            execute 'vmap af'.l:pair[1].l:triple[l:theindex].' <plug>(Vaf'.l:pair[0].l:triple[0].'motion)'
-          endfor
         endif
       endif
 
@@ -96,27 +98,29 @@ endif
 if get(g:, 'sick_expression_enabled', v:true) 
   function s:Expression_maps_add(matchtriples)
     for l:triple in a:matchtriples
-      if !exists('g:sick_expression_maps') " use prefix
-        for l:elem in l:triple
-          execute 'omap ie'.l:elem.' <plug>(Oie'.l:triple[0].'motion)'
-          execute 'vmap ie'.l:elem.' <plug>(Vie'.l:triple[0].'motion)'
-          execute 'omap ae'.l:elem.' <plug>(Oae'.l:triple[0].'motion)'
-          execute 'vmap ae'.l:elem.' <plug>(Vae'.l:triple[0].'motion)'
-        endfor
+      if get(g:, 'sick_expression_default_mappings', v:true)
+        if !exists('g:sick_expression_maps') " use prefix
+          for l:elem in l:triple
+            execute 'omap ie'.l:elem.' <plug>(Oie'.l:triple[0].'motion)'
+            execute 'vmap ie'.l:elem.' <plug>(Vie'.l:triple[0].'motion)'
+            execute 'omap ae'.l:elem.' <plug>(Oae'.l:triple[0].'motion)'
+            execute 'vmap ae'.l:elem.' <plug>(Vae'.l:triple[0].'motion)'
+          endfor
 
-      else
-        if g:sick_expression_maps ==# 'char'
-          let l:theindex = 0
-        elseif g:sick_expression_maps ==# 'opendelim'
-          let l:theindex = 1
-        else " g:sick_expression_maps ==# 'closedelim'
-          let l:theindex = 2
+        else
+          if g:sick_expression_maps ==# 'char'
+            let l:theindex = 0
+          elseif g:sick_expression_maps ==# 'opendelim'
+            let l:theindex = 1
+          else " g:sick_expression_maps ==# 'closedelim'
+            let l:theindex = 2
+          endif
+
+          execute 'omap i'.l:triple[l:theindex].' <plug>(Oie'.l:triple[0].'motion)'
+          execute 'vmap i'.l:triple[l:theindex].' <plug>(Vie'.l:triple[0].'motion)'
+          execute 'omap a'.l:triple[l:theindex].' <plug>(Oae'.l:triple[0].'motion)'
+          execute 'vmap a'.l:triple[l:theindex].' <plug>(Vae'.l:triple[0].'motion)'
         endif
-
-        execute 'omap i'.l:triple[l:theindex].' <plug>(Oie'.l:triple[0].'motion)'
-        execute 'vmap i'.l:triple[l:theindex].' <plug>(Vie'.l:triple[0].'motion)'
-        execute 'omap a'.l:triple[l:theindex].' <plug>(Oae'.l:triple[0].'motion)'
-        execute 'vmap a'.l:triple[l:theindex].' <plug>(Vae'.l:triple[0].'motion)'
       endif
 
       execute "onoremap <silent> <plug>(Oie".l:triple[0]."motion) <cmd>call expression#motion('".l:triple[1]."', '".l:triple[2]."', 'W')<cr>"

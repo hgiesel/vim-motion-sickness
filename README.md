@@ -1,9 +1,12 @@
 # motion-sickness.vim ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=master) ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=devel)
 
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
-ensures they all work as intended.
+ensures they all work as intended. Only Neovim is supported at the moment.
 
-Each type of text object can be disabled with `let g:sick_{type}_enabled = 0`, e.g. `let g:sick_symbol_enabled = 0`.
+Each type of text object can be disabled with `let g:sick_{type}_enabled = 0`, e.g.
+`let g:sick_symbol_enabled = 0`.  If you only want the `<plug>` metakeys
+and want to define the mappings yourself, set
+`let g:sick_{type}_default_mappings = 0`, e.g. `let g:sick_symbol_default_mappings = 0`.
 
 #### List of text objects
 
@@ -57,6 +60,29 @@ them to the shorter version. Just put either of the following into your vimrc.
 let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression text objects
 let g:sick_expression_maps = 'closedelim' " uses {i,a}{),},],>} for expression text objects
 let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression text objects
+
+" or if you want to set your own mappings
+let g:sick_expression_default_mappings = 0
+
+omap ieb <plug>(Oiebmotion)
+vmap ieb <plug>(Viebmotion)
+omap aeb <plug>(Oaebmotion)
+vmap aeb <plug>(Vaebmotion)
+
+omap ieB <plug>(OieBmotion)
+vmap ieB <plug>(VieBmotion)
+omap aeB <plug>(OaeBmotion)
+vmap aeB <plug>(VaeBmotion)
+
+omap ier <plug>(Oiermotion)
+vmap ier <plug>(Viermotion)
+omap aer <plug>(Oaermotion)
+vmap aer <plug>(Vaermotion)
+
+omap iea <plug>(Oieamotion)
+vmap iea <plug>(Vieamotion)
+omap aea <plug>(Oaeamotion)
+vmap aea <plug>(Vaeamotion)
 ```
 
 ## Field text objects
@@ -78,6 +104,29 @@ them to the shorter version. Just put either of the following into your vimrc.
 let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for field motions
 let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for field motions
 let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for field motions
+
+" or if you want to set it entirely yourself
+let g:sick_field_default_mappings = 0
+
+omap ifb <plug>(Oifbmotion)
+vmap ifb <plug>(Vifbmotion)
+omap afb <plug>(Oafbmotion)
+vmap afb <plug>(Vafbmotion)
+
+omap ifB <plug>(OifBmotion)
+vmap ifB <plug>(VifBmotion)
+omap afB <plug>(OafBmotion)
+vmap afB <plug>(VafBmotion)
+
+omap ifr <plug>(Oifrmotion)
+vmap ifr <plug>(Vifrmotion)
+omap afr <plug>(Oafrmotion)
+vmap afr <plug>(Vafrmotion)
+
+omap ifa <plug>(Oifamotion)
+vmap ifa <plug>(Vifamotion)
+omap afa <plug>(Oafamotion)
+vmap afa <plug>(Vafamotion)
 ```
 
 4 types of list styles are supported.
@@ -128,12 +177,12 @@ The following gif showcases some examples of expression and field text objects:
 These text objects are meant to support the `ip` and `ap` text objects for selecting
 paragraphs. `ip` and `ap` simply disregard indentation.
 
-| text object | effect                                        |
-|-------------|-----------------------------------------------|
-| `iip`/`aip` | Similar to `ip`/`ap`, except it does not exceed the current indentation level. Does not accept counts. Mnemonic is "inner/all indentation paragraph"|
-| `iil`/`ail` | Selects the entire current indentation level excluding / including leading and trailing empty lines. Does not accept counts. Mnemonic is "inner/all indentation level".|
-| `iib`/`aib` | Like `ail` and it selects one line of lower indent before and after the section. Does accept counts. Mnemonic is "inner/all indentation block". |
-| `iit`/`ait` | Like `ail` and it selects one line of lower indent before the section. Does accept counts. Mnemonic is "inner/all indentation top". |
+| text object  | effect                                        |
+|--------------|-----------------------------------------------|
+| `iip`/`aip`  | Similar to `ip`/`ap`, except it does not exceed the current indentation level. Does not accept counts. Mnemonic is "inner/all indentation paragraph"|
+| `iil`/`ail`  | Selects the entire current indentation level excluding / including leading and trailing empty lines. Does not accept counts. Mnemonic is "inner/all indentation level".|
+| `iib`/`aib`  | Like `ail` and it selects one line of lower indent before and after the section. Does accept counts. Mnemonic is "inner/all indentation block". |
+| `iit`/`ait`  | Like `ail` and it selects one line of lower indent before the section. Does accept counts. Mnemonic is "inner/all indentation top". |
 
 ![Indent text objects cast](https://media.giphy.com/media/hSEh6Plw8e40MhPf2e/giphy.gif)
 
@@ -154,6 +203,32 @@ int my_function(int argument1, int argument2,
 }
 ```
 
+If you wish to set the mappings yourself, you can do so:
+
+```vi
+let g:sick_indent_default_mappings = 0
+
+omap iip <plug>(Oiipmotion)
+vmap iip <plug>(Viipmotion)
+omap aip <plug>(Oaipmotion)
+vmap aip <plug>(Vaipmotion)
+
+omap iil <plug>(Oiilmotion)
+vmap iil <plug>(Viilmotion)
+omap ail <plug>(Oailmotion)
+vmap ail <plug>(Vailmotion)
+
+omap iib <plug>(Oiibmotion)
+vmap iib <plug>(Viibmotion)
+omap aib <plug>(Oaibmotion)
+vmap aib <plug>(Vaibmotion)
+
+omap iit <plug>(Oiitmotion)
+vmap iit <plug>(Viitmotion)
+omap ait <plug>(Oaitmotion)
+vmap ait <plug>(Vaitmotion)
+```
+
 ## Line text objects
 
 * inspired by [vim-textobj-line](https://github.com/kana/vim-textobj-line)
@@ -161,6 +236,17 @@ int my_function(int argument1, int argument2,
 | text object  | effect                             |
 |--------------|------------------------------------|
 | `il`/`al`    | Select the current line including / excluding leading/trailing blank characters. Does not accept a count. |
+
+If you wish to set the mappings yourself, you can do so:
+
+```vi
+let g:sick_line_default_mappings = 0
+
+omap il <plug>(Oilmotion)
+vmap il <plug>(Vilmotion)
+omap al <plug>(Oalmotion)
+vmap al <plug>(Valmotion)
+```
 
 ## Symbol text objects
 

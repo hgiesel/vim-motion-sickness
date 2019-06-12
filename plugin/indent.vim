@@ -6,25 +6,27 @@ let g:loaded_motion_sickness_indent = 1
 
 if get(g:, 'sick_field_enabled', v:true)
   " Indentation Setting user mappings {{{1
-  omap iip <plug>(Oiipmotion)
-  vmap iip <plug>(Viipmotion)
-  omap aip <plug>(Oaipmotion)
-  vmap aip <plug>(Vaipmotion)
+  if get(g:, 'sick_indent_default_mappings', v:true)
+    omap iip <plug>(Oiipmotion)
+    vmap iip <plug>(Viipmotion)
+    omap aip <plug>(Oaipmotion)
+    vmap aip <plug>(Vaipmotion)
 
-  omap iil <plug>(Oiilmotion)
-  vmap iil <plug>(Viilmotion)
-  omap ail <plug>(Oailmotion)
-  vmap ail <plug>(Vailmotion)
+    omap iil <plug>(Oiilmotion)
+    vmap iil <plug>(Viilmotion)
+    omap ail <plug>(Oailmotion)
+    vmap ail <plug>(Vailmotion)
 
-  omap iib <plug>(Oiibmotion)
-  vmap iib <plug>(Viibmotion)
-  omap aib <plug>(Oaibmotion)
-  vmap aib <plug>(Vaibmotion)
+    omap iib <plug>(Oiibmotion)
+    vmap iib <plug>(Viibmotion)
+    omap aib <plug>(Oaibmotion)
+    vmap aib <plug>(Vaibmotion)
 
-  omap iit <plug>(Oiitmotion)
-  vmap iit <plug>(Viitmotion)
-  omap ait <plug>(Oaitmotion)
-  vmap ait <plug>(Vaitmotion)
+    omap iit <plug>(Oiitmotion)
+    vmap iit <plug>(Viitmotion)
+    omap ait <plug>(Oaitmotion)
+    vmap ait <plug>(Vaitmotion)
+  endif
 
   " Indentation Setting plug mappings {{{1
   onoremap <silent> <plug>(Oiipmotion) <cmd>call indent#motion(v:false, 'p')<cr>
@@ -48,12 +50,14 @@ if get(g:, 'sick_field_enabled', v:true)
   vnoremap <silent> <plug>(Vaitmotion) <cmd>call indent#motion(v:true, 't')<cr>
 endif
 
+" Line Setting user mappings {{{1
 if get(g:, 'sick_line_enabled', v:true)
-  " Line Setting user mappings {{{1
-  omap il <plug>(Oilmotion)
-  vmap il <plug>(Vilmotion)
-  omap al <plug>(Oalmotion)
-  vmap al <plug>(Valmotion)
+  if get(g:, 'sick_line_default_mappings', v:true)
+    omap il <plug>(Oilmotion)
+    vmap il <plug>(Vilmotion)
+    omap al <plug>(Oalmotion)
+    vmap al <plug>(Valmotion)
+  endif
 
   " Line Setting plug mappings {{{1
   onoremap <silent> <plug>(Oilmotion) <cmd>call line#motion('i')<cr>
@@ -64,10 +68,12 @@ endif
 
 if get(g:, 'sick_view_enabled', v:true)
   " Line Setting user mappings {{{1
-  omap iv <plug>(Oivmotion)
-  vmap iv <plug>(Vivmotion)
-  omap av <plug>(Oavmotion)
-  vmap av <plug>(Vavmotion)
+  if get(g:, 'sick_view_default_mappings', v:true)
+    omap iv <plug>(Oivmotion)
+    vmap iv <plug>(Vivmotion)
+    omap av <plug>(Oavmotion)
+    vmap av <plug>(Vavmotion)
+  endif
 
   " Line Setting plug mappings {{{1
   onoremap <silent> <plug>(Oivmotion) <cmd>call view#motion('i')<cr>

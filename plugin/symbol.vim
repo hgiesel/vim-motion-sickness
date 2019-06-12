@@ -9,7 +9,6 @@ if exists('g:loaded_motion_sickness_symbol') || &compatible || v:version < 700
 endif
 let g:loaded_motion_sickness_symbol = 1
 
-
 let g:sick_symbol_maps = get(g:, 'sick_symbol_maps', [
       \ ['asterisk', '*'],
       \ ['underscore', '_'],
@@ -23,18 +22,20 @@ let g:sick_symbol_maps = get(g:, 'sick_symbol_maps', [
       \ ])
 
 if get(g:, 'sick_symbol_enabled', v:true)
-" Expression function {{{1
-function! Symbol_maps_add(matchpairs)
-  for l:pair in a:matchpairs
-    execute "onoremap <silent> <plug>(Oi".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:false, '".pair[1]."', 'o')<cr>"
-    execute "vnoremap <silent> <plug>(Vi".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:false, '".pair[1]."', 'v')<cr>"
-    execute "onoremap <silent> <plug>(Oa".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:true, '".pair[1]."', 'o')<cr>"
-    execute "vnoremap <silent> <plug>(Va".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:true, '".pair[1]."', 'v')<cr>"
+  " Expression function {{{1
+  function! Symbol_maps_add(matchpairs)
+    for l:pair in a:matchpairs
+      execute "onoremap <silent> <plug>(Oi".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:false, '".pair[1]."', 'o')<cr>"
+      execute "vnoremap <silent> <plug>(Vi".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:false, '".pair[1]."', 'v')<cr>"
+      execute "onoremap <silent> <plug>(Oa".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:true, '".pair[1]."', 'o')<cr>"
+      execute "vnoremap <silent> <plug>(Va".pair[0]."Symbolmotion) :<c-u>call symbol#motion(v:true, '".pair[1]."', 'v')<cr>"
 
-    execute "omap i".pair[1]." <plug>(Oi".pair[0]."Symbolmotion)"
-    execute "vmap i".pair[1]." <plug>(Vi".pair[0]."Symbolmotion)"
-    execute "omap a".pair[1]." <plug>(Oa".pair[0]."Symbolmotion)"
-    execute "vmap a".pair[1]." <plug>(Va".pair[0]."Symbolmotion)"
+      if get(g:, 'sick_symbol_default_mappings', v:true)
+        execute "omap i".pair[1]." <plug>(Oi".pair[0]."Symbolmotion)"
+        execute "vmap i".pair[1]." <plug>(Vi".pair[0]."Symbolmotion)"
+        execute "omap a".pair[1]." <plug>(Oa".pair[0]."Symbolmotion)"
+        execute "vmap a".pair[1]." <plug>(Va".pair[0]."Symbolmotion)"
+      endif
   endfor
 endfunction
 
