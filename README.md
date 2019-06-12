@@ -193,8 +193,8 @@ the `g:sick_indent_exclude_leading_indents` variable.
 
 ```c
 int my_function(int argument1, int argument2,
-                int argument3) { // <- will not be included in `iil` or `ail` text
-                // object if you set g:sick_indent_exclude_leading_indents to 0
+                int argument3) { // <- will be included in `iil` or `ail` text object 
+                                 // if you set g:sick_indent_exclude_leading_indents to 0
     line1();
     line2();
     line3();
