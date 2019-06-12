@@ -179,7 +179,7 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 
 | text object  | effect                                        |
 |--------------|-----------------------------------------------|
-| `iip`/`aip`  | Similar to `ip`/`ap`, except it does not exceed the current indentation level. Does not accept counts. Mnemonic is "inner/all indentation paragraph"|
+| `iip`/`aip`  | Similar to `ip`/`ap`, except it does not exceed the current indentation level. Does accept counts. Mnemonic is "inner/all indentation paragraph"|
 | `iil`/`ail`  | Selects the entire current indentation level excluding / including leading and trailing empty lines. Does not accept counts. Mnemonic is "inner/all indentation level".|
 | `iib`/`aib`  | Like `ail` and it selects one line of lower indent before and after the section. Does accept counts. Mnemonic is "inner/all indentation block". |
 | `iit`/`ait`  | Like `ail` and it selects one line of lower indent before the section. Does accept counts. Mnemonic is "inner/all indentation top". |
