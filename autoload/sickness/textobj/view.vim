@@ -1,4 +1,4 @@
-function! view#motion(mode)
+function! sickness#textobj#view#motion(mode)
   normal! m'
 
   if a:mode ==# 'i'

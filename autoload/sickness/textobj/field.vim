@@ -200,7 +200,7 @@ function! s:GetPositionOffset(startpoint, pos)
   return [l:offset, l:offsetInInnerText]
 endfunction
 
-function! field#motion(all, visual, opendelim, closedelim, fielddelim)
+function! sickness#textobj#field#motion(all, visual, opendelim, closedelim, fielddelim)
   " echomsg mode() -> either "n" or "v"
   let winsave = winsaveview()
   let modesave = mode()

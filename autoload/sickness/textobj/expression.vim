@@ -1,5 +1,5 @@
 " Defining functions {{{1
-function! expression#motion(open_char, close_char, reach)
+function! sickness#textobj#expression#motion(open_char, close_char, reach)
   let l:cur_pos    = getpos('.')
   let l:recursions = 1
   let l:winview    = winsaveview()
