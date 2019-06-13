@@ -1,4 +1,4 @@
-# motion-sickness.vim ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=master) ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=devel)
+# motion-sickness.nvim ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=master) ![Build Status](https://travis-ci.org/hgiesel/vim-motion-sickness.svg?branch=devel)
 
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
 ensures they all work as intended. Only Neovim is supported at the moment.
@@ -190,7 +190,7 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 
 | text object  | effect                                        |
 |--------------|-----------------------------------------------|
-| `iip`/`aip`  | Similar to `ip`/`ap`, except it does not exceed the current indentation level. Does not accept counts. Mnemonic is "inner/all indentation paragraph"|
+| `iip`/`aip`  | Similar to `ip`/`ap`, except it does not exceed the current indentation level. Does accept counts. Mnemonic is "inner/all indentation paragraph"|
 | `iil`/`ail`  | Selects the entire current indentation level excluding / including leading and trailing empty lines. Does not accept counts. Mnemonic is "inner/all indentation level".|
 | `iib`/`aib`  | Like `ail` and it selects one line of lower indent before and after the section. Does accept counts. Mnemonic is "inner/all indentation block". |
 | `iit`/`ait`  | Like `ail` and it selects one line of lower indent before the section. Does accept counts. Mnemonic is "inner/all indentation top". |
@@ -204,8 +204,8 @@ the `g:sickness#indentation#exclude_leading_indents` variable.
 
 ```c
 int my_function(int argument1, int argument2,
-                int argument3) { // <- will not be included in `iil` or `ail` text
-                // object if you set g:sickness#indentation#excluse_leading_indents to 0
+                int argument3) { // <- will not be included in `iil` or `ail` text object
+                                 // if you set g:sickness#indentation#excluse_leading_indents to 0
     line1();
     line2();
     line3();
