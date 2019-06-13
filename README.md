@@ -3,10 +3,20 @@
 This plugin adds a slew of new possible text objects. [Vader](https://github.com/junegunn/vader.vim)
 ensures they all work as intended. Only Neovim is supported at the moment.
 
-Each type of text object can be disabled with `let g:sick_{type}_enabled = 0`, e.g.
-`let g:sick_symbol_enabled = 0`.  If you only want the `<plug>` metakeys
-and want to define the mappings yourself, set
-`let g:sick_{type}_default_mappings = 0`, e.g. `let g:sick_symbol_default_mappings = 0`.
+Each type of text object can be disabled with `let g:sickness#{type}_enabled = 0`, e.g.:
+
+```vim
+let g:sickness#symbol#enabled = 0
+let g:sickness#view#enabled = 0
+```
+
+If you only want the `<plug>` metakeys and want to define the mappings yourself, set
+`let g:sickness#{type}#use_default_maps = 0`, e.g.:
+
+```vim
+let g:sickness#symbol#use_default_maps = 0
+let g:sickness#view#use_default_maps = 0
+```
 
 #### List of text objects
 
@@ -16,7 +26,7 @@ and want to define the mappings yourself, set
   * [field text objects](#field-text-objects)
 
 * **other text objects**:
-  * [indent text objects](#indent-text-objects)
+  * [indentation text objects](#indent-text-objects)
   * [line text objects](#line-text-objects)
   * [view text objects](#view-text-objects)
   * [symbol text objects](#symbol-text-objects)
@@ -53,37 +63,37 @@ While going back a word, `motion-sickness` is smart about not going beyond openi
 An *all expression* selects the whole bracket (like "`a<bracket>`") preceded by anything.
 The same restrictions that apply to *inner expressions* apply here too.
 
-The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
+The variable `g:sickness#expression#preferred_shortcut_map` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-text-objects), you can set
 them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
-let g:sick_expression_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for expression text objects
-let g:sick_expression_maps = 'closedelim' " uses {i,a}{),},],>} for expression text objects
-let g:sick_expression_maps = 'char'       " uses {i,a}{b,B,r,a} for expression text objects
+let g:sickness#expression#preferred_shortcut_map = 'opendelim'  " uses {i,a}{(,{,[,<} for expression text objects
+let g:sickness#expression#preferred_shortcut_map = 'closedelim' " uses {i,a}{),},],>} for expression text objects
+let g:sickness#expression#preferred_shortcut_map = 'char'       " uses {i,a}{b,B,r,a} for expression text objects
 
 " or if you want to set your own mappings
-let g:sick_expression_default_mappings = 0
+let g:sickness#expression#use_default_maps = 0
 
-omap ieb <plug>(Oiebmotion)
-vmap ieb <plug>(Viebmotion)
-omap aeb <plug>(Oaebmotion)
-vmap aeb <plug>(Vaebmotion)
+omap ieb <plug>(textobj-sickness-expression-parenthesis-i)
+xmap ieb <plug>(textobj-sickness-expression-parenthesis-i)
+omap aeb <plug>(textobj-sickness-expression-parenthesis-a)
+xmap aeb <plug>(textobj-sickness-expression-parenthesis-a)
 
-omap ieB <plug>(OieBmotion)
-vmap ieB <plug>(VieBmotion)
-omap aeB <plug>(OaeBmotion)
-vmap aeB <plug>(VaeBmotion)
+omap ieB <plug>(textobj-sickness-expression-brace-i)
+xmap ieB <plug>(textobj-sickness-expression-brace-i)
+omap aeB <plug>(textobj-sickness-expression-brace-a)
+xmap aeB <plug>(textobj-sickness-expression-brace-a)
 
-omap ier <plug>(Oiermotion)
-vmap ier <plug>(Viermotion)
-omap aer <plug>(Oaermotion)
-vmap aer <plug>(Vaermotion)
+omap ier <plug>(textobj-sickness-expression-bracket-i)
+xmap ier <plug>(textobj-sickness-expression-bracket-i)
+omap aer <plug>(textobj-sickness-expression-bracket-a)
+xmap aer <plug>(textobj-sickness-expression-bracket-a)
 
-omap iea <plug>(Oieamotion)
-vmap iea <plug>(Vieamotion)
-omap aea <plug>(Oaeamotion)
-vmap aea <plug>(Vaeamotion)
+omap iea <plug>(textobj-sickness-expression-chevron-i)
+xmap iea <plug>(textobj-sickness-expression-chevron-i)
+omap aea <plug>(textobj-sickness-expression-chevron-a)
+xmap aea <plug>(textobj-sickness-expression-chevron-a)
 ```
 
 ## Field text objects
@@ -97,37 +107,37 @@ arguments in function, list elements, dictionary entries, etc.
 
 An *all field* selects an inner field, together with the field delimiter (usually a comma)
 
-The variable `g:sick_expression_maps` can be set use an alternative set of mappings.
+The variable `g:sickness#expression#maps` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-text-objects), you can set
 them to the shorter version. Just put either of the following into your vimrc.
 
 ```vim
-let g:sick_field_maps = 'opendelim'  " uses {i,a}{(,{,[,<} for field motions
-let g:sick_field_maps = 'closedelim' " uses {i,a}{),},],>} for field motions
-let g:sick_field_maps = 'char'       " uses {i,a}{b,B,r,a} for field motions
+let g:sickness#field#preferred_shortcut_map = 'opendelim'  " uses {i,a}{(,{,[,<} for field motions
+let g:sickness#field#preferred_shortcut_map = 'closedelim' " uses {i,a}{),},],>} for field motions
+let g:sickness#field#preferred_shortcut_map = 'char'       " uses {i,a}{b,B,r,a} for field motions
 
 " or if you want to set it entirely yourself
-let g:sick_field_default_mappings = 0
+let g:sickness#field#use_default_maps = 0
 
-omap ifb <plug>(Oifbmotion)
-vmap ifb <plug>(Vifbmotion)
-omap afb <plug>(Oafbmotion)
-vmap afb <plug>(Vafbmotion)
+omap ifb <plug>(textobj-sickness-field-parenthesis-i)
+vmap ifb <plug>(textobj-sickness-field-parenthesis-i)
+omap afb <plug>(textobj-sickness-field-parenthesis-a)
+vmap afb <plug>(textobj-sickness-field-parenthesis-a)
 
-omap ifB <plug>(OifBmotion)
-vmap ifB <plug>(VifBmotion)
-omap afB <plug>(OafBmotion)
-vmap afB <plug>(VafBmotion)
+omap ifB <plug>(textobj-sickness-field-brace-i)
+vmap ifB <plug>(textobj-sickness-field-brace-i)
+omap afB <plug>(textobj-sickness-field-brace-a)
+vmap afB <plug>(textobj-sickness-field-brace-a)
 
-omap ifr <plug>(Oifrmotion)
-vmap ifr <plug>(Vifrmotion)
-omap afr <plug>(Oafrmotion)
-vmap afr <plug>(Vafrmotion)
+omap ifr <plug>(textobj-sickness-field-bracket-i)
+vmap ifr <plug>(textobj-sickness-field-bracket-i)
+omap afr <plug>(textobj-sickness-field-bracket-a)
+vmap afr <plug>(textobj-sickness-field-bracket-a)
 
-omap ifa <plug>(Oifamotion)
-vmap ifa <plug>(Vifamotion)
-omap afa <plug>(Oafamotion)
-vmap afa <plug>(Vafamotion)
+omap ifa <plug>(textobj-sickness-field-chevron-i)
+vmap ifa <plug>(textobj-sickness-field-chevron-i)
+omap afa <plug>(textobj-sickness-field-chevron-a)
+vmap afa <plug>(textobj-sickness-field-chevron-a)
 ```
 
 4 types of list styles are supported.
@@ -190,12 +200,12 @@ paragraphs. `ip` and `ap` simply disregard indentation.
 In a text like like the following, if you execute `iil` on any line within the
 function definition, the line featuring `argument3` will not be selected, but will
 be detected as probably belonging to the preceding line. This behavior is governed by
-the `g:sick_indent_exclude_leading_indents` variable.
+the `g:sickness#indentation#exclude_leading_indents` variable.
 
 ```c
 int my_function(int argument1, int argument2,
                 int argument3) { // <- will not be included in `iil` or `ail` text
-                // object if you set g:sick_indent_exclude_leading_indents to 0
+                // object if you set g:sickness#indentation#excluse_leading_indents to 0
     line1();
     line2();
     line3();
@@ -207,27 +217,27 @@ int my_function(int argument1, int argument2,
 If you wish to set the indent mappings yourself, you can do so:
 
 ```vim
-let g:sick_indent_default_mappings = 0
+let g:sickness#indentation#use_default_maps = 0
 
-omap iip <plug>(Oiipmotion)
-vmap iip <plug>(Viipmotion)
-omap aip <plug>(Oaipmotion)
-vmap aip <plug>(Vaipmotion)
+omap iip <plug>(textobj-sickness-indentation-paragraph-i)
+vmap iip <plug>(textobj-sickness-indentation-paragraph-i)
+omap aip <plug>(textobj-sickness-indentation-paragraph-a)
+vmap aip <plug>(textobj-sickness-indentation-paragraph-a)
 
-omap iil <plug>(Oiilmotion)
-vmap iil <plug>(Viilmotion)
-omap ail <plug>(Oailmotion)
-vmap ail <plug>(Vailmotion)
+omap iil <plug>(textobj-sickness-indentation-level-i)
+vmap iil <plug>(textobj-sickness-indentation-level-i)
+omap ail <plug>(textobj-sickness-indentation-level-a)
+vmap ail <plug>(textobj-sickness-indentation-level-a)
 
-omap iib <plug>(Oiibmotion)
-vmap iib <plug>(Viibmotion)
-omap aib <plug>(Oaibmotion)
-vmap aib <plug>(Vaibmotion)
+omap iib <plug>(textobj-sickness-indentation-block-i)
+vmap iib <plug>(textobj-sickness-indentation-block-i)
+omap aib <plug>(textobj-sickness-indentation-block-a)
+vmap aib <plug>(textobj-sickness-indentation-block-a)
 
-omap iit <plug>(Oiitmotion)
-vmap iit <plug>(Viitmotion)
-omap ait <plug>(Oaitmotion)
-vmap ait <plug>(Vaitmotion)
+omap iit <plug>(textobj-sickness-indentation-top-i)
+vmap iit <plug>(textobj-sickness-indentation-top-i)
+omap ait <plug>(textobj-sickness-indentation-top-a)
+vmap ait <plug>(textobj-sickness-indentation-top-a)
 ```
 
 ## Line text objects
@@ -241,12 +251,12 @@ vmap ait <plug>(Vaitmotion)
 If you wish to set the mappings yourself, you can do so:
 
 ```vim
-let g:sick_line_default_mappings = 0
+let g:sickness#line#use_default_maps = 0
 
-omap il <plug>(Oilmotion)
-vmap il <plug>(Vilmotion)
-omap al <plug>(Oalmotion)
-vmap al <plug>(Valmotion)
+omap il <plug>(textobj-sickness-line-i)
+xmap il <plug>(textobj-sickness-line-i)
+omap al <plug>(textobj-sickness-line-a)
+xmap al <plug>(textobj-sickness-line-a)
 ```
 
 ## Line text objects
@@ -259,12 +269,12 @@ vmap al <plug>(Valmotion)
 If you wish to set the mappings yourself, you can do so:
 
 ```vim
-let g:sick_view_default_mappings = 0
+let g:sickness#view#use_default_maps = 0
 
-omap iv <plug>(Oivmotion)
-vmap iv <plug>(Vivmotion)
-omap av <plug>(Oavmotion)
-vmap av <plug>(Vavmotion)
+omap iv <plug>(textobj-sickness-view-i)
+xmap iv <plug>(textobj-sickness-view-i)
+omap av <plug>(textobj-sickness-view-a)
+xmap av <plug>(textobj-sickness-view-a)
 ```
 
 ## Symbol text objects

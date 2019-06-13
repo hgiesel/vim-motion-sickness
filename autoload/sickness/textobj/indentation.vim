@@ -36,7 +36,7 @@ function! s:SelectInnerLevel(minindent, include_emptylines)
         endif
       endwhile
 
-      if g:sickness#indent#exclude_leading_indents
+      if g:sickness#indentation#exclude_leading_indents
         " e.g. useful when using opening delimiter indentation style
         " foo_function_name(bla bla,
         "                   foo foo) {
@@ -67,7 +67,7 @@ endfunction
 " - 't': select an indentation level plus *t*op line - support counts
 
 " - 'l': select an entire indentation *l*evel - does not support counts
-function! sickness#textobj#indent#motion(margin, mode)
+function! sickness#textobj#indentation#motion(margin, mode)
   " difference between ii and ia is only the count
 
   " for indent paragraph motion
