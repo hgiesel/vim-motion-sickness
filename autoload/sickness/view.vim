@@ -9,5 +9,7 @@ function! sickness#view#add()
 
   " Line Setting plug mappings {{{1
   onoremap <silent> <plug>(textobj-sickness-view-i) <cmd>call sickness#textobj#view#motion('i')<cr>
+  xnoremap <silent> <plug>(textobj-sickness-view-i) <cmd>call sickness#textobj#view#motion('i')<cr>
+  onoremap <silent> <plug>(textobj-sickness-view-a) <cmd>call sickness#textobj#view#motion('a')<cr>
   xnoremap <silent> <plug>(textobj-sickness-view-a) <cmd>call sickness#textobj#view#motion('a')<cr>
 endfunction
