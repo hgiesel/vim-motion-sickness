@@ -1,0 +1,23 @@
+Given:
+  {foo::bar(xyz)}
+
+Before:
+  normal! fx
+
+Do:
+  dieb
+Expect:
+  {foo::}
+Do:
+  d2ieb
+Expect:
+  {foo}
+Do:
+  d3ieb
+Expect:
+  {}
+
+Do:
+  daeb
+Expect:
+  {}

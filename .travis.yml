@@ -20,7 +20,10 @@ env:
   matrix:
     - TARGET='alias'
 
-    - TARGET='expression-general'
+    - TARGET='expression-general-if'
+    - TARGET='expression-general-af'
+    - TARGET='expression-count-if'
+    - TARGET='expression-count-af'
     - TARGET='expression-multiline-indented'
     - TARGET='expression-multiline-leading'
     - TARGET='expression-multiline-trailing'
