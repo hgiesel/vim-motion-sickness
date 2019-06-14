@@ -11,7 +11,7 @@ Expect:
 Do:
   fddieb
 Expect:
-  
+  xyz(def foo(bar))
 
 Do:
   fbdieb
@@ -40,7 +40,7 @@ Expect:
 Do:
   fddieB
 Expect:
-  
+  xyz{def foo{bar}}
 
 Do:
   fbdieB
@@ -69,7 +69,7 @@ Expect:
 Do:
   fddier
 Expect:
-  
+  xyz[def foo[bar]]
 
 Do:
   fbdier
@@ -98,7 +98,7 @@ Expect:
 Do:
   fddiea
 Expect:
-  
+  xyz<def foo<bar>>
 
 Do:
   fbdiea

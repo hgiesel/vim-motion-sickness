@@ -1,179 +1,120 @@
 " Defining functions {{{1
-function! sickness#textobj#expression#motion(open_char, close_char, reach)
-  let l:cur_pos    = getpos('.')
-  let l:recursions = 1
-  let l:winview    = winsaveview()
+function! sickness#textobj#expression#motion(opendelim, closedelim, reach)
+  let l:curpos  = getpos('.')
+  let l:winsave = winsaveview()
+
+  let l:count = v:count
 
   normal! 
-  " this will only work with 10 recursions, because this could go on forever
-  while l:recursions < 10
-    " This block makes an assumption to what the qb section may look like with the
-    " cursor ending on the end of the selection (how it should be)
-    call s:Find_nth_char(l:recursions, a:close_char)
-    call s:Make_a_q(a:open_char, a:close_char, a:reach)
-    execute 'normal! o'
 
-    if s:Cmp(getpos('v')[1:2], l:cur_pos[1:2]) !=# 1
-          \ && s:Cmp(l:cur_pos[1:2], getpos('.')[1:2]) !=# 1
-      " legit qb section: reset window and finish
-      call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
-      return 0
-
-      " xyz::foo(abc)
-    else
-      " no legit qb section
-      normal! v
-      call setpos('.', l:cur_pos)
-      let l:recursions += 1
-    endif
-  endwhile
-
-  " if you've come this far, there is no qb statement
-  call winrestview({'topline':l:winview.topline, 'leftcol':l:winview.leftcol})
-endfunction
-
-function! s:Make_a_q(open_char, close_char, reach)
-  let l:invalid = 0
-  let l:recursion = 0
-  let l:finished  = 0
-
-  while !(l:invalid || l:finished)
-    let l:next_char = getline('.')[col('.') - 2]
-
-    " I'll allow an recursion depth of five
-    let l:recursion += 1
-    if l:recursion ==# 5
-      let l:invalid = v:true
-    endif
-
-    " A
-    " if there is a space or bol to the left of proposed statement, it's
-    " no statement
-    if col('.') == 1
-      let l:invalid = 1
-
-      " B
-      " if character right beside open_char is another closing statement
-      " of any kind this one should tried to be embraced as well
-    elseif l:next_char =~# '\v[\)\]\}\>]'
-      normal! h
-      let l:mark_col = col('.')
-      normal! %
-
-      if l:mark_col ==# col('.')
-        " Can't make it invalid at this point , because it might be >()
-        normal! l
-      endif
-
-      " C
-      " if is enclosed two times by l:open_char, e.g. in bash $((1 + 2))
-      " i don't allow q to be enclosed by two non identical characters,
-      " like $[( )], cause that would be madness!
-    elseif l:next_char ==# a:open_char
-      if a:open_char ==# '.'
-        let l:finished = 1
-
-      else
-        normal! o
-        if getline('.')[col('.')] =~# a:close_char
-          normal! loh
-
-        else
-          let l:invalid = 1
-        endif
-      endif
-
-      " if character next to such an statement is a character, it is
-      " probably its name
-    elseif l:next_char =~ '\v[a-zA-Z0-9_\$\<\>\=\# ]'
-
-      if a:reach ==# 'f'
-        " if possible, reach full line, but don't reach beyond ({[<
-        " ex. if (hello) { bla; }
-        let l:theline_unreversed = getline('.')[0:col('.') - 2] " cut out opendelim of qb match
-        let l:theline = join(reverse(split(l:theline_unreversed, '.\zs')), '')
-        let l:oldline = ''
-
-        while (l:theline !=# l:oldline)
-          let l:oldline = l:theline
-          let l:theline = substitute(l:theline, '\%()\(.\{-}\)(\|\]\(.\{-}\)\[\|>\(.\{-}\)<\|}\(.\{-}\){\)', '_\1_', 'g')
-        endwhile
-
-        let l:opendelim_pos = match(l:theline, '.*\zs[(\[{<]')
-        if l:opendelim_pos == -1
-          normal! ^
-        else
-          let l:opendelim_pos = (len(l:theline) - l:opendelim_pos) + 1
-          execute 'normal! '.l:opendelim_pos.'|'
-        endif
-
-      elseif a:reach ==# 'W'
-        " reach a WORD, but don't reach beyond ({[<
-        " ex. foo[bar::baz[arg]]
-        let l:theline_unreversed = getline('.')[0:col('.') - 2] " cut out opendelim of qb match
-        let l:theline = join(reverse(split(l:theline_unreversed, '.\zs')), '')
-        let l:oldline = ''
-
-        while (l:theline !=# l:oldline)
-          let l:oldline = l:theline
-          let l:theline = substitute(l:theline, '\%()\(.\{-}\)(\|\]\(.\{-}\)\[\|>\(.\{-}\)<\|}\(.\{-}\){\)', '_\1_', 'g')
-        endwhile
-
-        " biggest possible occurence of delims
-        let l:opendelim_pos = match(l:theline, '.*\zs[(\[{<]')
-        " first occurence of space
-        let l:space_pos = match(l:theline, ' ')
-
-        if l:opendelim_pos ==# -1
-          let l:the_pos = l:space_pos
-        elseif l:space_pos ==# -1
-          let l:the_pos = l:opendelim_pos
-        else
-          let l:the_pos = min([l:opendelim_pos, l:space_pos])
-        endif
-
-        if l:the_pos == -1
-          normal! ^
-        else
-          let l:the_pos = (len(l:theline) - l:the_pos) + 1
-          execute 'normal! '.l:the_pos.'|'
-        endif
-
-      else " a:reach ==# 'w'
-        normal! b
-      endif
-
-      let l:finished = 1
-    endif
-
-  endwhile
-
-  return l:invalid
-endfunction
-
-function! s:Find_nth_char(n, char)
-  if getline('.')[col('.') - 1] !=# a:char
-    for i in range(a:n)
-      silent! execute "normal! /" . a:char . "\<cr>"
-    endfor
+  if getline('.')[col('.') - 1] !=# a:opendelim
+        \ && getline('.')[col('.') - 1] !=# a:closedelim
+    execute 'normal! f'.a:opendelim
   endif
 
-  silent! execute "normal! va" . a:char . "o"
+  execute 'normal! va'.a:opendelim
+  let l:closedelim_pos = getpos('.')
+  execute 'normal! o'
+  let l:opendelim_pos = getpos('.')
+
+  if l:opendelim_pos[2] ==# 1 || l:opendelim_pos ==# l:closedelim_pos
+    " No expression starts on the first col OR No match is found by a<delim>
+    normal! 
+    call setpos('.', l:curpos)
+    call winrestview(l:winsave)
+    return
+  endif
+
+  if len(getline(l:closedelim_pos[1])) !=# l:closedelim_pos[2]
+    let l:onecharbefore = getline(l:opendelim_pos[1])[l:opendelim_pos[2] - 2]
+    let l:onecharafter  = getline(l:closedelim_pos[1])[l:closedelim_pos[2]]
+
+    if l:onecharbefore ==# a:opendelim && l:onecharafter ==# a:closedelim
+      execute "normal! \<bs>o o"
+    endif
+  endif
+
+  if l:count ==# 0 && a:reach ==# 'b'
+    let l:count = 1
+    execute 'normal! '.l:count.a:reach
+  elseif l:count ==# 0 && a:reach ==# 'B'
+    execute 'normal! ^'
+  else
+    execute 'normal! '.l:count.a:reach
+  endif
+
+  " skip while you have non contained delim characters
+  while !s:MatchOpenCloseDelims(s:GetInnerText(getpos('.'), l:opendelim_pos))
+    normal! 1 
+  endwhile
+
+  " skip while you have blank characters
+  while index([' ', '	'], getline('.')[col('.') - 1]) !=# -1
+    normal! 1 
+  endwhile
+
+  let l:beginpos = getpos('.')
+  if !s:PosLiesWithin(l:beginpos, l:closedelim_pos, l:curpos)
+    normal! 
+    call setpos('.', l:curpos)
+    call winrestview(l:winsave)
+    return
+  endif
+
+  normal! o
 endfunction
 
-" like C {{{2
-function! s:Cmp(a, b)
-  for i in range(len(a:a))
-    if a:a[i] < a:b[i]
-      return -1
+function! s:PosLiesWithin(beginpos, endpos, middlepos)
+  if a:beginpos[1] > a:middlepos[1] || a:middlepos[1] > a:endpos[1]
+    return v:false
+  elseif a:beginpos[1] == a:middlepos[1] && a:beginpos[2] > a:middlepos[2]
+    return v:false
+  elseif a:middlepos[1] == a:endpos[1] && a:middlepos[2] > a:endpos[2]
+    return v:false
+  endif
 
-    elseif a:a[i] > a:b[i]
-      return 1
+  return v:true
+endfunction
+
+function! s:MatchOpenCloseDelims(innertext)
+  " substitute ' < ' and ' > ' from text because I assume
+  " them to be comparison operators
+  let l:innertext_joined = substitute(join(a:innertext), '\s[<>]\s', '', 'g')
+
+  for l:openclosedelim in g:sickness#expression#openclosedelims
+    if count(l:innertext_joined, l:openclosedelim[2]) !=# count(l:innertext_joined, l:openclosedelim[3])
+      return v:false
     endif
   endfor
 
-  return 0
+  return v:true
 endfunction
 
-" this function finds the kind of braces you search for, will embrace it and you will
-" end op on the left
+function! s:GetInnerText(opendelim_pos, closedelim_pos)
+  " works different from sickness#textobj#field because
+  " it includes the very first character of the selection
+  let l:result = []
+
+  if a:closedelim_pos[1] < a:opendelim_pos[1]
+    return l:result
+  endif
+
+  for i in range(a:opendelim_pos[1], a:closedelim_pos[1])
+    if (i ==# a:opendelim_pos[1] && i ==# a:closedelim_pos[1]) " single line
+      let l:theline = strcharpart(getline(i), a:opendelim_pos[2] - 1, a:closedelim_pos[2] - a:opendelim_pos[2] - 1)
+
+    elseif (i ==# a:opendelim_pos[1]) " firstline
+      let l:theline = strcharpart(getline(i), a:opendelim_pos[2] - 1)
+
+    elseif (i ==# a:closedelim_pos[1]) " lastline
+      let l:theline = strcharpart(getline(i), 0, a:closedelim_pos[2] - 1)
+
+    else " middleline
+      let l:theline = getline(i)
+    endif
+
+    call add(l:result, l:theline)
+  endfor
+
+  return l:result
+endfunction

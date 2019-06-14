@@ -47,13 +47,13 @@ function! sickness#expression#add(openclosedelimdefs)
 
     " set textobj plugs
     execute "onoremap <silent> <plug>(textobj-sickness-expression-" . l:openclosedelimdef[0] . "-i) " .
-          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'W')<cr>"
+          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'b')<cr>"
     execute "xnoremap <silent> <plug>(textobj-sickness-expression-" . l:openclosedelimdef[0] . "-i) " .
-          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'W')<cr>"
+          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'b')<cr>"
     execute "xnoremap <silent> <plug>(textobj-sickness-expression-" . l:openclosedelimdef[0] . "-a) " .
-          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'f')<cr>"
+          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'B')<cr>"
     execute "onoremap <silent> <plug>(textobj-sickness-expression-" . l:openclosedelimdef[0] . "-a) " .
-          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'f')<cr>"
+          \ "<cmd>call sickness#textobj#expression#motion('" . l:openclosedelimdef[2] . "', '" . l:openclosedelimdef[3] . "', 'B')<cr>"
 
   endfor
 endfunction

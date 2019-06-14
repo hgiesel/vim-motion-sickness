@@ -1,0 +1,28 @@
+" Given: ((??foo(bar)??)) {{{1
+Given:
+  ((((foo(bar)))))
+Do:
+  fbdieb
+Expect:
+  (((())))
+
+Given:
+  (({{foo(bar)}}))
+Do:
+  fbdieb
+Expect:
+  (({{}}))
+
+Given:
+  (([[foo(bar)]]))
+Do:
+  fbdieb
+Expect:
+  (([[]]))
+
+Given:
+  ((<<foo(bar)>>))
+Do:
+  fbdieb
+Expect:
+  ((<<>>))

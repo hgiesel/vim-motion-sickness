@@ -16,10 +16,10 @@ let g:sickness#symbol#maps = get(g:, 'sickness#symbol#maps', g:sickness#symbol#d
 " Expression function {{{1
 function! sickness#symbol#add(matchpairs)
   for l:pair in a:matchpairs
-    execute "onoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-i) <cmd>call sickness#textobj#symbol#motion(v:false, '".pair[1]."', 'o')<cr>"
-    execute "xnoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-i) <cmd>call sickness#textobj#symbol#motion(v:false, '".pair[1]."', 'v')<cr>"
-    execute "onoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-a) <cmd>call sickness#textobj#symbol#motion(v:true, '".pair[1]."', 'o')<cr>"
-    execute "xnoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-a) <cmd>call sickness#textobj#symbol#motion(v:true, '".pair[1]."', 'v')<cr>"
+    execute "onoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-i) <cmd>call sickness#textobj#symbol#motion(v:false, '".pair[1]."')<cr>"
+    execute "xnoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-i) <cmd>call sickness#textobj#symbol#motion(v:false, '".pair[1]."')<cr>"
+    execute "onoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-a) <cmd>call sickness#textobj#symbol#motion(v:true, '".pair[1]."')<cr>"
+    execute "xnoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-a) <cmd>call sickness#textobj#symbol#motion(v:true, '".pair[1]."')<cr>"
 
     if get(g:, 'sick_symbol_default_mappings', v:true)
       execute "omap i".pair[1]." <plug>(textobj-sickness-symbol-".pair[0]."-i)"
