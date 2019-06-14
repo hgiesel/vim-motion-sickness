@@ -55,11 +55,22 @@ let g:sickness#view#use_default_maps = 0
 
 * inspired by [vim-textobj-functioncall](https://github.com/machakann/vim-textobj-functioncall)
 
-**Expression text objects** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
+Expression text objects are a generalization of *function calls*, *function definitions*, *arrays*, *C++ templates*, and more.
+The general expression of an expression text object is `[text][opendelim][text][closedelim]`.
+All of the following follow this criteria:
 
-`ie*` selects the whole bracket (like "`a<bracket>`") preceded by `[count]` words.
+```c
+function_call(argument1, argument2, argument3)
+let dict = { "key1": value1, "key2", value2 }
+let a = ["hello", "world"]
+Array<int> val = new Array<int>
+```
 
-`ae*` selects the whole bracket (like "`a<bracket>`") preceded by `[count]` WORDs.
+**Expression text objects** have the structure "{`[ia]`}`e`{`[b()]`/`[B{}]`/`[r[\]]`/`[a<>]`}".
+
+`ie*` selects the whole bracket (like "`a<bracket>`") preceded by `[count]` [words](https://stackoverflow.com/questions/22931032/vim-word-vs-word).
+
+`ae*` selects the whole bracket (like "`a<bracket>`") preceded by `[count]` [WORDs](https://stackoverflow.com/questions/22931032/vim-word-vs-word).
 However, if you don't supply a count, it will not default to "1 WORD" but rather it
 will jump to the start of the line.
 
