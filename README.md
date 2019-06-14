@@ -57,11 +57,13 @@ let g:sickness#view#use_default_maps = 0
 
 **Expression text objects** have the structure "{`i`,`a`}`e`{`b`/`(`/`)`,`B`/`{`/`}`,`r`/`[`/`]`,`a`/`<`/`>`}".
 
-An *inner expression* selects the whole bracket (like "`a<bracket>`") preceded by a WORD.
-While going back a word, `motion-sickness` is smart about not going beyond opening brackets, etc. 
+`ie*` selects the whole bracket (like "`a<bracket>`") preceded by `[count]` words.
 
-An *all expression* selects the whole bracket (like "`a<bracket>`") preceded by anything.
-The same restrictions that apply to *inner expressions* apply here too.
+`ae*` selects the whole bracket (like "`a<bracket>`") preceded by `[count]` WORDs.
+However, if you don't supply a count, it will not default to "1 WORD" but rather it
+will jump to the start of the line.
+
+With both `ie*` and `ae*`, `motion-sickness` will be smart not to include partial brackets, etc.
 
 The variable `g:sickness#expression#preferred_shortcut_map` can be set use an alternative set of mappings.
 Utilizing the fact, that `ib`, `i(`, `i)` are [the same](#alias-text-objects), you can set
