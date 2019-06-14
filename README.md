@@ -259,7 +259,8 @@ vmap ait <plug>(textobj-sickness-indentation-top-a)
 
 | text object  | effect                             |
 |--------------|------------------------------------|
-| `il`/`al`    | Select the current line including / excluding leading/trailing blank characters. Does not accept a count. |
+| `il`         | Select the current line excluding leading/trailing blank characters. From `^` to `g_`. Does not accept a count. |
+| `al`         | Select the current line including leading/trailing blank characters. From `0` to `$`. Does not accept a count. |
 
 If you wish to set the mappings yourself, you can do so:
 
@@ -272,7 +273,7 @@ omap al <plug>(textobj-sickness-line-a)
 xmap al <plug>(textobj-sickness-line-a)
 ```
 
-## Line text objects
+## View text objects
 
 | text object  | effect                             |
 |--------------|------------------------------------|
