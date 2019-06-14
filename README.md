@@ -259,7 +259,8 @@ vmap ait <plug>(textobj-sickness-indentation-top-a)
 
 | text object  | effect                             |
 |--------------|------------------------------------|
-| `il`/`al`    | Select the current line including / excluding leading/trailing blank characters. Does not accept a count. |
+| `il`         | Select the current line excluding leading/trailing blank characters (from `^` to `g_`). Does not accept a count. |
+| `al`         | Select the current line including leading/trailing blank characters (from `0` to `$`). Does not accept a count. |
 
 If you wish to set the mappings yourself, you can do so:
 
@@ -272,12 +273,12 @@ omap al <plug>(textobj-sickness-line-a)
 xmap al <plug>(textobj-sickness-line-a)
 ```
 
-## Line text objects
+## View text objects
 
 | text object  | effect                             |
 |--------------|------------------------------------|
-| `iv`         | Selects the currently visible window (from `H` to `L`). Does not accept a count |
-| `av`         | Selects the entire buffer (from `gg` to `G`). Does not accept a count. |
+| `iv`         | Selects the currently visible window (from `H` to `L`). Does not accept a count. Saves the current position in the [jump list](http://vimdoc.sourceforge.net/htmldoc/motion.html#jumplist).|
+| `av`         | Selects the entire buffer (from `gg` to `G`). Does not accept a count. Saves the current position in the [jump list](http://vimdoc.sourceforge.net/htmldoc/motion.html#jumplist).|
 
 If you wish to set the mappings yourself, you can do so:
 
