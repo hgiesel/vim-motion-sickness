@@ -79,7 +79,7 @@ endfunction
 function! s:MatchOpenCloseDelims(innertext)
   " substitute ' < ' and ' > ' from text because I assume
   " them to be comparison operators
-  let l:innertext_joined = substitute(join(a:innertext), '\s[<>]\s', '', 'g')
+  let l:innertext_joined = substitute(join(a:innertext), '\(\s\)[<>]\(\s\)', '\1\2', 'g')
 
   for l:openclosedelim in g:sickness#expression#openclosedelims
     if count(l:innertext_joined, l:openclosedelim[2]) !=# count(l:innertext_joined, l:openclosedelim[3])
@@ -101,7 +101,7 @@ function! s:GetInnerText(opendelim_pos, closedelim_pos)
 
   for i in range(a:opendelim_pos[1], a:closedelim_pos[1])
     if (i ==# a:opendelim_pos[1] && i ==# a:closedelim_pos[1]) " single line
-      let l:theline = strcharpart(getline(i), a:opendelim_pos[2] - 1, a:closedelim_pos[2] - a:opendelim_pos[2] - 1)
+      let l:theline = strcharpart(getline(i), a:opendelim_pos[2] - 1, a:closedelim_pos[2] - a:opendelim_pos[2])
 
     elseif (i ==# a:opendelim_pos[1]) " firstline
       let l:theline = strcharpart(getline(i), a:opendelim_pos[2] - 1)
