@@ -1,5 +1,5 @@
 " Defining functions {{{1
-function! sickness#textobj#expression#motion(opendelim, closedelim, reach)
+function! sickness#textobj#expression#motion(opendelim, closedelim, reach) abort
   let l:curpos  = getpos('.')
   let l:winsave = winsaveview()
 
@@ -64,7 +64,7 @@ function! sickness#textobj#expression#motion(opendelim, closedelim, reach)
   normal! o
 endfunction
 
-function! s:PosLiesWithin(beginpos, endpos, middlepos)
+function! s:PosLiesWithin(beginpos, endpos, middlepos) abort
   if a:beginpos[1] > a:middlepos[1] || a:middlepos[1] > a:endpos[1]
     return v:false
   elseif a:beginpos[1] == a:middlepos[1] && a:beginpos[2] > a:middlepos[2]
@@ -76,7 +76,7 @@ function! s:PosLiesWithin(beginpos, endpos, middlepos)
   return v:true
 endfunction
 
-function! s:MatchOpenCloseDelims(innertext)
+function! s:MatchOpenCloseDelims(innertext) abort
   " substitute ' < ' and ' > ' from text because I assume
   " them to be comparison operators
   let l:innertext_joined = substitute(join(a:innertext), '\s[<>]\s', '', 'g')
@@ -90,7 +90,7 @@ function! s:MatchOpenCloseDelims(innertext)
   return v:true
 endfunction
 
-function! s:GetInnerText(opendelim_pos, closedelim_pos)
+function! s:GetInnerText(opendelim_pos, closedelim_pos) abort
   " works different from sickness#textobj#field because
   " it includes the very first character of the selection
   let l:result = []

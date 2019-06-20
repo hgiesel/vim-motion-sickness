@@ -2,7 +2,7 @@
 let g:sickness#indentation#exclude_leading_indents = get(g:, 'sickness#indentation#exclude_leading_indents', v:true)
 
   " Indentation Setting user mappings {{{1
-function! sickness#indentation#add()
+function! sickness#indentation#add() abort
   if get(g:, 'sickness#indent#use_default_maps', v:true)
     omap iip <plug>(textobj-sickness-indentation-paragraph-i)
     xmap iip <plug>(textobj-sickness-indentation-paragraph-i)

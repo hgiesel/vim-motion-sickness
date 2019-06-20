@@ -1,13 +1,13 @@
 " Defining functions {{{1
 
 " only having blank characters counts as empty
-function! s:IsLineEmpty(line)
+function! s:IsLineEmpty(line) abort
   return match(a:line, '[^ \t]') ==# -1
 endfunction
 
 
 ""select the inner level independent of current mode etc
-function! s:SelectInnerLevel(minindent, include_emptylines)
+function! s:SelectInnerLevel(minindent, include_emptylines) abort
       if mode() !=# 'V'
         execute 'normal! V'
       endif
@@ -67,7 +67,7 @@ endfunction
 " - 't': select an indentation level plus *t*op line - support counts
 
 " - 'l': select an entire indentation *l*evel - does not support counts
-function! sickness#textobj#indentation#motion(margin, mode)
+function! sickness#textobj#indentation#motion(margin, mode) abort
   " difference between ii and ia is only the count
 
   " for indent paragraph motion

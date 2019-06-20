@@ -15,7 +15,7 @@ let g:sickness#field#default_fielddelims =
 let g:sickness#field#fielddelims = get(g:, 'sickness#field#delimiters', g:sickness#field#default_fielddelims)
 
 " Fields function {{{1
-function! sickness#field#add(openclosedelimdefs, fielddelimdefs)
+function! sickness#field#add(openclosedelimdefs, fielddelimdefs) abort
   for l:openclosedelimdef in a:openclosedelimdefs
 
     if get(g:, 'sickness#field#use_default_maps', v:true) && exists('g:sickness#field#preferred_shortcut_map') " use preferred shortcut map

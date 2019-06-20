@@ -1,4 +1,4 @@
-function! sickness#view#add()
+function! sickness#view#add() abort
   " Line Setting user mappings {{{1
   if get(g:, 'sickness#view#use_default_maps', v:true)
     omap iv <plug>(textobj-sickness-view-i)

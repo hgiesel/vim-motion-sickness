@@ -1,6 +1,6 @@
 
 " Line Setting user mappings {{{1
-function sickness#line#add()
+function sickness#line#add() abort
   if get(g:, 'sickness#line#use_default_maps', v:true)
     omap il <plug>(textobj-sickness-line-i)
     vmap il <plug>(textobj-sickness-line-i)
