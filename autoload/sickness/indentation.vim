@@ -55,7 +55,7 @@ function! sickness#indentation#add()
 
   onoremap <silent> <plug>(textobj-sickness-indentation-top-i)
         \ <cmd>call sickness#textobj#indentation#motion(v:false, 't')<cr>
-  xnoremap <silent> <plug>(textobj-sickness-indentation-top-i)\
+  xnoremap <silent> <plug>(textobj-sickness-indentation-top-i)
         \ <cmd>call sickness#textobj#indentation#motion(v:false, 't')<cr>
   onoremap <silent> <plug>(textobj-sickness-indentation-top-a)
         \ <cmd>call sickness#textobj#indentation#motion(v:true, 't')<cr>

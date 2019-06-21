@@ -65,7 +65,6 @@ endfunction
 " - 'p': mimics *p* motion - supports counts
 " - 'b': select an indentation *b*lock - supports counts
 " - 't': select an indentation level plus *t*op line - support counts
-
 " - 'l': select an entire indentation *l*evel - does not support counts
 function! sickness#textobj#indentation#motion(margin, mode)
   " difference between ii and ia is only the count
