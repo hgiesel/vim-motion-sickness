@@ -1,0 +1,20 @@
+" It prefers to be on the right of an expression rather than
+" within an expression, but it should still fall back on being within
+
+Given:
+  s:MatchOpenCloseDelims(s:GetInnerText(getpos('.'), l:opendelim_pos))
+
+Do:
+  dieb
+Expect:
+  s:MatchOpenCloseDelims(s:GetInnerText(getpos('.'), l:opendelim_pos))
+
+Do:
+  3fsdieb
+Expect:
+  s:
+
+Do:
+  3fsdaeb
+Expect:
+  s:MatchOpenCloseDelims()

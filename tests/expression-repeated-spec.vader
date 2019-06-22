@@ -1,0 +1,12 @@
+Given:
+  s:MatchOpenCloseDelims(s:GetInnerText(getpos('.'), l:opendelim_pos))
+
+Do:
+  fgviebiebd
+Expect:
+  s:MatchOpenCloseDelims(s:)
+
+Do:
+  fgviebiebiebd
+Expect:
+  s:
