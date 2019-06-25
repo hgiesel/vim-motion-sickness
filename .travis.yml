@@ -20,30 +20,26 @@ env:
   matrix:
     - TARGET='alias'
 
-    - TARGET='expression-general-if'
-    - TARGET='expression-general-af'
     - TARGET='expression-count-if'
     - TARGET='expression-count-af'
+    - TARGET='expression-general-if'
+    - TARGET='expression-general-af'
+
     - TARGET='expression-multiline-indented'
     - TARGET='expression-multiline-leading'
     - TARGET='expression-multiline-trailing'
+
     - TARGET='expression-nested'
+    - TARGET='expression-nestedfurther'
+
+    - TARGET='expression-repeated'
+    - TARGET='expression-unreachable'
     - TARGET='expression-whitespace'
 
-    - TARGET='field-indented-af'
-    - TARGET='field-indented-if'
-    - TARGET='field-leading-if'
-    - TARGET='field-leading-af'
-    - TARGET='field-short-if'
-    - TARGET='field-short-af'
-    - TARGET='field-trailing-if'
-    - TARGET='field-trailing-af'
+    - TARGET='field-all'
+    - TARGET='field-json'
 
-    - TARGET='indent-paragraph'
-    - TARGET='indent-level'
-    - TARGET='indent-block'
-    - TARGET='indent-top'
-
+    - TARGET='indent-all'
     - TARGET='symbol-all'
 
 script: ./test.sh

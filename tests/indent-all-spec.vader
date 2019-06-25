@@ -1,0 +1,4 @@
+Include: ./indent-paragraph-spec.vader
+Include: ./indent-level-spec.vader
+Include: ./indent-block-spec.vader
+Include: ./indent-top-spec.vader

@@ -1,0 +1,254 @@
+Given:
+  "manipulators": [
+  {
+    "type": "basic",
+    "from": {
+      "key_code": "left_control",
+      "modifiers": {
+        "optional": ["any"]
+      }
+    },
+    "to": [{
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 1
+      }
+    },
+    {
+      "key_code": "left_shift",
+      "modifiers": [
+        "left_gui",
+      "left_alt",
+      "left_control"
+      ]
+    }],
+    "to_after_key_up": [
+    {
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 0
+      }
+    }
+    ],
+    "conditions": [{
+      "type": "variable_if",
+      "name": "every_key_mode",
+      "value": 1
+    }]
+  }
+  ]
+
+Do:
+  dafr
+Expect:
+  "manipulators": [
+  ]
+
+Do:
+  dafB
+Expect:
+  "manipulators": [
+  {
+    "from": {
+      "key_code": "left_control",
+      "modifiers": {
+        "optional": ["any"]
+      }
+    },
+    "to": [{
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 1
+      }
+    },
+    {
+      "key_code": "left_shift",
+      "modifiers": [
+        "left_gui",
+      "left_alt",
+      "left_control"
+      ]
+    }],
+    "to_after_key_up": [
+    {
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 0
+      }
+    }
+    ],
+    "conditions": [{
+      "type": "variable_if",
+      "name": "every_key_mode",
+      "value": 1
+    }]
+  }
+  ]
+  ]
+
+Before:
+  call search("from")
+Do:
+  dafB
+Expect:
+  "manipulators": [
+  {
+    "type": "basic",
+    "to": [{
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 1
+      }
+    },
+    {
+      "key_code": "left_shift",
+      "modifiers": [
+        "left_gui",
+      "left_alt",
+      "left_control"
+      ]
+    }],
+    "to_after_key_up": [
+    {
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 0
+      }
+    }
+    ],
+    "conditions": [{
+      "type": "variable_if",
+      "name": "every_key_mode",
+      "value": 1
+    }]
+  }
+  ]
+  ]
+
+Before:
+  call search("key_code")
+Do:
+  dafB
+Expect:
+  "manipulators": [
+  {
+    "type": "basic",
+    "from": {
+      "modifiers": {
+        "optional": ["any"]
+      }
+    },
+    "to": [{
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 1
+      }
+    },
+    {
+      "key_code": "left_shift",
+      "modifiers": [
+        "left_gui",
+      "left_alt",
+      "left_control"
+      ]
+    }],
+    "to_after_key_up": [
+    {
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 0
+      }
+    }
+    ],
+    "conditions": [{
+      "type": "variable_if",
+      "name": "every_key_mode",
+      "value": 1
+    }]
+  }
+  ]
+  ]
+
+Before:
+  call search("any")
+Do:
+  dafr
+Expect:
+  "manipulators": [
+  {
+    "type": "basic",
+    "from": {
+      "key_code": "left_control",
+      "modifiers": {
+        "optional": []
+      }
+    },
+    "to": [{
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 1
+      }
+    },
+    {
+      "key_code": "left_shift",
+      "modifiers": [
+        "left_gui",
+      "left_alt",
+      "left_control"
+      ]
+    }],
+    "to_after_key_up": [
+    {
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 0
+      }
+    }
+    ],
+    "conditions": [{
+      "type": "variable_if",
+      "name": "every_key_mode",
+      "value": 1
+    } ]
+  }
+  ]
+
+Before:
+  call search("every_key_mode")
+Do:
+  dafr
+Expect:
+  "manipulators": [
+  {
+    "type": "basic",
+    "from": {
+      "key_code": "left_control",
+      "modifiers": {
+        "optional": []
+      }
+    },
+    "to": [{
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 1
+      }
+    },
+    {
+      "key_code": "left_shift",
+      "modifiers": [
+        "left_gui",
+      "left_alt",
+      "left_control"
+      ]
+    }],
+    "to_after_key_up": [
+    {
+      "set_variable": {
+        "name": "every_key_modifier",
+        "value": 0
+      }
+    }
+    ],
+    "conditions": [ ]
+  }
+  ]

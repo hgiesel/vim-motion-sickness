@@ -1,0 +1,11 @@
+Include: ./field-indented-af-spec.vader
+Include: ./field-indented-if-spec.vader
+
+Include: ./field-leading-af-spec.vader
+Include: ./field-leading-if-spec.vader
+
+Include: ./field-short-if-spec.vader
+Include: ./field-short-if-spec.vader
+
+Include: ./field-trailing-if-spec.vader
+Include: ./field-trailing-if-spec.vader
