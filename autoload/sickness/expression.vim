@@ -9,7 +9,7 @@ let g:sickness#expression#default_openclosedelims =
 
 let g:sickness#expression#openclosedelims = get(g:, 'sickness#expression#openclosedelim', g:sickness#expression#default_openclosedelims)
 
-function! sickness#expression#add(openclosedelimdefs)
+function! sickness#expression#add(openclosedelimdefs) abort
   for l:openclosedelimdef in a:openclosedelimdefs
 
     if get(g:, 'sickness#expression#use_default_maps', v:true) && exists('g:sickness#expression#preferred_shortcut_map') " use shortcut map

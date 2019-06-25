@@ -1,4 +1,4 @@
-function! sickness#textobj#line#motion(mode)
+function! sickness#textobj#line#motion(mode) abort
   if !empty(getline('.'))
     normal! 
 

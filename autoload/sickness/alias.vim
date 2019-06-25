@@ -1,5 +1,5 @@
 
-function! sickness#alias#add()
+function! sickness#alias#add() abort
   onoremap <silent> ir i[
   xnoremap <silent> ir i[
   onoremap <silent> ar a[

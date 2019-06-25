@@ -1,5 +1,5 @@
 " Defining functinos {{{1
-function! sickness#textobj#symbol#motion(wrap, symbol)
+function! sickness#textobj#symbol#motion(wrap, symbol) abort
   let l:winsave = winsaveview()
   let l:curpos = getpos('.')
 

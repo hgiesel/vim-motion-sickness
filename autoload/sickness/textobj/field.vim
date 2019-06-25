@@ -44,7 +44,7 @@
 "     - delete right until you reach closedelim
 "     - DONE
 
-function! s:GetOutOfDoubleQuote()
+function! s:GetOutOfDoubleQuote() abort
   " get out of double quoteed string (one letter before the beginning)
   let line     = getline('.')
   let pos_save = getpos('.')
@@ -80,7 +80,7 @@ function! s:GetOutOfDoubleQuote()
   endif
 endfunction
 
-function! s:GetDelimPos(opendelim)
+function! s:GetDelimPos(opendelim) abort
   let l:winsave = winsaveview()
   let l:reg_save = @@
 
@@ -94,7 +94,7 @@ function! s:GetDelimPos(opendelim)
   return [l:opendelim_pos, l:closedelim_pos]
 endfunction
 
-function! s:GetInnerText(opendelim_pos, closedelim_pos)
+function! s:GetInnerText(opendelim_pos, closedelim_pos) abort
   let l:result = []
 
   if a:closedelim_pos[1] < a:opendelim_pos[1]
@@ -122,7 +122,7 @@ function! s:GetInnerText(opendelim_pos, closedelim_pos)
 endfunction
 
 "" return [position, isheadfield]
-function! s:GetPrevCommaOrBeginArgs(innertext, offset, fielddelim)
+function! s:GetPrevCommaOrBeginArgs(innertext, offset, fielddelim) abort
   let commapos_prev = max([strridx(a:innertext, a:fielddelim, a:offset) + 1, 0])
 
   if commapos_prev == 0
@@ -134,7 +134,7 @@ function! s:GetPrevCommaOrBeginArgs(innertext, offset, fielddelim)
 endfunction
 
 "" return [position, istailfield]
-function! s:GetNextCommaOrEndArgs(innertext, offset, fielddelim)
+function! s:GetNextCommaOrEndArgs(innertext, offset, fielddelim) abort
   let l:commapos_next = stridx(a:innertext, a:fielddelim, a:offset)
 
   if l:commapos_next ==# -1
@@ -144,7 +144,7 @@ function! s:GetNextCommaOrEndArgs(innertext, offset, fielddelim)
   endif
 endfunction
 
-function! s:MoveToNextNonSpace()
+function! s:MoveToNextNonSpace() abort
   let oldp = getpos('.')
   let moved = 0
   while getline('.')[getpos('.')[2]-1] ==# ' ' || 
@@ -158,7 +158,7 @@ function! s:MoveToNextNonSpace()
   return moved
 endfunction
 
-function! s:Move(num)
+function! s:Move(num) abort
   if a:num < 0
     execute 'normal ' . a:num . "\<bs>"
   elseif a:num > 0
@@ -173,7 +173,7 @@ endfunction
 
 " now gets the text offset in the text
 """
-function! s:GetPositionOffset(startpoint, pos)
+function! s:GetPositionOffset(startpoint, pos) abort
   let l:offset = 0
 
   if a:pos[1] < a:startpoint[1] || (a:pos[1] == a:startpoint[1] && a:pos[2] < a:startpoint[2])
@@ -200,7 +200,7 @@ function! s:GetPositionOffset(startpoint, pos)
   return [l:offset, l:offsetInInnerText]
 endfunction
 
-function! sickness#textobj#field#motion(all, visual, opendelim, closedelim, fielddelim)
+function! sickness#textobj#field#motion(all, visual, opendelim, closedelim, fielddelim) abort
   " echomsg mode() -> either "n" or "v"
   let winsave = winsaveview()
   let modesave = mode()

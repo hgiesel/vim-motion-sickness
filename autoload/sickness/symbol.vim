@@ -14,7 +14,7 @@ let g:sickness#symbol#default_maps =
 let g:sickness#symbol#maps = get(g:, 'sickness#symbol#maps', g:sickness#symbol#default_maps)
 
 " Expression function {{{1
-function! sickness#symbol#add(matchpairs)
+function! sickness#symbol#add(matchpairs) abort
   for l:pair in a:matchpairs
     execute "onoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-i) <cmd>call sickness#textobj#symbol#motion(v:false, '".pair[1]."')<cr>"
     execute "xnoremap <silent> <plug>(textobj-sickness-symbol-".pair[0]."-i) <cmd>call sickness#textobj#symbol#motion(v:false, '".pair[1]."')<cr>"
